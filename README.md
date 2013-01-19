@@ -45,7 +45,7 @@ This assertion will fail if the config does not contain an Api route to the url 
     var expectation = new { controller = "Customer", action= "get", id = "1" };
     RouteAssert.HasApiRoute(config, "~/api/customer/1", HttpMethod.Get, expectation);
 
-You can assert of the particulars of the api route using the same kinds of ecpectations as with Mvc routes.
+You can assert on the particulars of the api route using the same kinds of expectations as with Mvc routes.
 
 
     RouteAssert.ApiRouteDoesNotHaveMethod(config, "~/api/customer/1", HttpMethod.Post);
