@@ -7,7 +7,7 @@ MvcRouteTester is a .Net library to help unit testing ASP MVC route tables. It c
 
 ## Why
 
-To aid automated testing by allowing unit tests on routes. Without such a library, the only way to automate a test that your ASP MVC application responds to a certain route is to make an integration test which fires up the whole MVC app in a web server and issues a Http request to that Url. There's nothing bad about integration tests, but unit tests run faster, are less fragile and generally come earlier in the coding lifecycle, so there are good reasons to use them as a first line of defence against route configuration errors.
+To aid automated testing by allowing unit tests on routes. Without such a library, the only way to automate a test that your ASP MVC application responds to a certain route is to make an integration test which fires up the whole MVC application in a web server and issues a Http request to that Url. There's nothing bad about having integration tests, but unit tests run faster, easier to configure, are less fragile and generally come earlier in the coding lifecycle, so there are good reasons to use them as a first line of defence against route configuration errors.
 
 ## How
 
