@@ -36,7 +36,7 @@ namespace MvcRouteTester.Test.ApiRoute
 		[Test]
 		public void ShouldNotFindNonexistentRoute()
 		{
-			RouteAssert.NoApiRoute(config, "~/pai/customer/1", HttpMethod.Get);
+			RouteAssert.NoApiRoute(config, "~/pai/customer/1");
 		}
 	}
 }

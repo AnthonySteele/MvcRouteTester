@@ -3,8 +3,6 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Routing;
 
-using MvcRouteTester;
-
 using NUnit.Framework;
 
 namespace MvcRouteTester
@@ -126,10 +124,10 @@ namespace MvcRouteTester
 		/// <summary>
 		/// Asserts that the API route does not exist
 		/// </summary>
-		public static void NoApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod)
+		public static void NoApiRoute(HttpConfiguration config, string url)
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
-			var request = new HttpRequestMessage(httpMethod, absoluteUrl);
+			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
 			var apiRouteGenerator = new ApiRouteGenerator(config, request);
 
 			if (apiRouteGenerator.RouteData != null)

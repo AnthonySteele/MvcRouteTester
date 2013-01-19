@@ -4,8 +4,9 @@ using System.Web.Http;
 namespace MvcRouteTester.Test.ApiControllers
 {
 	/// <summary>
-	/// This class is not used to serve data
-	/// But the API controller tests do nned an actuall controller class to be present
+	/// This controller is not used to serve data
+	/// But the API controller tests do need an actual controller class to be present
+	/// as they inspect its public methods to see which Http methods it can respond to
 	/// </summary>
 	public class CustomerController : ApiController
 	{
