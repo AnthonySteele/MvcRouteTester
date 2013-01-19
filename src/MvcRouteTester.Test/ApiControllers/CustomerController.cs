@@ -10,7 +10,7 @@ namespace MvcRouteTester.Test.ApiControllers
 	/// </summary>
 	public class CustomerController : ApiController
 	{
-		public IList<int> Get()
+		public IList<int> Get(int id)
 		{
 			return new List<int> { 1, 2, 3, 4 };
 		}

@@ -28,6 +28,13 @@ namespace MvcRouteTester.Test.ApiRoute
 		}
 
 		[Test]
+		public void HasApiRouteWithExpectation()
+		{
+			var expectation = new { controller = "Customer", action= "get", id = "1" };
+			RouteAssert.HasApiRoute(config, "~/api/customer/1", HttpMethod.Get, expectation);
+		}
+
+		[Test]
 		public void CustomerControllerDoesNotHavePostMethod()
 		{
 			RouteAssert.ApiRouteDoesNotHaveMethod(config, "~/api/customer/1", HttpMethod.Post);
