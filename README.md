@@ -23,26 +23,30 @@ It relies on NUnit and Moq. But if you needed to use other equivalent libraries 
 
 This assertion will fail if the route table does not have an MVC route to "/home/index"
 
+
     var expectedRoute = new { controller = "Home", action = "Index", id = 42 };
     RouteAssert.HasRoute(routes, "~/home/Index/42", expectedRoute);
 
-Will fail if the route table does not have an MVC route to the url "/home/index/42", and will also fail if it is not mapped to the expected controller, action and other parameters, as per Phil Haack's article. 
+This assertion will fail if the route table does not have an MVC route to the url "/home/index/42", and will also fail if it is not mapped to the expected controller, action and other parameters, as per Phil Haack's article. 
 There are overloads of this method so if you don't like Phil's technique of passing in an anonymous type as a dictionary, you can specify a controller name and action name
-or a IDictionary<string, string>.
+or an IDictionary&lt;string, string&gt;.
+
 
     RouteAssert.NoRoute(routes, "~/foo/bar/fish/spon");
 	
-This will fail if the url "/foo/bar/fish/spon" **can** be mapped to a route.
+This assertion will fail if the url "/foo/bar/fish/spon" **can** be mapped to a route.
 	
 ### API route usage
 
     RouteAssert.HasApiRoute(config, "~/api/customer/1", HttpMethod.Get);
 
-This will fail if the config does not contain an api route to the url "/api/customer/1" which responds to the Http Get method.
+This assertion will fail if the config does not contain an api route to the url "/api/customer/1" which responds to the Http Get method.
+
 
     RouteAssert.ApiRouteDoesNotHaveMethod(config, "~/api/customer/1", HttpMethod.Post);
 
 This asserts that the route is valid, but that the controller there does not respond to the Http Post method.
+
 
     RouteAssert.NoApiRoute(config, "~/pai/customer/1");
 
