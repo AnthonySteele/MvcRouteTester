@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using NUnit.Framework;
-
 namespace MvcRouteTester
 {
 	internal class Verifier
@@ -17,7 +15,7 @@ namespace MvcRouteTester
 				{
 					var notFoundErrorMessage = string.Format("Expected '{0}', got no value for '{1}' at url '{2}''.",
 						expectedValue, propertyKey, url);
-					Assert.Fail(notFoundErrorMessage);
+					Asserts.Fail(notFoundErrorMessage);
 				}
 
 				var actualValue = routeProperties[propertyKey];
@@ -25,7 +23,7 @@ namespace MvcRouteTester
 				var mismatchErrorMessage = string.Format("Expected '{0}', not '{1}' for '{2}' at url '{3}''.",
 					expectedValue, actualValue, propertyKey, url);
 
-				StringAssert.AreEqualIgnoringCase(expectedValue, actualValue, mismatchErrorMessage);
+				Asserts.StringsEqualIgnoringCase(expectedValue, actualValue, mismatchErrorMessage);
 
 				expectationsDone++;
 			}
@@ -33,7 +31,7 @@ namespace MvcRouteTester
 			if (expectationsDone == 0)
 			{
 				var message = string.Format("No expectations were found for url '{0}'", url);
-				Assert.Fail(message);
+				Asserts.Fail(message);
 			}
 		}
 	}

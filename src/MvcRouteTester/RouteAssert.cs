@@ -3,8 +3,6 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Routing;
 
-using NUnit.Framework;
-
 namespace MvcRouteTester
 {
 	/// <summary>
@@ -25,7 +23,7 @@ namespace MvcRouteTester
 			var routeData = webRouteReader.GetRouteDataForUrl(routes, url);
 
 			var message = string.Format("Should have found the route to '{0}'", url);
-			Assert.That(routeData, Is.Not.Null, message);
+			Asserts.NotNull(routeData, message);
 		}
 
 		/// <summary>
@@ -55,7 +53,7 @@ namespace MvcRouteTester
 			var routeData = webRouteReader.GetRouteDataForUrl(routes, url);
 
 			var message = string.Format("Should have found the route to '{0}'", url);
-			Assert.That(routeData, Is.Not.Null, message);
+			Asserts.NotNull(routeData, message);
 
 			var actualProps = webRouteReader.GetRouteProperties(routeData);
 			var verifier = new Verifier();
@@ -71,7 +69,7 @@ namespace MvcRouteTester
 			var routeData = routes.GetRouteData(httpContext);
 
 			var message = string.Format("Should not have found the route to '{0}'", url);
-			Assert.That(routeData, Is.Null, message);
+			Asserts.Null(routeData, message);
 		}
 
 		/// <summary>
@@ -133,7 +131,7 @@ namespace MvcRouteTester
 			if (apiRouteGenerator.RouteData != null)
 			{
 				var hasRouteMessage = string.Format("Found route to url '{0}'", url);
-				Assert.Fail(hasRouteMessage);
+				Asserts.Fail(hasRouteMessage);
 			}
 		}
 
@@ -149,13 +147,13 @@ namespace MvcRouteTester
 			if (apiRouteGenerator.RouteData == null)
 			{
 				var noRouteMessage = string.Format("No route to url '{0}'", url);
-				Assert.Fail(noRouteMessage);
+				Asserts.Fail(noRouteMessage);
 			}
 
 			if (apiRouteGenerator.IsMethodAllowed())
 			{
 				var methodAllowedMessage = string.Format("Method {0} is allowed on url '{1}'", httpMethod, url);
-				Assert.Fail(methodAllowedMessage);
+				Asserts.Fail(methodAllowedMessage);
 			}
 		}
 	}

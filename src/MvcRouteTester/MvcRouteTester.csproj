@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiRouteGenerator.cs" />
+    <Compile Include="Asserts.cs" />
     <Compile Include="Verifier.cs" />
     <Compile Include="Mockery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

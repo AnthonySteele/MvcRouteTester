@@ -9,8 +9,6 @@ using System.Web.Http.Dispatcher;
 using System.Web.Http.Hosting;
 using System.Web.Http.Routing;
 
-using NUnit.Framework;
-
 namespace MvcRouteTester
 {
 	/// <summary>
@@ -43,19 +41,19 @@ namespace MvcRouteTester
 			if (RouteData == null)
 			{
 				var noRouteDataMessage = string.Format("No route to url '{0}'", url);
-				Assert.Fail(noRouteDataMessage);
+				Asserts.Fail(noRouteDataMessage);
 			}
 
 			if (!IsRouteFound())
 			{
 				var routeNotFoundMessage = string.Format("Route not found to url '{0}'", url);
-				Assert.Fail(routeNotFoundMessage);
+				Asserts.Fail(routeNotFoundMessage);
 			}
 
 			if (!IsMethodAllowed())
 			{
 				var methodNotAllowedMessage = string.Format("Method {0} is not allowed on url '{1}'", httpMethod, url);
-				Assert.Fail(methodNotAllowedMessage);
+				Asserts.Fail(methodNotAllowedMessage);
 			}
 
 			var actualProps = new Dictionary<string, string>
