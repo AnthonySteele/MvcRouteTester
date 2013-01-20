@@ -56,6 +56,13 @@ namespace MvcRouteTester.Test.ApiRoute
 		}
 
 		[Test]
+		public void ShouldMatchActionNameToMethodName()
+		{
+			var expectations = new { controller = "Renamed", action = "GetWithADifferentName", id = "1" };
+			RouteAssert.HasApiRoute(config, "~/api/renamed/1", HttpMethod.Get, expectations);
+		}
+
+		[Test]
 		public void ShouldNotFindNonexistentRoute()
 		{
 			RouteAssert.NoApiRoute(config, "~/pai/customer/1");

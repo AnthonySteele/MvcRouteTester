@@ -6,9 +6,9 @@ using NUnit.Framework;
 namespace MvcRouteTester.Test.ApiRoute
 {
 	[TestFixture]
-	public class RouteDoesNotHaveMethodTests
+	public class RouteMethodTests
 	{
-private HttpConfiguration config;
+		private HttpConfiguration config;
 
 		[SetUp]
 		public void MakeRouteTable()
