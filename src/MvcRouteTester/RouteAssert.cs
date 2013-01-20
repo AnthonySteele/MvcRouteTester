@@ -103,7 +103,7 @@ namespace MvcRouteTester
 			HasApiRoute(config, url, httpMethod, expectedProps);
 		}
 
-		private static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, IDictionary<string, string> expectedProps)
+		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, IDictionary<string, string> expectedProps)
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
 			var actualProps = ReadApiRouteProperties(config, absoluteUrl, httpMethod);
