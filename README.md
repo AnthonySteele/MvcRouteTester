@@ -11,18 +11,16 @@ To aid automated testing by allowing unit tests on routes. Without such a librar
 
 ## How
 
-
 It uses the basic ideas and code by [Phil Haack for testing MVC Routes](http://haacked.com/archive/2007/12/16/testing-routes-in-asp.net-mvc.aspx)
-and by [Filip W for testing API Routes](http://www.strathweb.com/2012/08/testing-routes-in-asp-net-web-api/) with thier consent and puts them together in one convenient package.
+and by [Filip W for testing API Routes](http://www.strathweb.com/2012/08/testing-routes-in-asp-net-web-api/). It puts them together in one convenient package. I have told them both about this use of thier code and they are happy to see it here.
 
 It relies on [NUnit](http://www.nunit.org/) and [Moq](http://code.google.com/p/moq/). But if you needed to use other equivalent libraries for assertions and mocks, it should be easy to swap out these dependencies.
 
 ## Licence
 
-Copyright [2013] [Anthony Steele]
-This library is open source.
+Copyright 2013 Anthony Steele. This library is Open Source and you are welcome to use it as you see fit. Now the offical wording: 
 
-Licensed under [the Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html) (the "License");
+It is licensed under [the Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html) (the "License");
 you may not use library file except in compliance with the License.
 
 Unless required by applicable law or agreed to in writing, software
