@@ -3,7 +3,7 @@
 
 ## What
 
-MvcRouteTester is a .Net library to help unit testing ASP MVC route tables. It contains asserts for for both regular controllers and the Api controllers that are new in MVC 4.0. It is build in .Net 4.5 and ASP MVC 4.0.
+MvcRouteTester is a .Net library to help unit testing ASP MVC route tables. It contains asserts for for both regular controllers and the Api controllers that are new in MVC 4.0. It is built in .Net 4.5 and ASP MVC 4.0.
 
 ## Why
 
@@ -34,41 +34,41 @@ limitations under the License.
 ### Web route usage
 
 
-    RouteAssert.HasRoute(routes, "~/home/index");
+    RouteAssert.HasRoute(routes, "/home/index");
 
 This assertion will fail if the route table does not have a route to "/home/index"
 
 
     var expectedRoute = new { controller = "Home", action = "Index", id = 42 };
-    RouteAssert.HasRoute(routes, "~/home/Index/42", expectedRoute);
+    RouteAssert.HasRoute(routes, "/home/Index/42", expectedRoute);
 
 This assertion will fail if the route table does not have a route to the url "/home/index/42", and will also fail if it is not mapped to the expected controller, action and other parameters, using a anon typed object to specify the expectations, as per Phil Haack's article. 
 
 There are overloads of this method so if you don't like anonymous types, you can specify a controller name and action name as strings, or an IDictionary&lt;string, string&gt; to hold the controller name, action name and any other route parameters.
 
 
-    RouteAssert.NoRoute(routes, "~/foo/bar/fish/spon");
+    RouteAssert.NoRoute(routes, "/foo/bar/fish/spon");
 	
 This assertion will fail if the url "/foo/bar/fish/spon" **can** be mapped to a route.
 	
 ### API route usage
 
-    RouteAssert.HasApiRoute(config, "~/api/customer/1", HttpMethod.Get);
+    RouteAssert.HasApiRoute(config, "/api/customer/1", HttpMethod.Get);
 
 This assertion will fail if the config does not contain an Api route to the url "/api/customer/1" which responds to the Http Get method.
 
     var expectation = new { controller = "Customer", action= "get", id = "1" };
-    RouteAssert.HasApiRoute(config, "~/api/customer/1", HttpMethod.Get, expectation);
+    RouteAssert.HasApiRoute(config, "/api/customer/1", HttpMethod.Get, expectation);
 
 You can assert on the particulars of the api route using the same kinds of expectations as with Mvc routes.
 
 
-    RouteAssert.ApiRouteDoesNotHaveMethod(config, "~/api/customer/1", HttpMethod.Post);
+    RouteAssert.ApiRouteDoesNotHaveMethod(config, "/api/customer/1", HttpMethod.Post);
 
 This asserts that the Api route is valid, but that the controller there does not respond to the Http Post method.
 
 
-    RouteAssert.NoApiRoute(config, "~/pai/customer/1");
+    RouteAssert.NoApiRoute(config, "/pai/customer/1");
 
 This asserts that the api route is not valid.
 
