@@ -30,19 +30,67 @@ namespace MvcRouteTester.Test
 		}
 
 		[Test]
-		public void EmptyRelativeUrlIsPrefixed()
+		public void EmptyRelativeTildeUrlIsPrefixed()
 		{
 			var outputUrl = UrlHelpers.MakeAbsolute("~/");
 
-			Assert.That(outputUrl, Is.StringStarting("http://"));
+			Assert.That(outputUrl, Is.EqualTo("http://site.com/"));
 		}
 
 		[Test]
-		public void NonEmptyRelativeUrlIsPrefixed()
+		public void EmptyRelativeSlashUrlIsPrefixed()
+		{
+			var outputUrl = UrlHelpers.MakeAbsolute("/");
+
+			Assert.That(outputUrl, Is.EqualTo("http://site.com/"));
+		}
+
+		[Test]
+		public void NonEmptyTildeRelativeUrlIsPrefixed()
 		{
 			var outputUrl = UrlHelpers.MakeAbsolute("~/customers/1");
 
-			Assert.That(outputUrl, Is.StringStarting("http://"));
+			Assert.That(outputUrl, Is.EqualTo("http://site.com/customers/1"));
+		}
+
+		[Test]
+		public void NonEmptySlashRelativeUrlIsPrefixed()
+		{
+			var outputUrl = UrlHelpers.MakeAbsolute("/customers/1");
+
+			Assert.That(outputUrl, Is.EqualTo("http://site.com/customers/1"));
+		}
+
+		[Test]
+		public void SlashPathHasTildePrended()
+		{
+			var outputUrl = UrlHelpers.PrependTilde("/");
+
+			Assert.That(outputUrl, Is.EqualTo("~/"));
+		}
+
+		[Test]
+		public void TildeSlashPathIsUnchanged()
+		{
+			var outputUrl = UrlHelpers.PrependTilde("~/");
+
+			Assert.That(outputUrl, Is.EqualTo("~/"));
+		}
+
+		[Test]
+		public void PathWithTildeIsUnchanged()
+		{
+			var outputUrl = UrlHelpers.PrependTilde("~/customers/1");
+
+			Assert.That(outputUrl, Is.EqualTo("~/customers/1"));
+		}
+
+		[Test]
+		public void PathHasTildePrepended()
+		{
+			var outputUrl = UrlHelpers.PrependTilde("/customers/1") ;
+
+			Assert.That(outputUrl, Is.EqualTo("~/customers/1"));
 		}
 	}
 }

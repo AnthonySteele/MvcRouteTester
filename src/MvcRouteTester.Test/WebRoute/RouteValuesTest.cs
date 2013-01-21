@@ -30,14 +30,14 @@ namespace MvcRouteTester.Test.WebRoute
 		public void HomeRouteCapturesId()
 		{
 			var expectedRoute = new { controller = "Home", action = "Index", id = 42 };
-			RouteAssert.HasRoute(routes, "~/home/Index/42", expectedRoute);
+			RouteAssert.HasRoute(routes, "/home/Index/42", expectedRoute);
 		}
 
 		[Test]
 		public void RouteCapturesTwoValues()
 		{
 			var expectedRoute = new { controller = "Foo", action = "Bar", name = "betsy", pony = "trotter" };
-			RouteAssert.HasRoute(routes, "~/Foo/Bar/Fish/betsy/trotter", expectedRoute);
+			RouteAssert.HasRoute(routes, "/Foo/Bar/Fish/betsy/trotter", expectedRoute);
 		}
 	}
 }

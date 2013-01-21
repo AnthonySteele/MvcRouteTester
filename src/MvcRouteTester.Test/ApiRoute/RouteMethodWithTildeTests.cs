@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace MvcRouteTester.Test.ApiRoute
 {
 	[TestFixture]
-	public class RouteMethodTests
+	public class RouteMethodWithTildeTests
 	{
 		private HttpConfiguration config;
 
@@ -22,27 +22,27 @@ namespace MvcRouteTester.Test.ApiRoute
 		}
 
 		[Test]
-		public void CustomerControllerHasGetMethod()
+		public void CustomerControllerHasGetMethod_WithSlash()
 		{
-			RouteAssert.HasApiRoute(config, "/api/customer/1", HttpMethod.Get);
+			RouteAssert.HasApiRoute(config, "~/api/customer/1", HttpMethod.Get);
 		}
 
 		[Test]
 		public void CustomerControllerDoesNotHavePostMethod()
 		{
-			RouteAssert.ApiRouteDoesNotHaveMethod(config, "/api/customer/1", HttpMethod.Post);
+			RouteAssert.ApiRouteDoesNotHaveMethod(config, "~/api/customer/1", HttpMethod.Post);
 		}
 
 		[Test]
 		public void PostOnlyControllerHasPostMethod()
 		{
-			RouteAssert.HasApiRoute(config, "/api/postonly/1", HttpMethod.Post);
+			RouteAssert.HasApiRoute(config, "~/api/postonly/1", HttpMethod.Post);
 		}
 
 		[Test]
 		public void PostOnlyControllerDoesNotHaveGetMethod()
 		{
-			RouteAssert.ApiRouteDoesNotHaveMethod(config, "/api/postonly/1", HttpMethod.Get);
+			RouteAssert.ApiRouteDoesNotHaveMethod(config, "~/api/postonly/1", HttpMethod.Get);
 		}
 	}
 }

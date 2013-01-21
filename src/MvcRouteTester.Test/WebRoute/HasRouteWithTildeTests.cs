@@ -6,10 +6,10 @@ using NUnit.Framework;
 namespace MvcRouteTester.Test.WebRoute
 {
 	[TestFixture]
-	public class HasRouteTests
+	public class HasRouteWithTildeTests
 	{
 		private RouteCollection routes;
-		
+
 		[SetUp]
 		public void MakeRouteTable()
 		{
@@ -23,31 +23,31 @@ namespace MvcRouteTester.Test.WebRoute
 		[Test]
 		public void HasEmptyRoute()
 		{
-			RouteAssert.HasRoute(routes, "/");
+			RouteAssert.HasRoute(routes, "~/");
 		}
 
 		[Test]
 		public void HasHomeRoute()
 		{
-			RouteAssert.HasRoute(routes, "/home");
+			RouteAssert.HasRoute(routes, "~/home");
 		}
 
 		[Test]
 		public void HasHomeIndexRoute()
 		{
-			RouteAssert.HasRoute(routes, "/home/index");
+			RouteAssert.HasRoute(routes, "~/home/index");
 		}
 
 		[Test]
 		public void HasHomeIndexWithIdRoute()
 		{
-			RouteAssert.HasRoute(routes, "/home/index/1");
+			RouteAssert.HasRoute(routes, "~/home/index/1");
 		}
 
 		[Test]
 		public void DoesNotHaveOtherRoute()
 		{
-			RouteAssert.NoRoute(routes, "/foo/bar/fish/spon");
+			RouteAssert.NoRoute(routes, "~/foo/bar/fish/spon");
 		}
 	}
 }
