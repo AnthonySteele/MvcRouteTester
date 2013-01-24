@@ -1,23 +1,23 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Web.Routing;
 
 namespace MvcRouteTester
 {
 	internal class WebRouteReader
 	{
-		public RouteData GetRouteDataForUrl(RouteCollection routes, string url)
-		{
-			var httpContext = Mockery.ContextForUrl(url);
-			return routes.GetRouteData(httpContext);
-		}
-
-		public IDictionary<string, string> GetRouteProperties(RouteData routeData)
+		public IDictionary<string, string> GetRouteProperties(RouteData routeData, NameValueCollection requestParams)
 		{
 			var propertyList = new Dictionary<string, string>();
 
 			foreach (var routeValue in routeData.Values)
 			{
 				propertyList.Add(routeValue.Key, routeValue.Value.ToString());
+			}
+
+			foreach (var paramName in requestParams.AllKeys)
+			{
+				propertyList.Add(paramName, requestParams[paramName]);
 			}
 
 			return propertyList;

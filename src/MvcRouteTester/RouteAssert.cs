@@ -20,11 +20,15 @@ namespace MvcRouteTester
 		public static void HasRoute(RouteCollection routes, string url)
 		{
 			var pathUrl = UrlHelpers.PrependTilde(url);
-			var webRouteReader = new WebRouteReader();
-			var routeData = webRouteReader.GetRouteDataForUrl(routes, pathUrl);
 
-			var message = string.Format("Should have found the route to '{0}'", url);
-			Asserts.NotNull(routeData, message);
+			var httpContext = Mockery.ContextForUrl(pathUrl);
+			var routeData = routes.GetRouteData(httpContext);
+
+			if (routeData == null)
+			{
+				var message = string.Format("Should have found the route to '{0}'", url);
+				Asserts.Fail(message);
+			}
 		}
 
 		/// <summary>
@@ -51,13 +55,17 @@ namespace MvcRouteTester
 		public static void HasRoute(RouteCollection routes, string url, IDictionary<string, string> expectedProps)
 		{
 			var pathUrl = UrlHelpers.PrependTilde(url);
+			var httpContext = Mockery.ContextForUrl(pathUrl);
+			var routeData = routes.GetRouteData(httpContext);
+
+			if (routeData == null)
+			{
+				var message = string.Format("Should have found the route to '{0}'", url);
+				Asserts.Fail(message);
+			}
+
 			var webRouteReader = new WebRouteReader();
-			var routeData = webRouteReader.GetRouteDataForUrl(routes, pathUrl);
-
-			var message = string.Format("Should have found the route to '{0}'", url);
-			Asserts.NotNull(routeData, message);
-
-			var actualProps = webRouteReader.GetRouteProperties(routeData);
+			var actualProps = webRouteReader.GetRouteProperties(routeData, httpContext.Request.Params);
 			var verifier = new Verifier();
 			verifier.VerifyExpectations(expectedProps, actualProps, url);
 		}
@@ -71,8 +79,11 @@ namespace MvcRouteTester
 			var httpContext = Mockery.ContextForUrl(pathUrl);
 			var routeData = routes.GetRouteData(httpContext);
 
-			var message = string.Format("Should not have found the route to '{0}'", url);
-			Asserts.Null(routeData, message);
+			if (routeData != null)
+			{
+				var message = string.Format("Should not have found the route to '{0}'", url);
+				Asserts.Fail(message);
+			}
 		}
 
 		/// <summary>

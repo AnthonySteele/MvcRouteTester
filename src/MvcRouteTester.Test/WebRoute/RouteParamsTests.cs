@@ -26,7 +26,7 @@ namespace MvcRouteTester.Test.WebRoute
 			RouteAssert.HasRoute(routes, "/test/index?foo=1&bar=2");
 		}
 
-		[Test, Ignore("not passing yet")]
+		[Test]
 		public void HasRouteWithParamsCapturesValues()
 		{
 			var expectedRoute = new { controller = "Test", action = "Index", foo = "1", bar = "2" };
