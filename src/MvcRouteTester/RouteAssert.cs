@@ -126,11 +126,30 @@ namespace MvcRouteTester
 			verifier.VerifyExpectations(expectedProps, actualProps, url);
 		}
 
-		private static IDictionary<string, string> ReadApiRouteProperties(HttpConfiguration config, string url, HttpMethod httpMethod)
+		public static void ApiRouteMatches(HttpConfiguration config, string url)
 		{
-			var request = new HttpRequestMessage(httpMethod, url);
+			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
+			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
 			var apiRouteGenerator = new ApiRouteGenerator(config, request);
-			return apiRouteGenerator.ReadRouteProperties(url, httpMethod);
+
+			if (! apiRouteGenerator.HasMatchedRoute)
+			{
+				var hasRouteMessage = string.Format("Did not match a route for url '{0}'", url);
+				Asserts.Fail(hasRouteMessage);
+			}
+		}
+
+		public static void NoApiRouteMatch(HttpConfiguration config, string url)
+		{
+			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
+			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
+			var apiRouteGenerator = new ApiRouteGenerator(config, request);
+
+			if (apiRouteGenerator.HasMatchedRoute)
+			{
+				var hasRouteMessage = string.Format("Matched a route for url '{0}'", url);
+				Asserts.Fail(hasRouteMessage);
+			}
 		}
 
 		/// <summary>
@@ -160,5 +179,13 @@ namespace MvcRouteTester
 
 			apiRouteGenerator.CheckNoMethod(url, httpMethod);
 		}
+
+		private static IDictionary<string, string> ReadApiRouteProperties(HttpConfiguration config, string url, HttpMethod httpMethod)
+		{
+			var request = new HttpRequestMessage(httpMethod, url);
+			var apiRouteGenerator = new ApiRouteGenerator(config, request);
+			return apiRouteGenerator.ReadRouteProperties(url, httpMethod);
+		}
+
 	}
 }

@@ -63,15 +63,20 @@ namespace MvcRouteTester.Test.ApiRoute
 		}
 
 		[Test]
-		public void ShouldNotFindNonexistentRoute()
+		public void ShouldNotFindNonexistentControllerRoute()
 		{
-			RouteAssert.NoApiRoute(config, "~/pai/customer/1");
+			// this route matches the "DefaultApi" template of "api/{controller}/{id}"
+			// but a controller called "notthisoneController" can't be found
+			RouteAssert.ApiRouteMatches(config, "~/api/notthisone/1");
+			RouteAssert.NoApiRoute(config, "~/api/notthisone/1");
 		}
 
 		[Test]
-		public void ShouldNotFindNonexistentControllerRoute()
+		public void ShouldNotFindNonexistentRoute()
 		{
-			RouteAssert.NoApiRoute(config, "~/api/notthisone/1");
+			// this route does not match any template in the route table
+			RouteAssert.NoApiRouteMatch(config, "~/pai/customer/1");
+			RouteAssert.NoApiRoute(config, "~/pai/customer/1");
 		}
 	}
 }
