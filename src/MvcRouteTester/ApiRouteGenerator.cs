@@ -69,6 +69,12 @@ namespace MvcRouteTester
 				actualProps.Add(paramKey, routeParams[paramKey]);
 			}
 
+			var queryParams = UrlHelpers.MakeQueryParams(url);
+			foreach (var key in queryParams.AllKeys)
+			{
+				actualProps.Add(key, queryParams[key]);
+			}
+
 			return actualProps;
 		}
 
@@ -123,6 +129,11 @@ namespace MvcRouteTester
 
 		public bool IsRouteFound()
 		{
+			if (routeData == null)
+			{
+				return false;
+			}
+
 			try
 			{
 				return !string.IsNullOrEmpty(ActionName());

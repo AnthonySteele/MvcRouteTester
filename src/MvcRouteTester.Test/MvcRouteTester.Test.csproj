@@ -55,6 +55,7 @@
     <Compile Include="ApiRoute\RouteExpectionTests.cs" />
     <Compile Include="ApiRoute\RouteMethodTests.cs" />
     <Compile Include="ApiRoute\RouteMethodWithTildeTests.cs" />
+    <Compile Include="ApiRoute\RouteParamsTests.cs" />
     <Compile Include="AssertsTests.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="MockeryTest.cs" />

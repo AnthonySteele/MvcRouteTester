@@ -92,5 +92,38 @@ namespace MvcRouteTester.Test
 
 			Assert.That(outputUrl, Is.EqualTo("~/customers/1"));
 		}
+
+		[Test]
+		public void UrlWithNoQueryParamsIsParsed()
+		{
+			const string Url = "/foo/bar";
+
+			var parsedParams = UrlHelpers.MakeQueryParams(Url);
+
+			Assert.That(parsedParams.Count, Is.EqualTo(0));
+		}
+
+		[Test]
+		public void UrlWithOneQueryParamsIsParsed()
+		{
+			const string Url = "/foo/bar?id=3";
+
+			var parsedParams = UrlHelpers.MakeQueryParams(Url);
+
+			Assert.That(parsedParams.Count, Is.EqualTo(1));
+			Assert.That(parsedParams["id"], Is.EqualTo("3"));
+		}
+
+		[Test]
+		public void UrlWithTwoQueryParamsIsParsed()
+		{
+			const string Url = "/foo/bar?name=fish&fish=trout";
+
+			var parsedParams = UrlHelpers.MakeQueryParams(Url);
+
+			Assert.That(parsedParams.Count, Is.EqualTo(2));
+			Assert.That(parsedParams["name"], Is.EqualTo("fish"));
+			Assert.That(parsedParams["fish"], Is.EqualTo("trout"));
+		}
 	}
 }

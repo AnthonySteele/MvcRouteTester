@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 
 namespace MvcRouteTester
 {
@@ -40,5 +41,37 @@ namespace MvcRouteTester
 
 			return url;
 		}
+
+		public static NameValueCollection MakeQueryParams(string url)
+		{
+			var queryParameters = new NameValueCollection();
+
+			var routeParts = url.Split('?');
+			if (routeParts.Length < 2)
+			{
+				return queryParameters;
+			}
+
+			var paramsString = routeParts[1];
+
+			if (!string.IsNullOrWhiteSpace(paramsString))
+			{
+				var paramsWithValues = paramsString.Split('&');
+				foreach (var paramWithValue in paramsWithValues)
+				{
+					var nameValuePair = paramWithValue.Split('=');
+					string value = string.Empty;
+					if (nameValuePair.Length > 1)
+					{
+						value = nameValuePair[1];
+					}
+
+					queryParameters.Add(nameValuePair[0], value);
+				}
+			}
+
+			return queryParameters;
+		}
+
 	}
 }
