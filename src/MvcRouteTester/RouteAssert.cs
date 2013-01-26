@@ -142,7 +142,7 @@ namespace MvcRouteTester
 			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
 			var apiRouteGenerator = new ApiRouteGenerator(config, request);
 
-			if (apiRouteGenerator.IsRouteFound())
+			if (apiRouteGenerator.IsControllerRouteFound())
 			{
 				var hasRouteMessage = string.Format("Found route to url '{0}'", url);
 				Asserts.Fail(hasRouteMessage);
@@ -158,17 +158,7 @@ namespace MvcRouteTester
 			var request = new HttpRequestMessage(httpMethod, absoluteUrl);
 			var apiRouteGenerator = new ApiRouteGenerator(config, request);
 
-			if (! apiRouteGenerator.IsRouteFound())
-			{
-				var noRouteMessage = string.Format("No route to url '{0}'", url);
-				Asserts.Fail(noRouteMessage);
-			}
-
-			if (apiRouteGenerator.IsMethodAllowed())
-			{
-				var methodAllowedMessage = string.Format("Method {0} is allowed on url '{1}'", httpMethod, url);
-				Asserts.Fail(methodAllowedMessage);
-			}
+			apiRouteGenerator.CheckNoMethod(url, httpMethod);
 		}
 	}
 }

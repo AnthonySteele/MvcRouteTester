@@ -19,7 +19,7 @@ namespace MvcRouteTester
 		readonly HttpConfiguration config;
 		readonly HttpRequestMessage request;
 
-		IHttpRouteData routeData;
+		IHttpRouteData matchedRoute;
 		IHttpControllerSelector controllerSelector;
 		HttpControllerContext controllerContext;
 
@@ -31,22 +31,22 @@ namespace MvcRouteTester
 			GenerateRouteData();
 		}
 
-		public IHttpRouteData RouteData
+		public bool HasMatchedRoute
 		{
-			get { return routeData; }
+			get { return matchedRoute != null; }
 		}
 
 		public Dictionary<string, string> ReadRouteProperties(string url, HttpMethod httpMethod)
 		{
-			if (RouteData == null)
+			if (!HasMatchedRoute)
 			{
-				var noRouteDataMessage = string.Format("No route to url '{0}'", url);
+				var noRouteDataMessage = string.Format("No route matched url '{0}'", url);
 				Asserts.Fail(noRouteDataMessage);
 			}
 
-			if (!IsRouteFound())
+			if (!IsControllerRouteFound())
 			{
-				var routeNotFoundMessage = string.Format("Route not found to url '{0}'", url);
+				var routeNotFoundMessage = string.Format("Route with controller not found for url '{0}'", url);
 				Asserts.Fail(routeNotFoundMessage);
 			}
 
@@ -127,9 +127,9 @@ namespace MvcRouteTester
 			return descriptor.ActionName;
 		}
 
-		public bool IsRouteFound()
+		public bool IsControllerRouteFound()
 		{
-			if (routeData == null)
+			if (! HasMatchedRoute)
 			{
 				return false;
 			}
@@ -177,15 +177,36 @@ namespace MvcRouteTester
 			return name;
 		}
 
+		public void CheckNoMethod(string url, HttpMethod httpMethod)
+		{
+			if (! HasMatchedRoute)
+			{
+				var noRouteDataMessage = string.Format("No route matched url '{0}'", url);
+				Asserts.Fail(noRouteDataMessage);
+			}
+
+			if (!IsControllerRouteFound())
+			{
+				var routeNotFoundMessage = string.Format("Route with controller not found for url '{0}'", url);
+				Asserts.Fail(routeNotFoundMessage);
+			}
+
+			if (IsMethodAllowed())
+			{
+				var methodAllowedMessage = string.Format("Method {0} is allowed on url '{1}'", httpMethod, url);
+				Asserts.Fail(methodAllowedMessage);
+			}
+		}
+
 		private void GenerateRouteData()
 		{
-			routeData = config.Routes.GetRouteData(request);
+			matchedRoute = config.Routes.GetRouteData(request);
 
-			if (routeData != null)
+			if (matchedRoute != null)
 			{
-				request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
+				request.Properties[HttpPropertyKeys.HttpRouteDataKey] = matchedRoute;
 				controllerSelector = new DefaultHttpControllerSelector(config);
-				controllerContext = new HttpControllerContext(config, routeData, request);
+				controllerContext = new HttpControllerContext(config, matchedRoute, request);
 			}
 		}
 
