@@ -33,7 +33,16 @@ limitations under the License.
 
 ### Web route usage
 
+Assuming that the routes are declared along these lines: 
 
+    routes = new RouteCollection();
+    routes.MapRoute(
+        name: "Default",
+        url: "{controller}/{action}/{id}",
+        defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+Then:
+		
     RouteAssert.HasRoute(routes, "/home/index");
 
 This assertion will fail if the route table does not have a route to "/home/index"
@@ -52,6 +61,16 @@ There are overloads of this method so if you don't like anonymous types, you can
 This assertion will fail if the url "/foo/bar/fish/spon" **can** be mapped to a route.
 	
 ### API route usage
+
+Assuming that the routes are declared along these lines: 
+
+    routes = new HttpConfiguration();
+    config.Routes.MapHttpRoute(
+        name: "DefaultApi",
+        routeTemplate: "api/{controller}/{id}",
+	    defaults: new { id = RouteParameter.Optional });;
+
+Then:
 
     RouteAssert.HasApiRoute(config, "/api/customer/1", HttpMethod.Get);
 
@@ -73,3 +92,45 @@ This asserts that the Api route is valid, but that the controller there does not
 This asserts that the api route is not valid.
 
 For more complete test examples, see the self-test code in MvcRouteTester.Test.
+
+## API 
+
+All methods are on the RouteAssert class.
+
+### Web routes
+
+Test that a web route matching the url exists:
+
+    public static void HasRoute(RouteCollection routes, string url)
+
+Test that a web route matching the url exists, and that it meets expectations:
+
+    public static void HasRoute(RouteCollection routes, string url, object expectations)
+    public static void HasRoute(RouteCollection routes, string url, string controller, string action)
+    public static void HasRoute(RouteCollection routes, string url, IDictionary<string, string> expectedProps)
+	
+Test that a web route matching the url does not exist:
+    public static void NoRoute(RouteCollection routes, string url)
+
+### Api routes
+
+Api routes work a bit differently to web routes. Once an entry in the route table has been matched, the controller must be found to see if it responds to the given Http method. 
+
+Test that an api route matching the url exists, and that the controller can respond to the specified Http method:
+
+    public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod)
+
+Test that an api route matching the url exists, and that the controller can respond to the specified Http method and meets expectations:
+		
+    public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, object expectations)
+    public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string controller, string action)
+    public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, IDictionary<string, string> expectedProps)
+
+Test that an api route matching the url exists. This is a weaker test as it does not attempt to locate the controller, just that the url matches a route's pattern.
+    public static void ApiRouteMatches(HttpConfiguration config, string url)
+
+Test that an api route matching the url does not exist. this means that it does not match any pattern in the route table.
+    public static void NoApiRouteMatch(HttpConfiguration config, string url)
+
+Test that an api route matching the url does not exist. this means that it either does not match any pattern in the route table, or it does but a matching controller cannot be found by name.
+    public static void NoApiRoute(HttpConfiguration config, string url)

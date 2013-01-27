@@ -12,7 +12,7 @@ namespace MvcRouteTester
 	/// and Filip W's code for testing Api routes
 	/// See http://www.strathweb.com/2012/08/testing-routes-in-asp-net-web-api/
 	/// </summary>
-	public class RouteAssert
+	public static class RouteAssert
 	{
 		/// <summary>
 		/// Asserts that the route exists 
