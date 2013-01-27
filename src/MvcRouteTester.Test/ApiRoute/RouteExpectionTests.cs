@@ -75,7 +75,7 @@ namespace MvcRouteTester.Test.ApiRoute
 		public void ShouldNotFindNonexistentRoute()
 		{
 			// this route does not match any template in the route table
-			RouteAssert.NoApiRouteMatch(config, "~/pai/customer/1");
+			RouteAssert.NoApiRouteMatches(config, "~/pai/customer/1");
 			RouteAssert.NoApiRoute(config, "~/pai/customer/1");
 		}
 	}

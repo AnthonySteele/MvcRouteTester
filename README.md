@@ -136,6 +136,6 @@ Test that an Api route for the url does not exist. this means that it either doe
 
 Test that an api route matching the url exists. This is a weaker test as it does not attempt to locate the controller, just tests that the url matches a route's pattern.
 
-    public static void NoApiRouteMatch(HttpConfiguration config, string url)
+    public static void NoApiRouteMatches(HttpConfiguration config, string url)
 
 Test that an api route matching the url does not exist. This means that it does not match the pattern of any entry in the route table.

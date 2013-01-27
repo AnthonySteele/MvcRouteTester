@@ -126,32 +126,6 @@ namespace MvcRouteTester
 			verifier.VerifyExpectations(expectedProps, actualProps, url);
 		}
 
-		public static void ApiRouteMatches(HttpConfiguration config, string url)
-		{
-			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
-			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
-			var apiRouteGenerator = new ApiRouteGenerator(config, request);
-
-			if (! apiRouteGenerator.HasMatchedRoute)
-			{
-				var hasRouteMessage = string.Format("Did not match a route for url '{0}'", url);
-				Asserts.Fail(hasRouteMessage);
-			}
-		}
-
-		public static void NoApiRouteMatch(HttpConfiguration config, string url)
-		{
-			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
-			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
-			var apiRouteGenerator = new ApiRouteGenerator(config, request);
-
-			if (apiRouteGenerator.HasMatchedRoute)
-			{
-				var hasRouteMessage = string.Format("Matched a route for url '{0}'", url);
-				Asserts.Fail(hasRouteMessage);
-			}
-		}
-
 		/// <summary>
 		/// Asserts that the API route does not exist
 		/// </summary>
@@ -178,6 +152,32 @@ namespace MvcRouteTester
 			var apiRouteGenerator = new ApiRouteGenerator(config, request);
 
 			apiRouteGenerator.CheckNoMethod(url, httpMethod);
+		}
+
+		public static void ApiRouteMatches(HttpConfiguration config, string url)
+		{
+			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
+			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
+			var apiRouteGenerator = new ApiRouteGenerator(config, request);
+
+			if (!apiRouteGenerator.HasMatchedRoute)
+			{
+				var hasRouteMessage = string.Format("Did not match a route for url '{0}'", url);
+				Asserts.Fail(hasRouteMessage);
+			}
+		}
+
+		public static void NoApiRouteMatches(HttpConfiguration config, string url)
+		{
+			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
+			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
+			var apiRouteGenerator = new ApiRouteGenerator(config, request);
+
+			if (apiRouteGenerator.HasMatchedRoute)
+			{
+				var hasRouteMessage = string.Format("Matched a route for url '{0}'", url);
+				Asserts.Fail(hasRouteMessage);
+			}
 		}
 
 		private static IDictionary<string, string> ReadApiRouteProperties(HttpConfiguration config, string url, HttpMethod httpMethod)
