@@ -107,7 +107,7 @@ Test that a web route matching the url exists.
     public static void HasRoute(RouteCollection routes, string url, string controller, string action)
     public static void HasRoute(RouteCollection routes, string url, IDictionary<string, string> expectedProps)
 
-Test that a web route matching the url exists, and that it meets expectations. The expectations can be given in different ways.
+Test that a web route matching the url exists, and that it meets expectations. The expectations can be given in different ways  - as an anon-typed object, as an IDictionary of names and values, or to just check the controller and action method names.
 
     public static void NoRoute(RouteCollection routes, string url)
 	
@@ -116,7 +116,7 @@ Test that a web route matching the url does not exist.
 
 ### Api routes
 
-Api routes work a bit differently to web routes. Once an entry in the route table has been matched, the controller must be found to see if it responds to the given Http method, so there are two different levels of matching.
+Api routes work a bit differently to web routes. Once an entry in the route table has been matched, the controller must be found to see if it has a method to respond to the given Http method, so there are two different levels of matching.
 
     public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod)
 
@@ -126,11 +126,11 @@ Test that an Api route matching the url exists, and that the controller can resp
     public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string controller, string action)
     public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, IDictionary<string, string> expectedProps)
 
-Test that an api route matching the url exists, and that the controller can respond to the specified Http method and meets expectations. The expectations can be given in different ways.
+Test that an api route matching the url exists, and that the controller can respond to the specified Http method and meets expectations. The expectations can be given in different ways - as an anon-typed object, as an IDictionary of names and values, or to just check the controller and action method names.
 
     public static void NoApiRoute(HttpConfiguration config, string url)
 
-Test that an Api route for the url does not exist. this means that it either does not match any pattern in the route table, or it does match a route table entry, but a matching controller cannot be found.
+Test that an Api route for the url does not exist. This means that it either does not match any pattern in the route table, or it does match a route table entry, but a matching controller cannot be found.
 
     public static void ApiRouteMatches(HttpConfiguration config, string url)
 
