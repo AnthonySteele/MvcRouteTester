@@ -45,20 +45,20 @@ Then:
 		
     RouteAssert.HasRoute(routes, "/home/index");
 
-This assertion will fail if the route table does not have a route to "/home/index"
+This assertion will fail if the route table does not have a route to `/home/index`
 
 
     var expectedRoute = new { controller = "Home", action = "Index", id = 42 };
     RouteAssert.HasRoute(routes, "/home/Index/42", expectedRoute);
 
-This assertion will fail if the route table does not have a route to the url "/home/index/42", and will also fail if it is not mapped to the expected controller, action and other parameters, using a anon-typed object to specify the expectations, [as per Phil Haack's article](http://haacked.com/archive/2007/12/16/testing-routes-in-asp.net-mvc.aspx). 
+This assertion will fail if the route table does not have a route to the url `/home/index/42`, and will also fail if it is not mapped to the expected controller, action and other parameters, using a anon-typed object to specify the expectations, [as per Phil Haack's article](http://haacked.com/archive/2007/12/16/testing-routes-in-asp.net-mvc.aspx). 
 
-There are overloads of this method so if you don't like anonymous types, you can specify a controller name and action name as strings, or an `IDictionary&lt;string, string&gt;` to hold the controller name, action name and any other route parameters.
+There are overloads of this method so if you don't like anonymous types, you can specify a controller name and action name as strings, or an `IDictionary<string, string>` to hold the controller name, action name and any other route parameters.
 
 
     RouteAssert.NoRoute(routes, "/foo/bar/fish/spon");
 	
-This assertion will fail if the url "/foo/bar/fish/spon" **can** be mapped to a route.
+This assertion will fail if a route **can** be found for the url `/foo/bar/fish/spon`.
 	
 ### API route usage
 
@@ -74,7 +74,7 @@ Then:
 
     RouteAssert.HasApiRoute(config, "/api/customer/1", HttpMethod.Get);
 
-This assertion will fail if the config does not contain an Api route to the url "/api/customer/1" which responds to the Http Get method.
+This assertion will fail if the config does not contain an Api route to the url `/api/customer/1` which responds to the Http Get method.
 
     var expectation = new { controller = "Customer", action= "get", id = "1" };
     RouteAssert.HasApiRoute(config, "/api/customer/1", HttpMethod.Get, expectation);
