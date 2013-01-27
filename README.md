@@ -51,9 +51,9 @@ This assertion will fail if the route table does not have a route to "/home/inde
     var expectedRoute = new { controller = "Home", action = "Index", id = 42 };
     RouteAssert.HasRoute(routes, "/home/Index/42", expectedRoute);
 
-This assertion will fail if the route table does not have a route to the url "/home/index/42", and will also fail if it is not mapped to the expected controller, action and other parameters, using a anon typed object to specify the expectations, as per Phil Haack's article. 
+This assertion will fail if the route table does not have a route to the url "/home/index/42", and will also fail if it is not mapped to the expected controller, action and other parameters, using a anon-typed object to specify the expectations, [as per Phil Haack's article](http://haacked.com/archive/2007/12/16/testing-routes-in-asp.net-mvc.aspx). 
 
-There are overloads of this method so if you don't like anonymous types, you can specify a controller name and action name as strings, or an IDictionary&lt;string, string&gt; to hold the controller name, action name and any other route parameters.
+There are overloads of this method so if you don't like anonymous types, you can specify a controller name and action name as strings, or an `IDictionary&lt;string, string&gt;` to hold the controller name, action name and any other route parameters.
 
 
     RouteAssert.NoRoute(routes, "/foo/bar/fish/spon");
@@ -103,34 +103,38 @@ Test that a web route matching the url exists:
 
     public static void HasRoute(RouteCollection routes, string url)
 
-Test that a web route matching the url exists, and that it meets expectations:
+Test that a web route matching the url exists, and that it meets expectations. The expectations can be given in different ways:
 
     public static void HasRoute(RouteCollection routes, string url, object expectations)
     public static void HasRoute(RouteCollection routes, string url, string controller, string action)
     public static void HasRoute(RouteCollection routes, string url, IDictionary<string, string> expectedProps)
 	
 Test that a web route matching the url does not exist:
+
     public static void NoRoute(RouteCollection routes, string url)
 
 ### Api routes
 
-Api routes work a bit differently to web routes. Once an entry in the route table has been matched, the controller must be found to see if it responds to the given Http method. 
+Api routes work a bit differently to web routes. Once an entry in the route table has been matched, the controller must be found to see if it responds to the given Http method, so there are two different levels of matching.
 
 Test that an api route matching the url exists, and that the controller can respond to the specified Http method:
 
     public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod)
 
-Test that an api route matching the url exists, and that the controller can respond to the specified Http method and meets expectations:
+Test that an api route matching the url exists, and that the controller can respond to the specified Http method and meets expectations. The expectations can be given in different ways:
 		
     public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, object expectations)
     public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string controller, string action)
     public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, IDictionary<string, string> expectedProps)
 
 Test that an api route matching the url exists. This is a weaker test as it does not attempt to locate the controller, just that the url matches a route's pattern.
+
     public static void ApiRouteMatches(HttpConfiguration config, string url)
 
 Test that an api route matching the url does not exist. this means that it does not match any pattern in the route table.
+
     public static void NoApiRouteMatch(HttpConfiguration config, string url)
 
-Test that an api route matching the url does not exist. this means that it either does not match any pattern in the route table, or it does but a matching controller cannot be found by name.
+Test that an api route for the url does not exist. this means that it either does not match any pattern in the route table, or it does match a route, but a matching controller cannot be found.
+
     public static void NoApiRoute(HttpConfiguration config, string url)
