@@ -117,7 +117,7 @@ Test that a web route matching the url does not exist:
 
 Api routes work a bit differently to web routes. Once an entry in the route table has been matched, the controller must be found to see if it responds to the given Http method, so there are two different levels of matching.
 
-Test that an api route matching the url exists, and that the controller can respond to the specified Http method:
+Test that an Api route matching the url exists, and that the controller can respond to the specified Http method:
 
     public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod)
 
@@ -127,11 +127,11 @@ Test that an api route matching the url exists, and that the controller can resp
     public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string controller, string action)
     public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, IDictionary<string, string> expectedProps)
 
-Test that an api route matching the url exists. This is a weaker test as it does not attempt to locate the controller, just that the url matches a route's pattern.
+Test that an api route matching the url exists. This is a weaker test as it does not attempt to locate the controller, just tests that the url matches a route's pattern.
 
     public static void ApiRouteMatches(HttpConfiguration config, string url)
 
-Test that an api route matching the url does not exist. this means that it does not match any pattern in the route table.
+Test that an api route matching the url does not exist. This means that it does not match any pattern in the route table.
 
     public static void NoApiRouteMatch(HttpConfiguration config, string url)
 
