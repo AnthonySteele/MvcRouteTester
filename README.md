@@ -128,6 +128,10 @@ Test that an Api route matching the url exists, and that the controller can resp
 
 Test that an api route matching the url exists, and that the controller can respond to the specified Http method and meets expectations. The expectations can be given in different ways.
 
+    public static void NoApiRoute(HttpConfiguration config, string url)
+
+Test that an Api route for the url does not exist. this means that it either does not match any pattern in the route table, or it does match a route table entry, but a matching controller cannot be found.
+
     public static void ApiRouteMatches(HttpConfiguration config, string url)
 
 Test that an api route matching the url exists. This is a weaker test as it does not attempt to locate the controller, just tests that the url matches a route's pattern.
@@ -135,7 +139,3 @@ Test that an api route matching the url exists. This is a weaker test as it does
     public static void NoApiRouteMatch(HttpConfiguration config, string url)
 
 Test that an api route matching the url does not exist. This means that it does not match the pattern of any entry in the route table.
-
-    public static void NoApiRoute(HttpConfiguration config, string url)
-
-Test that an Api route for the url does not exist. this means that it either does not match any pattern in the route table, or it does match a route table entry, but a matching controller cannot be found.
