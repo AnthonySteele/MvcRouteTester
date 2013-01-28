@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>MvcRouteTester</id>
+    <version>1.0.0</version>
+    <authors>Anthony Steele</authors>
+    <owners>Anthony Steele</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <projectUrl>http://github.com/AnthonySteele/MvcRouteTester</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>MvcRouteTester is a .Net library to help unit testing ASP MVC route tables. It contains asserts for for both regular controllers and the Api controllers that are new in MVC 4.0. It is built in .Net 4.5 and ASP MVC 4.0.</description>
+    <releaseNotes>Initial Release.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>ASP MVC Route Test NUnit UnitTest</tags>
+    <dependencies>
+      <dependency id="Moq" version="4.0.10827" />
+      <dependency id="NUnit" version="2.6.2" />
+    </dependencies>
+  </metadata>
+</package>

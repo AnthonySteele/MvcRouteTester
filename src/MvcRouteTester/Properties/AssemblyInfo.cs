@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MvcRouteTester")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("MvcRouteTester is a .Net library to help unit testing ASP MVC route tables")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Anthony Steele")]
 [assembly: AssemblyProduct("MvcRouteTester")]
 [assembly: AssemblyCopyright("Copyright © Anthony Steele 2013")]
 [assembly: AssemblyTrademark("")]
