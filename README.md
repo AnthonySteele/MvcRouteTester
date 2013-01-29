@@ -31,7 +31,7 @@ limitations under the License.
 
 ## Where can I get it?
 
-You can get the source from here on gtitHub, or [get the binaries from nuget](http://www.nuget.org/packages/MvcRouteTester/)
+You can get the source from here on GitHub, or [get the binaries from nuget](http://www.nuget.org/packages/MvcRouteTester/).
 
 ## Usage
 
