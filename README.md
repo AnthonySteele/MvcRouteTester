@@ -29,6 +29,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+## Where can I get it?
+
+You can get the source from here on gtitHub, or [get the binaries from nuget](http://www.nuget.org/packages/MvcRouteTester/)
+
 ## Usage
 
 ### Web route usage
