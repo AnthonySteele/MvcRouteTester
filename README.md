@@ -117,6 +117,14 @@ Test that a web route matching the url exists, and that it meets expectations. T
 	
 Test that a web route matching the url does not exist.
 
+    public static void IsIgnoredRoute(RouteCollection routes, string url)
+	
+Test that the url is explicitly ignored, e.g. it matches a route added with `routes.IgnoreRoute`
+
+    public static void IsNotIgnoredRoute(RouteCollection routes, string url)
+	
+Test that the url is not explicitly ignored, e.g. it matches a route which is not an ignored route.
+
 
 ### Api routes
 
