@@ -123,7 +123,7 @@ Test that the url is explicitly ignored, e.g. it matches a route added with `rou
 
     public static void IsNotIgnoredRoute(RouteCollection routes, string url)
 	
-Test that the url is not explicitly ignored, e.g. it matches a route which is not an ignored route.
+Test that the url is not explicitly ignored, i.e. it matches a route which is not an ignored route.
 
 
 ### Api routes
