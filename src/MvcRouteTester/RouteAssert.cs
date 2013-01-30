@@ -87,6 +87,58 @@ namespace MvcRouteTester
 		}
 
 		/// <summary>
+		/// Assert that the route is ignored
+		/// </summary>
+		/// <param name="routes"></param>
+		/// <param name="url"></param>
+		public static void IsIgnoredRoute(RouteCollection routes, string url)
+		{
+			var pathUrl = UrlHelpers.PrependTilde(url);
+			var httpContext = Mockery.ContextForUrl(pathUrl);
+			var routeData = routes.GetRouteData(httpContext);
+
+			if (routeData == null)
+			{
+				var message = string.Format("Should have found the route to '{0}'", url);
+				Asserts.Fail(message);
+				return;
+			}
+
+			var isIgnored = (routeData.RouteHandler is StopRoutingHandler);
+			if (! isIgnored)
+			{
+				var message = string.Format("Route to '{0}' is not ignored", url);
+				Asserts.Fail(message);
+			}
+		}
+
+		/// <summary>
+		/// Assert that the route is not ignored
+		/// </summary>
+		/// <param name="routes"></param>
+		/// <param name="url"></param>
+		public static void IsNotIgnoredRoute(RouteCollection routes, string url)
+		{
+			var pathUrl = UrlHelpers.PrependTilde(url);
+			var httpContext = Mockery.ContextForUrl(pathUrl);
+			var routeData = routes.GetRouteData(httpContext);
+
+			if (routeData == null)
+			{
+				var message = string.Format("Should have found the route to '{0}'", url);
+				Asserts.Fail(message);
+				return;
+			}
+
+			var isIgnored = (routeData.RouteHandler is StopRoutingHandler);
+			if (isIgnored)
+			{
+				var message = string.Format("Route to '{0}' is ignored", url);
+				Asserts.Fail(message);
+			}
+		}
+
+		/// <summary>
 		/// Asserts that the API route exists, has the specified Http method
 		/// </summary>
 		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod)
@@ -186,6 +238,5 @@ namespace MvcRouteTester
 			var apiRouteGenerator = new ApiRouteGenerator(config, request);
 			return apiRouteGenerator.ReadRouteProperties(url, httpMethod);
 		}
-
 	}
 }

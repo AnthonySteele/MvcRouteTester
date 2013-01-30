@@ -64,6 +64,7 @@
     <Compile Include="WebRoute\HasRouteTests.cs" />
     <Compile Include="UrlHelpersTest.cs" />
     <Compile Include="WebRoute\HasRouteWithTildeTests.cs" />
+    <Compile Include="WebRoute\IgnoredRouteTest.cs" />
     <Compile Include="WebRoute\RouteParamsTests.cs" />
     <Compile Include="WebRoute\RouteValuesTest.cs" />
   </ItemGroup>
