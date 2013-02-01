@@ -27,5 +27,18 @@ namespace MvcRouteTester.Test.WebRoute
 		{
 			routes.ShouldMap("/home/index/32").To<HomeController>(x => x.Index(32));
 		}
+
+		[Test]
+		public void DefaultFluentRoute()
+		{
+			routes.ShouldMap("/").To<HomeController>(x => x.Index(32));
+		}
+
+		[Test]
+		public void SimpleFluentRouteWithParams()
+		{
+			routes.ShouldMap("/home/index/32?foo=bar").To<HomeController>(x => x.Index(32));
+		}
+
 	}
 }
