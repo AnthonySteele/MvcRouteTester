@@ -45,10 +45,14 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiRouteGenerator.cs" />
     <Compile Include="Asserts.cs" />
+    <Compile Include="Fluent\ExpressionReader.cs" />
+    <Compile Include="FluentExtensions.cs" />
+    <Compile Include="Fluent\FluentToObject.cs" />
     <Compile Include="Verifier.cs" />
     <Compile Include="Mockery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
