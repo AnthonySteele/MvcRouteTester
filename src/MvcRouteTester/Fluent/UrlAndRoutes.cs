@@ -6,9 +6,9 @@ using System.Web.Routing;
 
 namespace MvcRouteTester.Fluent
 {
-	public class UrlAndRoute
+	public class UrlAndRoutes
 	{
-		public UrlAndRoute(RouteCollection routes, string url)
+		public UrlAndRoutes(RouteCollection routes, string url)
 		{
 			Routes = routes;
 			Url = url;

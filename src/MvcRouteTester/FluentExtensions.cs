@@ -6,9 +6,9 @@ namespace MvcRouteTester
 {
 	public static class FluentExtensions
 	{
-		public static UrlAndRoute ShouldMap(this RouteCollection routes, string url)
+		public static UrlAndRoutes ShouldMap(this RouteCollection routes, string url)
 		{
-			return new UrlAndRoute(routes, url);
+			return new UrlAndRoutes(routes, url);
 		}
 	}
 }

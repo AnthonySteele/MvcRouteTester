@@ -7,26 +7,32 @@ namespace MvcRouteTester.Fluent
 {
 	public class ExpressionReader
 	{
-		public IDictionary<string, string> Read<TController>(Expression<Func<TController, ActionResult>> action) where TController : Controller
+		public IDictionary<string, string> Read<TController>(Expression<Func<TController, object>> action)
 		{
-			var methodCall = (MethodCallExpression)action.Body;
+			return Read(typeof(TController), (MethodCallExpression)action.Body);
+		}
 
+		public IDictionary<string, string> Read<TController>(Expression<Func<TController, ActionResult>> action)
+		{
+			return Read(typeof(TController), (MethodCallExpression)action.Body);
+		}
+
+		private IDictionary<string, string> Read(Type controllerType, MethodCallExpression methodCall)
+		{
 			var values = new Dictionary<string, string>();
-
-			values.Add("controller", ControllerName(typeof(TController)));
+			values.Add("controller", ControllerName(controllerType));
 			values.Add("action", ActionName(methodCall));
 			AddParameters(methodCall, values);
-
 			return values;
 		}
 
 		private string ControllerName(Type controllertype)
 		{
-			const int LengthOfTheWordController = 10;
+			const int SuffixLength = 10;
 			var controllerName = controllertype.Name;
-			if ((controllerName.Length > LengthOfTheWordController) && controllerName.EndsWith("Controller"))
+			if ((controllerName.Length > SuffixLength) && controllerName.EndsWith("Controller"))
 			{
-				controllerName = controllerName.Substring(0, controllerName.Length - LengthOfTheWordController);
+				controllerName = controllerName.Substring(0, controllerName.Length - SuffixLength);
 			}
 
 			return controllerName;
