@@ -52,7 +52,7 @@
     <Compile Include="Asserts.cs" />
     <Compile Include="Fluent\ExpressionReader.cs" />
     <Compile Include="FluentExtensions.cs" />
-    <Compile Include="Fluent\FluentToObject.cs" />
+    <Compile Include="Fluent\UrlAndRoute.cs" />
     <Compile Include="Verifier.cs" />
     <Compile Include="Mockery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

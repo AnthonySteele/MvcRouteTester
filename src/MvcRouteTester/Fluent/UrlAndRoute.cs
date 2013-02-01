@@ -4,13 +4,11 @@ using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-using MvcRouteTester.Fluent;
-
-namespace MvcRouteTester
+namespace MvcRouteTester.Fluent
 {
-	public class FluentToObject
+	public class UrlAndRoute
 	{
-		public FluentToObject(RouteCollection routes, string url)
+		public UrlAndRoute(RouteCollection routes, string url)
 		{
 			Routes = routes;
 			Url = url;

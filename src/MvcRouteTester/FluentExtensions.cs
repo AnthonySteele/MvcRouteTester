@@ -1,15 +1,14 @@
 ﻿using System.Web.Routing;
 
+using MvcRouteTester.Fluent;
+
 namespace MvcRouteTester
 {
-	/// <summary>
-	/// route.ShouldMap("/foo").To<HomeController>(x => x.Index())
-	/// </summary>
 	public static class FluentExtensions
 	{
-		public static FluentToObject ShouldMap(this RouteCollection routes, string url)
+		public static UrlAndRoute ShouldMap(this RouteCollection routes, string url)
 		{
-			return new FluentToObject(routes, url);
+			return new UrlAndRoute(routes, url);
 		}
 	}
 }

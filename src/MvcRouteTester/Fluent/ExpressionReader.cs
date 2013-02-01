@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Web.Mvc;
 
 namespace MvcRouteTester.Fluent
@@ -15,28 +13,28 @@ namespace MvcRouteTester.Fluent
 
 			var values = new Dictionary<string, string>();
 
-			AddControllerName<TController>(values);
-			AddActionName(methodCall, values);
+			values.Add("controller", ControllerName(typeof(TController)));
+			values.Add("action", ActionName(methodCall));
 			AddParameters(methodCall, values);
 
 			return values;
 		}
 
-		private void AddControllerName<T>(Dictionary<string, string> values)
+		private string ControllerName(Type controllertype)
 		{
-			var controllerName = typeof(T).Name;
-			if (controllerName.EndsWith("Controller"))
+			const int LengthOfTheWordController = 10;
+			var controllerName = controllertype.Name;
+			if ((controllerName.Length > LengthOfTheWordController) && controllerName.EndsWith("Controller"))
 			{
-				controllerName = controllerName.Substring(0, controllerName.Length - 10);
+				controllerName = controllerName.Substring(0, controllerName.Length - LengthOfTheWordController);
 			}
 
-			values.Add("Controller", controllerName);
+			return controllerName;
 		}
 
-		private void AddActionName(MethodCallExpression methodCall, Dictionary<string, string> values)
+		private string ActionName(MethodCallExpression methodCall)
 		{
-			var actionName = methodCall.Method.Name;
-			values.Add("Action", actionName);
+			return  methodCall.Method.Name;
 		}
 
 		private void AddParameters(MethodCallExpression methodCall, IDictionary<string, string> values)
@@ -53,15 +51,15 @@ namespace MvcRouteTester.Fluent
 			}
 		}
 
-		private static object GetExpectedValue(Expression theArgument)
+		private static object GetExpectedValue(Expression argumentExpression)
 		{
-			switch (theArgument.NodeType)
+			switch (argumentExpression.NodeType)
 			{
 				case ExpressionType.Constant:
-					return ((ConstantExpression)theArgument).Value;
+					return ((ConstantExpression)argumentExpression).Value;
 
 				case ExpressionType.MemberAccess:
-					return Expression.Lambda(theArgument).Compile().DynamicInvoke();
+					return Expression.Lambda(argumentExpression).Compile().DynamicInvoke();
 				
 				default:
 					return null;
