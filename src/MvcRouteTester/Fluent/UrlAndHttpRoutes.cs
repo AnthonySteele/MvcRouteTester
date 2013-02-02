@@ -30,9 +30,10 @@ namespace MvcRouteTester.Fluent
 			RouteAssert.NoApiRoute(Configuration, Url);
 		}
 
-		public void ToNoRouteForMethod(HttpMethod httpMethod)
+		public void ToNoMethod<TController>(HttpMethod httpMethod) where TController : ApiController
 		{
-			RouteAssert.ApiRouteDoesNotHaveMethod(Configuration, Url, httpMethod);
+			var controllerType = typeof(TController);
+			RouteAssert.ApiRouteDoesNotHaveMethod(Configuration, Url, controllerType, httpMethod);
 		}
 	}
 }

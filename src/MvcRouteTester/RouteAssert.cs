@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Routing;
@@ -204,6 +205,15 @@ namespace MvcRouteTester
 			var apiRouteGenerator = new ApiRouteGenerator(config, request);
 
 			apiRouteGenerator.CheckNoMethod(url, httpMethod);
+		}
+
+		public static void ApiRouteDoesNotHaveMethod(HttpConfiguration config, string url, Type controllerType,  HttpMethod httpMethod)
+		{
+			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
+			var request = new HttpRequestMessage(httpMethod, absoluteUrl);
+			var apiRouteGenerator = new ApiRouteGenerator(config, request);
+
+			apiRouteGenerator.CheckControllerHasNoMethod(url, httpMethod, controllerType);
 		}
 
 		public static void ApiRouteMatches(HttpConfiguration config, string url)

@@ -32,7 +32,7 @@ namespace MvcRouteTester.Test.ApiRoute
 		[Test]
 		public void TestNoRouteForMethod()
 		{
-			config.ShouldMap("/api/customer/32").ToNoRouteForMethod(HttpMethod.Post);
+			config.ShouldMap("/api/customer/32").ToNoMethod<CustomerController>(HttpMethod.Post);
 		}
 
 		[Test]

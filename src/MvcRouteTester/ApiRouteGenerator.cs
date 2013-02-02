@@ -198,6 +198,19 @@ namespace MvcRouteTester
 			}
 		}
 
+		public void CheckControllerHasNoMethod(string url, HttpMethod httpMethod, Type controllerType)
+		{
+			CheckNoMethod(url, httpMethod);
+			var actualControllerType = ControllerType();
+
+			if (controllerType != actualControllerType)
+			{
+				var methodAllowedMessage = string.Format("Expected controller {0}, but goes to {1} for url '{2}'", 
+					controllerType.Name, actualControllerType.Name, url);
+				Asserts.Fail(methodAllowedMessage);
+			}
+		}
+
 		private void GenerateRouteData()
 		{
 			matchedRoute = config.Routes.GetRouteData(request);
