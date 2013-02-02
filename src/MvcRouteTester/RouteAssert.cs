@@ -207,7 +207,10 @@ namespace MvcRouteTester
 			apiRouteGenerator.CheckNoMethod(url, httpMethod);
 		}
 
-		public static void ApiRouteDoesNotHaveMethod(HttpConfiguration config, string url, Type controllerType,  HttpMethod httpMethod)
+		/// <summary>
+		/// Asserts that the API route exists to the specified controller, but does not have the specified Http method
+		/// </summary>
+		public static void ApiRouteDoesNotHaveMethod(HttpConfiguration config, string url, Type controllerType, HttpMethod httpMethod)
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
 			var request = new HttpRequestMessage(httpMethod, absoluteUrl);
@@ -216,6 +219,9 @@ namespace MvcRouteTester
 			apiRouteGenerator.CheckControllerHasNoMethod(url, httpMethod, controllerType);
 		}
 
+		/// <summary>
+		/// Asserts that an entry in the routing table is found that matches this url
+		/// </summary>
 		public static void ApiRouteMatches(HttpConfiguration config, string url)
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
@@ -229,6 +235,9 @@ namespace MvcRouteTester
 			}
 		}
 
+		/// <summary>
+		/// Asserts that an entry in the routing table is not found that matches this url
+		/// </summary>
 		public static void NoApiRouteMatches(HttpConfiguration config, string url)
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
