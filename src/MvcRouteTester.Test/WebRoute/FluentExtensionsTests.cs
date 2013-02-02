@@ -16,6 +16,7 @@ namespace MvcRouteTester.Test.WebRoute
 		public void MakeRouteTable()
 		{
 			routes = new RouteCollection();
+			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 			routes.MapRoute(
 				name: "Default",
 				url: "{controller}/{action}/{id}",
@@ -40,5 +41,22 @@ namespace MvcRouteTester.Test.WebRoute
 			routes.ShouldMap("/home/index/32?foo=bar").To<HomeController>(x => x.Index(32));
 		}
 
+		[Test]
+		public void IgnoredRoute()
+		{
+			routes.ShouldMap("fred.axd").ToIgnoredRoute();
+		}
+
+		[Test]
+		public void NonIgnoredRoute()
+		{
+			routes.ShouldMap("/home/index/32?foo=bar").ToNonIgnoredRoute();
+		}
+
+		[Test]
+		public void NoRoute()
+		{
+			routes.ShouldMap("/foo/bar/fish/spon").ToNoRoute();
+		}
 	}
 }

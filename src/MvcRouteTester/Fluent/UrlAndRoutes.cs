@@ -24,5 +24,21 @@ namespace MvcRouteTester.Fluent
 
 			RouteAssert.HasRoute(Routes, Url, expectedProps);
 		}
+
+		public void ToNoRoute()
+		{
+			RouteAssert.NoRoute(Routes, Url);
+		}
+
+		public void ToIgnoredRoute()
+		{
+			RouteAssert.IsIgnoredRoute(Routes, Url);
+		}
+
+		public void ToNonIgnoredRoute()
+		{
+			RouteAssert.IsNotIgnoredRoute(Routes, Url);
+		}
+
 	}
 }
