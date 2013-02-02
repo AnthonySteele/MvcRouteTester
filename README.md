@@ -16,9 +16,9 @@ and by [Filip W for testing API Routes](http://www.strathweb.com/2012/08/testing
 
 It relies on [NUnit](http://www.nunit.org/) and [Moq](http://code.google.com/p/moq/). But if you needed to use other equivalent libraries for assertions and mocks, it should be easy to swap out these dependencies.
 
-## Credits.
+## Credits
 
-Put together by Anthony Steele. Basic idea and code for unit testing MVC routes by Phil Haack. Initial code for testing API routes by Filip W. Idea behind writing strongly typed, fluent tests from MVCContrib, initial code from MVCContrib hacked on by Matt Gray and Daniel Kalotay at 7Digital.
+Put together by Anthony Steele. Basic idea and code for unit testing MVC routes by Phil Haack. Initial code for testing API routes by Filip W. Idea behind writing strongly typed, fluent tests from [MvcContrib](http://mvccontrib.codeplex.com), initial code from MvcContrib hacked on by Matt Gray and [Daniel Kalotay](https://github.com/kalotay) at [7Digital](http://www.7digital.com/).
 
 ## Licence
 
