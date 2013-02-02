@@ -16,6 +16,10 @@ and by [Filip W for testing API Routes](http://www.strathweb.com/2012/08/testing
 
 It relies on [NUnit](http://www.nunit.org/) and [Moq](http://code.google.com/p/moq/). But if you needed to use other equivalent libraries for assertions and mocks, it should be easy to swap out these dependencies.
 
+## Credits.
+
+Put together by Anthony Steele. Basic idea and code for unit testing MVC routes by Phil Haack. Initial code for testing API routes by Filip W. Idea behind writing strongly typed, fluent tests from MVCContrib, initial code from MVCContrib hacked on by Matt Gray and Daniel Kalotay at 7Digital.
+
 ## Licence
 
 Copyright 2013 Anthony Steele. This library is Open Source and you are welcome to use it as you see fit. Now the offical wording: 
@@ -159,3 +163,23 @@ Test that an api route matching the url exists. This is a weaker test as it does
     public static void NoApiRouteMatches(HttpConfiguration config, string url)
 
 Test that an api route matching the url does not exist. This means that it does not match the pattern of any entry in the route table.
+
+### Fluent extensions
+
+The fluent interface is a different way to use the same route testing engine. It is more stongly typed and some find it more readable. It has the advantage that expressing paramters and type names and method calls rather than strings means that the test cannot be out of sync with your controller code. e.g. if you change a controller type name, the test will fail to compile, or if you use refactoring tools it will also be changed to match.
+
+The fluent interface alows you to write code like:
+
+     routes.ShouldMap("/home/index/32").To<HomeController>(x => x.Index(32));
+	 routes.ShouldMap("fred.axd").ToIgnoredRoute();
+	 routes.ShouldMap("/foo/bar/fish/spon").ToNoRoute();
+	 
+These use `RouteAssert.HasRoute`, `RouteAssert.IsIgnoredRoute` and `RouteAssert.NoRoute` respectively. the controller name, action name and action params are read from the types and expression given.
+
+And for Api routes:
+
+    config.ShouldMap("/api/customer/32").To<CustomerController>(HttpMethod.Get, x => x.Get(32));
+	config.ShouldMap("/api/customer/32").ToNoMethod<CustomerController>(HttpMethod.Post);
+	config.ShouldMap("/pai/customer/32").ToNoRoute();
+	
+These use `RouteAssert.HasApiRoute`, `RouteAssert.ApiRouteDoesNotHaveMethod`, `RouteAssert.NoApiRoute` respectively.
