@@ -3,29 +3,36 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Mvc;
 
 namespace MvcRouteTester.Fluent
 {
 	public class UrlAndHttpRoutes
 	{
-		public UrlAndHttpRoutes(HttpConfiguration configuration, string url, HttpMethod httpMethod)
+		public UrlAndHttpRoutes(HttpConfiguration configuration, string url)
 		{
 			Configuration = configuration;
 			Url = url;
-			HttpMethod = httpMethod;
 		}
 
 		public string Url { get; private set; }
 		public HttpConfiguration Configuration { get; private set; }
-		public HttpMethod HttpMethod { get; private set; }
 
-		public void To<TController>(Expression<Func<TController, object>> action) where TController : ApiController
+		public void To<TController>(HttpMethod httpMethod, Expression<Func<TController, object>> action) where TController : ApiController
 		{
 			var expressionReader = new ExpressionReader();
 			IDictionary<string, string> expectedProps = expressionReader.Read(action);
 
-			RouteAssert.HasApiRoute(Configuration, Url, HttpMethod, expectedProps);
+			RouteAssert.HasApiRoute(Configuration, Url, httpMethod, expectedProps);
+		}
+
+		public void ToNoRoute()
+		{
+			RouteAssert.NoApiRoute(Configuration, Url);
+		}
+
+		public void ToNoRouteForMethod(HttpMethod httpMethod)
+		{
+			RouteAssert.ApiRouteDoesNotHaveMethod(Configuration, Url, httpMethod);
 		}
 	}
 }

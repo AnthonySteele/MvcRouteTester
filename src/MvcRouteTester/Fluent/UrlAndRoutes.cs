@@ -39,6 +39,5 @@ namespace MvcRouteTester.Fluent
 		{
 			RouteAssert.IsNotIgnoredRoute(Routes, Url);
 		}
-
 	}
 }

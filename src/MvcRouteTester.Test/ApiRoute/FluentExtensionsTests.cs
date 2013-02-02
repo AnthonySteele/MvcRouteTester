@@ -26,7 +26,19 @@ namespace MvcRouteTester.Test.ApiRoute
 		[Test]
 		public void SimpleTest()
 		{
-			config.ShouldMap("/api/customer/32", HttpMethod.Get).To<CustomerController>(x => x.Get(32));
+			config.ShouldMap("/api/customer/32").To<CustomerController>(HttpMethod.Get, x => x.Get(32));
+		}
+
+		[Test]
+		public void TestNoRouteForMethod()
+		{
+			config.ShouldMap("/api/customer/32").ToNoRouteForMethod(HttpMethod.Post);
+		}
+
+		[Test]
+		public void TestNoRoute()
+		{
+			config.ShouldMap("/pai/customer/32").ToNoRoute();
 		}
 	}
 }
