@@ -144,6 +144,14 @@ Test that an api route matching the url exists, and that the controller can resp
 
 Test that an Api route for the url does not exist. This means that it either does not match any pattern in the route table, or it does match a route table entry, but a matching controller cannot be found.
 
+    public static void ApiRouteDoesNotHaveMethod(HttpConfiguration config, string url, HttpMethod httpMethod)
+
+Asserts that an API route for the url exists but does not have the specified Http method.
+
+    public static void ApiRouteDoesNotHaveMethod(HttpConfiguration config, string url, Type controllerType, HttpMethod httpMethod)
+	
+Asserts that the API route for the url exists to the specified controller, but does not have the specified Http method.
+	
     public static void ApiRouteMatches(HttpConfiguration config, string url)
 
 Test that an api route matching the url exists. This is a weaker test as it does not attempt to locate the controller, just tests that the url matches a route's pattern.

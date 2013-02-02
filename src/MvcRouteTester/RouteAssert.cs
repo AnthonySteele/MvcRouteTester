@@ -196,7 +196,7 @@ namespace MvcRouteTester
 		}
 
 		/// <summary>
-		/// Asserts that the API route exists but does not have the specified Http method
+		/// Asserts that an API route for the url exists but does not have the specified Http method.
 		/// </summary>
 		public static void ApiRouteDoesNotHaveMethod(HttpConfiguration config, string url, HttpMethod httpMethod)
 		{
@@ -208,7 +208,7 @@ namespace MvcRouteTester
 		}
 
 		/// <summary>
-		/// Asserts that the API route exists to the specified controller, but does not have the specified Http method
+		/// Asserts that the API route for the url exists to the specified controller, but does not have the specified Http method.
 		/// </summary>
 		public static void ApiRouteDoesNotHaveMethod(HttpConfiguration config, string url, Type controllerType, HttpMethod httpMethod)
 		{
