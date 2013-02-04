@@ -11,14 +11,16 @@ To aid automated testing by allowing unit tests on routes. Without such a librar
 
 ## How
 
-It relies on [NUnit](http://www.nunit.org/) and [Moq](http://code.google.com/p/moq/). But if you needed to use other equivalent libraries for assertions and mocks, it should be easy to swap out these dependencies in the source.
+MvcRouteTester relies on [NUnit](http://www.nunit.org/) and [Moq](http://code.google.com/p/moq/). But if you needed to use other equivalent libraries for assertions and mocks, it should be easy to swap out these dependencies in the source.
 
 ## Credits
 
-It uses the basic ideas and code by [Phil Haack for testing MVC Routes](http://haacked.com/archive/2007/12/16/testing-routes-in-asp.net-mvc.aspx)
-and by [Filip W for testing API Routes](http://www.strathweb.com/2012/08/testing-routes-in-asp-net-web-api/). It puts them together in one convenient package. I have told them both about this use of thier code and they are happy to see it here.
+MvcRouteTester uses the basic ideas and code by [Phil Haack for testing MVC Routes](http://haacked.com/archive/2007/12/16/testing-routes-in-asp.net-mvc.aspx)
+and by [Filip W for testing API Routes](http://www.strathweb.com/2012/08/testing-routes-in-asp-net-web-api/). I have told them both about this use of thier code and they are happy to see it here.
 
-The idea behind writing strongly typed, fluent tests is from [MvcContrib](http://mvccontrib.codeplex.com). Initial code from MvcContrib hacked on by Matt Gray and [Daniel Kalotay](https://github.com/kalotay) at [7Digital](http://www.7digital.com/). Put together by Anthony Steele. 
+The idea behind writing strongly typed, fluent tests is from [MvcContrib](http://mvccontrib.codeplex.com). Initial code from MvcContrib hacked on by [Matt Gray](https://github.com/mattgray/) and [Daniel Kalotay](https://github.com/kalotay) at [7Digital](http://www.7digital.com/). 
+
+Put together by Anthony Steele. 
 
 ## Licence
 
