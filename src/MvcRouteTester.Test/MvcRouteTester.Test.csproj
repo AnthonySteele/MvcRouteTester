@@ -60,6 +60,8 @@
     <Compile Include="AssertsTests.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Fluent\ExpressionReaderApiTests.cs" />
+    <Compile Include="Fluent\ExpressionReaderTests.cs" />
     <Compile Include="MockeryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyReaderTests.cs" />
