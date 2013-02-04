@@ -168,7 +168,7 @@ Test that an api route matching the url does not exist. This means that it does 
 
 ### Fluent extensions
 
-The fluent interface is a different way to use the same route testing engine. It is more stongly typed and some find it more readable. It has the advantage that expressing paramters and type names and method calls rather than strings means that the test cannot be out of sync with your controller code. e.g. if you change a controller type name, the test will fail to compile, or if you use refactoring tools it will also be changed to match.
+The fluent interface is a different way to use the same route testing engine. It is more stongly typed and some find it more readable. It has the advantage that expressing parameters as type names and method calls rather than strings means that the test cannot be out of sync with your controller code. e.g. if you change a controller type name, the test will fail to compile, or if you use refactoring tools it will also be changed to match.
 
 The fluent interface alows you to write code like:
 
