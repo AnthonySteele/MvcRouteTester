@@ -1,3 +1,3 @@
-NuGet Push MvcRouteTester.1.0.0.nupkg
+NuGet Push MvcRouteTester.1.0.1.nupkg
 
 pause
