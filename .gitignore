@@ -83,7 +83,7 @@ packages
 
 # nuget build files
 buildpackage/*.nupkg
-buildpackage/lib/*
+buildpackage/*.zip
 
 # Windows Azure Build Output
 csx
