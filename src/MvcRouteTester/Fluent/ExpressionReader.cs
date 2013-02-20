@@ -55,15 +55,20 @@ namespace MvcRouteTester.Fluent
 
 		private void AddParameters(MethodCallExpression methodCall, IDictionary<string, string> values)
 		{
+			var attributeRecogniser = new AttributeRecogniser();
+
 			var parameters = methodCall.Method.GetParameters();
 			var arguments = methodCall.Arguments;
 
 			for (int i = 0; i < parameters.Length; i++)
 			{
-				var expectedValue = GetExpectedValue(arguments[i]);
-				var expectedString = expectedValue != null ? expectedValue.ToString() : null;
+				if (! attributeRecogniser.IsFromBody(parameters[i]))
+				{
+					var expectedValue = GetExpectedValue(arguments[i]);
+					var expectedString = expectedValue != null ? expectedValue.ToString() : null;
 
-				values.Add(parameters[i].Name, expectedString);
+					values.Add(parameters[i].Name, expectedString);
+				}
 			}
 		}
 

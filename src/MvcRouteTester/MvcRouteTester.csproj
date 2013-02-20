@@ -53,6 +53,7 @@
     <Compile Include="FluentApiExtensions.cs" />
     <Compile Include="Fluent\ExpressionReader.cs" />
     <Compile Include="FluentExtensions.cs" />
+    <Compile Include="Fluent\AttributeRecogniser.cs" />
     <Compile Include="Fluent\UrlAndRoutes.cs" />
     <Compile Include="Fluent\UrlAndHttpRoutes.cs" />
     <Compile Include="Verifier.cs" />

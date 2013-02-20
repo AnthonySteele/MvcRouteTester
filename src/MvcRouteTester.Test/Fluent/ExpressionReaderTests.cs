@@ -19,7 +19,6 @@ namespace MvcRouteTester.Test.Fluent
 		{
 			return new EmptyResult();
 		}
-
 	}
 
 	[TestFixture]
