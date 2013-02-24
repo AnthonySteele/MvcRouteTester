@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace MvcRouteTester.Test.WebRoute
 {
 	[TestFixture]
-	public class ModelBindingTest
+	public class ModelBindingTests
 	{
 		private RouteCollection routes;
 

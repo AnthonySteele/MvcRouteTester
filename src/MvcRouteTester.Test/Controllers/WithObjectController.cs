@@ -7,6 +7,7 @@ namespace MvcRouteTester.Test.Controllers
 		public int Id { get; set; }
 		public string Name { get; set; }
 	}
+
 	public class WithObjectController : Controller
 	{
 		public ActionResult Index(InputModel data)

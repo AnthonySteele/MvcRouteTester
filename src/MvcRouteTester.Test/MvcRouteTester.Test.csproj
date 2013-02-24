@@ -53,8 +53,10 @@
     <Compile Include="ApiControllers\RenamedController.cs" />
     <Compile Include="ApiControllers\PostOnlyController.cs" />
     <Compile Include="ApiControllers\CustomerController.cs" />
+    <Compile Include="ApiControllers\WithObjectController.cs" />
     <Compile Include="ApiRoute\FluentExtensionsTests.cs" />
     <Compile Include="ApiRoute\FromBodyTests.cs" />
+    <Compile Include="ApiRoute\ModelBindingTests.cs" />
     <Compile Include="ApiRoute\RouteExpectionTests.cs" />
     <Compile Include="ApiRoute\RouteMethodTests.cs" />
     <Compile Include="ApiRoute\RouteMethodWithTildeTests.cs" />
@@ -75,7 +77,7 @@
     <Compile Include="UrlHelpersTest.cs" />
     <Compile Include="WebRoute\HasRouteWithTildeTests.cs" />
     <Compile Include="WebRoute\IgnoredRouteTest.cs" />
-    <Compile Include="WebRoute\ModelBindingTest.cs" />
+    <Compile Include="WebRoute\ModelBindingTests.cs" />
     <Compile Include="WebRoute\RouteParamsTests.cs" />
     <Compile Include="WebRoute\RouteValuesTest.cs" />
   </ItemGroup>
