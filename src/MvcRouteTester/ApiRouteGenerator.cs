@@ -89,19 +89,42 @@ namespace MvcRouteTester
 			{
 				foreach (var param in actionParams)
 				{
-					var paramName = param.ParameterName;
-					if (routeDataValues.Values.ContainsKey(paramName))
-					{
-						var paramValue = routeDataValues.Values[paramName];
-						if (paramValue != null)
-						{
-							result.Add(paramName, paramValue.ToString());
-						}
-					}
+					ProcessActionParam(param, routeDataValues, result);
 				}
 			}
 
 			return result;
+		}
+
+		private static void ProcessActionParam(HttpParameterDescriptor param, HttpRouteData routeDataValues, Dictionary<string, string> result)
+		{
+			var propertyReader = new PropertyReader();
+
+			if (propertyReader.IsSimpleType(param.ParameterType))
+			{
+				var paramName = param.ParameterName;
+				AddParamWithRouteValue(paramName, routeDataValues.Values, result);
+			}
+			else
+			{
+				var fieldNames = propertyReader.SimplePropertyNames(param.ParameterType);
+				foreach (var fieldName in fieldNames)
+				{
+					AddParamWithRouteValue(fieldName.ToLowerInvariant(), routeDataValues.Values, result);
+				}
+			}
+		}
+
+		private static void AddParamWithRouteValue(string paramName, IDictionary<string, object> values, Dictionary<string, string> result)
+		{
+			if (values.ContainsKey(paramName))
+			{
+				var paramValue = values[paramName];
+				if (paramValue != null)
+				{
+					result.Add(paramName, paramValue.ToString());
+				}
+			}
 		}
 
 		private HttpRouteData GetRouteData()

@@ -23,7 +23,6 @@ namespace MvcRouteTester.Test.WebRoute
 				name: "FooBarFishRoute",
 				url: "Foo/Bar/Fish/{name}/{pony}",
 				defaults: new { controller = "Foo", action = "Bar" });
-
 		}
 
 		[Test]

@@ -34,16 +34,17 @@ namespace MvcRouteTester.Test.ApiRoute
 			RouteAssert.HasApiRoute(config, "/api/withobject/123/fred", HttpMethod.Get, expectations);
 		}
 
-		[Test, Ignore("not working yet")]
+		[Test]
 		public void TestHasApiRouteParams()
 		{
 			var expectations = new
-			{
-				controller = "WithObject",
-				action = "Get",
-				id = "123",
-				name = "fred"
-			};
+				{
+					controller = "WithObject",
+					action = "Get",
+					id = "123",
+					name = "fred"
+				};
+
 			RouteAssert.HasApiRoute(config, "/api/withobject/123/fred", HttpMethod.Get, expectations);
 		}
 
