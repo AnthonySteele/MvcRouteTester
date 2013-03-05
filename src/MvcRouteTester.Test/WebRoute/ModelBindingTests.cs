@@ -39,23 +39,5 @@ namespace MvcRouteTester.Test.WebRoute
 
 			RouteAssert.HasRoute(routes, "/withobject/index/1/fred", expectedRoute);
 		}
-
-		[Test, Ignore("Not passing yet. todo: find a way to do this...")]
-		public void HasRouteCapturesObjectValues()
-		{
-			var data = new InputModel
-				{
-					Id = 1,
-					Name = "fred"
-				};
-			var expectedRoute = new
-				{
-					controller = "withobject", 
-					action = "Index",
-					data = data
-				};
-
-			RouteAssert.HasRoute(routes, "/withobject/index/1/fred", expectedRoute);
-		}
 	}
 }
