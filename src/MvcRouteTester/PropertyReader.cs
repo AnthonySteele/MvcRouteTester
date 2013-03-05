@@ -9,7 +9,12 @@ namespace MvcRouteTester
 	{
 		public  bool IsSimpleType(Type type)
 		{
-			return type.IsPrimitive || (type == typeof(string));
+			if (type.Name == "Nullable`1")
+			{
+				return true;
+			}
+
+			return type.IsPrimitive || (type == typeof(string)) || (type == typeof(decimal));
 		}
 
 		public IDictionary<string, string> Properties(object dataObject)
