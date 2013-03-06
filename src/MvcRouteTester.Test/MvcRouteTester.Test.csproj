@@ -71,7 +71,8 @@
     <Compile Include="MockeryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyReaderIsSimpleTypeTests.cs" />
-    <Compile Include="PropertyReaderTests.cs" />
+    <Compile Include="PropertyReaderPropertiesTests.cs" />
+    <Compile Include="PropertyReaderSimplePropertyNamesTests.cs" />
     <Compile Include="WebRoute\DefaultsTests.cs" />
     <Compile Include="WebRoute\FluentExtensionsTests.cs" />
     <Compile Include="WebRoute\HasRouteTests.cs" />
