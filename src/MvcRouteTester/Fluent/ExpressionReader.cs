@@ -80,6 +80,7 @@ namespace MvcRouteTester.Fluent
 					return ((ConstantExpression)argumentExpression).Value;
 
 				case ExpressionType.MemberAccess:
+				case ExpressionType.Convert:
 					return Expression.Lambda(argumentExpression).Compile().DynamicInvoke();
 				
 				default:

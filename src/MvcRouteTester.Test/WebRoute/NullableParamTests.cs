@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
+using MvcRouteTester.Test.Controllers;
+
 using NUnit.Framework;
 
 namespace MvcRouteTester.Test.WebRoute
@@ -40,6 +42,17 @@ namespace MvcRouteTester.Test.WebRoute
 			var expectedRoute = new { controller = "WithNullable", action = "Index", id = 47 };
 			RouteAssert.HasRoute(routes, "/WithNullable/index?id=47", expectedRoute);
 		}
+
+		[Test]
+		public void FluentMapToNull()
+		{
+			routes.ShouldMap("/WithNullable/index").To<WithNullableController>(x => x.Index(null));
+		}
 	
+		[Test]
+		public void FluentMapToNotNull()
+		{
+			routes.ShouldMap("/WithNullable/index?id=47").To<WithNullableController>(x => x.Index(47));
+		}
 	}
 }
