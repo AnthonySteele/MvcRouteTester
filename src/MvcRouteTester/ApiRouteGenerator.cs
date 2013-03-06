@@ -72,7 +72,14 @@ namespace MvcRouteTester
 			var queryParams = UrlHelpers.MakeQueryParams(url);
 			foreach (var key in queryParams.AllKeys)
 			{
-				actualProps.Add(key, queryParams[key]);
+				if (actualProps.ContainsKey(key))
+				{
+					actualProps[key] = queryParams[key];
+				}
+				else
+				{
+					actualProps.Add(key, queryParams[key]);
+				}
 			}
 
 			return actualProps;
