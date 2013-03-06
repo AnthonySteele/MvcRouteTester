@@ -64,6 +64,7 @@
     <Compile Include="AssertsTests.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\WithNullableController.cs" />
     <Compile Include="Controllers\WithObjectController.cs" />
     <Compile Include="Fluent\ExpressionReaderApiTests.cs" />
     <Compile Include="Fluent\ExpressionReaderTests.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="WebRoute\HasRouteWithTildeTests.cs" />
     <Compile Include="WebRoute\IgnoredRouteTest.cs" />
     <Compile Include="WebRoute\ModelBindingTests.cs" />
+    <Compile Include="WebRoute\NullableParamTests.cs" />
     <Compile Include="WebRoute\RouteParamsTests.cs" />
     <Compile Include="WebRoute\RouteValuesTest.cs" />
   </ItemGroup>

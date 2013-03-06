@@ -17,7 +17,14 @@ namespace MvcRouteTester
 
 			foreach (var paramName in requestParams.AllKeys)
 			{
-				propertyList.Add(paramName, requestParams[paramName]);
+				if (propertyList.ContainsKey(paramName))
+				{
+					propertyList[paramName] = requestParams[paramName];
+				}
+				else
+				{
+					propertyList.Add(paramName, requestParams[paramName]);
+				}
 			}
 
 			return propertyList;

@@ -16,5 +16,17 @@ namespace MvcRouteTester.Test
 		{
 			Asserts.StringsEqualIgnoringCase("foo", "Foo", "fail");
 		}
+
+		[Test]
+		public void NullStringsAreEqual()
+		{
+			Asserts.StringsEqualIgnoringCase(null, null, "fail");
+		}
+
+		[Test]
+		public void EmptyStringIsSameAsNull()
+		{
+			Asserts.StringsEqualIgnoringCase(string.Empty, null, "fail");
+		}
 	}
 }
