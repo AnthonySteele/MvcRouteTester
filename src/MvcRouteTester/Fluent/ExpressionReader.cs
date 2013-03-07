@@ -56,18 +56,33 @@ namespace MvcRouteTester.Fluent
 		private void AddParameters(MethodCallExpression methodCall, IDictionary<string, string> values)
 		{
 			var attributeRecogniser = new AttributeRecogniser();
+			var propertyReader = new PropertyReader();
 
 			var parameters = methodCall.Method.GetParameters();
 			var arguments = methodCall.Arguments;
 
 			for (int i = 0; i < parameters.Length; i++)
 			{
-				if (! attributeRecogniser.IsFromBody(parameters[i]))
+				var param = parameters[i];
+				if (!attributeRecogniser.IsFromBody(param))
 				{
 					var expectedValue = GetExpectedValue(arguments[i]);
-					var expectedString = expectedValue != null ? expectedValue.ToString() : null;
 
-					values.Add(parameters[i].Name, expectedString);
+					if (propertyReader.IsSimpleType(param.ParameterType))
+					{
+						var expectedString = expectedValue != null ? expectedValue.ToString() : null;
+
+						values.Add(param.Name, expectedString);
+					}
+					else
+					{
+						var objectFieldValues = propertyReader.SimpleProperties(expectedValue);
+						foreach (var field in objectFieldValues)
+						{
+							values.Add(field.Key.ToLowerInvariant(), field.Value);
+						}
+					}
+
 				}
 			}
 		}
@@ -81,6 +96,7 @@ namespace MvcRouteTester.Fluent
 
 				case ExpressionType.MemberAccess:
 				case ExpressionType.Convert:
+				case ExpressionType.MemberInit:
 					return Expression.Lambda(argumentExpression).Compile().DynamicInvoke();
 				
 				default:

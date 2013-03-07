@@ -36,6 +36,35 @@ namespace MvcRouteTester
 			return result;
 		}
 
+		public IDictionary<string, string> SimpleProperties(object dataObject)
+		{
+			if (dataObject == null)
+			{
+				throw new ArgumentNullException("dataObject");
+			}
+
+			var type = dataObject.GetType();
+			var objectProperties = GetPublicObjectProperties(type);
+
+			var result = new Dictionary<string, string>();
+			foreach (PropertyInfo objectProperty in objectProperties)
+			{
+				if (IsSimpleType(objectProperty.PropertyType))
+				{
+					var value = GetPropertyValue(dataObject, objectProperty);
+					result.Add(objectProperty.Name, ValueAsString(value));
+				}
+			}
+
+			return result;
+		}
+
+		private object GetPropertyValue(object dataObject, PropertyInfo objectProperty)
+		{
+			var getMethod = objectProperty.GetGetMethod();
+			return getMethod.Invoke(dataObject, null);
+		}
+
 		public IEnumerable<string> SimplePropertyNames(Type type)
 		{
 			if (type == null)
@@ -43,8 +72,7 @@ namespace MvcRouteTester
 				throw new ArgumentNullException("type");
 			}
 
-			var objectProperties = type.GetProperties(
-				BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+			var objectProperties = GetPublicObjectProperties(type);
 
 			var result = new List<string>();
 			foreach (PropertyInfo objectProperty in objectProperties)
@@ -58,6 +86,10 @@ namespace MvcRouteTester
 			return result;
 		}
 
+		private static IEnumerable<PropertyInfo> GetPublicObjectProperties(Type type)
+		{
+			return type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+		}
 
 		private static string ValueAsString(object propertyValue)
 		{
