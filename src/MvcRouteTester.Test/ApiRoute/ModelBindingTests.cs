@@ -48,11 +48,11 @@ namespace MvcRouteTester.Test.ApiRoute
 			RouteAssert.HasApiRoute(config, "/api/withobject/123/fred", HttpMethod.Get, expectations);
 		}
 
-		[Test, Ignore("not working yet")]
+		[Test]
 		public void TestFluentMap()
 		{
 			config.ShouldMap("/api/withobject/123/fred").To<WithObjectController>(HttpMethod.Get,
-				c => c.Get(new InputModel()));
+				c => c.Get(new InputModel { Id = 123, Name = "fred"}));
 		}
 
 	}

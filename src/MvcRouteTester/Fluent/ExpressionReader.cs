@@ -76,7 +76,7 @@ namespace MvcRouteTester.Fluent
 					}
 					else
 					{
-						var objectFieldValues = propertyReader.SimpleProperties(expectedValue);
+						var objectFieldValues = propertyReader.Properties(expectedValue);
 						foreach (var field in objectFieldValues)
 						{
 							values.Add(field.Key.ToLowerInvariant(), field.Value);
