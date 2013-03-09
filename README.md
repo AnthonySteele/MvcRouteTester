@@ -189,7 +189,7 @@ These use `RouteAssert.HasApiRoute`, `RouteAssert.ApiRouteDoesNotHaveMethod`, `R
 
 ### Model binding
 
-[Model binding](http://msdn.microsoft.com/en-us/library/dd410405%28v=VS.90%29.aspx) is the mapping that the MVC framework does from the URL to the controler method's parameters. This is onte of the things that this library aims to test. Binding can be to simple types (int, string, bool etc.) or to a Model class. Suppose you have a controller
+[Model binding](http://msdn.microsoft.com/en-us/library/dd410405%28v=VS.90%29.aspx) is the MVC framework's mapping from the URL to the controler method's parameters. This is one of the things that this library aims to test. Binding can be to simple types (int, string, bool etc.) or to a Model class. Suppose you have a controller
 
 	public class FirstController: Controller
 	{
@@ -210,6 +210,7 @@ But for another controller you decide to bind incoming parameters into an model 
 	
 	public class SecondController : Controller
 	{
+		// binding to an object of type 'InputModel'
 		public ActionResult Index(InputModel data)
 		{
 			...
@@ -218,15 +219,14 @@ But for another controller you decide to bind incoming parameters into an model 
 
 You can test both of these. With the expectation syntax, both controllers should be tested in the same way, e.g.
 
-	var expectedRoute1 = new { controller = "First", action = "Index", id = "1", name = "fred" };
-	RouteAssert.HasRoute(routes, "/first/index/1/fred", expectedRoute1);
+	var firstExpected = new { controller = "First", action = "Index", id = "1", name = "fred" };
+	RouteAssert.HasRoute(routes, "/first/index/1/fred", firstExpected);
 
-	var expectedRoute2 = new { controller = "Second", action = "Index", id = "1", name = "fred" };
-	RouteAssert.HasRoute(routes, "/second/index/1/fred", expectedRoute2);
+	var secondExpected = new { controller = "Second", action = "Index", id = "1", name = "fred" };
+	RouteAssert.HasRoute(routes, "/second/index/1/fred", secondExpected);
 
-However with the fluent syntax, the values will be read off the data in the lambda, so the two look tests slightly different to each other:
+However, with the fluent syntax the values will be read off the data in the lambda, so the two look tests slightly different to each other:
 
 	routes.ShouldMap("/first/index/1/fred").To<FirstController>(x => x.Index(1, "Fred"));
-
 	routes.ShouldMap("/second/index/1/fred").To<SecondController>(x => x.Index(new InputModel { Id = 1, Name = "fred" }));
 
