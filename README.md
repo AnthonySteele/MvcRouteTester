@@ -194,7 +194,7 @@ These use `RouteAssert.HasApiRoute`, `RouteAssert.ApiRouteDoesNotHaveMethod`, `R
 	public class FirstController: Controller
 	{
 		// simple model binding
-		public ActionResult Index(int id, striong name)
+		public ActionResult Index(int id, string name)
 		{
 			...
 		}
@@ -230,3 +230,4 @@ However, with the fluent syntax the values will be read off the data in the lamb
 	routes.ShouldMap("/first/index/1/fred").To<FirstController>(x => x.Index(1, "Fred"));
 	routes.ShouldMap("/second/index/1/fred").To<SecondController>(x => x.Index(new InputModel { Id = 1, Name = "fred" }));
 
+The situation is the same for testing API Controllers.
