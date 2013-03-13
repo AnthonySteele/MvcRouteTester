@@ -13,7 +13,6 @@
     <copyright>Copyright 2013</copyright>
     <tags>ASP MVC Route Test NUnit UnitTest API ApiController</tags>
     <dependencies>
-      <dependency id="Moq" version="4.0.10827" />
       <dependency id="NUnit" version="2.6.2" />
     </dependencies>
   </metadata>
