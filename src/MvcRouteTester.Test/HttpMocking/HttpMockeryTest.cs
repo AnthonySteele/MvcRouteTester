@@ -1,10 +1,10 @@
 ﻿using MvcRouteTester.HttpMocking;
 using NUnit.Framework;
 
-namespace MvcRouteTester.Test
+namespace MvcRouteTester.Test.HttpMocking
 {
 	[TestFixture]
-	public class MockeryTest
+	public class HttpMockeryTest
 	{
 		[Test]
 		public void ShouldReturnPathForUrl()
