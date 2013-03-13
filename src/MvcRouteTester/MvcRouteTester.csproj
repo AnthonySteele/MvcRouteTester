@@ -53,8 +53,10 @@
     <Compile Include="Fluent\AttributeRecogniser.cs" />
     <Compile Include="Fluent\UrlAndRoutes.cs" />
     <Compile Include="Fluent\UrlAndHttpRoutes.cs" />
+    <Compile Include="HttpMocking\MockHttpContext.cs" />
+    <Compile Include="HttpMocking\MockHttpRequest.cs" />
     <Compile Include="Verifier.cs" />
-    <Compile Include="Mockery.cs" />
+    <Compile Include="HttpMocking\HttpMockery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyReader.cs" />
     <Compile Include="RouteAssert.cs" />

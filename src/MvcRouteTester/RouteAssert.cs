@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Routing;
+using MvcRouteTester.HttpMocking;
 
 namespace MvcRouteTester
 {
@@ -22,7 +23,7 @@ namespace MvcRouteTester
 		{
 			var pathUrl = UrlHelpers.PrependTilde(url);
 
-			var httpContext = Mockery.ContextForUrl(pathUrl);
+			var httpContext = HttpMockery.ContextForUrl(pathUrl);
 			var routeData = routes.GetRouteData(httpContext);
 
 			if (routeData == null)
@@ -56,7 +57,7 @@ namespace MvcRouteTester
 		public static void HasRoute(RouteCollection routes, string url, IDictionary<string, string> expectedProps)
 		{
 			var pathUrl = UrlHelpers.PrependTilde(url);
-			var httpContext = Mockery.ContextForUrl(pathUrl);
+			var httpContext = HttpMockery.ContextForUrl(pathUrl);
 			var routeData = routes.GetRouteData(httpContext);
 
 			if (routeData == null)
@@ -77,7 +78,7 @@ namespace MvcRouteTester
 		public static void NoRoute(RouteCollection routes, string url)
 		{
 			var pathUrl = UrlHelpers.PrependTilde(url);
-			var httpContext = Mockery.ContextForUrl(pathUrl);
+			var httpContext = HttpMockery.ContextForUrl(pathUrl);
 			var routeData = routes.GetRouteData(httpContext);
 
 			if (routeData != null)
@@ -95,7 +96,7 @@ namespace MvcRouteTester
 		public static void IsIgnoredRoute(RouteCollection routes, string url)
 		{
 			var pathUrl = UrlHelpers.PrependTilde(url);
-			var httpContext = Mockery.ContextForUrl(pathUrl);
+			var httpContext = HttpMockery.ContextForUrl(pathUrl);
 			var routeData = routes.GetRouteData(httpContext);
 
 			if (routeData == null)
@@ -121,7 +122,7 @@ namespace MvcRouteTester
 		public static void IsNotIgnoredRoute(RouteCollection routes, string url)
 		{
 			var pathUrl = UrlHelpers.PrependTilde(url);
-			var httpContext = Mockery.ContextForUrl(pathUrl);
+			var httpContext = HttpMockery.ContextForUrl(pathUrl);
 			var routeData = routes.GetRouteData(httpContext);
 
 			if (routeData == null)

@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using MvcRouteTester.HttpMocking;
+using NUnit.Framework;
 
 namespace MvcRouteTester.Test
 {
@@ -8,7 +9,7 @@ namespace MvcRouteTester.Test
 		[Test]
 		public void ShouldReturnPathForUrl()
 		{
-			var context = Mockery.ContextForUrl("/foo/bar");
+			var context = HttpMockery.ContextForUrl("/foo/bar");
 
 			Assert.That(context.Request.AppRelativeCurrentExecutionFilePath, Is.EqualTo("/foo/bar"));
 		}
@@ -16,7 +17,7 @@ namespace MvcRouteTester.Test
 		[Test]
 		public void ShouldReturnPathForUrlWithoutParams()
 		{
-			var context = Mockery.ContextForUrl("/foo/bar?a=b");
+			var context = HttpMockery.ContextForUrl("/foo/bar?a=b");
 
 			Assert.That(context.Request.AppRelativeCurrentExecutionFilePath, Is.EqualTo("/foo/bar"));
 		}
@@ -24,7 +25,7 @@ namespace MvcRouteTester.Test
 		[Test]
 		public void ShouldReturnQueryParam()
 		{
-			var context = Mockery.ContextForUrl("/foo/bar?a=b");
+			var context = HttpMockery.ContextForUrl("/foo/bar?a=b");
 
 			var queryParams = context.Request.Params;
 			Assert.That(queryParams, Is.Not.Null);
@@ -35,7 +36,7 @@ namespace MvcRouteTester.Test
 		[Test]
 		public void ShouldReturnMultipleQueryParams()
 		{
-			var context = Mockery.ContextForUrl("/foo/bar?a=b&cee=123");
+			var context = HttpMockery.ContextForUrl("/foo/bar?a=b&cee=123");
 
 			var queryParams = context.Request.Params;
 			Assert.That(queryParams, Is.Not.Null);
@@ -47,7 +48,7 @@ namespace MvcRouteTester.Test
 		[Test]
 		public void ShouldReturnQueryString()
 		{
-			var context = Mockery.ContextForUrl("/foo/bar?a=b");
+			var context = HttpMockery.ContextForUrl("/foo/bar?a=b");
 
 			var queryString = context.Request.QueryString;
 			Assert.That(queryString, Is.Not.Null);
@@ -58,7 +59,7 @@ namespace MvcRouteTester.Test
 		[Test]
 		public void ShouldHandleMissingParamValue()
 		{
-			var context = Mockery.ContextForUrl("/foo/bar?a=b&c=");
+			var context = HttpMockery.ContextForUrl("/foo/bar?a=b&c=");
 
 			var queryString = context.Request.QueryString;
 			Assert.That(queryString, Is.Not.Null);
@@ -70,7 +71,7 @@ namespace MvcRouteTester.Test
 		[Test]
 		public void ShouldHandleMissingParamAssign()
 		{
-			var context = Mockery.ContextForUrl("/foo/bar?a=b&c");
+			var context = HttpMockery.ContextForUrl("/foo/bar?a=b&c");
 
 			var queryString = context.Request.QueryString;
 			Assert.That(queryString, Is.Not.Null);
@@ -82,7 +83,7 @@ namespace MvcRouteTester.Test
 		[Test]
 		public void ShouldHaveEmptyPathInfo()
 		{
-			var context = Mockery.ContextForUrl("/foo/bar?a=b");
+			var context = HttpMockery.ContextForUrl("/foo/bar?a=b");
 
 			Assert.That(context.Request.PathInfo, Is.EqualTo(string.Empty));
 		}
