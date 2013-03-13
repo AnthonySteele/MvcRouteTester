@@ -14,23 +14,22 @@ namespace MvcRouteTester
 			return new PrivateHttpContext(new PrivateHttpRequest(relativeUrl, queryParams));
 		}
 
-		class PrivateHttpContext : HttpContextBase
+		internal class PrivateHttpContext : HttpContextBase
 		{
-			readonly HttpRequestBase request;
+			private readonly HttpRequestBase request;
 
 			public PrivateHttpContext(HttpRequestBase request)
 			{
 				this.request = request;
 			}
 
-			public override HttpRequestBase Request {
-				get {
-					return this.request;
-				}
+			public override HttpRequestBase Request 
+			{
+				get { return request; }
 			}
 		}
 
-		class PrivateHttpRequest : HttpRequestBase
+		internal class PrivateHttpRequest : HttpRequestBase
 		{
 			readonly string relativeUrl;
 			readonly NameValueCollection queryParams;
@@ -41,27 +40,24 @@ namespace MvcRouteTester
 				this.queryParams = queryParams;
 			}
 
-			public override string AppRelativeCurrentExecutionFilePath {
-				get {
-					return this.relativeUrl;
-				}
-			}
-			public override NameValueCollection QueryString {
-				get {
-					return this.queryParams;
-				}
+			public override string AppRelativeCurrentExecutionFilePath
+			{
+				get { return relativeUrl; }
 			}
 
-			public override NameValueCollection Params {
-				get {
-					return this.queryParams;
-				}
+			public override NameValueCollection QueryString 
+			{
+				get { return queryParams; }
 			}
 
-			public override string PathInfo {
-				get {
-					return string.Empty;
-				}
+			public override NameValueCollection Params 
+			{
+				get { return queryParams; }
+			}
+
+			public override string PathInfo 
+			{
+				get { return string.Empty; }
 			}
 		}
 	}
