@@ -3,7 +3,7 @@
 
 ## What
 
-MvcRouteTester is a .Net library to help unit testing ASP MVC route tables. It contains asserts for for both regular controllers and the Api controllers that are new in MVC 4.0. It is built in .Net 4.5 and ASP MVC 4.0.
+MvcRouteTester is a .Net library to help unit testing ASP MVC route tables. It contains asserts for for both regular controllers and the Api controllers that are new in MVC 4.0. It is built in .Net 4.0 and ASP MVC 4.0.
 
 ## Why
 
@@ -11,7 +11,7 @@ To aid automated testing by allowing unit tests on routes. Without such a librar
 
 ## How
 
-MvcRouteTester relies on [NUnit](http://www.nunit.org/) and [Moq](http://code.google.com/p/moq/). But if you needed to use other equivalent libraries for assertions and mocks, it should be easy to swap out these dependencies in the source.
+MvcRouteTester relies on [NUnit](http://www.nunit.org/). But if you needed to use other equivalent library for assertions, it should be easy to swap out this dependency in the source.
 
 ## Credits
 
@@ -19,6 +19,8 @@ MvcRouteTester uses the basic ideas and code by [Phil Haack for testing MVC Rout
 and by [Filip W for testing API Routes](http://www.strathweb.com/2012/08/testing-routes-in-asp-net-web-api/). I have told them both about this use of thier code and they are happy to see it here.
 
 The idea behind writing strongly typed, fluent tests is from [MvcContrib](http://mvccontrib.codeplex.com). Initial code from MvcContrib hacked on by [Matt Gray](https://github.com/mattgray/) and [Daniel Kalotay](https://github.com/kalotay) at [7Digital](http://www.7digital.com/). 
+
+Pull requests on github have come from [Daniel Seifarth](http://github.com/redxeagle), who got it working in .Net 4.0, and [Yves Reynhout](https://github.com/yreynhout), who removed the dependency on a mocking framework.
 
 Put together by Anthony Steele. 
 

@@ -9,7 +9,7 @@
     <projectUrl>http://github.com/AnthonySteele/MvcRouteTester</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>MvcRouteTester is a .Net library to help unit testing ASP MVC route tables. It contains asserts for for both regular controllers and the Api controllers that are new in MVC 4.0. It is built in .Net 4.0 and ASP MVC 4.0 with NUnit and Moq.</description>
-    <releaseNotes>Updated.</releaseNotes>
+    <releaseNotes>Updated. Working in .Net 4.0 as well as 4.5 now. No dependency on Moq or other mocking framework.</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>ASP MVC Route Test NUnit UnitTest API ApiController</tags>
     <dependencies>
