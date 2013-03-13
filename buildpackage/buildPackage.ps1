@@ -13,7 +13,7 @@ function GetNextVersionNumber
 function CleanupBuildArtifacts
 {
   del MvcRouteTester.nuspec
-  #del *.nupkg
+  del *.nupkg
 }
 
 function UpdateVersionNumber([int] $newVersionNumber)
