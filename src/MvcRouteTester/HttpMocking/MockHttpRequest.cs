@@ -6,8 +6,9 @@ namespace MvcRouteTester.HttpMocking
 {
 	internal class MockHttpRequest : HttpRequestBase
 	{
-		readonly string relativeUrl;
-		readonly NameValueCollection queryParams;
+		private readonly string relativeUrl;
+		private readonly NameValueCollection queryParams;
+        private readonly NameValueCollection headers = new NameValueCollection();
 
 		public MockHttpRequest(string relativeUrl, NameValueCollection queryParams)
 		{
@@ -34,5 +35,15 @@ namespace MvcRouteTester.HttpMocking
 		{
 			get { return String.Empty; }
 		}
+
+        public override string HttpMethod
+        {
+            get { return "GET"; }
+        }
+
+        public override NameValueCollection Headers
+        {
+            get { return headers; }
+        }
 	}
 }
