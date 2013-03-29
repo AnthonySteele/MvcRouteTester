@@ -14,7 +14,7 @@ namespace MvcRouteTester.AttributeRouting.Test.WebRoute
         public void Setup()
         {
             routes = new RouteCollection();
-            routes.MapAttributeRoutes(config => config.AddRoutesFromController<HomeController>());
+            routes.MapAttributeRoutes(c => c.AddRoutesFromController<HomeController>());
         }
 
         [Test]
