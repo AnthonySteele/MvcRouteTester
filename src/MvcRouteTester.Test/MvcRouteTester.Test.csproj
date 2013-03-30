@@ -79,7 +79,7 @@
     <Compile Include="PropertyReaderSimplePropertyNamesTests.cs" />
     <Compile Include="WebRoute\DefaultsTests.cs" />
     <Compile Include="WebRoute\FluentExtensionsTests.cs" />
-    <Compile Include="WebRoute\GetPostTests.cs" />
+    <Compile Include="WebRoute\RouteMethodTests.cs" />
     <Compile Include="WebRoute\HasRouteTests.cs" />
     <Compile Include="UrlHelpersTest.cs" />
     <Compile Include="WebRoute\HasRouteWithTildeTests.cs" />

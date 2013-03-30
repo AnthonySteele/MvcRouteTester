@@ -2,6 +2,7 @@ using System;
 using System.Collections.Specialized;
 using System.Net.Http;
 using System.Web;
+using System.Web.Routing;
 
 namespace MvcRouteTester.HttpMocking
 {
@@ -11,6 +12,7 @@ namespace MvcRouteTester.HttpMocking
         private readonly string relativeUrl;
 		private readonly NameValueCollection queryParams;
 	    private readonly NameValueCollection headers = new NameValueCollection();
+        private RequestContext requestContext;
 
 		public MockHttpRequest(HttpMethod method, string relativeUrl, NameValueCollection queryParams)
 		{
@@ -48,5 +50,15 @@ namespace MvcRouteTester.HttpMocking
         {
             get { return headers; }
         }
+
+	    public override RequestContext RequestContext
+	    {
+            get { return requestContext; }
+	    }
+
+        public void SetRequestContext(RequestContext rq)
+	    {
+            requestContext = rq;
+	    }
 	}
 }

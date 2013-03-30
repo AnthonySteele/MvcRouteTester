@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Web;
+using System.Web.Routing;
 
 namespace MvcRouteTester.HttpMocking
 {
@@ -16,7 +17,14 @@ namespace MvcRouteTester.HttpMocking
 			var relativeUrl = routeParts[0];
 			var queryParams = UrlHelpers.MakeQueryParams(url);
 
-            return new MockHttpContext(new MockHttpRequest(method, relativeUrl, queryParams));
+
+            var request = new MockHttpRequest(method, relativeUrl, queryParams);
+            var httpContext = new MockHttpContext(request);
+
+            var requestContext = new RequestContext(httpContext, new RouteData());
+            request.SetRequestContext(requestContext);
+
+            return httpContext;
 		}
 	}
 }

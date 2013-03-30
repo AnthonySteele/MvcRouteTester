@@ -1,23 +1,21 @@
 ﻿using System.Net.Http;
-using System.Web.Mvc;
 using System.Web.Routing;
+using AttributeRouting.Web.Mvc;
+using MvcRouteTester.AttributeRouting.Test.Controllers;
 using NUnit.Framework;
 
-namespace MvcRouteTester.Test.WebRoute
+namespace MvcRouteTester.AttributeRouting.Test.WebRoute
 {
     [TestFixture]
-    public class GetPostTests
+    public class RouteMethodTests
     {
         private RouteCollection routes;
 
         [SetUp]
-        public void MakeRouteTable()
+        public void Setup()
         {
             routes = new RouteCollection();
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+            routes.MapAttributeRoutes(c => c.AddRoutesFromController<GetPostController>());
         }
 
         [Test]
