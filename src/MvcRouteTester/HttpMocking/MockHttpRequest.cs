@@ -56,9 +56,9 @@ namespace MvcRouteTester.HttpMocking
             get { return requestContext; }
 	    }
 
-        public void SetRequestContext(RequestContext rq)
+        public void SetContext(RequestContext context)
 	    {
-            requestContext = rq;
+            requestContext = context;
 	    }
 	}
 }
