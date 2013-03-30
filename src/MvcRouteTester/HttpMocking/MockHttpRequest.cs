@@ -1,18 +1,21 @@
 using System;
 using System.Collections.Specialized;
+using System.Net.Http;
 using System.Web;
 
 namespace MvcRouteTester.HttpMocking
 {
 	internal class MockHttpRequest : HttpRequestBase
 	{
-		private readonly string relativeUrl;
+        private readonly HttpMethod method;
+        private readonly string relativeUrl;
 		private readonly NameValueCollection queryParams;
-        private readonly NameValueCollection headers = new NameValueCollection();
+	    private readonly NameValueCollection headers = new NameValueCollection();
 
-		public MockHttpRequest(string relativeUrl, NameValueCollection queryParams)
+		public MockHttpRequest(HttpMethod method, string relativeUrl, NameValueCollection queryParams)
 		{
-			this.relativeUrl = relativeUrl;
+            this.method = method;
+            this.relativeUrl = relativeUrl;
 			this.queryParams = queryParams;
 		}
 
@@ -38,7 +41,7 @@ namespace MvcRouteTester.HttpMocking
 
         public override string HttpMethod
         {
-            get { return "GET"; }
+            get { return method.ToString().ToUpperInvariant(); }
         }
 
         public override NameValueCollection Headers

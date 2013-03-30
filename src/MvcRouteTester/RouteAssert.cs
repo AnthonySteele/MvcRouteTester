@@ -88,6 +88,52 @@ namespace MvcRouteTester
 			}
 		}
 
+        /// <summary>
+        /// Asserts that the route exists for this http method
+        /// </summary>
+        /// <param name="routes"></param>
+        /// <param name="url"></param>
+        /// <param name="method"></param>
+        public static void RouteHasMethod(RouteCollection routes, string url, HttpMethod method)
+        {
+            HasRoute(routes, url);
+
+            var pathUrl = UrlHelpers.PrependTilde(url);
+
+            var httpContext = HttpMockery.ContextForUrl(method, pathUrl);
+            var routeData = routes.GetRouteData(httpContext);
+
+            if (routeData == null)
+            {
+                throw new NullReferenceException();
+            } 
+
+            throw new NotImplementedException("todo. Need to make the controller to do this?");
+        }
+
+        /// <summary>
+        /// Asserts that the route exists, but not for this http method
+        /// </summary>
+        /// <param name="routes"></param>
+        /// <param name="url"></param>
+        /// <param name="method"></param>
+        public static void RouteDoesNotHaveMethod(RouteCollection routes, string url, HttpMethod method)
+        {
+            HasRoute(routes, url);
+
+            var pathUrl = UrlHelpers.PrependTilde(url);
+
+            var httpContext = HttpMockery.ContextForUrl(method, pathUrl);
+            var routeData = routes.GetRouteData(httpContext);
+
+            if (routeData == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            throw new NotImplementedException("todo. Need to make the controller to do this?");
+        }
+
 		/// <summary>
 		/// Assert that the route is ignored
 		/// </summary>

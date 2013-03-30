@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MvcRouteTester.AttributeRouting.Test</RootNamespace>
     <AssemblyName>MvcRouteTester.AttributeRouting.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -24,6 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AttributeRouting">
@@ -105,9 +107,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllers\CustomerController.cs" />
+    <Compile Include="ApiControllers\PostOnlyController.cs" />
     <Compile Include="ApiRoute\CustomerControllerTests.cs" />
+    <Compile Include="ApiRoute\RouteMethodTests.cs" />
+    <Compile Include="Controllers\GetPostControler.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebRoute\GetPostTests.cs" />
     <Compile Include="WebRoute\HomeControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
