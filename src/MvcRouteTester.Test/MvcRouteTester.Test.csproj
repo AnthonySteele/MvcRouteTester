@@ -63,7 +63,7 @@
     <Compile Include="ApiRoute\RouteMethodTests.cs" />
     <Compile Include="ApiRoute\RouteMethodWithTildeTests.cs" />
     <Compile Include="ApiRoute\RouteParamsTests.cs" />
-    <Compile Include="AssertsTests.cs" />
+    <Compile Include="Assertions\AssertsTests.cs" />
     <Compile Include="Controllers\GetPostController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -100,6 +100,7 @@
       <Name>MvcRouteTester</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

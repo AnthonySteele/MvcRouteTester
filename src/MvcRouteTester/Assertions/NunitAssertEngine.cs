@@ -1,15 +1,15 @@
 ﻿using NUnit.Framework;
 
-namespace MvcRouteTester
+namespace MvcRouteTester.Assertions
 {
-	public static class Asserts
+	public class NunitAssertEngine : IAssertEngine
 	{
-		public static void Fail(string message)
+		public void Fail(string message)
 		{
 			Assert.Fail(message);
 		}
 		
-		public static void StringsEqualIgnoringCase(string s1, string s2, string message)
+		public void StringsEqualIgnoringCase(string s1, string s2, string message)
 		{
 			if (string.IsNullOrEmpty(s1) && string.IsNullOrEmpty(s2))
 			{

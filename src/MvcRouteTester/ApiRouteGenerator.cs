@@ -9,6 +9,8 @@ using System.Web.Http.Dispatcher;
 using System.Web.Http.Hosting;
 using System.Web.Http.Routing;
 
+using MvcRouteTester.Assertions;
+
 namespace MvcRouteTester
 {
 	/// <summary>

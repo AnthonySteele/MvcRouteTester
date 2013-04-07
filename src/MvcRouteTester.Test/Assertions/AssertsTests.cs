@@ -1,6 +1,8 @@
-﻿using NUnit.Framework;
+﻿using MvcRouteTester.Assertions;
 
-namespace MvcRouteTester.Test
+using NUnit.Framework;
+
+namespace MvcRouteTester.Test.Assertions
 {
 	[TestFixture]
 	public class AssertsTests

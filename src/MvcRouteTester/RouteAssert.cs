@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Routing;
+
+using MvcRouteTester.Assertions;
 using MvcRouteTester.HttpMocking;
 
 namespace MvcRouteTester

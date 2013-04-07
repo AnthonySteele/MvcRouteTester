@@ -46,7 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiRouteGenerator.cs" />
-    <Compile Include="Asserts.cs" />
+    <Compile Include="Assertions\Asserts.cs" />
+    <Compile Include="Assertions\IAssertEngine.cs" />
+    <Compile Include="Assertions\NunitAssertEngine.cs" />
     <Compile Include="FluentApiExtensions.cs" />
     <Compile Include="Fluent\ExpressionReader.cs" />
     <Compile Include="FluentExtensions.cs" />
