@@ -30,21 +30,9 @@ namespace MvcRouteTester.AttributeRouting.Test.ApiRoute
         }
 
         [Test]
-        public void CustomerControllerDoesNotHavePostMethod()
-        {
-            RouteAssert.ApiRouteDoesNotHaveMethod(config, "/api/customer/1", HttpMethod.Post);
-        }
-
-        [Test]
         public void PostOnlyControllerHasPostMethod()
         {
             RouteAssert.HasApiRoute(config, "/api/postonly/1", HttpMethod.Post);
-        }
-
-        [Test]
-        public void PostOnlyControllerDoesNotHaveGetMethod()
-        {
-            RouteAssert.ApiRouteDoesNotHaveMethod(config, "/api/postonly/1", HttpMethod.Get);
         }
     }
 }

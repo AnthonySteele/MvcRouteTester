@@ -22,7 +22,7 @@ namespace MvcRouteTester.HttpMocking
             var httpContext = new MockHttpContext(request);
 
             var requestContext = new RequestContext(httpContext, new RouteData());
-            request.SetRequestContext(requestContext);
+            request.SetContext(requestContext);
 
             return httpContext;
 		}
