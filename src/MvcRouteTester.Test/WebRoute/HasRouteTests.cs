@@ -44,18 +44,17 @@ namespace MvcRouteTester.Test.WebRoute
 			RouteAssert.HasRoute(routes, "/home/index/1");
 		}
 
-        [Test]
-        public void HasRouteWithoutController()
-        {
-            // with web routes, you  don't need to find a controller to match a route
-            RouteAssert.HasRoute(routes, "/foo/bar/1");
-        }
-        
-        [Test]
+		[Test]
+		public void HasRouteWithoutController()
+		{
+			// with web routes, you  don't need to find a controller to match a route
+			RouteAssert.HasRoute(routes, "/foo/bar/1");
+		}
+		
+		[Test]
 		public void DoesNotHaveOtherRoute()
 		{
 			RouteAssert.NoRoute(routes, "/foo/bar/fish/spon");
 		}
-
 	}
 }
