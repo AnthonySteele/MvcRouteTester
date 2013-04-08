@@ -4,19 +4,19 @@
 	{
 		static Asserts()
 		{
-			AssertEngineEngine = new NunitAssertEngine();
+			AssertEngine = new NunitAssertEngine();
 		}
 
-		public static IAssertEngine AssertEngineEngine { get; set; }
+		internal static IAssertEngine AssertEngine { get; set; }
 
 		public static void Fail(string message)
 		{
-			AssertEngineEngine.Fail(message);
+			AssertEngine.Fail(message);
 		}
 
 		public static void StringsEqualIgnoringCase(string s1, string s2, string message)
 		{
-			AssertEngineEngine.StringsEqualIgnoringCase(s1, s2, message);
+			AssertEngine.StringsEqualIgnoringCase(s1, s2, message);
 		}
 	}
 }

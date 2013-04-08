@@ -254,6 +254,11 @@ namespace MvcRouteTester
 			}
 		}
 
+		public static void UseAssertEngine(IAssertEngine engine)
+		{
+			Asserts.AssertEngine = engine;
+		}
+
 		private static IDictionary<string, string> ReadApiRouteProperties(HttpConfiguration config, string url, HttpMethod httpMethod)
 		{
 			var request = new HttpRequestMessage(httpMethod, url);
