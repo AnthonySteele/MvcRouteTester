@@ -45,6 +45,7 @@
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiRoute\ApiRouteAssert.cs" />
     <Compile Include="ApiRoute\Generator.cs" />
     <Compile Include="Assertions\Asserts.cs" />
     <Compile Include="Assertions\IAssertEngine.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Common\PropertyReader.cs" />
     <Compile Include="RouteAssert.cs" />
     <Compile Include="Common\UrlHelpers.cs" />
+    <Compile Include="WebRoute\WebRouteAssert.cs" />
     <Compile Include="WebRoute\Reader.cs" />
   </ItemGroup>
   <ItemGroup>

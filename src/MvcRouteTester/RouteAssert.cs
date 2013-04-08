@@ -6,7 +6,6 @@ using System.Web.Routing;
 using MvcRouteTester.ApiRoute;
 using MvcRouteTester.Assertions;
 using MvcRouteTester.Common;
-using MvcRouteTester.HttpMocking;
 using MvcRouteTester.WebRoute;
 
 namespace MvcRouteTester
@@ -25,16 +24,7 @@ namespace MvcRouteTester
 		/// </summary>
 		public static void HasRoute(RouteCollection routes, string url)
 		{
-			var pathUrl = UrlHelpers.PrependTilde(url);
-
-			var httpContext = HttpMockery.ContextForUrl(pathUrl);
-			var routeData = routes.GetRouteData(httpContext);
-
-			if (routeData == null)
-			{
-				var message = string.Format("Should have found the route to '{0}'", url);
-				Asserts.Fail(message);
-			}
+			WebRouteAssert.HasRoute(routes, url);
 		}
 
 		/// <summary>
@@ -60,20 +50,7 @@ namespace MvcRouteTester
 
 		public static void HasRoute(RouteCollection routes, string url, IDictionary<string, string> expectedProps)
 		{
-			var pathUrl = UrlHelpers.PrependTilde(url);
-			var httpContext = HttpMockery.ContextForUrl(pathUrl);
-			var routeData = routes.GetRouteData(httpContext);
-
-			if (routeData == null)
-			{
-				var message = string.Format("Should have found the route to '{0}'", url);
-				Asserts.Fail(message);
-			}
-
-			var webRouteReader = new Reader();
-			var actualProps = webRouteReader.GetRouteProperties(routeData, httpContext.Request.Params);
-			var verifier = new Verifier();
-			verifier.VerifyExpectations(expectedProps, actualProps, url);
+			WebRouteAssert.HasRoute(routes, url, expectedProps);
 		}
 
 		/// <summary>
@@ -81,15 +58,7 @@ namespace MvcRouteTester
 		/// </summary>
 		public static void NoRoute(RouteCollection routes, string url)
 		{
-			var pathUrl = UrlHelpers.PrependTilde(url);
-			var httpContext = HttpMockery.ContextForUrl(pathUrl);
-			var routeData = routes.GetRouteData(httpContext);
-
-			if (routeData != null)
-			{
-				var message = string.Format("Should not have found the route to '{0}'", url);
-				Asserts.Fail(message);
-			}
+			WebRouteAssert.NoRoute(routes, url);
 		}
 
 		/// <summary>
@@ -99,23 +68,7 @@ namespace MvcRouteTester
 		/// <param name="url"></param>
 		public static void IsIgnoredRoute(RouteCollection routes, string url)
 		{
-			var pathUrl = UrlHelpers.PrependTilde(url);
-			var httpContext = HttpMockery.ContextForUrl(pathUrl);
-			var routeData = routes.GetRouteData(httpContext);
-
-			if (routeData == null)
-			{
-				var message = string.Format("Should have found the route to '{0}'", url);
-				Asserts.Fail(message);
-				return;
-			}
-
-			var isIgnored = (routeData.RouteHandler is StopRoutingHandler);
-			if (! isIgnored)
-			{
-				var message = string.Format("Route to '{0}' is not ignored", url);
-				Asserts.Fail(message);
-			}
+			WebRouteAssert.IsIgnoredRoute(routes, url);
 		}
 
 		/// <summary>
@@ -125,23 +78,7 @@ namespace MvcRouteTester
 		/// <param name="url"></param>
 		public static void IsNotIgnoredRoute(RouteCollection routes, string url)
 		{
-			var pathUrl = UrlHelpers.PrependTilde(url);
-			var httpContext = HttpMockery.ContextForUrl(pathUrl);
-			var routeData = routes.GetRouteData(httpContext);
-
-			if (routeData == null)
-			{
-				var message = string.Format("Should have found the route to '{0}'", url);
-				Asserts.Fail(message);
-				return;
-			}
-
-			var isIgnored = (routeData.RouteHandler is StopRoutingHandler);
-			if (isIgnored)
-			{
-				var message = string.Format("Route to '{0}' is ignored", url);
-				Asserts.Fail(message);
-			}
+			WebRouteAssert.IsNotIgnoredRoute(routes, url);
 		}
 
 		/// <summary>
@@ -149,8 +86,7 @@ namespace MvcRouteTester
 		/// </summary>
 		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod)
 		{
-			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
-			ReadApiRouteProperties(config, absoluteUrl, httpMethod);
+			ApiRouteAssert.HasApiRoute(config, url, httpMethod);
 		}
 
 		/// <summary>
@@ -177,11 +113,7 @@ namespace MvcRouteTester
 
 		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, IDictionary<string, string> expectedProps)
 		{
-			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
-			var actualProps = ReadApiRouteProperties(config, absoluteUrl, httpMethod);
-
-			var verifier = new Verifier();
-			verifier.VerifyExpectations(expectedProps, actualProps, url);
+			ApiRouteAssert.HasApiRoute(config, url, httpMethod, expectedProps);
 		}
 
 		/// <summary>
@@ -189,15 +121,7 @@ namespace MvcRouteTester
 		/// </summary>
 		public static void NoApiRoute(HttpConfiguration config, string url)
 		{
-			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
-			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
-			var apiRouteGenerator = new Generator(config, request);
-
-			if (apiRouteGenerator.IsControllerRouteFound())
-			{
-				var hasRouteMessage = string.Format("Found route to url '{0}'", url);
-				Asserts.Fail(hasRouteMessage);
-			}
+			ApiRouteAssert.NoApiRoute(config, url);
 		}
 
 		/// <summary>
@@ -205,11 +129,7 @@ namespace MvcRouteTester
 		/// </summary>
 		public static void ApiRouteDoesNotHaveMethod(HttpConfiguration config, string url, HttpMethod httpMethod)
 		{
-			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
-			var request = new HttpRequestMessage(httpMethod, absoluteUrl);
-			var apiRouteGenerator = new Generator(config, request);
-
-			apiRouteGenerator.CheckNoMethod(url, httpMethod);
+			ApiRouteAssert.ApiRouteDoesNotHaveMethod(config, url, httpMethod);
 		}
 
 		/// <summary>
@@ -217,11 +137,7 @@ namespace MvcRouteTester
 		/// </summary>
 		public static void ApiRouteDoesNotHaveMethod(HttpConfiguration config, string url, Type controllerType, HttpMethod httpMethod)
 		{
-			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
-			var request = new HttpRequestMessage(httpMethod, absoluteUrl);
-			var apiRouteGenerator = new Generator(config, request);
-
-			apiRouteGenerator.CheckControllerHasNoMethod(url, httpMethod, controllerType);
+			ApiRouteAssert.ApiRouteDoesNotHaveMethod(config, url, controllerType, httpMethod);
 		}
 
 		/// <summary>
@@ -229,15 +145,7 @@ namespace MvcRouteTester
 		/// </summary>
 		public static void ApiRouteMatches(HttpConfiguration config, string url)
 		{
-			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
-			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
-			var apiRouteGenerator = new Generator(config, request);
-
-			if (!apiRouteGenerator.HasMatchedRoute)
-			{
-				var hasRouteMessage = string.Format("Did not match a route for url '{0}'", url);
-				Asserts.Fail(hasRouteMessage);
-			}
+			ApiRouteAssert.ApiRouteMatches(config, url);
 		}
 
 		/// <summary>
@@ -245,27 +153,12 @@ namespace MvcRouteTester
 		/// </summary>
 		public static void NoApiRouteMatches(HttpConfiguration config, string url)
 		{
-			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
-			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
-			var apiRouteGenerator = new Generator(config, request);
-
-			if (apiRouteGenerator.HasMatchedRoute)
-			{
-				var hasRouteMessage = string.Format("Matched a route for url '{0}'", url);
-				Asserts.Fail(hasRouteMessage);
-			}
+			ApiRouteAssert.NoApiRouteMatches(config, url);
 		}
 
 		public static void UseAssertEngine(IAssertEngine engine)
 		{
 			Asserts.AssertEngine = engine;
-		}
-
-		private static IDictionary<string, string> ReadApiRouteProperties(HttpConfiguration config, string url, HttpMethod httpMethod)
-		{
-			var request = new HttpRequestMessage(httpMethod, url);
-			var apiRouteGenerator = new Generator(config, request);
-			return apiRouteGenerator.ReadRouteProperties(url, httpMethod);
 		}
 	}
 }
