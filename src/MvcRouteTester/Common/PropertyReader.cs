@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace MvcRouteTester
+namespace MvcRouteTester.Common
 {
 	public class PropertyReader
 	{

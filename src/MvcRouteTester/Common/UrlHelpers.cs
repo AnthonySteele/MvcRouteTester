@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 
-namespace MvcRouteTester
+namespace MvcRouteTester.Common
 {
 	public class UrlHelpers
 	{

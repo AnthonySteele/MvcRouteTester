@@ -2,9 +2,9 @@
 using System.Collections.Specialized;
 using System.Web.Routing;
 
-namespace MvcRouteTester
+namespace MvcRouteTester.WebRoute
 {
-	internal class WebRouteReader
+	internal class Reader
 	{
 		public IDictionary<string, string> GetRouteProperties(RouteData routeData, NameValueCollection requestParams)
 		{

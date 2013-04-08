@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Routing;
-
+using MvcRouteTester.ApiRoute;
 using MvcRouteTester.Assertions;
+using MvcRouteTester.Common;
 using MvcRouteTester.HttpMocking;
+using MvcRouteTester.WebRoute;
 
 namespace MvcRouteTester
 {
@@ -68,7 +70,7 @@ namespace MvcRouteTester
 				Asserts.Fail(message);
 			}
 
-			var webRouteReader = new WebRouteReader();
+			var webRouteReader = new Reader();
 			var actualProps = webRouteReader.GetRouteProperties(routeData, httpContext.Request.Params);
 			var verifier = new Verifier();
 			verifier.VerifyExpectations(expectedProps, actualProps, url);
@@ -189,7 +191,7 @@ namespace MvcRouteTester
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
 			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
-			var apiRouteGenerator = new ApiRouteGenerator(config, request);
+			var apiRouteGenerator = new Generator(config, request);
 
 			if (apiRouteGenerator.IsControllerRouteFound())
 			{
@@ -205,7 +207,7 @@ namespace MvcRouteTester
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
 			var request = new HttpRequestMessage(httpMethod, absoluteUrl);
-			var apiRouteGenerator = new ApiRouteGenerator(config, request);
+			var apiRouteGenerator = new Generator(config, request);
 
 			apiRouteGenerator.CheckNoMethod(url, httpMethod);
 		}
@@ -217,7 +219,7 @@ namespace MvcRouteTester
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
 			var request = new HttpRequestMessage(httpMethod, absoluteUrl);
-			var apiRouteGenerator = new ApiRouteGenerator(config, request);
+			var apiRouteGenerator = new Generator(config, request);
 
 			apiRouteGenerator.CheckControllerHasNoMethod(url, httpMethod, controllerType);
 		}
@@ -229,7 +231,7 @@ namespace MvcRouteTester
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
 			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
-			var apiRouteGenerator = new ApiRouteGenerator(config, request);
+			var apiRouteGenerator = new Generator(config, request);
 
 			if (!apiRouteGenerator.HasMatchedRoute)
 			{
@@ -245,7 +247,7 @@ namespace MvcRouteTester
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
 			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
-			var apiRouteGenerator = new ApiRouteGenerator(config, request);
+			var apiRouteGenerator = new Generator(config, request);
 
 			if (apiRouteGenerator.HasMatchedRoute)
 			{
@@ -262,7 +264,7 @@ namespace MvcRouteTester
 		private static IDictionary<string, string> ReadApiRouteProperties(HttpConfiguration config, string url, HttpMethod httpMethod)
 		{
 			var request = new HttpRequestMessage(httpMethod, url);
-			var apiRouteGenerator = new ApiRouteGenerator(config, request);
+			var apiRouteGenerator = new Generator(config, request);
 			return apiRouteGenerator.ReadRouteProperties(url, httpMethod);
 		}
 	}

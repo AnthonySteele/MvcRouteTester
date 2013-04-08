@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-
+using MvcRouteTester.Common;
 using NUnit.Framework;
 
-namespace MvcRouteTester.Test
+namespace MvcRouteTester.Test.Common
 {
 	public class DummyDerivedType: DummyClassType
 	{

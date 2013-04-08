@@ -1,6 +1,7 @@
-﻿using NUnit.Framework;
+﻿using MvcRouteTester.Common;
+using NUnit.Framework;
 
-namespace MvcRouteTester.Test
+namespace MvcRouteTester.Test.Common
 {
 	[TestFixture]
 	public class UrlHelpersTest

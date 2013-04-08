@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-
 using MvcRouteTester.Assertions;
 
-namespace MvcRouteTester
+namespace MvcRouteTester.Common
 {
 	internal class Verifier
 	{

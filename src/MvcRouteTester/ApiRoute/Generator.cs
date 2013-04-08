@@ -8,15 +8,15 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Dispatcher;
 using System.Web.Http.Hosting;
 using System.Web.Http.Routing;
-
 using MvcRouteTester.Assertions;
+using MvcRouteTester.Common;
 
-namespace MvcRouteTester
+namespace MvcRouteTester.ApiRoute
 {
 	/// <summary>
 	/// code from http://www.strathweb.com/2012/08/testing-routes-in-asp-net-web-api/
 	/// </summary>
-	internal class ApiRouteGenerator
+	internal class Generator
 	{
 		readonly HttpConfiguration config;
 		readonly HttpRequestMessage request;
@@ -25,7 +25,7 @@ namespace MvcRouteTester
 		IHttpControllerSelector controllerSelector;
 		HttpControllerContext controllerContext;
 
-		public ApiRouteGenerator(HttpConfiguration conf, HttpRequestMessage req)
+		public Generator(HttpConfiguration conf, HttpRequestMessage req)
 		{
 			config = conf;
 			request = req;
