@@ -69,6 +69,7 @@
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\WithNullableController.cs" />
     <Compile Include="Controllers\WithObjectController.cs" />
+    <Compile Include="FakeAssertEngine.cs" />
     <Compile Include="Fluent\ExpressionReaderApiTests.cs" />
     <Compile Include="Fluent\ExpressionReaderTests.cs" />
     <Compile Include="Fluent\AttributeRecogniserTests.cs" />
