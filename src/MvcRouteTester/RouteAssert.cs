@@ -86,7 +86,7 @@ namespace MvcRouteTester
 		/// </summary>
 		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod)
 		{
-			ApiRouteAssert.HasApiRoute(config, url, httpMethod);
+			ApiRouteAssert.HasRoute(config, url, httpMethod);
 		}
 
 		/// <summary>
@@ -113,7 +113,7 @@ namespace MvcRouteTester
 
 		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, IDictionary<string, string> expectedProps)
 		{
-			ApiRouteAssert.HasApiRoute(config, url, httpMethod, expectedProps);
+			ApiRouteAssert.HasRoute(config, url, httpMethod, expectedProps);
 		}
 
 		/// <summary>
@@ -121,7 +121,7 @@ namespace MvcRouteTester
 		/// </summary>
 		public static void NoApiRoute(HttpConfiguration config, string url)
 		{
-			ApiRouteAssert.NoApiRoute(config, url);
+			ApiRouteAssert.NoRoute(config, url);
 		}
 
 		/// <summary>
@@ -129,7 +129,7 @@ namespace MvcRouteTester
 		/// </summary>
 		public static void ApiRouteDoesNotHaveMethod(HttpConfiguration config, string url, HttpMethod httpMethod)
 		{
-			ApiRouteAssert.ApiRouteDoesNotHaveMethod(config, url, httpMethod);
+			ApiRouteAssert.RouteDoesNotHaveMethod(config, url, httpMethod);
 		}
 
 		/// <summary>
@@ -137,7 +137,7 @@ namespace MvcRouteTester
 		/// </summary>
 		public static void ApiRouteDoesNotHaveMethod(HttpConfiguration config, string url, Type controllerType, HttpMethod httpMethod)
 		{
-			ApiRouteAssert.ApiRouteDoesNotHaveMethod(config, url, controllerType, httpMethod);
+			ApiRouteAssert.RouteDoesNotHaveMethod(config, url, controllerType, httpMethod);
 		}
 
 		/// <summary>
@@ -145,7 +145,7 @@ namespace MvcRouteTester
 		/// </summary>
 		public static void ApiRouteMatches(HttpConfiguration config, string url)
 		{
-			ApiRouteAssert.ApiRouteMatches(config, url);
+			ApiRouteAssert.RouteMatches(config, url);
 		}
 
 		/// <summary>
@@ -153,7 +153,7 @@ namespace MvcRouteTester
 		/// </summary>
 		public static void NoApiRouteMatches(HttpConfiguration config, string url)
 		{
-			ApiRouteAssert.NoApiRouteMatches(config, url);
+			ApiRouteAssert.NoRouteMatches(config, url);
 		}
 
 		public static void UseAssertEngine(IAssertEngine engine)
