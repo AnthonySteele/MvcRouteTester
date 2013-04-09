@@ -58,6 +58,18 @@ namespace MvcRouteTester.Test.WebRoute
 		}
 
 		[Test]
+		public void NoFailsOccurOnValidRoute()
+		{
+			var assertEngine = new FakeAssertEngine();
+			RouteAssert.UseAssertEngine(assertEngine);
+
+			RouteAssert.HasRoute(routes, "/home/index/1");
+
+			Assert.That(assertEngine.FailCount, Is.EqualTo(0));
+			Assert.That(assertEngine.Messages.Count, Is.EqualTo(0));
+		}
+
+		[Test]
 		public void HasRouteFailsOnInvalidRoute()
 		{
 			var assertEngine = new FakeAssertEngine();
@@ -67,6 +79,29 @@ namespace MvcRouteTester.Test.WebRoute
 
 			Assert.That(assertEngine.FailCount, Is.EqualTo(1));
 			Assert.That(assertEngine.Messages[0], Is.EqualTo("Should have found the route to '/foo/bar/fish/spon'"));
+		}
+
+		[Test] public void NoRouteFailsOnValidRoute()
+		{
+			var assertEngine = new FakeAssertEngine();
+			RouteAssert.UseAssertEngine(assertEngine);
+
+			RouteAssert.NoRoute(routes, "/home/index/1");
+
+			Assert.That(assertEngine.FailCount, Is.EqualTo(1));
+			Assert.That(assertEngine.Messages[0], Is.EqualTo("Should not have found the route to '/home/index/1'"));
+		}
+
+		[Test]
+		public void NoFailsOccurOnNoRouteToInvalidRoute()
+		{
+			var assertEngine = new FakeAssertEngine();
+			RouteAssert.UseAssertEngine(assertEngine);
+
+			RouteAssert.NoRoute(routes, "/foo/bar/fish/spon");
+
+			Assert.That(assertEngine.FailCount, Is.EqualTo(0));
+			Assert.That(assertEngine.Messages.Count, Is.EqualTo(0));
 		}
 	}
 }
