@@ -56,5 +56,17 @@ namespace MvcRouteTester.Test.WebRoute
 		{
 			RouteAssert.NoRoute(routes, "/foo/bar/fish/spon");
 		}
+
+		[Test]
+		public void HasRouteFailsOnInvalidRoute()
+		{
+			var assertEngine = new FakeAssertEngine();
+			RouteAssert.UseAssertEngine(assertEngine);
+
+			RouteAssert.HasRoute(routes, "/foo/bar/fish/spon");
+
+			Assert.That(assertEngine.FailCount, Is.EqualTo(1));
+			Assert.That(assertEngine.Messages[0], Is.EqualTo("Should have found the route to '/foo/bar/fish/spon'"));
+		}
 	}
 }
