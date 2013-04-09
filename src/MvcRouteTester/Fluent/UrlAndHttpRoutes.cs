@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Net.Http;
 using System.Web.Http;
+using MvcRouteTester.ApiRoute;
 
 namespace MvcRouteTester.Fluent
 {
@@ -22,18 +23,18 @@ namespace MvcRouteTester.Fluent
 			var expressionReader = new ExpressionReader();
 			IDictionary<string, string> expectedProps = expressionReader.Read(action);
 
-			RouteAssert.HasApiRoute(Configuration, Url, httpMethod, expectedProps);
+			ApiRouteAssert.HasRoute(Configuration, Url, httpMethod, expectedProps);
 		}
 
 		public void ToNoRoute()
 		{
-			RouteAssert.NoApiRoute(Configuration, Url);
+			ApiRouteAssert.NoRoute(Configuration, Url);
 		}
 
 		public void ToNoMethod<TController>(HttpMethod httpMethod) where TController : ApiController
 		{
 			var controllerType = typeof(TController);
-			RouteAssert.ApiRouteDoesNotHaveMethod(Configuration, Url, controllerType, httpMethod);
+			ApiRouteAssert.RouteDoesNotHaveMethod(Configuration, Url, controllerType, httpMethod);
 		}
 	}
 }

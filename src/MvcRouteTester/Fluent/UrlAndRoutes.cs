@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Routing;
+using MvcRouteTester.WebRoute;
 
 namespace MvcRouteTester.Fluent
 {
@@ -22,22 +23,22 @@ namespace MvcRouteTester.Fluent
 			var expressionReader = new ExpressionReader();
 			IDictionary<string, string> expectedProps = expressionReader.Read(action);
 
-			RouteAssert.HasRoute(Routes, Url, expectedProps);
+			WebRouteAssert.HasRoute(Routes, Url, expectedProps);
 		}
 
 		public void ToNoRoute()
 		{
-			RouteAssert.NoRoute(Routes, Url);
+			WebRouteAssert.NoRoute(Routes, Url);
 		}
 
 		public void ToIgnoredRoute()
 		{
-			RouteAssert.IsIgnoredRoute(Routes, Url);
+			WebRouteAssert.IsIgnoredRoute(Routes, Url);
 		}
 
 		public void ToNonIgnoredRoute()
 		{
-			RouteAssert.IsNotIgnoredRoute(Routes, Url);
+			WebRouteAssert.IsNotIgnoredRoute(Routes, Url);
 		}
 	}
 }
