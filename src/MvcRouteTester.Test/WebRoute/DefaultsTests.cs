@@ -40,6 +40,7 @@ namespace MvcRouteTester.Test.WebRoute
 			var expectedRoute = new { controller = "Home", action = "Index", id = "32" };
 			RouteAssert.HasRoute(routes, "/home", expectedRoute);
 		}
+
 		[Test]
 		public void HasRouteWithAllDefaults()
 		{
