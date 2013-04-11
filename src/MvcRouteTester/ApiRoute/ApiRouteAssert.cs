@@ -32,7 +32,7 @@ namespace MvcRouteTester.ApiRoute
 
 			if (routeGenerator.IsControllerRouteFound())
 			{
-				var hasRouteMessage = string.Format("Found route to url '{0}'", url);
+				var hasRouteMessage = string.Format("Found a route for url '{0}'", url);
 				Asserts.Fail(hasRouteMessage);
 			}
 		}

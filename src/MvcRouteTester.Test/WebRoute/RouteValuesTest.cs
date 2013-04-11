@@ -32,13 +32,13 @@ namespace MvcRouteTester.Test.WebRoute
 			RouteAssert.HasRoute(routes, "/home/Index/42", expectedRoute);
 		}
 
-        [Test]
-        public void RouteWithoutControllerCapturesExpectations()
-        {
-            // with web routes, you  don't need to find a controller to match a route
-            var expectedRoute = new { controller = "foo", action = "bar", id = 42 };
-            RouteAssert.HasRoute(routes, "/foo/bar/42", expectedRoute);
-        }
+		[Test]
+		public void RouteWithoutControllerCapturesExpectations()
+		{
+			// with web routes, you  don't need to find a controller to match a route
+			var expectedRoute = new { controller = "foo", action = "bar", id = 42 };
+			RouteAssert.HasRoute(routes, "/foo/bar/42", expectedRoute);
+		}
 
 		[Test]
 		public void RouteCapturesTwoValues()
