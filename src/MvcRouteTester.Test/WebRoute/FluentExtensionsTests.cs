@@ -51,7 +51,7 @@ namespace MvcRouteTester.Test.WebRoute
 
 			Assert.That(assertEngine.FailCount, Is.EqualTo(0));
 			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(1));
-			Assert.That(assertEngine.Messages[0], Is.EqualTo("Expected 'Home', not 'chome' for 'controller' at url '/chome/index/32"));
+			Assert.That(assertEngine.Messages[0], Is.EqualTo("Expected 'Home', not 'chome' for 'controller' at url '/chome/index/32'."));
 		}
 
 		[Test]

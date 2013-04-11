@@ -14,14 +14,14 @@ namespace MvcRouteTester.Common
 
 				if (!routeProperties.ContainsKey(propertyKey))
 				{
-					var notFoundErrorMessage = string.Format("Expected '{0}', got no value for '{1}' at url '{2}''.",
+					var notFoundErrorMessage = string.Format("Expected '{0}', got no value for '{1}' at url '{2}'.",
 						expectedValue, propertyKey, url);
 					Asserts.Fail(notFoundErrorMessage);
 				}
 
 				var actualValue = routeProperties[propertyKey];
 
-				var mismatchErrorMessage = string.Format("Expected '{0}', not '{1}' for '{2}' at url '{3}''.",
+				var mismatchErrorMessage = string.Format("Expected '{0}', not '{1}' for '{2}' at url '{3}'.",
 					expectedValue, actualValue, propertyKey, url);
 
 				Asserts.StringsEqualIgnoringCase(expectedValue, actualValue, mismatchErrorMessage);
