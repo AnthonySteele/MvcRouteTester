@@ -38,24 +38,27 @@ namespace MvcRouteTester.ApiRoute
 			get { return matchedRoute != null; }
 		}
 
-		public Dictionary<string, string> ReadRouteProperties(string url, HttpMethod httpMethod)
+		public IDictionary<string, string> ReadRouteProperties(string url, HttpMethod httpMethod)
 		{
 			if (!HasMatchedRoute)
 			{
 				var noRouteDataMessage = string.Format("No route matched url '{0}'", url);
 				Asserts.Fail(noRouteDataMessage);
+				return new Dictionary<string, string>();
 			}
 
 			if (!IsControllerRouteFound())
 			{
 				var routeNotFoundMessage = string.Format("Route with controller not found for url '{0}'", url);
 				Asserts.Fail(routeNotFoundMessage);
+				return new Dictionary<string, string>();
 			}
 
 			if (!IsMethodAllowed())
 			{
 				var methodNotAllowedMessage = string.Format("Method {0} is not allowed on url '{1}'", httpMethod, url);
 				Asserts.Fail(methodNotAllowedMessage);
+				return new Dictionary<string, string>();
 			}
 
 			var actualProps = new Dictionary<string, string>
@@ -215,12 +218,14 @@ namespace MvcRouteTester.ApiRoute
 			{
 				var noRouteDataMessage = string.Format("No route matched url '{0}'", url);
 				Asserts.Fail(noRouteDataMessage);
+				return;
 			}
 
 			if (!IsControllerRouteFound())
 			{
 				var routeNotFoundMessage = string.Format("Route with controller not found for url '{0}'", url);
 				Asserts.Fail(routeNotFoundMessage);
+				return;
 			}
 
 			if (IsMethodAllowed())

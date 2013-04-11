@@ -17,6 +17,7 @@ namespace MvcRouteTester.Common
 					var notFoundErrorMessage = string.Format("Expected '{0}', got no value for '{1}' at url '{2}'.",
 						expectedValue, propertyKey, url);
 					Asserts.Fail(notFoundErrorMessage);
+					return;
 				}
 
 				var actualValue = routeProperties[propertyKey];

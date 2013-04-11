@@ -34,6 +34,18 @@ namespace MvcRouteTester.Test.ApiRoute
 		}
 
 		[Test]
+		public void ApiRouteDoesNotHaveMethodFailsWithValidMethod()
+		{
+			var assertEngine = new FakeAssertEngine();
+			RouteAssert.UseAssertEngine(assertEngine);
+
+			RouteAssert.ApiRouteDoesNotHaveMethod(config, "/api/customer/1", HttpMethod.Get);
+
+			Assert.That(assertEngine.FailCount, Is.EqualTo(1));
+			Assert.That(assertEngine.Messages[0], Is.EqualTo("Method GET is allowed on url '/api/customer/1'"));
+		}
+
+		[Test]
 		public void PostOnlyControllerHasPostMethod()
 		{
 			RouteAssert.HasApiRoute(config, "/api/postonly/1", HttpMethod.Post);
