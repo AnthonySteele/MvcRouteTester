@@ -1,3 +1,8 @@
+function BuildSolution
+{
+  C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe ..\MvcRouteTester.sln /t:build /p:Configuration=Debug
+}
+
 function ReadLinesFromFile([string] $fileName)
 {
  [string]::join([environment]::newline, (get-content -path $fileName))
@@ -26,6 +31,8 @@ function UpdateVersionNumber([int] $newVersionNumber)
   git push
 }
 
+BuildSolution
+
 $nextVersionNumber = GetNextVersionNumber
 $fullVersion = "1.0.$nextVersionNumber"
 write-output "Next package version: $fullVersion"
@@ -41,7 +48,7 @@ $pushCommand = "NuGet Push MvcRouteTester.#version#.nupkg".Replace("#version#", 
 
 # push to nuget:
 Invoke-Expression $pushCommand
-write-output "Pushed package version $nextVersion";
+write-output "Pushed package version $nextVersion"
 
 CleanupBuildArtifacts
 UpdateVersionNumber $nextVersionNumber
