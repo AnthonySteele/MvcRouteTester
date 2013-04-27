@@ -9,23 +9,23 @@ namespace MvcRouteTester.HttpMocking
 	{
 		public static HttpContextBase ContextForUrl(string url)
 		{
-            return ContextForUrl(HttpMethod.Get, url);
+			return ContextForUrl(HttpMethod.Get, url, string.Empty);
 		}
 
-        public static HttpContextBase ContextForUrl(HttpMethod method, string url)
+		public static HttpContextBase ContextForUrl(HttpMethod method, string url, string requestBody)
 		{
 			var routeParts = url.Split('?');
 			var relativeUrl = routeParts[0];
 			var queryParams = UrlHelpers.MakeQueryParams(url);
 
 
-            var request = new MockHttpRequest(method, relativeUrl, queryParams);
-            var httpContext = new MockHttpContext(request);
+			var request = new MockHttpRequest(method, relativeUrl, queryParams, requestBody);
+			var httpContext = new MockHttpContext(request);
 
-            var requestContext = new RequestContext(httpContext, new RouteData());
-            request.SetContext(requestContext);
+			var requestContext = new RequestContext(httpContext, new RouteData());
+			request.SetContext(requestContext);
 
-            return httpContext;
+			return httpContext;
 		}
 	}
 }

@@ -50,7 +50,7 @@ namespace MvcRouteTester
 
 		public static void HasRoute(RouteCollection routes, string url, IDictionary<string, string> expectedProps)
 		{
-			WebRouteAssert.HasRoute(routes, url, expectedProps);
+			WebRouteAssert.HasRoute(routes, HttpMethod.Get, url, string.Empty, expectedProps);
 		}
 
 		/// <summary>
@@ -113,7 +113,7 @@ namespace MvcRouteTester
 
 		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, IDictionary<string, string> expectedProps)
 		{
-			ApiRouteAssert.HasRoute(config, url, httpMethod, expectedProps);
+			ApiRouteAssert.HasRoute(config, url, httpMethod, string.Empty, expectedProps);
 		}
 
 		/// <summary>

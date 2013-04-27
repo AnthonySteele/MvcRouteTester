@@ -9,6 +9,8 @@ namespace MvcRouteTester.Fluent
 {
 	public class UrlAndHttpRoutes
 	{
+		private string requestBody = string.Empty;
+
 		public UrlAndHttpRoutes(HttpConfiguration configuration, string url)
 		{
 			Configuration = configuration;
@@ -18,12 +20,18 @@ namespace MvcRouteTester.Fluent
 		public string Url { get; private set; }
 		public HttpConfiguration Configuration { get; private set; }
 
+		public UrlAndHttpRoutes WithBody(string body)
+		{
+			requestBody = body;
+			return this;
+		}
+
 		public void To<TController>(HttpMethod httpMethod, Expression<Func<TController, object>> action) where TController : ApiController
 		{
 			var expressionReader = new ExpressionReader();
 			IDictionary<string, string> expectedProps = expressionReader.Read(action);
 
-			ApiRouteAssert.HasRoute(Configuration, Url, httpMethod, expectedProps);
+			ApiRouteAssert.HasRoute(Configuration, Url, httpMethod, requestBody, expectedProps);
 		}
 
 		public void ToNoRoute()

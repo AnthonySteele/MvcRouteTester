@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Web.Routing;
 using MvcRouteTester.Assertions;
 using MvcRouteTester.Common;
@@ -22,10 +23,10 @@ namespace MvcRouteTester.WebRoute
 			}
 		}
 
-		internal static void HasRoute(RouteCollection routes, string url, IDictionary<string, string> expectedProps)
+		internal static void HasRoute(RouteCollection routes, HttpMethod method, string url, string body, IDictionary<string, string> expectedProps)
 		{
 			var pathUrl = UrlHelpers.PrependTilde(url);
-			var httpContext = HttpMockery.ContextForUrl(pathUrl);
+			var httpContext = HttpMockery.ContextForUrl(method, pathUrl, body);
 			var routeData = routes.GetRouteData(httpContext);
 
 			if (routeData == null)
