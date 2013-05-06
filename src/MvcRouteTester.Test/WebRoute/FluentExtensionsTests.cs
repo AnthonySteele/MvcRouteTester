@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
+using MvcRouteTester.Assertions;
 using MvcRouteTester.Test.Controllers;
 
 using NUnit.Framework;
@@ -21,6 +22,12 @@ namespace MvcRouteTester.Test.WebRoute
 				name: "Default",
 				url: "{controller}/{action}/{id}",
 				defaults: new { controller = "Home", action = "Index", id = 32 });
+		}
+
+		[TearDown]
+		public void TearDown()
+		{
+			RouteAssert.UseAssertEngine(new NunitAssertEngine());
 		}
 
 		[Test]

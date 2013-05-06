@@ -12,13 +12,13 @@ namespace MvcRouteTester.ApiRoute
 		internal static void HasRoute(HttpConfiguration config, string url, HttpMethod httpMethod)
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
-			ReadRouteProperties(config, absoluteUrl, httpMethod, string.Empty);
+			ReadRequestProperties(config, absoluteUrl, httpMethod, string.Empty);
 		}
 
 		internal static void HasRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string body, IDictionary<string, string> expectedProps)
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
-			var actualProps = ReadRouteProperties(config, absoluteUrl, httpMethod, body);
+			var actualProps = ReadRequestProperties(config, absoluteUrl, httpMethod, body);
 
 			var verifier = new Verifier();
 			verifier.VerifyExpectations(expectedProps, actualProps, url);
@@ -81,13 +81,13 @@ namespace MvcRouteTester.ApiRoute
 			}
 		}
 
-		private static IDictionary<string, string> ReadRouteProperties(HttpConfiguration config, string url, HttpMethod httpMethod, string body)
+		private static IDictionary<string, string> ReadRequestProperties(HttpConfiguration config, string url, HttpMethod httpMethod, string body)
 		{
 			var request = new HttpRequestMessage(httpMethod, url);
 			request.Content = new StringContent(body);
 
 			var routeGenerator = new Generator(config, request);
-			return routeGenerator.ReadRouteProperties(url, httpMethod);
+			return routeGenerator.ReadRequestProperties(url, httpMethod);
 		}
 	}
 }

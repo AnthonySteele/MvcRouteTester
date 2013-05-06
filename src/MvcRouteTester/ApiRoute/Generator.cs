@@ -38,26 +38,10 @@ namespace MvcRouteTester.ApiRoute
 			get { return matchedRoute != null; }
 		}
 
-		public IDictionary<string, string> ReadRouteProperties(string url, HttpMethod httpMethod)
+		public IDictionary<string, string> ReadRequestProperties(string url, HttpMethod httpMethod)
 		{
-			if (!HasMatchedRoute)
+			if (! CheckValid(url, httpMethod))
 			{
-				var noRouteDataMessage = string.Format("No route matched url '{0}'", url);
-				Asserts.Fail(noRouteDataMessage);
-				return new Dictionary<string, string>();
-			}
-
-			if (!IsControllerRouteFound())
-			{
-				var routeNotFoundMessage = string.Format("Route with controller not found for url '{0}'", url);
-				Asserts.Fail(routeNotFoundMessage);
-				return new Dictionary<string, string>();
-			}
-
-			if (!IsMethodAllowed())
-			{
-				var methodNotAllowedMessage = string.Format("Method {0} is not allowed on url '{1}'", httpMethod, url);
-				Asserts.Fail(methodNotAllowedMessage);
 				return new Dictionary<string, string>();
 			}
 
@@ -87,7 +71,35 @@ namespace MvcRouteTester.ApiRoute
 				}
 			}
 
+			ReadPropertiesFromBodyContent(actualProps);
+
 			return actualProps;
+		}
+
+		private bool CheckValid(string url, HttpMethod httpMethod)
+		{
+			if (!HasMatchedRoute)
+			{
+				var noRouteDataMessage = string.Format("No route matched url '{0}'", url);
+				Asserts.Fail(noRouteDataMessage);
+				return false;
+			}
+
+			if (!IsControllerRouteFound())
+			{
+				var routeNotFoundMessage = string.Format("Route with controller not found for url '{0}'", url);
+				Asserts.Fail(routeNotFoundMessage);
+				return false;
+			}
+
+			if (!IsMethodAllowed())
+			{
+				var methodNotAllowedMessage = string.Format("Method {0} is not allowed on url '{1}'", httpMethod, url);
+				Asserts.Fail(methodNotAllowedMessage);
+				return false;
+			}
+
+			return true;
 		}
 
 		public IDictionary<string, string> GetRouteParams()
@@ -264,6 +276,17 @@ namespace MvcRouteTester.ApiRoute
 		{
 			var actionSelector = new ApiControllerActionSelector();
 			return actionSelector.SelectAction(controllerContext);
+		}
+
+		private void ReadPropertiesFromBodyContent(Dictionary<string, string> actualProps)
+		{
+			var bodyTask = request.Content.ReadAsStringAsync();
+			var body = bodyTask.Result;
+			if (!string.IsNullOrEmpty(body))
+			{
+				var bodyReader = new BodyReader();
+				bodyReader.ReadBody(body, actualProps);
+			}
 		}
 	}
 }

@@ -2,6 +2,8 @@
 using System.Net.Http;
 using System.Web.Http;
 
+using MvcRouteTester.Assertions;
+
 using NUnit.Framework;
 
 namespace MvcRouteTester.Test.ApiRoute
@@ -20,6 +22,12 @@ namespace MvcRouteTester.Test.ApiRoute
 				name: "DefaultApi",
 				routeTemplate: "api/{controller}/{id}",
 				defaults: new { id = RouteParameter.Optional });
+		}
+
+		[TearDown]
+		public void TearDown()
+		{
+			RouteAssert.UseAssertEngine(new NunitAssertEngine());
 		}
 
 		[Test]
