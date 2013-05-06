@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using System.Web.Http;
 
@@ -9,7 +8,7 @@ namespace MvcRouteTester.Fluent
 	{
 		public bool IsFromBody(ParameterInfo parameter)
 		{
-            return parameter.GetCustomAttributes(false).Any(a => a is FromBodyAttribute);
+			return parameter.GetCustomAttributes(false).Any(a => a is FromBodyAttribute);
 		}
 	}
 }

@@ -100,6 +100,14 @@ namespace MvcRouteTester
 			HasApiRoute(config, url, httpMethod, expectedProps);
 		}
 
+		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string body, object expectations)
+		{
+			var propertyReader = new PropertyReader();
+			var expectedProps = propertyReader.Properties(expectations);
+
+			HasApiRoute(config, url, httpMethod, body, expectedProps);
+		}
+
 		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string controller, string action)
 		{
 			var expectedProps = new Dictionary<string, string>
@@ -114,6 +122,11 @@ namespace MvcRouteTester
 		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, IDictionary<string, string> expectedProps)
 		{
 			ApiRouteAssert.HasRoute(config, url, httpMethod, string.Empty, expectedProps);
+		}
+
+		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string body, IDictionary<string, string> expectedProps)
+		{
+			ApiRouteAssert.HasRoute(config, url, httpMethod, body, expectedProps);
 		}
 
 		/// <summary>

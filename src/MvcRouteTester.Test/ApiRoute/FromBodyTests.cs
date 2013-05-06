@@ -34,12 +34,42 @@ namespace MvcRouteTester.Test.ApiRoute
 				};
 			RouteAssert.HasApiRoute(config, "/api/frombody/123", HttpMethod.Post, expectations);
 		}
+		[Test]
+		public void TestHasApiRouteValuesFromBody()
+		{
+			const string PostBody = "Name=Fred+Bloggers&Number=42";
+			var expectations = new
+			{
+				controller = "FromBody",
+				action = "CreateSomething",
+				id = "123",
+				name = "Fred Bloggers",
+				number = 42
+			};
+			RouteAssert.HasApiRoute(config, "/api/frombody/123", HttpMethod.Post, PostBody, expectations);
+		}
 
 		[Test]
 		public void TestFluentMap()
 		{
-			config.ShouldMap("/api/frombody/123").To<FromBodyController>(HttpMethod.Post,
-				c => c.CreateSomething(123, new PostDataModel()));
+			var postData = new PostDataModel();
+
+			config.ShouldMap("/api/frombody/123").
+				To<FromBodyController>(HttpMethod.Post, c => c.CreateSomething(123, postData));
+		}
+
+		[Test]
+		public void TestFluentMapWithBody()
+		{
+			var postData = new PostDataModel
+			{
+				Name = "Fred Bloggers",
+				Number = 42
+			};
+			const string PostBody = "Name=Fred+Bloggers&Number=42";
+
+			config.ShouldMap("/api/frombody/123").WithBody(PostBody).
+				To<FromBodyController>(HttpMethod.Post, c => c.CreateSomething(123, postData));
 		}
 	}
 }

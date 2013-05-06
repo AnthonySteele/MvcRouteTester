@@ -65,10 +65,11 @@ namespace MvcRouteTester.Fluent
 			for (int i = 0; i < parameters.Length; i++)
 			{
 				var param = parameters[i];
-				if (!attributeRecogniser.IsFromBody(param))
-				{
-					var expectedValue = GetExpectedValue(arguments[i]);
+				var expectedValue = GetExpectedValue(arguments[i]);
+				var isFromBody = attributeRecogniser.IsFromBody(param);
 
+				if (expectedValue != null || !isFromBody)
+				{
 					if (propertyReader.IsSimpleType(param.ParameterType))
 					{
 						var expectedString = expectedValue != null ? expectedValue.ToString() : null;
@@ -83,7 +84,6 @@ namespace MvcRouteTester.Fluent
 							values.Add(field.Key.ToLowerInvariant(), field.Value);
 						}
 					}
-
 				}
 			}
 		}
