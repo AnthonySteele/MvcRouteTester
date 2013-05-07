@@ -34,7 +34,14 @@ namespace MvcRouteTester
 		{
 			var propertyReader = new PropertyReader();
 			var expectedProps = propertyReader.Properties(expectations);
-			HasRoute(routes, url, expectedProps);
+			HasRoute(routes, url, string.Empty, expectedProps);
+		}
+
+		public static void HasRoute(RouteCollection routes, string url, string body, object expectations)
+		{
+			var propertyReader = new PropertyReader();
+			var expectedProps = propertyReader.Properties(expectations);
+			HasRoute(routes, url, body, expectedProps);
 		}
 
 		public static void HasRoute(RouteCollection routes, string url, string controller, string action)
@@ -45,13 +52,19 @@ namespace MvcRouteTester
 					{ "action" , action }
 				};
 
-			HasRoute(routes, url, expectedProps);
+			HasRoute(routes, url, string.Empty, expectedProps);
 		}
 
 		public static void HasRoute(RouteCollection routes, string url, IDictionary<string, string> expectedProps)
 		{
 			WebRouteAssert.HasRoute(routes, HttpMethod.Get, url, string.Empty, expectedProps);
 		}
+
+		public static void HasRoute(RouteCollection routes, string url, string body, IDictionary<string, string> expectedProps)
+		{
+			WebRouteAssert.HasRoute(routes, HttpMethod.Get, url, body, expectedProps);
+		}
+
 
 		/// <summary>
 		/// Asserts that the route does not exist

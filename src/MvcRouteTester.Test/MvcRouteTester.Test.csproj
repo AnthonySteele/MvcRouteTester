@@ -64,6 +64,7 @@
     <Compile Include="ApiRoute\RouteMethodWithTildeTests.cs" />
     <Compile Include="ApiRoute\RouteParamsTests.cs" />
     <Compile Include="Assertions\AssertsTests.cs" />
+    <Compile Include="Controllers\FromBodyController.cs" />
     <Compile Include="Controllers\GetPostController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Common\PropertyReaderSimplePropertyNamesTests.cs" />
     <Compile Include="WebRoute\DefaultsTests.cs" />
     <Compile Include="WebRoute\FluentExtensionsTests.cs" />
+    <Compile Include="WebRoute\FromBodyTests.cs" />
     <Compile Include="WebRoute\RouteMethodTests.cs" />
     <Compile Include="WebRoute\HasRouteTests.cs" />
     <Compile Include="Common\UrlHelpersTest.cs" />

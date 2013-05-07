@@ -20,7 +20,7 @@ namespace MvcRouteTester.Common
 		{
 			if (dataObject == null)
 			{
-				throw new ArgumentNullException("dataObject");
+				return new Dictionary<string, string>();
 			}
 
 			var type = dataObject.GetType();
