@@ -65,7 +65,6 @@ namespace MvcRouteTester
 			WebRouteAssert.HasRoute(routes, HttpMethod.Get, url, body, expectedProps);
 		}
 
-
 		/// <summary>
 		/// Asserts that the route does not exist
 		/// </summary>

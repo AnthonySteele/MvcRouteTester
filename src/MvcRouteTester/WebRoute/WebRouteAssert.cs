@@ -36,7 +36,7 @@ namespace MvcRouteTester.WebRoute
 			}
 
 			var webRouteReader = new Reader();
-			var actualProps = webRouteReader.GetRouteProperties(routeData, httpContext.Request.Params);
+			var actualProps = webRouteReader.GetRequestProperties(routeData, httpContext.Request);
 			var verifier = new Verifier();
 			verifier.VerifyExpectations(expectedProps, actualProps, url);
 		}

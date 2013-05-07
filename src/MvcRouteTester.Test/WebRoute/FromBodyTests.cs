@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace MvcRouteTester.Test.WebRoute
 {
-	[Ignore("Not working yet")]
+	//[Ignore("Not working yet")]
 	[TestFixture]
 	public class FromBodyTests
 	{
@@ -77,7 +77,7 @@ namespace MvcRouteTester.Test.WebRoute
 			RouteAssert.HasRoute(routes, "/frombody/post/123", PostBody, expectations);
 
 			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(1));
-			Assert.That(assertEngine.Messages[0], Is.EqualTo("Expected 'Jim Spriggs', not 'Fred Bloggers' for 'name' at url '/api/frombody/123'."));
+			Assert.That(assertEngine.Messages[0], Is.EqualTo("Expected 'Jim Spriggs', not 'Fred Bloggers' for 'name' at url '/frombody/post/123'."));
 		}
 
 		[Test]
@@ -120,7 +120,7 @@ namespace MvcRouteTester.Test.WebRoute
 				To<FromBodyController>(c => c.Post(123, postData));
 
 			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(1));
-			Assert.That(assertEngine.Messages[0], Is.EqualTo("Expected 'Jim Spriggs', not 'Fred Bloggers' for 'name' at url '/api/frombody/123'."));
+			Assert.That(assertEngine.Messages[0], Is.EqualTo("Expected 'Jim Spriggs', not 'Fred Bloggers' for 'name' at url '/frombody/post/123'."));
 		}
 	}
 }
