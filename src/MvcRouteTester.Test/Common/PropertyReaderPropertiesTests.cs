@@ -19,9 +19,12 @@ namespace MvcRouteTester.Test.Common
 		}
 
 		[Test]
-		public void ShouldNotReadNullObject()
+		public void ShouldReadNothingFromNullObject()
 		{
-			Assert.Throws<ArgumentNullException>(() => reader.Properties(null));
+			var properties = reader.Properties(null);
+
+			Assert.That(properties, Is.Not.Null);
+			Assert.That(properties.Count, Is.EqualTo(0));
 		}
 
 		[Test]
