@@ -93,7 +93,6 @@ This assertion will fail if the config does not contain an Api route to the url 
 
 You can assert on the particulars of the api route using the same kinds of expectations as with Mvc routes.
 
-
     RouteAssert.ApiRouteDoesNotHaveMethod(config, "/api/customer/1", HttpMethod.Post);
 
 This asserts that the Api route is valid, but that the controller there does not respond to the Http Post method.
@@ -121,6 +120,10 @@ Test that a web route matching the url exists.
 
 Test that a web route matching the url exists, and that it meets expectations. The expectations can be given in different ways  - as an anon-typed object, as an IDictionary of names and values, or to just check the controller and action method names.
 
+	public static void HasRoute(RouteCollection routes, string url, string body, IDictionary<string, string> expectedProps)
+
+You can also specify a request body. This can be used for testing that post body data is mapped to route parameters. application/x-www-form-urlencoded values are supported.
+
     public static void NoRoute(RouteCollection routes, string url)
 	
 Test that a web route matching the url does not exist.
@@ -147,6 +150,11 @@ Test that an Api route matching the url exists, and that the controller can resp
     public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, IDictionary<string, string> expectedProps)
 
 Test that an api route matching the url exists, and that the controller can respond to the specified Http method and meets expectations. The expectations can be given in different ways - as an anon-typed object, as an IDictionary of names and values, or to just check the controller and action method names.
+
+	public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string body, object expectations)
+
+You can also specify a request body on an api request. This can be used for testing that post body data is mapped to route parameters. application/x-www-form-urlencoded values are supported.
+
 
     public static void NoApiRoute(HttpConfiguration config, string url)
 
@@ -177,12 +185,15 @@ The fluent interface alows you to write code like:
      routes.ShouldMap("/home/index/32").To<HomeController>(x => x.Index(32));
 	 routes.ShouldMap("fred.axd").ToIgnoredRoute();
 	 routes.ShouldMap("/foo/bar/fish/spon").ToNoRoute();
+	 routes.ShouldMap("/home/index/32").WithBody("Name=Fred&Id=12").To<HomeController>(x => x.Index(32));
 	 
 These use `RouteAssert.HasRoute`, `RouteAssert.IsIgnoredRoute` and `RouteAssert.NoRoute` respectively. the controller name, action name and action params are read from the types and expression given.
 
 And for Api routes:
 
     config.ShouldMap("/api/customer/32").To<CustomerController>(HttpMethod.Get, x => x.Get(32));
+	config.ShouldMap("/api/customer/32").WithBody("Name=Fred&Id=12").To<CustomerController>(HttpMethod.Post, x => x.Index(32));
+
 	config.ShouldMap("/api/customer/32").ToNoMethod<CustomerController>(HttpMethod.Post);
 	config.ShouldMap("/pai/customer/32").ToNoRoute();
 	
