@@ -1,34 +1,38 @@
-function BuildSolution
-{
-  C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe ..\MvcRouteTester.sln /t:build /p:Configuration=Debug
-}
 
 function ReadLinesFromFile([string] $fileName)
 {
  [string]::join([environment]::newline, (get-content -path $fileName))
 }
 
+function BuildSolution
+{
+  C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe ..\MvcRouteTester.sln /t:build /p:Configuration=Debug
+}
+
+function GetLatestFullVersionOnNuget()
+{
+   $packageDetails = &nuget list MvcRouteTester
+   $parts = $packageDetails.Split(' ')
+   [string]$parts[1]
+}
+
+function GetLastVersionNumber()
+{
+  $fullVersion = GetLatestFullVersionOnNuget
+  $parts = $fullVersion.Split('.')
+  [int]$parts[2]
+}
+
 function GetNextVersionNumber
 {
-  $lastVersionText = get-content lastVersion.txt
-  $lastVersion = [int]$lastVersionText
-  $lastVersion + 1
+  $lastVer = GetLastVersionNumber
+  $lastVer + 1
 }
 
 function CleanupBuildArtifacts
 {
   del MvcRouteTester.nuspec
   del *.nupkg
-}
-
-function UpdateVersionNumber([int] $newVersionNumber)
-{
-   $newVersionNumber > lastVersion.txt
-
-  # write changed version number back to git
-  git add lastVersion.txt
-  git commit -m "automated package build and version number increment to $newVersionNumber"
-  git push
 }
 
 BuildSolution
@@ -51,6 +55,5 @@ Invoke-Expression $pushCommand
 write-output "Pushed package version $nextVersion"
 
 CleanupBuildArtifacts
-UpdateVersionNumber $nextVersionNumber
 
 write-output "Done"
