@@ -48,11 +48,10 @@ $nuspecWithVersion > MvcRouteTester.nuspec
 
 nuget pack MvcRouteTester.nuspec 
 
-$pushCommand = "NuGet Push MvcRouteTester.#version#.nupkg".Replace("#version#", $fullVersion)
-
 # push to nuget:
+$pushCommand = "NuGet Push MvcRouteTester.$fullVersion.nupkg"
 Invoke-Expression $pushCommand
-write-output "Pushed package version $nextVersion"
+write-output "Pushed package version $fullVersion"
 
 CleanupBuildArtifacts
 
