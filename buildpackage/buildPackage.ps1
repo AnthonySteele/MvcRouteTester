@@ -6,11 +6,16 @@ function ReadLinesFromFile([string] $fileName)
 
 function BuildSolution
 {
+  [CmdletBinding()]
+  param()
   C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe ..\MvcRouteTester.sln /t:build /p:Configuration=Debug
 }
 
 function GetLatestFullVersionOnNuget()
 {
+  [CmdletBinding()]
+  param()
+
    $packageDetails = &nuget list MvcRouteTester
    $parts = $packageDetails.Split(' ')
    [string]$parts[1]
@@ -18,6 +23,9 @@ function GetLatestFullVersionOnNuget()
 
 function GetLastVersionNumber()
 {
+  [CmdletBinding()]
+  param()
+
   $fullVersion = GetLatestFullVersionOnNuget
   $parts = $fullVersion.Split('.')
   [int]$parts[2]
@@ -25,12 +33,16 @@ function GetLastVersionNumber()
 
 function GetNextVersionNumber
 {
-  $lastVer = GetLastVersionNumber
-  $lastVer + 1
+  [CmdletBinding()]
+  param()
+ (GetLastVersionNumber) + 1
 }
 
 function CleanupBuildArtifacts
 {
+  [CmdletBinding()]
+  param()
+
   del MvcRouteTester.nuspec
   del *.nupkg
 }
