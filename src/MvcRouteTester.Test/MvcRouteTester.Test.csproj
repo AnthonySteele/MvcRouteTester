@@ -79,9 +79,11 @@
     <Compile Include="Common\PropertyReaderIsSimpleTypeTests.cs" />
     <Compile Include="Common\PropertyReaderPropertiesTests.cs" />
     <Compile Include="Common\PropertyReaderSimplePropertyNamesTests.cs" />
+    <Compile Include="WebRoute\FluentExtensionsAliasRouteTests.cs" />
     <Compile Include="WebRoute\DefaultsTests.cs" />
     <Compile Include="WebRoute\FluentExtensionsTests.cs" />
     <Compile Include="WebRoute\FromBodyTests.cs" />
+    <Compile Include="WebRoute\HasAliasRouteTests.cs" />
     <Compile Include="WebRoute\RouteMethodTests.cs" />
     <Compile Include="WebRoute\HasRouteTests.cs" />
     <Compile Include="Common\UrlHelpersTest.cs" />
