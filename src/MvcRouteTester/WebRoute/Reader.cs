@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Web;
@@ -13,7 +14,7 @@ namespace MvcRouteTester.WebRoute
 		public IDictionary<string, string> GetRequestProperties(RouteData routeData, HttpRequestBase request)
 		{
 			var requestParams = request.Params;
-			var propertyList = new Dictionary<string, string>();
+			var propertyList = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
 			foreach (var routeValue in routeData.Values)
 			{
