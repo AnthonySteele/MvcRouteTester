@@ -31,13 +31,6 @@ function GetLastVersionNumber()
   [int]$parts[2]
 }
 
-function GetNextVersionNumber
-{
-  [CmdletBinding()]
-  param()
- (GetLastVersionNumber) + 1
-}
-
 function CleanupBuildArtifacts
 {
   [CmdletBinding()]
@@ -49,7 +42,7 @@ function CleanupBuildArtifacts
 
 BuildSolution
 
-$nextVersionNumber = GetNextVersionNumber
+$nextVersionNumber = (GetLastVersionNumber) + 1
 $fullVersion = "1.0.$nextVersionNumber"
 write-output "Next package version: $fullVersion"
 
