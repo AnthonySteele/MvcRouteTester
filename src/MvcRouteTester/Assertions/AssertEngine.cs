@@ -1,12 +1,12 @@
-﻿using NUnit.Framework;
+﻿using System;
 
 namespace MvcRouteTester.Assertions
 {
-	public class NunitAssertEngine : IAssertEngine
+	public class AssertEngine : IAssertEngine
 	{
 		public void Fail(string message)
 		{
-			Assert.Fail(message);
+			throw new AssertionException(message);
 		}
 		
 		/// <summary>
@@ -23,7 +23,11 @@ namespace MvcRouteTester.Assertions
 				return;
 			}
 
-			StringAssert.AreEqualIgnoringCase(s1, s2, message);
+			if (string.Equals(s1, s2, StringComparison.InvariantCultureIgnoreCase)) 
+				return;
+
+			var exceptionMessage = string.Format("{0}\n Strings do not match: \n Expected:{1}\nActual{2}", message, s1, s2);
+			throw new AssertionException(exceptionMessage);
 		}
 	}
 }

@@ -4,7 +4,7 @@
 	{
 		static Asserts()
 		{
-			AssertEngine = new NunitAssertEngine();
+			AssertEngine = new AssertEngine();
 		}
 
 		internal static IAssertEngine AssertEngine { get; set; }

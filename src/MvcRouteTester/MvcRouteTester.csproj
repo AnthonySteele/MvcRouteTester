@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
@@ -48,9 +45,10 @@
     <Compile Include="ApiRoute\ApiRouteAssert.cs" />
     <Compile Include="ApiRoute\BodyReader.cs" />
     <Compile Include="ApiRoute\Generator.cs" />
+    <Compile Include="Assertions\AssertionException.cs" />
     <Compile Include="Assertions\Asserts.cs" />
     <Compile Include="Assertions\IAssertEngine.cs" />
-    <Compile Include="Assertions\NunitAssertEngine.cs" />
+    <Compile Include="Assertions\AssertEngine.cs" />
     <Compile Include="FluentApiExtensions.cs" />
     <Compile Include="Fluent\ExpressionReader.cs" />
     <Compile Include="FluentExtensions.cs" />
@@ -67,9 +65,6 @@
     <Compile Include="Common\UrlHelpers.cs" />
     <Compile Include="WebRoute\WebRouteAssert.cs" />
     <Compile Include="WebRoute\Reader.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
