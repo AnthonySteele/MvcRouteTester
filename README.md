@@ -252,8 +252,9 @@ The situation is the same for testing API Controllers.
 ## Integrating with your testing framework
 
 You may not need to integrate MvcRouteTester with your testing framework, however you can easily do so for better error messages. You do the following:
-1. Make an assert engine - a class that implements `IAssertEngine`. This interface has only 2 methods: `Fail` and `StringsEqualIgnoringCase`. The implementations of these should call corresponding methods in your testing framework. The class `NunitAssertEngine` in the test project is an example for NUnit.
-2. Call `RouteAssert.UseAssertEngine` with an instance of your assert engine. e.g.:
+
+ 1. Make an assert engine - a class that implements `IAssertEngine`. This interface has only 2 methods: `Fail` and `StringsEqualIgnoringCase`. The implementations of these should call corresponding methods in your testing framework. The class `NunitAssertEngine` in the test project is an example for NUnit.
+ 2. Call `RouteAssert.UseAssertEngine` with an instance of your assert engine. e.g.:
 
 	[SetUp]
 	public void SetupMyTests()
