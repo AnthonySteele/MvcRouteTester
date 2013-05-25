@@ -16,6 +16,8 @@ namespace MvcRouteTester.Test.ApiRoute
 		[SetUp]
 		public void MakeRouteTable()
 		{
+			RouteAssert.UseAssertEngine(new NunitAssertEngine());
+
 			config = new HttpConfiguration();
 
 			config.Routes.MapHttpRoute(

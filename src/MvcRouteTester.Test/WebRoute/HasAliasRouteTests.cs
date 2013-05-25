@@ -1,12 +1,20 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
+using MvcRouteTester.Test.Assertions;
+
 using NUnit.Framework;
 
 namespace MvcRouteTester.Test.WebRoute
 {
 	public class HasAliasRouteTests
 	{
+		[SetUp]
+		public void Setup()
+		{
+			RouteAssert.UseAssertEngine(new NunitAssertEngine());
+		}
+		
 		[Test]
 		public void FluentRouteWithCaps()
 		{

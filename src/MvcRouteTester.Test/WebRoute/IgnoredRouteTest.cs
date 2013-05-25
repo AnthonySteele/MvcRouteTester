@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
+using MvcRouteTester.Test.Assertions;
+
 using NUnit.Framework;
 
 namespace MvcRouteTester.Test.WebRoute
@@ -13,6 +15,8 @@ namespace MvcRouteTester.Test.WebRoute
 		[SetUp]
 		public void MakeRouteTable()
 		{
+			RouteAssert.UseAssertEngine(new NunitAssertEngine());
+
 			routes = new RouteCollection();
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 			routes.MapRoute(

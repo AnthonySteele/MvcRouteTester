@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
+using MvcRouteTester.Test.Assertions;
 using MvcRouteTester.Test.Controllers;
 
 using NUnit.Framework;
@@ -10,6 +11,12 @@ namespace MvcRouteTester.Test.WebRoute
 	[TestFixture]
 	public class FluentExtensionsAliasRouteTests
 	{
+		[SetUp]
+		public void Setup()
+		{
+			RouteAssert.UseAssertEngine(new NunitAssertEngine());
+		}
+
 		[Test]
 		public void FluentRouteWithCaps()
 		{

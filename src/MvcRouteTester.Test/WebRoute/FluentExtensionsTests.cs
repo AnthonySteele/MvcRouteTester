@@ -16,6 +16,8 @@ namespace MvcRouteTester.Test.WebRoute
 		[SetUp]
 		public void MakeRouteTable()
 		{
+			RouteAssert.UseAssertEngine(new NunitAssertEngine());
+
 			routes = new RouteCollection();
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 			routes.MapRoute(

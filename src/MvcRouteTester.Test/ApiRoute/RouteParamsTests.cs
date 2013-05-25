@@ -1,6 +1,8 @@
 ﻿using System.Net.Http;
 using System.Web.Http;
 
+using MvcRouteTester.Test.Assertions;
+
 using NUnit.Framework;
 
 namespace MvcRouteTester.Test.ApiRoute
@@ -13,6 +15,8 @@ namespace MvcRouteTester.Test.ApiRoute
 		[SetUp]
 		public void MakeRouteTable()
 		{
+			RouteAssert.UseAssertEngine(new NunitAssertEngine());
+
 			config = new HttpConfiguration();
 
 			config.Routes.MapHttpRoute(
