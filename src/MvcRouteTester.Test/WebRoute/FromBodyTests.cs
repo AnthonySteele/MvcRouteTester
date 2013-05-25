@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-using MvcRouteTester.Assertions;
+using MvcRouteTester.Test.Assertions;
 using MvcRouteTester.Test.Controllers;
 
 using NUnit.Framework;
@@ -27,7 +27,7 @@ namespace MvcRouteTester.Test.WebRoute
 		[TearDown]
 		public void TearDown()
 		{
-			RouteAssert.UseAssertEngine(new ExceptionAssertEngine());
+			RouteAssert.UseAssertEngine(new NunitAssertEngine());
 		}
 
 		[Test]
