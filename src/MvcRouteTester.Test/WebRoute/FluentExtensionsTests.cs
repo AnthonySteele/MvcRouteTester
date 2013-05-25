@@ -27,7 +27,7 @@ namespace MvcRouteTester.Test.WebRoute
 		[TearDown]
 		public void TearDown()
 		{
-			RouteAssert.UseAssertEngine(new AssertEngine());
+			RouteAssert.UseAssertEngine(new ExceptionAssertEngine());
 		}
 
 		[Test]

@@ -4,7 +4,7 @@
 	{
 		static Asserts()
 		{
-			AssertEngine = new AssertEngine();
+			AssertEngine = new ExceptionAssertEngine();
 		}
 
 		internal static IAssertEngine AssertEngine { get; set; }

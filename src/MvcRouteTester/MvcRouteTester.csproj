@@ -48,7 +48,7 @@
     <Compile Include="Assertions\AssertionException.cs" />
     <Compile Include="Assertions\Asserts.cs" />
     <Compile Include="Assertions\IAssertEngine.cs" />
-    <Compile Include="Assertions\AssertEngine.cs" />
+    <Compile Include="Assertions\ExceptionAssertEngine.cs" />
     <Compile Include="FluentApiExtensions.cs" />
     <Compile Include="Fluent\ExpressionReader.cs" />
     <Compile Include="FluentExtensions.cs" />

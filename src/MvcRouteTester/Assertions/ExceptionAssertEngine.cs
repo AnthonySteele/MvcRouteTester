@@ -2,7 +2,7 @@
 
 namespace MvcRouteTester.Assertions
 {
-	public class AssertEngine : IAssertEngine
+	public class ExceptionAssertEngine : IAssertEngine
 	{
 		public void Fail(string message)
 		{
