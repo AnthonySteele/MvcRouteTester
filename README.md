@@ -10,7 +10,7 @@ To aid automated testing by allowing unit tests on routes. Without such a librar
 
 ## How
 
-The libabry no longer depends explicitly on NUnit. MvcRouteTester throws an exception in order to fail a test on a route. This should work in any unit testing framework. However, if you want to integrate closer with NUnit or another unit testing framework, this is easy to do.
+The libabry no longer depends explicitly on NUnit. MvcRouteTester throws an exception in order to fail a test on a route. This should work in any unit testing framework. However, if you want to integrate closer with NUnit or another unit testing framework, [this is easy to do and is documented here](https://github.com/AnthonySteele/MvcRouteTester/wiki/Integrating-with-NUnit).
 
 ## Credits
 
@@ -248,17 +248,3 @@ However, with the fluent syntax the values will be read off the data in the lamb
 	routes.ShouldMap("/second/index/1/fred").To<SecondController>(x => x.Index(new InputModel { Id = 1, Name = "fred" }));
 
 The situation is the same for testing API Controllers.
-
-## Integrating with your testing framework
-
-You may not need to integrate MvcRouteTester with your testing framework, however you can easily do so for better error messages. You do the following:
-
-1. Make an assert engine - a class that implements `IAssertEngine`. This interface has only 2 methods: `Fail` and `StringsEqualIgnoringCase`. The implementations of these should call corresponding methods in your testing framework. The class [`NunitAssertEngine` in the test project](https://github.com/AnthonySteele/MvcRouteTester/blob/master/src/MvcRouteTester.Test/Assertions/NunitAssertEngine.cs) is an example for NUnit.
-2. Call `RouteAssert.UseAssertEngine` with an instance of your assert engine. e.g.:
-
-
-	[SetUp]
-	public void SetupMyTests()
-	{
-		RouteAssert.UseAssertEngine(new NunitAssertEngine());
-	}

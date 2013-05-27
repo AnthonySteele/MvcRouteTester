@@ -8,7 +8,6 @@ using NUnit.Framework;
 
 namespace MvcRouteTester.Test.WebRoute
 {
-	//[Ignore("Not working yet")]
 	[TestFixture]
 	public class FromBodyTests
 	{
