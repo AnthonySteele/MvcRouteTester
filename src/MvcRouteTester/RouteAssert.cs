@@ -185,5 +185,13 @@ namespace MvcRouteTester
 		{
 			Asserts.AssertEngine = engine;
 		}
+
+		/// <summary>
+		/// Sets the type of selector to be used to locate the controller for api routes
+		/// </summary>
+		public static void UseHttpControllerSelector(Type selector)
+		{
+			ApiRouteAssert.ControllerSelectorType = selector;
+		}
 	}
 }

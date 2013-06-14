@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Dispatcher;
 using MvcRouteTester.Assertions;
 using MvcRouteTester.Common;
 
@@ -9,6 +10,13 @@ namespace MvcRouteTester.ApiRoute
 {
 	internal static class ApiRouteAssert
 	{
+		static ApiRouteAssert()
+		{
+			ControllerSelectorType = typeof (DefaultHttpControllerSelector);
+		}
+
+		internal static Type ControllerSelectorType;
+
 		internal static void HasRoute(HttpConfiguration config, string url, HttpMethod httpMethod)
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);

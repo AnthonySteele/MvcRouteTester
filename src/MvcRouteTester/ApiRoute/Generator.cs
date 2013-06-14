@@ -267,7 +267,7 @@ namespace MvcRouteTester.ApiRoute
 			if (matchedRoute != null)
 			{
 				request.Properties[HttpPropertyKeys.HttpRouteDataKey] = matchedRoute;
-				controllerSelector = new DefaultHttpControllerSelector(config);
+				controllerSelector = (IHttpControllerSelector) Activator.CreateInstance(ApiRouteAssert.ControllerSelectorType, config);
 				controllerContext = new HttpControllerContext(config, matchedRoute, request);
 			}
 		}
