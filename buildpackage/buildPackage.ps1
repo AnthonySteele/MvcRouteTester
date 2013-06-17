@@ -43,7 +43,7 @@ function CleanupBuildArtifacts
 BuildSolution
 
 $nextVersionNumber = (GetLastVersionNumber) + 1
-$fullVersion = "1.0.$nextVersionNumber"
+$fullVersion = "1.1.$nextVersionNumber"
 write-output "Next package version: $fullVersion"
 
 # make the nuspec file with the target version number
