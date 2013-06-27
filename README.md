@@ -25,6 +25,7 @@ Pull requests on github and other bugs have come from:
 - [Glenn Doten](https://github.com/gdoten) Prompted me to add the ability to specify a request body and to verify that it is bound.
 - [Saladin](https://github.com/saladin) pointed out an issue where expectations could fail incorrectly when controller name and path differ in case.
 - [Neil Stalker](https://github.com/nestalk) removed the dependency on NUnit.
+- [Alex Brown](https://github.com/alexjamesbrown) reported a bug in parsing some fluent method expressions.
 
 Put together by Anthony Steele. 
 

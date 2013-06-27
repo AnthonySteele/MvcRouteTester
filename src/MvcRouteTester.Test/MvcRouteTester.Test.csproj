@@ -69,6 +69,7 @@
     <Compile Include="Controllers\FromBodyController.cs" />
     <Compile Include="Controllers\GetPostController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="ApiControllers\MemberController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\WithNullableController.cs" />
     <Compile Include="Controllers\WithObjectController.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="WebRoute\FluentExtensionsTests.cs" />
     <Compile Include="WebRoute\FromBodyTests.cs" />
     <Compile Include="WebRoute\HasAliasRouteTests.cs" />
+    <Compile Include="ApiRoute\MemberControllerTests.cs" />
     <Compile Include="WebRoute\RouteMethodTests.cs" />
     <Compile Include="WebRoute\HasRouteTests.cs" />
     <Compile Include="Common\UrlHelpersTest.cs" />
