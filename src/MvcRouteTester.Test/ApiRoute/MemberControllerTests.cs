@@ -26,7 +26,7 @@ namespace MvcRouteTester.Test.ApiRoute
 
 		/// <summary>
 		/// This particular controller method is giving rise to a UnaryExpression 
-		/// Probably from converting the bool result if ChangePassword to object
+		/// Probably from converting the bool returned from MemberController.ChangePassword to object
 		/// So this tests ExpressionReader.UnwrapAction
 		/// </summary>
 		[Test]

@@ -42,7 +42,7 @@ namespace MvcRouteTester.Fluent
 				return UnwrapExpression(unaryExpression.Operand);
 			}
 
-			throw new ArgumentException("action");
+			throw new ApplicationException("No way to unwrap a " + expression.GetType().FullName);
 		}
 
 		private IDictionary<string, string> Read(Type controllerType, MethodCallExpression methodCall)
