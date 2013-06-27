@@ -10,22 +10,39 @@ namespace MvcRouteTester.Fluent
 	{
 		public IDictionary<string, string> Read<TController>(Expression<Func<TController, object>> action)
 		{
-			if (action == null)
-			{
-				throw new ArgumentNullException("action");
-			}
-
-			return Read(typeof(TController), (MethodCallExpression)action.Body);
+			return Read(typeof(TController), UnwrapAction(action));
 		}
 
 		public IDictionary<string, string> Read<TController>(Expression<Func<TController, ActionResult>> action)
+		{
+			return Read(typeof(TController), UnwrapAction(action));
+		}
+
+		private static MethodCallExpression UnwrapAction<TController, TResult>(Expression<Func<TController, TResult>> action)
 		{
 			if (action == null)
 			{
 				throw new ArgumentNullException("action");
 			}
 
-			return Read(typeof(TController), (MethodCallExpression)action.Body);
+			return UnwrapExpression(action.Body);
+		}
+
+		private static MethodCallExpression UnwrapExpression(Expression expression)
+		{
+			var methodCallExpression = expression as MethodCallExpression;
+			if (methodCallExpression != null)
+			{
+				return methodCallExpression;
+			}
+
+			var unaryExpression = expression as UnaryExpression;
+			if (unaryExpression != null)
+			{
+				return UnwrapExpression(unaryExpression.Operand);
+			}
+
+			throw new ArgumentException("action");
 		}
 
 		private IDictionary<string, string> Read(Type controllerType, MethodCallExpression methodCall)
