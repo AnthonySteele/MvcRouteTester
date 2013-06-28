@@ -10,7 +10,7 @@ To aid automated testing by allowing unit tests on routes. Without such a librar
 
 ## How
 
-The libabry no longer depends explicitly on NUnit. MvcRouteTester throws an exception in order to fail a test on a route. This should work in any unit testing framework. However, if you want to integrate closer with NUnit or another unit testing framework, [this is easy to do and is documented here](https://github.com/AnthonySteele/MvcRouteTester/wiki/Integrating-with-NUnit).
+The library no longer depends explicitly on NUnit. MvcRouteTester throws an exception in order to fail a test on a route. This should work in any unit testing framework. However, if you want to integrate closer with NUnit or another unit testing framework, [this is easy to do and is documented here](https://github.com/AnthonySteele/MvcRouteTester/wiki/Integrating-with-NUnit).
 
 ## Credits
 
