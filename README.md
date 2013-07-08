@@ -10,14 +10,14 @@ To aid automated testing by allowing unit tests on routes. Without such a librar
 
 ## How
 
-The libabry no longer depends explicitly on NUnit. MvcRouteTester throws an exception in order to fail a test on a route. This should work in any unit testing framework. However, if you want to integrate closer with NUnit or another unit testing framework, [this is easy to do and is documented here](https://github.com/AnthonySteele/MvcRouteTester/wiki/Integrating-with-NUnit).
+The library no longer depends explicitly on NUnit. MvcRouteTester throws an exception in order to fail a test on a route. This should work in any unit testing framework. However, if you want to integrate closer with NUnit or another unit testing framework, [this is easy to do and is documented here](https://github.com/AnthonySteele/MvcRouteTester/wiki/Integrating-with-NUnit).
 
 ## Credits
 
 MvcRouteTester uses the basic ideas and code by [Phil Haack for testing MVC Routes](http://haacked.com/archive/2007/12/16/testing-routes-in-asp.net-mvc.aspx)
 and by [Filip W for testing API Routes](http://www.strathweb.com/2012/08/testing-routes-in-asp-net-web-api/). I have told them both about this use of thier code and they are happy to see it here.
 
-The idea behind writing strongly typed, fluent tests is from [MvcContrib](http://mvccontrib.codeplex.com). Initial code from MvcContrib hacked on by [Matt Gray](https://github.com/mattgray/) and [Daniel Kalotay](https://github.com/kalotay) at [7Digital](http://www.7digital.com/). 
+The idea behind writing strongly typed, fluent tests is from [MvcContrib](http://mvccontrib.codeplex.com). Initial code from MvcContrib hacked on by [Matt Gray](https://github.com/mattgray/) and [Daniel Kalotay](https://github.com/kalotay) at [7digital](http://www.7digital.com/). 
 
 Pull requests on github and other bugs have come from:
 - [Daniel Seifarth](http://github.com/redxeagle) got it working in .Net 4.0

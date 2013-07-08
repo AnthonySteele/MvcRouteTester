@@ -22,6 +22,12 @@ namespace MvcRouteTester.Test.ApiRoute
 				routeTemplate: "Member/{memberId}/ChangePassword",
 				defaults: new { controller = "Member", action = "ChangePassword" }
 				);
+
+			config.Routes.MapHttpRoute(
+				name: "Member_SomeCalculation",
+				routeTemplate: "Member/{id}/IntCalculation",
+				defaults: new { controller = "Member", action = "IntCalculation" }
+				);
 		}
 
 		/// <summary>
@@ -34,6 +40,13 @@ namespace MvcRouteTester.Test.ApiRoute
 		{
 			config.ShouldMap("/member/1234/ChangePassword?newPassword=new")
 				.To<MemberController>(HttpMethod.Get, x => x.ChangePassword(1234, "new"));
+		}
+
+		[Test]
+		public void TestIntCalculationWithUnaryExpression()
+		{
+			config.ShouldMap("/member/1234/IntCalculation")
+				.To<MemberController>(HttpMethod.Get, x => x.IntCalculation(1234));
 		}
 	}
 }

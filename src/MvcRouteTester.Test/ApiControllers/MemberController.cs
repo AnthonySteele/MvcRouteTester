@@ -9,5 +9,11 @@ namespace MvcRouteTester.Test.ApiControllers
 		{
 			return memberId != 1;
 		}
+
+		[HttpGet]
+		public int IntCalculation(int id)
+		{
+			return id * 42;
+		}
 	}
 }
