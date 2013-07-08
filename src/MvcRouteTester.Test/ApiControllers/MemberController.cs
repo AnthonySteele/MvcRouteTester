@@ -2,6 +2,9 @@
 
 namespace MvcRouteTester.Test.ApiControllers
 {
+	/// <summary>
+	/// testing return of value types like int and bool
+	/// </summary>
 	public class MemberController: ApiController
 	{
 		[HttpGet]
@@ -14,6 +17,12 @@ namespace MvcRouteTester.Test.ApiControllers
 		public int IntCalculation(int id)
 		{
 			return id * 42;
+		}
+
+		[HttpGet]
+		public void DoNothing()
+		{
+			// testing void return
 		}
 	}
 }

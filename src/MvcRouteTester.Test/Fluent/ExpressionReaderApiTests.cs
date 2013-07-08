@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Web.Http;
 
 using MvcRouteTester.Fluent;
+using MvcRouteTester.Test.ApiControllers;
 
 using NUnit.Framework;
 
@@ -69,6 +70,18 @@ namespace MvcRouteTester.Test.Fluent
 			Assert.That(result["controller"], Is.EqualTo("TestApi"));
 			Assert.That(result["action"], Is.EqualTo("Post"));
 			Assert.That(result["id"], Is.EqualTo("42"));
+		}
+
+		[Test]
+		public void CanReadVoidMethod()
+		{
+			var reader = new ExpressionReader();
+
+			Expression<Action<MemberController>> args = c => c.DoNothing();
+			var result = reader.Read(args);
+
+			Assert.That(result["controller"], Is.EqualTo("Member"));
+			Assert.That(result["action"], Is.EqualTo("DoNothing"));
 		}
 	}
 }

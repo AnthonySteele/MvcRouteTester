@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Web.Http;
 using MvcRouteTester.Test.ApiControllers;
 using MvcRouteTester.Test.Assertions;
@@ -28,6 +29,13 @@ namespace MvcRouteTester.Test.ApiRoute
 				routeTemplate: "Member/{id}/IntCalculation",
 				defaults: new { controller = "Member", action = "IntCalculation" }
 				);
+
+			config.Routes.MapHttpRoute(
+				name: "Member_DoNothing",
+				routeTemplate: "Member/DoNothing",
+				defaults: new { controller = "Member", action = "DoNothing" }
+);
+
 		}
 
 		/// <summary>
@@ -47,6 +55,13 @@ namespace MvcRouteTester.Test.ApiRoute
 		{
 			config.ShouldMap("/member/1234/IntCalculation")
 				.To<MemberController>(HttpMethod.Get, x => x.IntCalculation(1234));
+		}
+
+		[Test]
+		public void TestVoidMethod()
+		{
+			config.ShouldMap("/member/DoNothing")
+				.To<MemberController>(HttpMethod.Get, x => x.DoNothing());
 		}
 	}
 }
