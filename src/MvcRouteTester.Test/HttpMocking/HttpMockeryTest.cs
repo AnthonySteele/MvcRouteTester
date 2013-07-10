@@ -88,13 +88,12 @@ namespace MvcRouteTester.Test.HttpMocking
 			Assert.That(context.Request.PathInfo, Is.EqualTo(string.Empty));
 		}
 
-        [Test]
-        public void ShouldHaveStubbedContextCorrectly()
-        {
-            var context = HttpMockery.ContextForUrl("");
-            context.RewritePath("");
-            context.RewritePath("", "", "");
-        }
-        
+		[Test]
+		public void ShouldHaveStubbedContextCorrectly()
+		{
+			var context = HttpMockery.ContextForUrl("");
+			context.RewritePath("");
+			context.RewritePath("", "", "");
+		}
 	}
 }

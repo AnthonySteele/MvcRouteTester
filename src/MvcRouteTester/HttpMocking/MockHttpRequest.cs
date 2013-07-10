@@ -72,6 +72,5 @@ namespace MvcRouteTester.HttpMocking
 		{
 			requestContext = context;
 		}
-
-      }
+	}
 }

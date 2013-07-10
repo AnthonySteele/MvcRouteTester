@@ -24,15 +24,12 @@ namespace MvcRouteTester.HttpMocking
 			get { return items; }
 		}
 
-        public override void RewritePath(string filePath, string pathInfo, string queryString)
-        {
-            
-        }
+		public override void RewritePath(string filePath, string pathInfo, string queryString)
+		{
+		}
 
-        public override void RewritePath(string path)
-        {
-            
-        }
-        
+		public override void RewritePath(string path)
+		{
+		}
 	}
 }
