@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Web;
 using System.Web.Routing;
 using MvcRouteTester.Common;
@@ -7,7 +8,7 @@ namespace MvcRouteTester.HttpMocking
 {
 	public class HttpMockery
 	{
-		public static HttpContextBase ContextForUrl(string url)
+        public static HttpContextBase ContextForUrl(string url)
 		{
 			return ContextForUrl(HttpMethod.Get, url, string.Empty);
 		}
