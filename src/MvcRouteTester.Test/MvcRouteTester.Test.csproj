@@ -50,11 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllers\FromBodyController.cs" />
+    <Compile Include="ApiControllers\FromUriController.cs" />
     <Compile Include="ApiControllers\RenamedController.cs" />
     <Compile Include="ApiControllers\PostOnlyController.cs" />
     <Compile Include="ApiControllers\CustomerController.cs" />
     <Compile Include="ApiControllers\WithNullableController.cs" />
     <Compile Include="ApiControllers\WithObjectController.cs" />
+    <Compile Include="ApiRoute\FromUriTests.cs" />
     <Compile Include="ApiRoute\FluentExtensionsTests.cs" />
     <Compile Include="ApiRoute\FromBodyTests.cs" />
     <Compile Include="ApiRoute\ModelBindingTests.cs" />
