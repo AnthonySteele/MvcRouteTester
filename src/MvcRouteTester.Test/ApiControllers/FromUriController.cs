@@ -7,6 +7,7 @@ namespace MvcRouteTester.Test.ApiControllers
     {
         public string Name { get; set; }
         public int Number { get; set; }
+        public int? OtherNumber { get; set; }
     }
 
     public class FromUriController : ApiController
