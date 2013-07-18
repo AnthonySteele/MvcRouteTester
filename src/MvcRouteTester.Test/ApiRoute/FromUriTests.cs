@@ -84,5 +84,12 @@ namespace MvcRouteTester.Test.ApiRoute
             config.ShouldMap("/api/fromuri?name=Fred&number=42").
                 To<FromUriController>(HttpMethod.Get, c => c.DoSomething(new UriDataModel {Name = "Fred", Number = 42}));
 		}
+
+        [Test]
+        public void TestFluentMapWithNullablePropertyFilled()
+        {
+            config.ShouldMap("/api/fromuri?name=Fred&number=42&othernumber=123").
+                To<FromUriController>(HttpMethod.Get, c => c.DoSomething(new UriDataModel { Name = "Fred", Number = 42, OtherNumber = 123}));
+        }
     }
 }
