@@ -8,88 +8,122 @@ using NUnit.Framework;
 
 namespace MvcRouteTester.Test.ApiRoute
 {
-    [TestFixture]
-    public class FromUriTests
-    {
-        private HttpConfiguration config;
+	[TestFixture]
+	public class FromUriTests
+	{
+		private HttpConfiguration config;
 
-        [SetUp]
-        public void MakeRouteTable()
-        {
-            RouteAssert.UseAssertEngine(new NunitAssertEngine());
-
-            config = new HttpConfiguration();
-
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional });
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            RouteAssert.UseAssertEngine(new NunitAssertEngine());
-        }
-
-        [Test]
-        public void TestHasApiRoute()
-        {
-            var expectations = new
-                {
-                    controller = "FromUri",
-                    action = "DoSomething"
-                };
-
-            RouteAssert.HasApiRoute(config, "/api/fromuri/123", HttpMethod.Get, expectations);
-        }
-
-        [Test]
-        public void TestHasApiRouteValuesFromUri()
-        {
-            var expectations = new
-            {
-                controller = "FromUri",
-                action = "DoSomething",
-                name = "Fred",
-                number = 42
-            };
-
-            RouteAssert.HasApiRoute(config, "/api/fromuri?name=Fred&number=42", HttpMethod.Get, expectations);
-        }
-
-        [Test]
-        public void MismatchFailsValuesFromBody()
-        {
-            var expectations = new
-            {
-                controller = "FromUri",
-                action = "DoSomething",
-                name = "Jim",
-                number = 42
-            };
-
-            var assertEngine = new FakeAssertEngine();
-            RouteAssert.UseAssertEngine(assertEngine);
-
-            RouteAssert.HasApiRoute(config, "/api/fromuri?name=Fred&number=42", HttpMethod.Get, expectations);
-
-            Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(1));
-            Assert.That(assertEngine.Messages[0], Is.EqualTo("Expected 'Jim', not 'Fred' for 'name' at url '/api/fromuri?name=Fred&number=42'."));
-        }
-
-        [Test]
-        public void TestFluentMap()
+		[SetUp]
+		public void MakeRouteTable()
 		{
-            config.ShouldMap("/api/fromuri?name=Fred&number=42").
-                To<FromUriController>(HttpMethod.Get, c => c.DoSomething(new UriDataModel {Name = "Fred", Number = 42}));
+			RouteAssert.UseAssertEngine(new NunitAssertEngine());
+
+			config = new HttpConfiguration();
+
+			config.Routes.MapHttpRoute(
+				name: "DefaultApi",
+				routeTemplate: "api/{controller}/{id}",
+				defaults: new { id = RouteParameter.Optional });
 		}
 
-        [Test]
-        public void TestFluentMapWithNullablePropertyFilled()
-        {
-            config.ShouldMap("/api/fromuri?name=Fred&number=42&othernumber=123").
-                To<FromUriController>(HttpMethod.Get, c => c.DoSomething(new UriDataModel { Name = "Fred", Number = 42, OtherNumber = 123}));
-        }
-    }
+		[TearDown]
+		public void TearDown()
+		{
+			RouteAssert.UseAssertEngine(new NunitAssertEngine());
+		}
+
+		[Test]
+		public void TestHasApiRoute()
+		{
+			var expectations = new
+				{
+					controller = "FromUri",
+					action = "DoSomething"
+				};
+
+			RouteAssert.HasApiRoute(config, "/api/fromuri/123", HttpMethod.Get, expectations);
+		}
+
+		[Test]
+		public void TestHasApiRouteValuesFromUri()
+		{
+			var expectations = new
+			{
+				controller = "FromUri",
+				action = "DoSomething",
+				name = "Fred",
+				number = 42
+			};
+
+			RouteAssert.HasApiRoute(config, "/api/fromuri?name=Fred&number=42", HttpMethod.Get, expectations);
+		}
+
+		[Test]
+		public void TestHasNullablePropertyValue()
+		{
+			var expectations = new
+			{
+				controller = "FromUri",
+				action = "DoSomething",
+				name = "Fred",
+				otherNumber = 31
+			};
+
+			RouteAssert.HasApiRoute(config, "/api/fromuri?name=Fred&otherNumber=31", HttpMethod.Get, expectations);
+		}
+
+		[Test]
+		public void MismatchFailsValuesFromBody()
+		{
+			var expectations = new
+			{
+				controller = "FromUri",
+				action = "DoSomething",
+				name = "Jim",
+				number = 42
+			};
+
+			var assertEngine = new FakeAssertEngine();
+			RouteAssert.UseAssertEngine(assertEngine);
+
+			RouteAssert.HasApiRoute(config, "/api/fromuri?name=Fred&number=42", HttpMethod.Get, expectations);
+
+			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(1));
+			Assert.That(assertEngine.Messages[0], Is.EqualTo("Expected 'Jim', not 'Fred' for 'name' at url '/api/fromuri?name=Fred&number=42'."));
+		}
+
+		[Test]
+		public void MismatchFailsOnNullableProperty()
+		{
+			var expectations = new
+			{
+				controller = "FromUri",
+				action = "DoSomething",
+				name = "Fred",
+				otherNumber = 31
+			};
+
+			var assertEngine = new FakeAssertEngine();
+			RouteAssert.UseAssertEngine(assertEngine);
+
+			RouteAssert.HasApiRoute(config, "/api/fromuri?name=Fred&otherNumber=42", HttpMethod.Get, expectations);
+
+			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(1));
+			Assert.That(assertEngine.Messages[0], Is.EqualTo("Expected '31', not '42' for 'otherNumber' at url '/api/fromuri?name=Fred&otherNumber=42'."));
+		}
+
+		[Test]
+		public void TestFluentMap()
+		{
+			config.ShouldMap("/api/fromuri?name=Fred&number=42").
+				To<FromUriController>(HttpMethod.Get, c => c.DoSomething(new UriDataModel {Name = "Fred", Number = 42}));
+		}
+
+		[Test]
+		public void TestFluentMapWithNullablePropertyFilled()
+		{
+			config.ShouldMap("/api/fromuri?name=Fred&number=42&othernumber=123").
+				To<FromUriController>(HttpMethod.Get, c => c.DoSomething(new UriDataModel { Name = "Fred", Number = 42, OtherNumber = 123}));
+		}
+	}
 }
