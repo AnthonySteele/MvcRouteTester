@@ -25,7 +25,7 @@ Pull requests on github and other bugs have come from:
 - [Glenn Doten](https://github.com/gdoten) Prompted me to add the ability to specify a request body and to verify that it is bound.
 - [Saladin](https://github.com/saladin) pointed out an issue where expectations could fail incorrectly when controller name and path differ in case.
 - [Neil Stalker](https://github.com/nestalk) removed the dependency on NUnit.
-- [Alex Brown](https://github.com/alexjamesbrown) reported a bug in parsing some fluent method expressions.
+- [Alex Brown](https://github.com/alexjamesbrown) reported a bug in parsing some fluent method expressions, and fixed a bug reading values into a nullable property on an input model.
 - [Nicholasham](https://github.com/nicholasham) sent a patch to make custom routes that call into `HttpContext.RewritePath` work.
 
 Put together by Anthony Steele. 
