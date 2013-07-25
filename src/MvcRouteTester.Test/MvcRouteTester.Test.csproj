@@ -75,6 +75,7 @@
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\WithNullableController.cs" />
     <Compile Include="Controllers\WithObjectController.cs" />
+    <Compile Include="Controllers\WithOptionalParamController.cs" />
     <Compile Include="FakeAssertEngine.cs" />
     <Compile Include="Fluent\ExpressionReaderApiTests.cs" />
     <Compile Include="Fluent\ExpressionReaderTests.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="WebRoute\NullableParamTests.cs" />
     <Compile Include="WebRoute\RouteParamsTests.cs" />
     <Compile Include="WebRoute\RouteValuesTest.cs" />
+    <Compile Include="WebRoute\WithOptionalParamTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
