@@ -36,8 +36,8 @@ namespace MvcRouteTester.Test.WebRoute
 
         [Test]
         public void Can_Generate_Root_Url_From_Home_Path()
-        { 
-            RouteAssert.GeneratesUrl(routes, "/", "Home", "Index");
+        {
+            RouteAssert.GeneratesUrl(routes, "/", "Index", "Home");
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace MvcRouteTester.Test.WebRoute
         [Test]
         public void Can_Generate_Action_Url_From_HomeController_IndexAction()
         {
-            RouteAssert.GeneratesActionUrl(routes, "/", "Home", "Index");
+            RouteAssert.GeneratesActionUrl(routes, "/", "Index", "Home");
         }
 
         [Test]
@@ -61,13 +61,13 @@ namespace MvcRouteTester.Test.WebRoute
         [Test]
         public void Can_Generate_Action_Url_From_CustomController()
         {
-            RouteAssert.GeneratesActionUrl(routes, "/CustomController", "CustomController", "Index");
+            RouteAssert.GeneratesActionUrl(routes, "/CustomController", "Index", "CustomController");
         }
 
         [Test]
         public void Can_Generate_Action_Url_From_CustomController_CustomAction()
         {
-            RouteAssert.GeneratesActionUrl(routes, "/CustomController/Test", "CustomController", "Test");
+            RouteAssert.GeneratesActionUrl(routes, "/CustomController/Test", "Test", "CustomController");
         }
     }
 }
