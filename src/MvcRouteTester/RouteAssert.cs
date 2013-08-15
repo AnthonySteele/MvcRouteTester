@@ -220,7 +220,7 @@ namespace MvcRouteTester
             var controller = fromProps["controller"];
             var action = fromProps["action"];
 
-            WebRouteAssert.GeneratesUrl(routes, httpMethod, expectedUrl, requestBody, controller, action, appPath);
+            WebRouteAssert.GeneratesUrl(routes, httpMethod, expectedUrl, requestBody, action, controller, appPath);
         }
 
         public static void GeneratesActionUrl(RouteCollection routes, 
