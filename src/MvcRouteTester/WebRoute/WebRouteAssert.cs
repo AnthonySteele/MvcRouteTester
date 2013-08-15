@@ -103,7 +103,7 @@ namespace MvcRouteTester.WebRoute
 
 
 	    internal static void GeneratesUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, string requestBody,
-	        string controller, string action, string appPath)
+            string action, string controller, string appPath)
         {
 	        var requestContext = RequestContext(httpMethod, requestBody, appPath);
 
@@ -126,8 +126,8 @@ namespace MvcRouteTester.WebRoute
 	    }
 
 	    internal static void GeneratesActionUrl(RouteCollection routes, 
-            HttpMethod httpMethod, string requestBody, string appPath, 
-            string expectedUrl, string controller, string action)
+            HttpMethod httpMethod, string requestBody, string appPath,
+            string expectedUrl, string action, string controller)
         {
             var urlHelper = GetUrlHelper(routes, httpMethod, requestBody, appPath);
 

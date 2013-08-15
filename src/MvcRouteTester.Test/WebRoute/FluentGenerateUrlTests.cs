@@ -20,7 +20,11 @@ namespace MvcRouteTester.Test.WebRoute
 			RouteAssert.UseAssertEngine(new NunitAssertEngine());
 
 			routes = new RouteCollection();
-			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+                name: "ActionOnly",
+                url: "{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 			routes.MapRoute(
 				name: "Default",
 				url: "{controller}/{action}/{id}",
@@ -36,14 +40,14 @@ namespace MvcRouteTester.Test.WebRoute
 		[Test]
 		public void SimpleFluentRoute()
 		{
-			routes.ShouldMap("/home/index/32").To<HomeController>(x => x.Index(32));
+			routes.ShouldMap("/").From<HomeController>(x => x.Index());
 		}
 
-		[Test]
-		public void SimpleFluentRoute2()
-		{
-			routes.ShouldMap("/home/index/32").From<HomeController>(x => x.Index(32));
-		}
+        [Test]
+        public void Home_About_FluentRoute()
+        {
+            routes.ShouldMap("/about").From<HomeController>(x => x.About());
+        }
 
     }
 }

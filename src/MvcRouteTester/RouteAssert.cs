@@ -197,9 +197,9 @@ namespace MvcRouteTester
 		}
 
 
-        public static void GeneratesUrl(RouteCollection routes, string expectedUrl, string controller, string action, string currentUrl = "/")
+        public static void GeneratesUrl(RouteCollection routes, string expectedUrl, string action, string controller, string currentUrl = "/")
         {
-            WebRouteAssert.GeneratesUrl(routes, HttpMethod.Get, expectedUrl, null, controller, action, currentUrl);
+            WebRouteAssert.GeneratesUrl(routes, HttpMethod.Get, expectedUrl, null, action, controller, currentUrl);
         }
 
         public static void GeneratesUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, string requestBody,
@@ -234,12 +234,12 @@ namespace MvcRouteTester
 
 
         public static void GeneratesActionUrl(RouteCollection routes,
-            string expectedUrl, string controller, string action,
+            string expectedUrl, string action, string controller,
             HttpMethod httpMethod = null, string requestBody = null, string appPath = "/"
             )
         {
             if (httpMethod == null) httpMethod = HttpMethod.Get;
-            WebRouteAssert.GeneratesActionUrl(routes, httpMethod, requestBody, appPath, expectedUrl, controller, action);
+            WebRouteAssert.GeneratesActionUrl(routes, httpMethod, requestBody, appPath, expectedUrl, action, controller);
         }
 	}
 }
