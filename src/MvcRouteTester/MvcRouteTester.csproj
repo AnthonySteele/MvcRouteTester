@@ -59,6 +59,7 @@
     <Compile Include="HttpMocking\MockHttpRequest.cs" />
     <Compile Include="Common\Verifier.cs" />
     <Compile Include="HttpMocking\HttpMockery.cs" />
+    <Compile Include="HttpMocking\MockHttpResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\PropertyReader.cs" />
     <Compile Include="RouteAssert.cs" />
