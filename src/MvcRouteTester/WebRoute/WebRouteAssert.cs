@@ -166,13 +166,54 @@ namespace MvcRouteTester.WebRoute
 			AssertGeneratedUrlExpectedUrl(expectedUrl, generatedUrl);
 		}
 
-		internal static void GeneratesActionUrl(RouteCollection routes, 
+		internal static void GeneratesActionUrl(RouteCollection routes,
 			HttpMethod httpMethod, string requestBody, string appPath,
-			string expectedUrl, string action, string controller)
+			string expectedUrl, IDictionary<string, string> fromProps)
+		{
+			if (!fromProps.ContainsKey("controller"))
+			{
+				var message = string.Format("No controller property found in fromProps");
+				Asserts.Fail(message);
+				return;
+			}
+			if (!fromProps.ContainsKey("action"))
+			{
+				var message = string.Format("No action property found in fromProps");
+				Asserts.Fail(message);
+				return;
+			}
+			string controller = null, action = null;
+			var routeValueDictionary = new RouteValueDictionary();
+
+			foreach (var fromProp in fromProps)
+			{
+				switch (fromProp.Key)
+				{
+					case "controller":
+						controller = fromProp.Value;
+						break;
+					case "action":
+						action = fromProp.Value;
+						break;
+					default:
+						routeValueDictionary.Add(fromProp.Key, fromProp.Value);
+						break;
+				}
+			} 
+			var urlHelper = GetUrlHelper(routes, httpMethod, requestBody, appPath);
+
+			var generatedUrl = urlHelper.Action(action, controller, routeValueDictionary);
+
+			AssertGeneratedUrlExpectedUrl(expectedUrl, generatedUrl);
+		}
+
+		internal static void GeneratesActionUrl(RouteCollection routes,
+			HttpMethod httpMethod, string requestBody, string appPath,
+			string expectedUrl, string action, string controller, RouteValueDictionary routeValueDictionary)
 		{
 			var urlHelper = GetUrlHelper(routes, httpMethod, requestBody, appPath);
 
-			var generatedUrl = urlHelper.Action(action, controller);
+			var generatedUrl = urlHelper.Action(action, controller, routeValueDictionary);
 
 			AssertGeneratedUrlExpectedUrl(expectedUrl, generatedUrl);
 		}

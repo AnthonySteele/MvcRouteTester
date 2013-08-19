@@ -137,9 +137,8 @@ namespace MvcRouteTester
 			WebRouteAssert.GeneratesActionUrl(routes, httpMethod, requestBody, appPath, expectedUrl, action);
 		}
 
-
 		public static void GeneratesActionUrl(RouteCollection routes,
-			string expectedUrl, string action, string controller,
+			string expectedUrl, object fromProps,
 			HttpMethod httpMethod = null, string requestBody = null, string appPath = "/")
 		{
 			if (httpMethod == null)
@@ -147,9 +146,26 @@ namespace MvcRouteTester
 				httpMethod = HttpMethod.Get;
 			}
 
-			WebRouteAssert.GeneratesActionUrl(routes, httpMethod, requestBody, appPath, expectedUrl, action, controller);
+			var propertyReader = new PropertyReader();
+			var expectedProps = propertyReader.Properties(fromProps);
+
+			WebRouteAssert.GeneratesActionUrl(routes, 
+				httpMethod, requestBody, appPath, expectedUrl, expectedProps);
 		}
 
+		public static void GeneratesActionUrl(RouteCollection routes, 
+			string expectedUrl, string action, string controller, 
+			HttpMethod httpMethod = null, string requestBody = null, string appPath = "/")
+		{
+			if (httpMethod == null)
+			{
+				httpMethod = HttpMethod.Get;
+			}
+
+			WebRouteAssert.GeneratesActionUrl(routes,
+				httpMethod, requestBody, appPath, expectedUrl,
+				action, controller, new RouteValueDictionary());
+		}
 
 		/// <summary>
 		/// Asserts that the API route exists, has the specified Http method
