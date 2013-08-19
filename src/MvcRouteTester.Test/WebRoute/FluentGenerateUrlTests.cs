@@ -55,5 +55,24 @@ namespace MvcRouteTester.Test.WebRoute
             routes.ShouldMap("/test/noparamaction").From<TestController>(x => x.NoParamAction());
         }
 
+        [Test]
+        public void HomeController_Index_Params_FluentRoute()
+        {
+            routes.ShouldMap("/index/32").From<HomeController>(x => x.Index(32));
+        }
+
+        [Test]
+        public void TestController_Index_Params_FluentRoute()
+        {
+            routes.ShouldMap("/test?foo=footest&bar=bartest").From<TestController>(x => x.Index("footest", "bartest"));
+        }
+        [Test]
+        public void TestController_IdAndStringAction_FluentRoute()
+        {
+            routes.ShouldMap("/test/idandstring/10?foo=footest").From<TestController>(x => x.IdAndString(10, "footest"));
+        }
+
+
+
     }
 }

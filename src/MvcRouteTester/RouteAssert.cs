@@ -217,10 +217,26 @@ namespace MvcRouteTester
                 Asserts.Fail(message);
                 return;
             }
-            var controller = fromProps["controller"];
-            var action = fromProps["action"];
+            string controller = null, action = null;
+            var routeValueDictionary = new RouteValueDictionary();
 
-            WebRouteAssert.GeneratesUrl(routes, httpMethod, expectedUrl, requestBody, action, controller, appPath);
+            foreach (var fromProp in fromProps)
+            {
+                switch (fromProp.Key)
+                {
+                    case "controller":
+                        controller = fromProp.Value;
+                        break;
+                    case "action":
+                        action = fromProp.Value;
+                        break;
+                    default:
+                        routeValueDictionary.Add(fromProp.Key, fromProp.Value);
+                        break;
+                }
+            }
+
+            WebRouteAssert.GeneratesUrl(routes, httpMethod, expectedUrl, requestBody, action, controller, appPath, routeValueDictionary);
         }
 
         public static void GeneratesActionUrl(RouteCollection routes, 

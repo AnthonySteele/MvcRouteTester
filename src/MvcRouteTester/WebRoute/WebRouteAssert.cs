@@ -104,15 +104,22 @@ namespace MvcRouteTester.WebRoute
 
 	    internal static void GeneratesUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, string requestBody,
             string action, string controller, string appPath)
-        {
+	    {
+	        var routeValueDictionary = new RouteValueDictionary();
+
+	        GeneratesUrl(routes, httpMethod, expectedUrl, requestBody, action, controller, appPath, routeValueDictionary);
+	    }
+
+	    internal static void GeneratesUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, string requestBody,
+	        string action, string controller, string appPath, RouteValueDictionary routeValueDictionary)
+	    {
 	        var requestContext = RequestContext(httpMethod, requestBody, appPath);
 
-	        var routeValueDictionary = new RouteValueDictionary();
 	        var generatedUrl = UrlHelper.GenerateUrl(null, action, controller, routeValueDictionary, routes, requestContext,
 	            true);
-            
-            AssertGeneratedUrlExpectedUrl(expectedUrl, generatedUrl);
-        }
+
+	        AssertGeneratedUrlExpectedUrl(expectedUrl, generatedUrl);
+	    }
 
 	    internal static void GeneratesActionUrl(RouteCollection routes, 
             HttpMethod httpMethod, string requestBody, string appPath, 
