@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Runtime.Remoting.Messaging;
 using System.Web.Http;
 using System.Web.Routing;
 using MvcRouteTester.ApiRoute;
@@ -19,6 +20,7 @@ namespace MvcRouteTester
 	/// </summary>
 	public static class RouteAssert
 	{
+
 		/// <summary>
 		/// Asserts that the route exists 
 		/// </summary>
@@ -193,5 +195,67 @@ namespace MvcRouteTester
 		{
 			ApiRouteAssert.ControllerSelectorType = selector;
 		}
+
+
+        public static void GeneratesUrl(RouteCollection routes, string expectedUrl, string action, string controller, string currentUrl = "/")
+        {
+            WebRouteAssert.GeneratesUrl(routes, HttpMethod.Get, expectedUrl, null, action, controller, currentUrl);
+        }
+
+        public static void GeneratesUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, string requestBody,
+             IDictionary<string, string> fromProps, string appPath = "/")
+        {
+            if (!fromProps.ContainsKey("controller"))
+            {
+                var message = string.Format("No controller property found in fromProps");
+                Asserts.Fail(message);
+                return;
+            }
+            if (!fromProps.ContainsKey("action"))
+            {
+                var message = string.Format("No action property found in fromProps");
+                Asserts.Fail(message);
+                return;
+            }
+            string controller = null, action = null;
+            var routeValueDictionary = new RouteValueDictionary();
+
+            foreach (var fromProp in fromProps)
+            {
+                switch (fromProp.Key)
+                {
+                    case "controller":
+                        controller = fromProp.Value;
+                        break;
+                    case "action":
+                        action = fromProp.Value;
+                        break;
+                    default:
+                        routeValueDictionary.Add(fromProp.Key, fromProp.Value);
+                        break;
+                }
+            }
+
+            WebRouteAssert.GeneratesUrl(routes, httpMethod, expectedUrl, requestBody, action, controller, appPath, routeValueDictionary);
+        }
+
+        public static void GeneratesActionUrl(RouteCollection routes, 
+            string expectedUrl, string action,
+            HttpMethod httpMethod = null, string requestBody = null, string appPath = "/"
+            )
+        {
+            if (httpMethod == null) httpMethod = HttpMethod.Get;
+            WebRouteAssert.GeneratesActionUrl(routes, httpMethod, requestBody, appPath, expectedUrl, action);
+	    }
+
+
+        public static void GeneratesActionUrl(RouteCollection routes,
+            string expectedUrl, string action, string controller,
+            HttpMethod httpMethod = null, string requestBody = null, string appPath = "/"
+            )
+        {
+            if (httpMethod == null) httpMethod = HttpMethod.Get;
+            WebRouteAssert.GeneratesActionUrl(routes, httpMethod, requestBody, appPath, expectedUrl, action, controller);
+        }
 	}
 }

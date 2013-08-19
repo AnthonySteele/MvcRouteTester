@@ -30,6 +30,19 @@ namespace MvcRouteTester.HttpMocking
 			get { return relativeUrl; }
 		}
 
+        public override NameValueCollection ServerVariables
+        {
+            get
+            {
+                return new NameValueCollection();
+            }
+        }
+
+        public override string ApplicationPath
+        {
+            get { return relativeUrl; }
+        }
+
 		public override NameValueCollection QueryString 
 		{
 			get { return queryParams; }
