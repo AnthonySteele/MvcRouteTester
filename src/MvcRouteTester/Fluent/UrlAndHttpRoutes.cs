@@ -42,7 +42,6 @@ namespace MvcRouteTester.Fluent
 			ApiRouteAssert.HasRoute(Configuration, Url, httpMethod, requestBody, expectedProps);
 		}
 
-
 		public void ToNoRoute()
 		{
 			ApiRouteAssert.NoRoute(Configuration, Url);

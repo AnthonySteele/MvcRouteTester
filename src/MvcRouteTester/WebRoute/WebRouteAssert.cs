@@ -12,7 +12,7 @@ using MvcRouteTester.HttpMocking;
 namespace MvcRouteTester.WebRoute
 {
 	internal static class WebRouteAssert
-    {
+	{
 
 		internal static void HasRoute(RouteCollection routes, string url)
 		{
@@ -101,92 +101,78 @@ namespace MvcRouteTester.WebRoute
 			}
 		}
 
+		internal static void GeneratesUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, string requestBody,
+			string action, string controller, string appPath)
+		{
+			var routeValueDictionary = new RouteValueDictionary();
 
-	    internal static void GeneratesUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, string requestBody,
-            string action, string controller, string appPath)
-	    {
-	        var routeValueDictionary = new RouteValueDictionary();
+			GeneratesUrl(routes, httpMethod, expectedUrl, requestBody, action, controller, appPath, routeValueDictionary);
+		}
 
-	        GeneratesUrl(routes, httpMethod, expectedUrl, requestBody, action, controller, appPath, routeValueDictionary);
-	    }
+		internal static void GeneratesUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, string requestBody,
+			string action, string controller, string appPath, RouteValueDictionary routeValueDictionary)
+		{
+			var requestContext = RequestContext(httpMethod, requestBody, appPath);
 
-	    internal static void GeneratesUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, string requestBody,
-	        string action, string controller, string appPath, RouteValueDictionary routeValueDictionary)
-	    {
-	        var requestContext = RequestContext(httpMethod, requestBody, appPath);
+			var generatedUrl = UrlHelper.GenerateUrl(null, action, controller, routeValueDictionary, routes, requestContext,
+				true);
 
-	        var generatedUrl = UrlHelper.GenerateUrl(null, action, controller, routeValueDictionary, routes, requestContext,
-	            true);
+			AssertGeneratedUrlExpectedUrl(expectedUrl, generatedUrl);
+		}
 
-	        AssertGeneratedUrlExpectedUrl(expectedUrl, generatedUrl);
-	    }
+		internal static void GeneratesActionUrl(RouteCollection routes, 
+			HttpMethod httpMethod, string requestBody, string appPath, 
+			string expectedUrl, string action)
+		{
+			var urlHelper = GetUrlHelper(routes, httpMethod, requestBody, appPath);
 
-	    internal static void GeneratesActionUrl(RouteCollection routes, 
-            HttpMethod httpMethod, string requestBody, string appPath, 
-            string expectedUrl, string action)
-        {
-            var urlHelper = GetUrlHelper(routes, httpMethod, requestBody, appPath);
+			var generatedUrl = urlHelper.Action(action);
 
-	        var generatedUrl = urlHelper.Action(action);
+			AssertGeneratedUrlExpectedUrl(expectedUrl, generatedUrl);
+		}
 
-	        AssertGeneratedUrlExpectedUrl(expectedUrl, generatedUrl);
-	    }
+		internal static void GeneratesActionUrl(RouteCollection routes, 
+			HttpMethod httpMethod, string requestBody, string appPath,
+			string expectedUrl, string action, string controller)
+		{
+			var urlHelper = GetUrlHelper(routes, httpMethod, requestBody, appPath);
 
-	    internal static void GeneratesActionUrl(RouteCollection routes, 
-            HttpMethod httpMethod, string requestBody, string appPath,
-            string expectedUrl, string action, string controller)
-        {
-            var urlHelper = GetUrlHelper(routes, httpMethod, requestBody, appPath);
+			var generatedUrl = urlHelper.Action(action, controller);
 
-	        var generatedUrl = urlHelper.Action(action, controller);
+			AssertGeneratedUrlExpectedUrl(expectedUrl, generatedUrl);
+		}
 
-	        AssertGeneratedUrlExpectedUrl(expectedUrl, generatedUrl);
-	    }
+		private static UrlHelper GetUrlHelper(RouteCollection routes, HttpMethod httpMethod, string requestBody,
+			string appPath)
+		{
+			var requestContext = RequestContext(httpMethod, requestBody, appPath);
+			var urlHelper = new UrlHelper(requestContext, routes);
+			return urlHelper;
+		}
 
-	    private static UrlHelper GetUrlHelper(RouteCollection routes, HttpMethod httpMethod, string requestBody,
-	        string appPath)
-	    {
-	        var requestContext = RequestContext(httpMethod, requestBody, appPath);
-	        var urlHelper = new UrlHelper(requestContext, routes);
-	        return urlHelper;
-	    }
+		private static RequestContext RequestContext(HttpMethod httpMethod, string requestBody, string appPath)
+		{
+			var httpContext = HttpMockery.ContextForUrl(httpMethod, appPath, requestBody);
+			var requestContext = new RequestContext(httpContext, new RouteData());
+			return requestContext;
+		}
 
-	    private static RequestContext RequestContext(HttpMethod httpMethod, string requestBody, string appPath)
-	    {
-	        var httpContext = HttpMockery.ContextForUrl(httpMethod, appPath, requestBody);
-	        var requestContext = new RequestContext(httpContext, new RouteData());
-	        return requestContext;
-	    }
+		private static void AssertGeneratedUrlExpectedUrl(string expectedUrl, string generatedUrl)
+		{
+			if (string.IsNullOrWhiteSpace(generatedUrl))
+			{
+				var message = string.Format("Generated Url is null or empty");
+				Asserts.Fail(message);
+				return;
+			}
 
-	    private static void AssertGeneratedUrlExpectedUrl(string expectedUrl, string generatedUrl)
-	    {
-	        if (string.IsNullOrWhiteSpace(generatedUrl))
-	        {
-	            var message = string.Format("Generated Url is null or empty");
-	            Asserts.Fail(message);
-	            return;
-	        }
-
-	        if (!generatedUrl.Equals(expectedUrl, StringComparison.InvariantCultureIgnoreCase))
-	        {
-	            var message =
-	                string.Format("Generated url does not equal to expected url. Generated: '{0}' | Expected: '{1}'",
-	                    generatedUrl, expectedUrl);
-	            Asserts.Fail(message);
-	        }
-	    }
-
-	    private static RouteValueDictionary BuildRouteValueDictionary(object routeValues)
-        {
-            PropertyInfo[] infos = routeValues.GetType().GetProperties();
-            var routeValueDictionary = new RouteValueDictionary();
-
-            foreach (PropertyInfo info in infos)
-            {
-                routeValueDictionary.Add(info.Name, info.GetValue(routeValues, null));
-            }
-
-            return routeValueDictionary;
-        }
-    }
+			if (!generatedUrl.Equals(expectedUrl, StringComparison.InvariantCultureIgnoreCase))
+			{
+				var message =
+					string.Format("Generated url does not equal to expected url. Generated: '{0}' | Expected: '{1}'",
+						generatedUrl, expectedUrl);
+				Asserts.Fail(message);
+			}
+		}
+	}
 }

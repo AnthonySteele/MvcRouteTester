@@ -51,13 +51,13 @@ namespace MvcRouteTester.Fluent
 		}
 
 
-        public void From<TController>(Expression<Func<TController, ActionResult>> action) where TController : Controller
-        {
-            var expressionReader = new ExpressionReader();
-            IDictionary<string, string> fromProps = expressionReader.Read(action);
-            
-            RouteAssert.GeneratesUrl(Routes, HttpMethod.Get, Url, requestBody, fromProps);
-        }
+		public void From<TController>(Expression<Func<TController, ActionResult>> action) where TController : Controller
+		{
+			var expressionReader = new ExpressionReader();
+			IDictionary<string, string> fromProps = expressionReader.Read(action);
+			
+			RouteAssert.GeneratesUrl(Routes, HttpMethod.Get, Url, requestBody, fromProps);
+		}
 
 	}
 }
