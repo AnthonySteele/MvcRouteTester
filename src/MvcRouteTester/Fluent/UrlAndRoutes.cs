@@ -55,8 +55,8 @@ namespace MvcRouteTester.Fluent
 		{
 			var expressionReader = new ExpressionReader();
 			IDictionary<string, string> fromProps = expressionReader.Read(action);
-			
-			RouteAssert.GeneratesUrl(Routes, HttpMethod.Get, Url, requestBody, fromProps);
+
+			WebRouteAssert.GeneratesUrl(Routes, HttpMethod.Get, Url, requestBody, fromProps);
 		}
 
 	}

@@ -102,45 +102,18 @@ namespace MvcRouteTester
 		public static void GeneratesUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, string requestBody,
 			 IDictionary<string, string> fromProps, string appPath = "/")
 		{
-			if (!fromProps.ContainsKey("controller"))
-			{
-				var message = string.Format("No controller property found in fromProps");
-				Asserts.Fail(message);
-				return;
-			}
-			if (!fromProps.ContainsKey("action"))
-			{
-				var message = string.Format("No action property found in fromProps");
-				Asserts.Fail(message);
-				return;
-			}
-			string controller = null, action = null;
-			var routeValueDictionary = new RouteValueDictionary();
-
-			foreach (var fromProp in fromProps)
-			{
-				switch (fromProp.Key)
-				{
-					case "controller":
-						controller = fromProp.Value;
-						break;
-					case "action":
-						action = fromProp.Value;
-						break;
-					default:
-						routeValueDictionary.Add(fromProp.Key, fromProp.Value);
-						break;
-				}
-			}
-
-			WebRouteAssert.GeneratesUrl(routes, httpMethod, expectedUrl, requestBody, action, controller, appPath, routeValueDictionary);
+			WebRouteAssert.GeneratesUrl(routes, httpMethod, expectedUrl, requestBody, fromProps, appPath);
 		}
 
 		public static void GeneratesActionUrl(RouteCollection routes,
 			string expectedUrl, string action,
 			HttpMethod httpMethod = null, string requestBody = null, string appPath = "/")
 		{
-			if (httpMethod == null) httpMethod = HttpMethod.Get;
+			if (httpMethod == null)
+			{
+				httpMethod = HttpMethod.Get;
+			}
+
 			WebRouteAssert.GeneratesActionUrl(routes, httpMethod, requestBody, appPath, expectedUrl, action);
 		}
 

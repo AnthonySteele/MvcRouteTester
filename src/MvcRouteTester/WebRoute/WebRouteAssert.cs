@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Reflection;
-using System.Security.Policy;
 using System.Web.Mvc;
 using System.Web.Routing;
 using MvcRouteTester.Assertions;
@@ -110,6 +108,43 @@ namespace MvcRouteTester.WebRoute
 		}
 
 		internal static void GeneratesUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, string requestBody,
+			IDictionary<string, string> fromProps, string appPath = "/")
+		{
+			if (!fromProps.ContainsKey("controller"))
+			{
+				var message = string.Format("No controller property found in fromProps");
+				Asserts.Fail(message);
+				return;
+			}
+			if (!fromProps.ContainsKey("action"))
+			{
+				var message = string.Format("No action property found in fromProps");
+				Asserts.Fail(message);
+				return;
+			}
+			string controller = null, action = null;
+			var routeValueDictionary = new RouteValueDictionary();
+
+			foreach (var fromProp in fromProps)
+			{
+				switch (fromProp.Key)
+				{
+					case "controller":
+						controller = fromProp.Value;
+						break;
+					case "action":
+						action = fromProp.Value;
+						break;
+					default:
+						routeValueDictionary.Add(fromProp.Key, fromProp.Value);
+						break;
+				}
+			}
+
+			GeneratesUrl(routes, httpMethod, expectedUrl, requestBody, action, controller, appPath, routeValueDictionary);
+		}
+
+		internal static void GeneratesUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, string requestBody,
 			string action, string controller, string appPath, RouteValueDictionary routeValueDictionary)
 		{
 			var requestContext = RequestContext(httpMethod, requestBody, appPath);
@@ -146,15 +181,13 @@ namespace MvcRouteTester.WebRoute
 			string appPath)
 		{
 			var requestContext = RequestContext(httpMethod, requestBody, appPath);
-			var urlHelper = new UrlHelper(requestContext, routes);
-			return urlHelper;
+			return new UrlHelper(requestContext, routes);
 		}
 
 		private static RequestContext RequestContext(HttpMethod httpMethod, string requestBody, string appPath)
 		{
 			var httpContext = HttpMockery.ContextForUrl(httpMethod, appPath, requestBody);
-			var requestContext = new RequestContext(httpContext, new RouteData());
-			return requestContext;
+			return new RequestContext(httpContext, new RouteData());
 		}
 
 		private static void AssertGeneratedUrlExpectedUrl(string expectedUrl, string generatedUrl)
@@ -168,9 +201,9 @@ namespace MvcRouteTester.WebRoute
 
 			if (!generatedUrl.Equals(expectedUrl, StringComparison.InvariantCultureIgnoreCase))
 			{
-				var message =
-					string.Format("Generated url does not equal to expected url. Generated: '{0}' | Expected: '{1}'",
-						generatedUrl, expectedUrl);
+				var message = string.Format(
+					"Generated url does not equal to expected url. Generated: '{0}', expected: '{1}'",
+					generatedUrl, expectedUrl);
 				Asserts.Fail(message);
 			}
 		}
