@@ -101,6 +101,11 @@ namespace MvcRouteTester
 			WebRouteAssert.GeneratesUrl(routes, HttpMethod.Get, expectedUrl, null, expectedProps, appPath);
 		}
 
+		public static void GeneratesUrl(RouteCollection routes, string expectedUrl, IDictionary<string, string> fromProps, string appPath = "/")
+		{
+			WebRouteAssert.GeneratesUrl(routes, HttpMethod.Get, expectedUrl, null, fromProps, appPath);
+		}
+
 		public static void GeneratesUrl(RouteCollection routes, string expectedUrl, string action, string controller, string currentUrl = "/")
 		{
 			WebRouteAssert.GeneratesUrl(routes, HttpMethod.Get, expectedUrl, null, action, controller, currentUrl);

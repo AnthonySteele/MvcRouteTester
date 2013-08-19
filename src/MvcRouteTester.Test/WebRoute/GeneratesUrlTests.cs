@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 using MvcRouteTester.Test.Assertions;
@@ -44,6 +45,18 @@ namespace MvcRouteTester.Test.WebRoute
 		public void Can_Generate_Root_Url_From_Home_Path_with_anon_object()
 		{
 			RouteAssert.GeneratesUrl(routes, "/", new { action= "Index", controller = "Home" });
+		}
+
+		[Test]
+		public void Can_Generate_Root_Url_From_Home_Path_with_dictionary()
+		{
+			var values = new Dictionary<string, string>
+				{
+					{ "action", "Index"},
+					{ "controller", "Home"},
+				};
+
+			RouteAssert.GeneratesUrl(routes, "/", values);
 		}
 
 		[Test]

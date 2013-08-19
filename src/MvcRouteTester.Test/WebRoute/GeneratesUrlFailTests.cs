@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 using MvcRouteTester.Test.Assertions;
@@ -54,6 +55,21 @@ namespace MvcRouteTester.Test.WebRoute
 		public void Fail_message_is_as_expected_with_anon_object()
 		{
 			RouteAssert.GeneratesUrl(routes, "/", new { action = "NoSuchAction", controller = "Home" });
+
+			Assert.That(assertEngine.FailCount, Is.EqualTo(1));
+			Assert.That(assertEngine.Messages[0], Is.EqualTo("Generated url does not equal to expected url. Generated: '/Home/NoSuchAction', expected: '/'"));
+		}
+
+		[Test]
+		public void Fail_message_is_as_expected_with_dictionary()
+		{
+			var values = new Dictionary<string,string>
+				{
+					{ "action", "NoSuchAction"},
+					{ "controller", "Home"},
+				};
+
+			RouteAssert.GeneratesUrl(routes, "/", values);
 
 			Assert.That(assertEngine.FailCount, Is.EqualTo(1));
 			Assert.That(assertEngine.Messages[0], Is.EqualTo("Generated url does not equal to expected url. Generated: '/Home/NoSuchAction', expected: '/'"));
