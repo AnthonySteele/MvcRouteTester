@@ -149,8 +149,8 @@ namespace MvcRouteTester.WebRoute
 		{
 			var requestContext = RequestContext(httpMethod, requestBody, appPath);
 
-			var generatedUrl = UrlHelper.GenerateUrl(null, action, controller, routeValueDictionary, routes, requestContext,
-				true);
+			var generatedUrl = UrlHelper.GenerateUrl(null, 
+				action, controller, routeValueDictionary, routes, requestContext, true);
 
 			AssertGeneratedUrlExpectedUrl(expectedUrl, generatedUrl);
 		}

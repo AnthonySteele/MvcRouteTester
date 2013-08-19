@@ -94,6 +94,13 @@ namespace MvcRouteTester
 			WebRouteAssert.IsNotIgnoredRoute(routes, url);
 		}
 
+		public static void GeneratesUrl(RouteCollection routes, string expectedUrl, object fromProps, string appPath = "/")
+		{
+			var propertyReader = new PropertyReader();
+			var expectedProps = propertyReader.Properties(fromProps);
+			WebRouteAssert.GeneratesUrl(routes, HttpMethod.Get, expectedUrl, null, expectedProps, appPath);
+		}
+
 		public static void GeneratesUrl(RouteCollection routes, string expectedUrl, string action, string controller, string currentUrl = "/")
 		{
 			WebRouteAssert.GeneratesUrl(routes, HttpMethod.Get, expectedUrl, null, action, controller, currentUrl);
@@ -103,6 +110,14 @@ namespace MvcRouteTester
 			 IDictionary<string, string> fromProps, string appPath = "/")
 		{
 			WebRouteAssert.GeneratesUrl(routes, httpMethod, expectedUrl, requestBody, fromProps, appPath);
+		}
+
+		public static void GeneratesUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, string requestBody,
+			object fromProps, string appPath = "/")
+		{
+			var propertyReader = new PropertyReader();
+			var expectedProps = propertyReader.Properties(fromProps);
+			WebRouteAssert.GeneratesUrl(routes, httpMethod, expectedUrl, requestBody, expectedProps, appPath);
 		}
 
 		public static void GeneratesActionUrl(RouteCollection routes,
