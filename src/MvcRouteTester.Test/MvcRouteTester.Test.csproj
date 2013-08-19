@@ -85,6 +85,7 @@
     <Compile Include="Common\PropertyReaderIsSimpleTypeTests.cs" />
     <Compile Include="Common\PropertyReaderPropertiesTests.cs" />
     <Compile Include="Common\PropertyReaderSimplePropertyNamesTests.cs" />
+    <Compile Include="WebRoute\GeneratesUrlFailTests.cs" />
     <Compile Include="WebRoute\FluentExtensionsAliasRouteTests.cs" />
     <Compile Include="WebRoute\DefaultsTests.cs" />
     <Compile Include="WebRoute\FluentExtensionsTests.cs" />

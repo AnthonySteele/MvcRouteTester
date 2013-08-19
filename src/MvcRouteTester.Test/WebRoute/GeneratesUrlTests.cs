@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace MvcRouteTester.Test.WebRoute
 {
 	[TestFixture]
-	public class GenereatedUrlTests
+	public class GeneratesUrlTests
 	{
 		private RouteCollection routes;
 
@@ -44,39 +44,6 @@ namespace MvcRouteTester.Test.WebRoute
 		public void Can_Generate_Root_Url_From_Home_Path_with_anon_object()
 		{
 			RouteAssert.GeneratesUrl(routes, "/", new { action= "Index", controller = "Home" });
-		}
-
-		[Test]
-		public void Fail_message_on_action_is_as_expected()
-		{
-			var engine = new FakeAssertEngine();
-			RouteAssert.UseAssertEngine(engine);
-			RouteAssert.GeneratesUrl(routes, "/", "NoSuchAction", "Home");
-
-			Assert.That(engine.FailCount, Is.EqualTo(1));
-			Assert.That(engine.Messages[0], Is.EqualTo("Generated url does not equal to expected url. Generated: '/NoSuchAction', expected: '/'"));
-		}
-
-		[Test]
-		public void Fail_message_on_controller_is_as_expected()
-		{
-			var engine = new FakeAssertEngine();
-			RouteAssert.UseAssertEngine(engine);
-			RouteAssert.GeneratesUrl(routes, "/", "Index", "NoSuchController");
-
-			Assert.That(engine.FailCount, Is.EqualTo(1));
-			Assert.That(engine.Messages[0], Is.EqualTo("Generated url does not equal to expected url. Generated: '/NoSuchController', expected: '/'"));
-		}
-
-		[Test]
-		public void Fail_message_is_as_expected_with_anon_object()
-		{
-			var engine = new FakeAssertEngine();
-			RouteAssert.UseAssertEngine(engine);
-			RouteAssert.GeneratesUrl(routes, "/", new { action = "NoSuchAction", controller = "Home" });
-
-			Assert.That(engine.FailCount, Is.EqualTo(1));
-			Assert.That(engine.Messages[0], Is.EqualTo("Generated url does not equal to expected url. Generated: '/NoSuchAction', expected: '/'"));
 		}
 
 		[Test]
