@@ -8,5 +8,10 @@ namespace MvcRouteTester.Test.Controllers
 		{
 			return new EmptyResult();
 		}
+
+	    public ActionResult NoParamAction()
+	    {
+	        return new EmptyResult();
+	    }
 	}
 }

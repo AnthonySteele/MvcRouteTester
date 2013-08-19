@@ -49,5 +49,11 @@ namespace MvcRouteTester.Test.WebRoute
             routes.ShouldMap("/about").From<HomeController>(x => x.About());
         }
 
+        [Test]
+        public void TestController_NoParamAction_FluentRoute()
+        {
+            routes.ShouldMap("/test/noparamaction").From<TestController>(x => x.NoParamAction());
+        }
+
     }
 }
