@@ -11,6 +11,7 @@ namespace MvcRouteTester.Fluent
 	public class UrlAndRoutes
 	{
 		private string requestBody = string.Empty;
+		private string requestAppPath = "/";
 
 		public UrlAndRoutes(RouteCollection routes, string url)
 		{
@@ -24,6 +25,12 @@ namespace MvcRouteTester.Fluent
 		public UrlAndRoutes WithBody(string body)
 		{
 			requestBody = body;
+			return this;
+		}
+
+		public UrlAndRoutes WithAppPath(string appPath)
+		{
+			requestAppPath = appPath;
 			return this;
 		}
 
@@ -56,8 +63,7 @@ namespace MvcRouteTester.Fluent
 			var expressionReader = new ExpressionReader();
 			IDictionary<string, string> fromProps = expressionReader.Read(action);
 
-			WebRouteAssert.GeneratesUrl(Routes, HttpMethod.Get, Url, requestBody, fromProps);
+			WebRouteAssert.GeneratesActionUrl(Routes, HttpMethod.Get, Url, fromProps, appPath: requestAppPath, requestBody: requestBody);
 		}
-
 	}
 }

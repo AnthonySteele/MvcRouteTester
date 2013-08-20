@@ -46,6 +46,11 @@ namespace MvcRouteTester.Common
 		{
 			var queryParameters = new NameValueCollection();
 
+			if (string.IsNullOrEmpty(url))
+			{
+				return queryParameters;
+			}
+
 			var routeParts = url.Split('?');
 			if (routeParts.Length < 2)
 			{

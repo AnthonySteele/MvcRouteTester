@@ -38,13 +38,13 @@ namespace MvcRouteTester.Test.WebRoute
 		[Test]
 		public void Can_Generate_Root_Url_From_Home_Path()
 		{
-			RouteAssert.GeneratesUrl(routes, "/", "Index", "Home");
+			RouteAssert.GeneratesActionUrl(routes, "/", "Index", "Home");
 		}
 
 		[Test]
 		public void Can_Generate_Root_Url_From_Home_Path_with_anon_object()
 		{
-			RouteAssert.GeneratesUrl(routes, "/", new { action= "Index", controller = "Home" });
+			RouteAssert.GeneratesActionUrl(routes, "/", new { action = "Index", controller = "Home" });
 		}
 
 		[Test]
@@ -56,7 +56,7 @@ namespace MvcRouteTester.Test.WebRoute
 					{ "controller", "Home"},
 				};
 
-			RouteAssert.GeneratesUrl(routes, "/", values);
+			RouteAssert.GeneratesActionUrl(routes, "/", values);
 		}
 
 		[Test]

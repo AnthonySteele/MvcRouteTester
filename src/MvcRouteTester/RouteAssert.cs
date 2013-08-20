@@ -94,77 +94,54 @@ namespace MvcRouteTester
 			WebRouteAssert.IsNotIgnoredRoute(routes, url);
 		}
 
-		public static void GeneratesUrl(RouteCollection routes, string expectedUrl, object fromProps, string appPath = "/")
+		public static void GeneratesActionUrl(RouteCollection routes,
+			string expectedUrl, object fromProps,
+			HttpMethod httpMethod = null, string appPath = "/", string requestBody = null)
 		{
+			if (httpMethod == null)
+			{
+				httpMethod = HttpMethod.Get;
+			}
+
 			var propertyReader = new PropertyReader();
 			var expectedProps = propertyReader.Properties(fromProps);
-			WebRouteAssert.GeneratesUrl(routes, HttpMethod.Get, expectedUrl, null, expectedProps, appPath);
+
+			WebRouteAssert.GeneratesActionUrl(routes, httpMethod, expectedUrl, expectedProps, appPath, requestBody);
 		}
 
-		public static void GeneratesUrl(RouteCollection routes, string expectedUrl, IDictionary<string, string> fromProps, string appPath = "/")
+		public static void GeneratesActionUrl(RouteCollection routes, string expectedUrl, IDictionary<string, string> fromProps, string appPath = "/")
 		{
-			WebRouteAssert.GeneratesUrl(routes, HttpMethod.Get, expectedUrl, null, fromProps, appPath);
+			WebRouteAssert.GeneratesActionUrl(routes, HttpMethod.Get, expectedUrl, fromProps, appPath, null);
 		}
 
-		public static void GeneratesUrl(RouteCollection routes, string expectedUrl, string action, string controller, string currentUrl = "/")
+		public static void GeneratesActionUrl(RouteCollection routes, string expectedUrl, string action, string controller,
+			HttpMethod httpMethod = null, string appPath = null, string requestBody = null)
 		{
-			WebRouteAssert.GeneratesUrl(routes, HttpMethod.Get, expectedUrl, null, action, controller, currentUrl);
+			if (httpMethod == null)
+			{
+				httpMethod = HttpMethod.Get;
+			}
+
+			WebRouteAssert.GeneratesActionUrl(routes, httpMethod, expectedUrl, action, controller, 
+				appPath, new RouteValueDictionary(), requestBody);
 		}
 
-		public static void GeneratesUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, string requestBody,
-			 IDictionary<string, string> fromProps, string appPath = "/")
+		public static void GeneratesActionUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl,
+			 IDictionary<string, string> fromProps, string appPath = null, string requestBody = null)
 		{
-			WebRouteAssert.GeneratesUrl(routes, httpMethod, expectedUrl, requestBody, fromProps, appPath);
-		}
-
-		public static void GeneratesUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, string requestBody,
-			object fromProps, string appPath = "/")
-		{
-			var propertyReader = new PropertyReader();
-			var expectedProps = propertyReader.Properties(fromProps);
-			WebRouteAssert.GeneratesUrl(routes, httpMethod, expectedUrl, requestBody, expectedProps, appPath);
+			WebRouteAssert.GeneratesActionUrl(routes, httpMethod, expectedUrl, fromProps, appPath, requestBody);
 		}
 
 		public static void GeneratesActionUrl(RouteCollection routes,
 			string expectedUrl, string action,
-			HttpMethod httpMethod = null, string requestBody = null, string appPath = "/")
+			HttpMethod httpMethod = null, string appPath = null, string requestBody = null)
 		{
 			if (httpMethod == null)
 			{
 				httpMethod = HttpMethod.Get;
 			}
 
-			WebRouteAssert.GeneratesActionUrl(routes, httpMethod, requestBody, appPath, expectedUrl, action);
-		}
-
-		public static void GeneratesActionUrl(RouteCollection routes,
-			string expectedUrl, object fromProps,
-			HttpMethod httpMethod = null, string requestBody = null, string appPath = "/")
-		{
-			if (httpMethod == null)
-			{
-				httpMethod = HttpMethod.Get;
-			}
-
-			var propertyReader = new PropertyReader();
-			var expectedProps = propertyReader.Properties(fromProps);
-
-			WebRouteAssert.GeneratesActionUrl(routes, 
-				httpMethod, requestBody, appPath, expectedUrl, expectedProps);
-		}
-
-		public static void GeneratesActionUrl(RouteCollection routes, 
-			string expectedUrl, string action, string controller, 
-			HttpMethod httpMethod = null, string requestBody = null, string appPath = "/")
-		{
-			if (httpMethod == null)
-			{
-				httpMethod = HttpMethod.Get;
-			}
-
-			WebRouteAssert.GeneratesActionUrl(routes,
-				httpMethod, requestBody, appPath, expectedUrl,
-				action, controller, new RouteValueDictionary());
+			WebRouteAssert.GeneratesActionUrl(routes, httpMethod, expectedUrl, action, null, appPath, new RouteValueDictionary(), requestBody);
 		}
 
 		/// <summary>

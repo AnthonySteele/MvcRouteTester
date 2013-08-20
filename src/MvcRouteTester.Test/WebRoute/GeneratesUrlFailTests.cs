@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -36,7 +37,7 @@ namespace MvcRouteTester.Test.WebRoute
 		[Test]
 		public void Fail_message_on_action_is_as_expected()
 		{
-			RouteAssert.GeneratesUrl(routes, "/", "NoSuchAction", "Home");
+			RouteAssert.GeneratesActionUrl(routes, "/", "NoSuchAction", "Home");
 
 			Assert.That(assertEngine.FailCount, Is.EqualTo(1));
 			Assert.That(assertEngine.Messages[0], Is.EqualTo("Generated url does not equal to expected url. Generated: '/Home/NoSuchAction', expected: '/'"));
@@ -45,7 +46,7 @@ namespace MvcRouteTester.Test.WebRoute
 		[Test]
 		public void Fail_message_on_controller_is_as_expected()
 		{
-			RouteAssert.GeneratesUrl(routes, "/", "Index", "NoSuchController");
+			RouteAssert.GeneratesActionUrl(routes, "/", "Index", "NoSuchController");
 
 			Assert.That(assertEngine.FailCount, Is.EqualTo(1));
 			Assert.That(assertEngine.Messages[0], Is.EqualTo("Generated url does not equal to expected url. Generated: '/NoSuchController', expected: '/'"));
@@ -54,7 +55,7 @@ namespace MvcRouteTester.Test.WebRoute
 		[Test]
 		public void Fail_message_is_as_expected_with_anon_object()
 		{
-			RouteAssert.GeneratesUrl(routes, "/", new { action = "NoSuchAction", controller = "Home" });
+			RouteAssert.GeneratesActionUrl(routes, "/", new { action = "NoSuchAction", controller = "Home" });
 
 			Assert.That(assertEngine.FailCount, Is.EqualTo(1));
 			Assert.That(assertEngine.Messages[0], Is.EqualTo("Generated url does not equal to expected url. Generated: '/Home/NoSuchAction', expected: '/'"));
@@ -69,7 +70,7 @@ namespace MvcRouteTester.Test.WebRoute
 					{ "controller", "Home"},
 				};
 
-			RouteAssert.GeneratesUrl(routes, "/", values);
+			RouteAssert.GeneratesActionUrl(routes, "/", values);
 
 			Assert.That(assertEngine.FailCount, Is.EqualTo(1));
 			Assert.That(assertEngine.Messages[0], Is.EqualTo("Generated url does not equal to expected url. Generated: '/Home/NoSuchAction', expected: '/'"));
@@ -78,7 +79,7 @@ namespace MvcRouteTester.Test.WebRoute
 		[Test]
 		public void Fail_message_on_action_is_as_expected_with_current_url()
 		{
-			RouteAssert.GeneratesUrl(routes, "/", "NoSuchAction", "Home", "/foo");
+			RouteAssert.GeneratesActionUrl(routes, "/", "NoSuchAction", "Home", HttpMethod.Get, "/foo");
 
 			Assert.That(assertEngine.FailCount, Is.EqualTo(1));
 			Assert.That(assertEngine.Messages[0], Is.EqualTo("Generated url does not equal to expected url. Generated: '/foo/Home/NoSuchAction', expected: '/'"));

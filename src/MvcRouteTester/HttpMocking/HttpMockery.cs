@@ -14,14 +14,17 @@ namespace MvcRouteTester.HttpMocking
 
 		public static HttpContextBase ContextForUrl(HttpMethod method, string url, string requestBody)
 		{
+			if (string.IsNullOrEmpty(url))
+			{
+				url = string.Empty;
+			}
 			var routeParts = url.Split('?');
 			var relativeUrl = routeParts[0];
 			var queryParams = UrlHelpers.MakeQueryParams(url);
 
-
 			var request = new MockHttpRequest(method, relativeUrl, queryParams, requestBody);
-		    var response = new MockHttpResponse();
-            var httpContext = new MockHttpContext(request, response);
+			var response = new MockHttpResponse();
+			var httpContext = new MockHttpContext(request, response);
 
 			var requestContext = new RequestContext(httpContext, new RouteData());
 			request.SetContext(requestContext);
