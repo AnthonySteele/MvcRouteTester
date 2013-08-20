@@ -102,6 +102,7 @@
     <Compile Include="WebRoute\ModelBindingTests.cs" />
     <Compile Include="WebRoute\NullableParamTests.cs" />
     <Compile Include="WebRoute\RouteParamsTests.cs" />
+    <Compile Include="WebRoute\RoutePropertiesTests.cs" />
     <Compile Include="WebRoute\RouteValuesTest.cs" />
     <Compile Include="WebRoute\WithOptionalParamTests.cs" />
   </ItemGroup>

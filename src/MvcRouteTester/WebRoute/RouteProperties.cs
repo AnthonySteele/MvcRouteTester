@@ -5,7 +5,7 @@ using MvcRouteTester.Assertions;
 
 namespace MvcRouteTester.WebRoute
 {
-	internal class RouteProperties
+	public class RouteProperties
 	{
 		public string Controller { get; private set; }
 		public string Action { get; private set; }
@@ -13,7 +13,7 @@ namespace MvcRouteTester.WebRoute
 
 		public RouteValueDictionary RouteValues { get; private set; }
 
-		internal RouteProperties(IDictionary<string, string> fromProps)
+		public RouteProperties(IDictionary<string, string> fromProps)
 		{
 			RouteValues = new RouteValueDictionary();
 			CheckRequiredKeysPresent(fromProps);
@@ -25,6 +25,8 @@ namespace MvcRouteTester.WebRoute
 
 		private void CheckRequiredKeysPresent(IDictionary<string, string> fromProps)
 		{
+			DataOk = true;
+
 			if (!fromProps.ContainsKey("controller"))
 			{
 				var message = string.Format("No 'controller' property found in fromProps");
@@ -38,8 +40,6 @@ namespace MvcRouteTester.WebRoute
 				Asserts.Fail(message);
 				DataOk = false;
 			}
-
-			DataOk = true;
 		}
 
 		private void ReadProperties(IDictionary<string, string> fromProps)
