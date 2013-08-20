@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -57,6 +58,30 @@ namespace MvcRouteTester.Test.WebRoute
 				};
 
 			RouteAssert.GeneratesActionUrl(routes, "/", values);
+		}
+
+		[Test]
+		public void Can_Generate_Root_Url_with_app_path()
+		{
+			var values = new Dictionary<string, string>
+				{
+					{ "action", "Index"},
+					{ "controller", "Home"},
+				};
+
+			RouteAssert.GeneratesActionUrl(routes, "/appPath/", values, "/appPath");
+		}
+
+		[Test]
+		public void Can_Generate_Root_Url_with_http_post()
+		{
+			var values = new Dictionary<string, string>
+				{
+					{ "action", "Index"},
+					{ "controller", "Home"},
+				};
+
+			RouteAssert.GeneratesActionUrl(routes, HttpMethod.Post, "/", values);
 		}
 
 		[Test]
