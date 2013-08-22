@@ -186,8 +186,6 @@ Test that an Api route matching the url exists, and that the controller can resp
     public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string controller, string action)
     public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, IDictionary<string, string> expectedProps)
 
----
-
 Test that an api route matching the url exists, and that the controller can respond to the specified Http method and meets expectations. The expectations can be given in different ways - as an anon-typed object, as an IDictionary of names and values, or to just check the controller and action method names.
 
 	public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string body, object expectations)
