@@ -132,8 +132,7 @@ namespace MvcRouteTester
 			WebRouteAssert.GeneratesActionUrl(routes, httpMethod, expectedUrl, fromProps, appPath, requestBody);
 		}
 
-		public static void GeneratesActionUrl(RouteCollection routes,
-			string expectedUrl, string action,
+		public static void GeneratesActionUrl(RouteCollection routes, string expectedUrl, string action,
 			HttpMethod httpMethod = null, string appPath = null, string requestBody = null)
 		{
 			if (httpMethod == null)
