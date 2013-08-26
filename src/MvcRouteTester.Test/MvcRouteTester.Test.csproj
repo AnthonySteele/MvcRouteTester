@@ -74,6 +74,7 @@
     <Compile Include="ApiControllers\MemberController.cs" />
     <Compile Include="Controllers\RouteParamsCasesController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\TwoRouteParamsController.cs" />
     <Compile Include="Controllers\WithNullableController.cs" />
     <Compile Include="Controllers\WithObjectController.cs" />
     <Compile Include="Controllers\WithOptionalParamController.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="WebRoute\RouteParamsTests.cs" />
     <Compile Include="WebRoute\RoutePropertiesTests.cs" />
     <Compile Include="WebRoute\RouteValuesTest.cs" />
+    <Compile Include="WebRoute\TwoRouteParamsTests.cs" />
     <Compile Include="WebRoute\WithOptionalParamTests.cs" />
   </ItemGroup>
   <ItemGroup>

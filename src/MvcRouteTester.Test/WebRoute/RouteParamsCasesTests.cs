@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace MvcRouteTester.Test.WebRoute
 {
 	/// <summary>
-	/// Tests on model binding and aprams using RouteParamsCasesController
+	/// Tests on model binding and params using RouteParamsCasesController
 	/// </summary>
 	[TestFixture]
 	public class RouteParamsCasesTests
@@ -26,35 +26,12 @@ namespace MvcRouteTester.Test.WebRoute
 				name: "Default",
 				url: "{controller}/{action}/{id}",
 				defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
-			routes.MapRoute(
-				name: "TwoParams",
-				url: "{controller}/{action}/{id1}/{id2}",
-				defaults: new { controller = "Home", action = "Index" });
 		}
 
 		[TearDown]
 		public void TearDown()
 		{
 			RouteAssert.UseAssertEngine(new NunitAssertEngine());
-		}
-
-		[Test]
-		public void RouteCanHaveTwoIntIds()
-		{
-			var expectedRoute = new { controller = "RouteParamsCases", action = "TwoIntAction", id1 = 42, id2 = 312 };
-			RouteAssert.HasRoute(routes, "/RouteParamsCases/TwoIntAction/42/312", expectedRoute);
-		}
-
-		[Test]
-		public void RouteAssertFailsIfIntAreInWrongPositions()
-		{
-			var assertEngine = new FakeAssertEngine();
-			RouteAssert.UseAssertEngine(assertEngine);
-
-			var expectedRoute = new { controller = "RouteParamsCases", action = "TwoIntAction", id1 = 42, id2 = 312 };
-			RouteAssert.HasRoute(routes, "/RouteParamsCases/TwoIntAction/312/42", expectedRoute);
-
-			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(2), "Different ints should not match");
 		}
 
 		[Test]
