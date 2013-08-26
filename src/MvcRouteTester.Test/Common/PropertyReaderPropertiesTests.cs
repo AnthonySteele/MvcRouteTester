@@ -1,6 +1,8 @@
 ﻿using System;
 
 using MvcRouteTester.Common;
+using MvcRouteTester.Test.Controllers;
+
 using NUnit.Framework;
 
 namespace MvcRouteTester.Test.Common
@@ -37,6 +39,22 @@ namespace MvcRouteTester.Test.Common
 			Assert.That(properties.Count, Is.EqualTo(2));
 			Assert.That(properties["Foo"], Is.EqualTo("1"));
 			Assert.That(properties["Bar"], Is.EqualTo("Two"));
+		}
+
+		[Test]
+		public void ShouldReadPropertiesOfStruct()
+		{
+			var values = new InputModelStruct
+				{
+					Id = 34,
+					Name = "Bob"
+				};
+			var properties = reader.Properties(values);
+
+			Assert.That(properties, Is.Not.Null);
+			Assert.That(properties.Count, Is.EqualTo(2));
+			Assert.That(properties["Id"], Is.EqualTo("34"));
+			Assert.That(properties["Name"], Is.EqualTo("Bob"));
 		}
 
 		[Test]

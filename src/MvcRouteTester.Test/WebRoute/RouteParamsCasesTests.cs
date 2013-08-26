@@ -26,6 +26,11 @@ namespace MvcRouteTester.Test.WebRoute
 				name: "Default",
 				url: "{controller}/{action}/{id}",
 				defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+			routes.MapRoute(
+				name: "WithNameId",
+				url: "{controller}/{action}/{id}/{name}",
+				defaults: new { controller = "Home", action = "Index" });
 		}
 
 		[TearDown]
@@ -79,6 +84,25 @@ namespace MvcRouteTester.Test.WebRoute
 			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(1), "Different bools should not match");
 		}
 
+		[Test]
+		public void RouteCanHaveStructAsParam()
+		{
+			var expectedRoute = new { controller = "RouteParamsCases", action = "StructAction", id = 42, name = "fred" };
+			RouteAssert.HasRoute(routes, "/RouteParamsCases/StructAction/42/fred", expectedRoute);
+		}
+
+		[Test]
+		public void RouteAssertFailsIfSTructPropertyDoesNotMatch()
+		{
+			var assertEngine = new FakeAssertEngine();
+			RouteAssert.UseAssertEngine(assertEngine);
+
+
+			var expectedRoute = new { controller = "RouteParamsCases", action = "StructAction", id = 42, name = "fred" };
+			RouteAssert.HasRoute(routes, "/RouteParamsCases/StructAction/42/jim", expectedRoute);
+
+			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(1), "Different struct values should not match");
+		}
 	}
 }
 
