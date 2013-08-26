@@ -5,12 +5,12 @@ namespace MvcRouteTester.Test.Controllers
 {
 	public class RouteParamsCasesController : Controller
 	{
-		public ActionResult TwoIntAction(int id1, int id2)
+		public ActionResult GuidAction(Guid id)
 		{
 			return new EmptyResult();
 		}
 
-		public ActionResult GuidAction(Guid id)
+		public ActionResult BoolAction(bool id)
 		{
 			return new EmptyResult();
 		}

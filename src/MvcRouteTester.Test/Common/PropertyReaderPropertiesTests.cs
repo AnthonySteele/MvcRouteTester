@@ -61,6 +61,16 @@ namespace MvcRouteTester.Test.Common
 		}
 
 		[Test]
+		public void ShouldReadBoolProperty()
+		{
+			var properties = reader.Properties(new { ValueUnderTest = true });
+
+			Assert.That(properties, Is.Not.Null);
+			Assert.That(properties.Count, Is.EqualTo(1));
+			Assert.That(properties["ValueUnderTest"], Is.EqualTo("true"));
+		}
+
+		[Test]
 		public void ShouldReadStringProperty()
 		{
 			var properties = reader.Properties(new { ValueUnderTest = "Fish" });

@@ -36,15 +36,15 @@ namespace MvcRouteTester.Test.WebRoute
 		[Test]
 		public void RouteCanHaveTwoIntIds()
 		{
-			var expectedRoute = new { controller = "RouteParamsCases", action = "TwoIntAction", id1 = 42, id2 = 312 };
-			RouteAssert.HasRoute(routes, "/RouteParamsCases/TwoIntAction/42/312", expectedRoute);
+			var expectedRoute = new { controller = "TwoRouteParams", action = "TwoIntAction", id1 = 42, id2 = 312 };
+			RouteAssert.HasRoute(routes, "/TwoRouteParams/TwoIntAction/42/312", expectedRoute);
 		}
 
 		[Test]
 		public void RouteCanHaveTwoStringIds()
 		{
-			var expectedRoute = new { controller = "RouteParamsCases", action = "TwoStringAction", id1 = "foo", id2 = "bar" };
-			RouteAssert.HasRoute(routes, "/RouteParamsCases/TwoStringAction/foo/bar", expectedRoute);
+			var expectedRoute = new { controller = "TwoRouteParams", action = "TwoStringAction", id1 = "foo", id2 = "bar" };
+			RouteAssert.HasRoute(routes, "/TwoRouteParams/TwoStringAction/foo/bar", expectedRoute);
 		}
 
 		[Test]
@@ -53,8 +53,8 @@ namespace MvcRouteTester.Test.WebRoute
 			var assertEngine = new FakeAssertEngine();
 			RouteAssert.UseAssertEngine(assertEngine);
 
-			var expectedRoute = new { controller = "RouteParamsCases", action = "TwoIntAction", id1 = 42, id2 = 312 };
-			RouteAssert.HasRoute(routes, "/RouteParamsCases/TwoIntAction/312/42", expectedRoute);
+			var expectedRoute = new { controller = "TwoRouteParams", action = "TwoIntAction", id1 = 42, id2 = 312 };
+			RouteAssert.HasRoute(routes, "/TwoRouteParams/TwoIntAction/312/42", expectedRoute);
 
 			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(2), "Different ints should not match");
 		}
@@ -65,8 +65,8 @@ namespace MvcRouteTester.Test.WebRoute
 			var assertEngine = new FakeAssertEngine();
 			RouteAssert.UseAssertEngine(assertEngine);
 
-			var expectedRoute = new { controller = "RouteParamsCases", action = "TwoStringAction", id1 = "foo", id2 = "bar" };
-			RouteAssert.HasRoute(routes, "/RouteParamsCases/TwoStringAction/bar/foo", expectedRoute);
+			var expectedRoute = new { controller = "TwoRouteParams", action = "TwoStringAction", id1 = "foo", id2 = "bar" };
+			RouteAssert.HasRoute(routes, "/TwoRouteParams/TwoStringAction/bar/foo", expectedRoute);
 
 			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(2), "Different strings should not match");
 		}

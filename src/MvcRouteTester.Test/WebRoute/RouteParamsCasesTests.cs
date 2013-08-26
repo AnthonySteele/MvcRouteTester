@@ -58,6 +58,27 @@ namespace MvcRouteTester.Test.WebRoute
 
 			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(1), "Different guids should not match");
 		}
+
+		[Test]
+		public void RouteCanHaveBoolAsParam()
+		{
+			var expectedRoute = new { controller = "RouteParamsCases", action = "BoolAction", id = true };
+			RouteAssert.HasRoute(routes, "/RouteParamsCases/BoolAction/true", expectedRoute);
+		}
+
+		[Test]
+		public void RouteAssertFailsIfBoolDoesNotMatch()
+		{
+			var assertEngine = new FakeAssertEngine();
+			RouteAssert.UseAssertEngine(assertEngine);
+
+
+			var expectedRoute = new { controller = "RouteParamsCases", action = "BoolAction", id = true };
+			RouteAssert.HasRoute(routes, "/RouteParamsCases/BoolAction/false", expectedRoute);
+
+			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(1), "Different bools should not match");
+		}
+
 	}
 }
 
