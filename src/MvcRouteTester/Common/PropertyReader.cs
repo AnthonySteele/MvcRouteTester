@@ -13,7 +13,8 @@ namespace MvcRouteTester.Common
 				return true;
 			}
 
-			return type.IsPrimitive || (type == typeof(string)) || (type == typeof(decimal));
+			return type.IsPrimitive || 
+				(type == typeof(string)) || (type == typeof(decimal)) || (type == typeof(Guid));
 		}
 
 		public IDictionary<string, string> Properties(object dataObject)

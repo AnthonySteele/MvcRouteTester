@@ -1,4 +1,5 @@
 ﻿using System;
+
 using MvcRouteTester.Common;
 using NUnit.Framework;
 
@@ -47,6 +48,47 @@ namespace MvcRouteTester.Test.Common
 			Assert.That(properties.Count, Is.EqualTo(2));
 			Assert.That(properties["Foo"], Is.EqualTo("1"));
 			Assert.That(properties["Bar"], Is.Null);
+		}
+
+		[Test]
+		public void ShouldReadIntProperty()
+		{
+			var properties = reader.Properties(new { ValueUnderTest = 1 });
+
+			Assert.That(properties, Is.Not.Null);
+			Assert.That(properties.Count, Is.EqualTo(1));
+			Assert.That(properties["ValueUnderTest"], Is.EqualTo("1"));
+		}
+
+		[Test]
+		public void ShouldReadStringProperty()
+		{
+			var properties = reader.Properties(new { ValueUnderTest = "Fish" });
+
+			Assert.That(properties, Is.Not.Null);
+			Assert.That(properties.Count, Is.EqualTo(1));
+			Assert.That(properties["ValueUnderTest"], Is.EqualTo("Fish"));
+		}
+
+		[Test]
+		public void ShouldReadDecimalProperty()
+		{
+			var properties = reader.Properties(new { ValueUnderTest = 42.70m });
+
+			Assert.That(properties, Is.Not.Null);
+			Assert.That(properties.Count, Is.EqualTo(1));
+			Assert.That(properties["ValueUnderTest"], Is.EqualTo("42.70"));
+		}
+
+		[Test]
+		public void ShouldReadGuidProperty()
+		{
+			var aGuid = Guid.NewGuid();
+			var properties = reader.Properties(new { ValueUnderTest = aGuid });
+
+			Assert.That(properties, Is.Not.Null);
+			Assert.That(properties.Count, Is.EqualTo(1));
+			Assert.That(properties["ValueUnderTest"], Is.EqualTo(aGuid.ToString()));
 		}
 	}
 }
