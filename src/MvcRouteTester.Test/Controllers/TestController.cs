@@ -9,13 +9,13 @@ namespace MvcRouteTester.Test.Controllers
 			return new EmptyResult();
 		}
 
-	    public ActionResult NoParamAction()
-	    {
-	        return new EmptyResult();
-	    }
-        public ActionResult IdAndString(int id, string foo)
-        {
-            return new EmptyResult();
-        }
+		public ActionResult NoParamAction()
+		{
+			return new EmptyResult();
+		}
+		public ActionResult IdAndString(int id, string foo)
+		{
+			return new EmptyResult();
+		}
 	}
 }

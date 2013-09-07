@@ -67,6 +67,8 @@
     <Compile Include="ApiRoute\RouteMethodTests.cs" />
     <Compile Include="ApiRoute\RouteMethodWithTildeTests.cs" />
     <Compile Include="ApiRoute\RouteParamsTests.cs" />
+    <Compile Include="Areas\SomeArea\SomeAreaAreaRegistration.cs" />
+    <Compile Include="Areas\SomeArea\TestController.cs" />
     <Compile Include="Assertions\AssertsTests.cs" />
     <Compile Include="Assertions\ExceptionAssertEngineTests.cs" />
     <Compile Include="Assertions\NunitAssertEngine.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="WebRoute\RouteParamsTests.cs" />
     <Compile Include="WebRoute\RoutePropertiesTests.cs" />
     <Compile Include="WebRoute\RouteValuesTest.cs" />
+    <Compile Include="WebRoute\AreaRegistrationTest.cs" />
     <Compile Include="WebRoute\TwoRouteParamsTests.cs" />
     <Compile Include="WebRoute\WithOptionalParamTests.cs" />
   </ItemGroup>
