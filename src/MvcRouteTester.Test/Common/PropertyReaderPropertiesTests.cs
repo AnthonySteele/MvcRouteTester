@@ -85,7 +85,7 @@ namespace MvcRouteTester.Test.Common
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(1));
-			Assert.That(properties["ValueUnderTest"], Is.EqualTo("true"));
+			Assert.That(properties["ValueUnderTest"], Is.EqualTo("True"));
 		}
 
 		[Test]
