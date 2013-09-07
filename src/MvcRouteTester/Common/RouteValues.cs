@@ -13,16 +13,13 @@ namespace MvcRouteTester.Common
 			values.Add(value);
 		}
 
-		public RouteValue GetRouteValue(string name, bool? fromBody = null)
+		public RouteValue GetRouteValue(string name, bool fromBody)
 		{
 			foreach (var routeValue in values)
 			{
-				if (name == routeValue.Name)
+				if (name == routeValue.Name && fromBody == routeValue.FromBody)
 				{
-					if (! fromBody.HasValue || fromBody.Value == routeValue.FromBody)
-					{
-						return routeValue;
-					}
+					return routeValue;
 				}
 			}
 

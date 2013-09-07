@@ -15,20 +15,7 @@ namespace MvcRouteTester.Test.Common
 		}
 
 		[Test]
-		public void TestRetrieveWithoutFromBodyFlag()
-		{
-			var values = RouteValuesContainingId();
-
-			var valueOut = values.GetRouteValue("Id");
-
-			Assert.That(valueOut, Is.Not.Null);
-			Assert.That(valueOut.Name, Is.EqualTo("Id"));
-			Assert.That(valueOut.Value, Is.EqualTo(42));
-			Assert.That(valueOut.FromBody, Is.False);
-		}
-
-		[Test]
-		public void TestRetrieveWithFromBodyFlag()
+		public void TestRetrieveWithFromBodyFlagMatching()
 		{
 			var values = RouteValuesContainingId();
 
