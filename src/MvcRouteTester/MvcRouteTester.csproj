@@ -49,6 +49,8 @@
     <Compile Include="Assertions\Asserts.cs" />
     <Compile Include="Assertions\IAssertEngine.cs" />
     <Compile Include="Assertions\ExceptionAssertEngine.cs" />
+    <Compile Include="Common\RouteValue.cs" />
+    <Compile Include="Common\RouteValues.cs" />
     <Compile Include="FluentApiExtensions.cs" />
     <Compile Include="Fluent\ExpressionReader.cs" />
     <Compile Include="FluentExtensions.cs" />
