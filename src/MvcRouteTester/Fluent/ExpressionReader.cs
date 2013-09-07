@@ -114,8 +114,17 @@ namespace MvcRouteTester.Fluent
 						var objectFieldValues = propertyReader.Properties(expectedValue);
 						foreach (var field in objectFieldValues)
 						{
-                            if(field.Value!=null)
-							    values.Add(field.Key.ToLowerInvariant(), field.Value);
+							if (field.Value != null)
+							{
+								var fieldName = field.Key.ToLowerInvariant();
+								if (values.ContainsKey(fieldName))
+								{
+									string message = string.Format("Duplicate field name: '{0}'", fieldName);
+									throw new ApplicationException(message);
+								}
+
+								values.Add(fieldName, field.Value);
+							}
 						}
 					}
 				}
