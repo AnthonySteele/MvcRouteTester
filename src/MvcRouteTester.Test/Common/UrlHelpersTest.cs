@@ -99,7 +99,7 @@ namespace MvcRouteTester.Test.Common
 		{
 			const string Url = "/foo/bar";
 
-			var parsedParams = UrlHelpers.MakeQueryParams(Url);
+			var parsedParams = UrlHelpers.ReadQueryParams(Url);
 
 			Assert.That(parsedParams.Count, Is.EqualTo(0));
 		}
@@ -109,7 +109,7 @@ namespace MvcRouteTester.Test.Common
 		{
 			const string Url = "/foo/bar?id=3";
 
-			var parsedParams = UrlHelpers.MakeQueryParams(Url);
+			var parsedParams = UrlHelpers.ReadQueryParams(Url);
 
 			Assert.That(parsedParams.Count, Is.EqualTo(1));
 			Assert.That(parsedParams["id"], Is.EqualTo("3"));
@@ -120,7 +120,7 @@ namespace MvcRouteTester.Test.Common
 		{
 			const string Url = "/foo/bar?name=fish&fish=trout";
 
-			var parsedParams = UrlHelpers.MakeQueryParams(Url);
+			var parsedParams = UrlHelpers.ReadQueryParams(Url);
 
 			Assert.That(parsedParams.Count, Is.EqualTo(2));
 			Assert.That(parsedParams["name"], Is.EqualTo("fish"));

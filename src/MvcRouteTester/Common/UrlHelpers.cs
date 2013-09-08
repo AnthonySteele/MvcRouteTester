@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 
 namespace MvcRouteTester.Common
 {
@@ -42,9 +42,9 @@ namespace MvcRouteTester.Common
 			return url;
 		}
 
-		public static NameValueCollection MakeQueryParams(string url)
+		public static IList<RouteValue> ReadQueryParams(string url)
 		{
-			var queryParameters = new NameValueCollection();
+			var queryParameters = new List<RouteValue>();
 
 			if (string.IsNullOrEmpty(url))
 			{
@@ -71,12 +71,11 @@ namespace MvcRouteTester.Common
 						value = nameValuePair[1];
 					}
 
-					queryParameters.Add(nameValuePair[0], value);
+					queryParameters.Add(new RouteValue(nameValuePair[0], value, false));
 				}
 			}
 
 			return queryParameters;
 		}
-
 	}
 }

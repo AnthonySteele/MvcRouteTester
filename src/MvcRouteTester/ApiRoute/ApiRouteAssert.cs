@@ -28,8 +28,8 @@ namespace MvcRouteTester.ApiRoute
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
 			var actualProps = ReadRequestProperties(config, absoluteUrl, httpMethod, body);
 
-			var verifier = new Verifier();
-			verifier.VerifyExpectations(expectedProps, actualProps, url);
+			var verifier = new Verifier(expectedProps, actualProps, url);
+			verifier.VerifyExpectations();
 		}
 
 		internal static void NoRoute(HttpConfiguration config, string url)
@@ -89,7 +89,7 @@ namespace MvcRouteTester.ApiRoute
 			}
 		}
 
-		private static IDictionary<string, string> ReadRequestProperties(HttpConfiguration config, string url, HttpMethod httpMethod, string body)
+		private static RouteValues ReadRequestProperties(HttpConfiguration config, string url, HttpMethod httpMethod, string body)
 		{
 			var request = new HttpRequestMessage(httpMethod, url);
 			request.Content = new StringContent(body);

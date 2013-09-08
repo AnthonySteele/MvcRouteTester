@@ -38,40 +38,23 @@ namespace MvcRouteTester.ApiRoute
 			get { return matchedRoute != null; }
 		}
 
-		public IDictionary<string, string> ReadRequestProperties(string url, HttpMethod httpMethod)
+		public RouteValues ReadRequestProperties(string url, HttpMethod httpMethod)
 		{
 			if (! CheckValid(url, httpMethod))
 			{
-				return new Dictionary<string, string>();
+				return new RouteValues();
 			}
 
-			var actualProps = new Dictionary<string, string>
-				{
-					{ "controller", ControllerName() },
-					{ "action", ActionName() }
-				};
+			var actualProps = new RouteValues();
+			actualProps.Controller = ControllerName();
+			actualProps.Action = ActionName();
 
-			var routeParams = GetRouteParams();
+			actualProps.AddRange(GetRouteParams());
 
-			foreach (var paramKey in routeParams.Keys)
-			{
-				actualProps.Add(paramKey, routeParams[paramKey]);
-			}
+			var queryParams = UrlHelpers.ReadQueryParams(url);
+			actualProps.AddRange(queryParams);
+			actualProps.AddRange(ReadPropertiesFromBodyContent());
 
-			var queryParams = UrlHelpers.MakeQueryParams(url);
-			foreach (var key in queryParams.AllKeys)
-			{
-				if (actualProps.ContainsKey(key))
-				{
-					actualProps[key] = queryParams[key];
-				}
-				else
-				{
-					actualProps.Add(key, queryParams[key]);
-				}
-			}
-
-			ReadPropertiesFromBodyContent(actualProps);
 
 			return actualProps;
 		}
@@ -102,53 +85,79 @@ namespace MvcRouteTester.ApiRoute
 			return true;
 		}
 
-		public IDictionary<string, string> GetRouteParams()
+		public IList<RouteValue> GetRouteParams()
 		{
 			var actionDescriptor = MakeActionDescriptor();
 			var actionParams = actionDescriptor.GetParameters();
 
-			var result = new Dictionary<string, string>();
+			var result = new List<RouteValue>();
 			var routeDataValues = GetRouteData();
 			if (routeDataValues != null)
 			{
 				foreach (var param in actionParams)
 				{
-					ProcessActionParam(param, routeDataValues, result);
+					var values = ProcessActionParam(param, routeDataValues);
+					result.AddRange(values);
 				}
 			}
 
 			return result;
 		}
 
-		private static void ProcessActionParam(HttpParameterDescriptor param, HttpRouteData routeDataValues, Dictionary<string, string> result)
+		private static IList<RouteValue> ProcessActionParam(HttpParameterDescriptor param, HttpRouteData routeDataValues)
 		{
 			var propertyReader = new PropertyReader();
 
 			if (propertyReader.IsSimpleType(param.ParameterType))
 			{
-				var paramName = param.ParameterName;
-				AddParamWithRouteValue(paramName, routeDataValues.Values, result);
+				return ProcessSimpleActionParam(param, routeDataValues);
 			}
-			else
-			{
-				var fieldNames = propertyReader.SimplePropertyNames(param.ParameterType);
-				foreach (var fieldName in fieldNames)
-				{
-					AddParamWithRouteValue(fieldName.ToLowerInvariant(), routeDataValues.Values, result);
-				}
-			}
+
+			return ProcessCompoundActionParam(param, routeDataValues, propertyReader);
 		}
 
-		private static void AddParamWithRouteValue(string paramName, IDictionary<string, object> values, Dictionary<string, string> result)
+		private static IList<RouteValue> ProcessSimpleActionParam(HttpParameterDescriptor param, HttpRouteData routeDataValues)
+		{
+			var routeValues = new List<RouteValue>();
+
+			var paramName = param.ParameterName;
+			var value = ReadParamWithRouteValue(paramName, routeDataValues.Values);
+			if (value != null)
+			{
+				routeValues.Add(value);
+			}
+			return routeValues;
+		}
+
+		private static IList<RouteValue> ProcessCompoundActionParam(HttpParameterDescriptor param, HttpRouteData routeDataValues, PropertyReader propertyReader)
+		{
+			var routeValues = new List<RouteValue>();
+
+			var fieldNames = propertyReader.SimplePropertyNames(param.ParameterType);
+			foreach (var fieldName in fieldNames)
+			{
+				var value = ReadParamWithRouteValue(fieldName.ToLowerInvariant(), routeDataValues.Values);
+				if (value != null)
+				{
+					routeValues.Add(value);
+				}
+			}
+
+			return routeValues;
+		}
+
+		private static RouteValue ReadParamWithRouteValue(string paramName, IDictionary<string, object> values)
 		{
 			if (values.ContainsKey(paramName))
 			{
 				var paramValue = values[paramName];
 				if (paramValue != null)
 				{
-					result.Add(paramName, paramValue.ToString());
+					return new RouteValue(paramName, paramValue, false);
 				}
 			}
+
+			return null;
 		}
 
 		private HttpRouteData GetRouteData()
@@ -278,15 +287,17 @@ namespace MvcRouteTester.ApiRoute
 			return actionSelector.SelectAction(controllerContext);
 		}
 
-		private void ReadPropertiesFromBodyContent(Dictionary<string, string> actualProps)
+		private IList<RouteValue> ReadPropertiesFromBodyContent()
 		{
 			var bodyTask = request.Content.ReadAsStringAsync();
 			var body = bodyTask.Result;
 			if (!string.IsNullOrEmpty(body))
 			{
 				var bodyReader = new BodyReader();
-				bodyReader.ReadBody(body, actualProps);
+				return bodyReader.ReadBody(body);
 			}
+
+			return new List<RouteValue>();
 		}
 	}
 }

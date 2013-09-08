@@ -2,9 +2,16 @@
 {
 	public class RouteValue
 	{
-		public string Name { get; set; }
-		public bool FromBody { get; set; }
-		public object Value { get; set; }
+		public RouteValue(string name, object value, bool fromBody)
+		{
+			Name = name;
+			Value = value;
+			FromBody = fromBody;
+		}
+
+		public string Name { get; private set; }
+		public object Value { get; private set; }
+		public bool FromBody { get; private set; }
 
 		public string ValueAsString
 		{

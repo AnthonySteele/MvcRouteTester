@@ -20,7 +20,7 @@ namespace MvcRouteTester.HttpMocking
 			}
 			var routeParts = url.Split('?');
 			var relativeUrl = routeParts[0];
-			var queryParams = UrlHelpers.MakeQueryParams(url);
+			var queryParams = UrlHelpers.ReadQueryParams(url);
 
 			var request = new MockHttpRequest(method, relativeUrl, queryParams, requestBody);
 			var response = new MockHttpResponse();

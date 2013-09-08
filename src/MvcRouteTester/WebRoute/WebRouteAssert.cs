@@ -39,8 +39,8 @@ namespace MvcRouteTester.WebRoute
 
 			var webRouteReader = new Reader();
 			var actualProps = webRouteReader.GetRequestProperties(routeData, httpContext.Request);
-			var verifier = new Verifier();
-			verifier.VerifyExpectations(expectedProps, actualProps, url);
+			var verifier = new Verifier(expectedProps, actualProps, url);
+			verifier.VerifyExpectations();
 		}
 
 		internal static void NoRoute(RouteCollection routes, string url)

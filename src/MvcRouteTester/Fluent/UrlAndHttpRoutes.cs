@@ -29,7 +29,7 @@ namespace MvcRouteTester.Fluent
 		public void To<TController>(HttpMethod httpMethod, Expression<Func<TController, object>> action) where TController : ApiController
 		{
 			var expressionReader = new ExpressionReader();
-			IDictionary<string, string> expectedProps = expressionReader.Read(action);
+			var expectedProps = expressionReader.Read(action);
 
 			ApiRouteAssert.HasRoute(Configuration, Url, httpMethod, requestBody, expectedProps);
 		}
@@ -37,7 +37,7 @@ namespace MvcRouteTester.Fluent
 		public void To<TController>(HttpMethod httpMethod, Expression<Action<TController>> action) where TController : ApiController
 		{
 			var expressionReader = new ExpressionReader();
-			IDictionary<string, string> expectedProps = expressionReader.Read(action);
+			var expectedProps = expressionReader.Read(action);
 
 			ApiRouteAssert.HasRoute(Configuration, Url, httpMethod, requestBody, expectedProps);
 		}
