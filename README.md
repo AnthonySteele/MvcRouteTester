@@ -80,19 +80,21 @@ This assertion will fail if the route table does not have a route to the url `/h
 There are overloads of this method so if you don't like anonymous types, you can specify a controller name and action name as strings, or an `IDictionary<string, string>` to hold the controller name, action name and any other route parameters.
 
 If you are using ASP MVC Areas, you can test that the right area is generated for the url, e.g.
-	RouteAssert.HasRoute(routes, "/FooArea", new { Area = "FooArea", Controller = "Home", Action = "Index" });
 
+    RouteAssert.HasRoute(routes, "/FooArea", new { Area = "FooArea", Controller = "Home", Action = "Index" });
+
+### Other Web route tests
+	
+You can test that a route does not exist. This assertion will fail if a route **can** be found for the url `/foo/bar/fish/spon`.
 
     RouteAssert.NoRoute(routes, "/foo/bar/fish/spon");
-	
-This assertion will fail if a route **can** be found for the url `/foo/bar/fish/spon`.
-
   
 You can test url generation (e.g. the output of `@Url.Action("Index", "Home")` in a view) with 
 
 	RouteAssert.GeneratesActionUrl(routes, "/", "Index", "Home");
 	
 If you are using ASP MVC Areas, you can test that the right area is generated for the url, e.g.
+
 	RouteAssert.GeneratesActionUrl(routes, "/SomeArea", new { action = "Index", controller = "Test", area = "SomeArea" });
 
 	
