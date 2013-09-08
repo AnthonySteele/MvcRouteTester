@@ -19,11 +19,11 @@ namespace MvcRouteTester.Test.WebRoute
 		{
 			RouteAssert.UseAssertEngine(new NunitAssertEngine());
 
-            routes = new RouteCollection();
+			routes = new RouteCollection();
 
-            var areaRegistration = new SomeAreaAreaRegistration();
-            var context = new AreaRegistrationContext(areaRegistration.AreaName, routes);
-            areaRegistration.RegisterArea(context);
+			var areaRegistration = new SomeAreaAreaRegistration();
+			var context = new AreaRegistrationContext(areaRegistration.AreaName, routes);
+			areaRegistration.RegisterArea(context);
 
 			routes.MapRoute(
 				name: "ActionOnly",
@@ -61,7 +61,7 @@ namespace MvcRouteTester.Test.WebRoute
 		[Test]
 		public void Can_Generate_Area_Url_From_SomeAreaAction_Path_with_anon_object()
 		{
-            RouteAssert.GeneratesActionUrl(routes, "/SomeArea/About", new { action = "About", controller = "Test", area = "SomeArea" });
+			RouteAssert.GeneratesActionUrl(routes, "/SomeArea/About", new { action = "About", controller = "Test", area = "SomeArea" });
 		}
 
 		[Test]

@@ -5,8 +5,10 @@ namespace MvcRouteTester.Common
 	public class RouteValues
 	{
 		private readonly List<RouteValue> values = new List<RouteValue>(); 
+	
 		public string Controller { get; set; }
 		public string Action { get; set; }
+		public string Area { get; set; }
 
 		public void Add(RouteValue value)
 		{

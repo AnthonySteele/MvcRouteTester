@@ -70,28 +70,28 @@ namespace MvcRouteTester.Test.Fluent
 			Assert.That(result["id"], Is.EqualTo("42"));
 		}
 
-        [Test]
-        public void ReadGetsAreaName()
-        {
-            var reader = new ExpressionReader();
+		[Test]
+		public void ReadGetsAreaName()
+		{
+			var reader = new ExpressionReader();
 
-            Expression<Func<Areas.SomeArea.TestController, ActionResult>> args = c => c.Index();
-            var result = reader.Read(args);
+			Expression<Func<Areas.SomeArea.TestController, ActionResult>> args = c => c.Index();
+			var result = reader.Read(args);
 
-            Assert.That(result["controller"], Is.EqualTo("Test"));
-            Assert.That(result["action"], Is.EqualTo("Index"));
-            Assert.That(result["area"], Is.EqualTo("SomeArea"));
-        }
+			Assert.That(result["controller"], Is.EqualTo("Test"));
+			Assert.That(result["action"], Is.EqualTo("Index"));
+			Assert.That(result["area"], Is.EqualTo("SomeArea"));
+		}
 
-        [Test]
-        public void ReadDoesNotGetAreaName()
-        {
-            var reader = new ExpressionReader();
+		[Test]
+		public void ReadDoesNotGetAreaName()
+		{
+			var reader = new ExpressionReader();
 
-            Expression<Func<TestController, ActionResult>> args = c => c.Index();
-            var result = reader.Read(args);
+			Expression<Func<TestController, ActionResult>> args = c => c.Index();
+			var result = reader.Read(args);
 
-            Assert.That(result.ContainsKey("area"), Is.False);
-        }
+			Assert.That(result.ContainsKey("area"), Is.False);
+		}
 	}
 }
