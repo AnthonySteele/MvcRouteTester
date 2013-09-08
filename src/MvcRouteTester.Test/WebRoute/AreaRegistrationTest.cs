@@ -29,8 +29,8 @@ namespace MvcRouteTester.Test.WebRoute
 		[Test]
 		public void AreaRegistrationHasRoutes()
 		{
-			routes.ShouldMap("/SomeArea/Test").To<Areas.SomeArea.TestController>(x => x.Index());
-			routes.ShouldMap("/SomeArea/Test/Index").To<Areas.SomeArea.TestController>(x => x.Index());
+			routes.ShouldMap("/SomeArea/").To<Areas.SomeArea.TestController>(x => x.Index());
+			routes.ShouldMap("/SomeArea/Index").To<Areas.SomeArea.TestController>(x => x.Index());
 		}
 	}
 }

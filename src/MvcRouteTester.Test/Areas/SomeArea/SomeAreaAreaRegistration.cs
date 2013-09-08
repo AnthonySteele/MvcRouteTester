@@ -15,9 +15,14 @@ namespace MvcRouteTester.Test.Areas.SomeArea
 		public override void RegisterArea(AreaRegistrationContext context)
 		{
 			context.MapRoute(
+				"SomeArea_TestController",
+				"SomeArea/{action}/{id}",
+				new { action = "Index", controller = "Test", id = UrlParameter.Optional }
+			);
+			context.MapRoute(
 				"SomeArea_default",
 				"SomeArea/{controller}/{action}/{id}",
-				new { action = "Index", id = UrlParameter.Optional }
+				new { action = "Index", controller = "Test", id = UrlParameter.Optional }
 			);
 		}
 	}
