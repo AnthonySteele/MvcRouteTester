@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using NUnit.Framework.Constraints;
 
 namespace MvcRouteTester.Test.Areas.SomeArea
 {
@@ -13,11 +14,12 @@ namespace MvcRouteTester.Test.Areas.SomeArea
 		}
 
 		public override void RegisterArea(AreaRegistrationContext context)
-		{
+        {
 			context.MapRoute(
 				"SomeArea_TestController",
 				"SomeArea/{action}/{id}",
-				new { action = "Index", controller = "Test", id = UrlParameter.Optional }
+				defaults: new { action = "Index", controller = "Test", id = UrlParameter.Optional },
+                constraints: new { action = "Index|About" }
 			);
 			context.MapRoute(
 				"SomeArea_default",
