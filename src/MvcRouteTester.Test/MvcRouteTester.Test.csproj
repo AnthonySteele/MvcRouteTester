@@ -73,7 +73,6 @@
     <Compile Include="Assertions\AssertsTests.cs" />
     <Compile Include="Assertions\ExceptionAssertEngineTests.cs" />
     <Compile Include="Assertions\NunitAssertEngine.cs" />
-    <Compile Include="Common\RouteValuesTests.cs" />
     <Compile Include="Controllers\FromBodyController.cs" />
     <Compile Include="Controllers\GetPostController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
