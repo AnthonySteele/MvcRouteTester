@@ -82,19 +82,19 @@ namespace MvcRouteTester.Test.WebRoute
 		[Test]
 		public void Area_SimpleFluentRoute()
 		{
-			routes.ShouldMap("/SomeArea").From<Areas.SomeArea.TestController>(x => x.Index());
+			routes.ShouldMap("/SomeArea").From<Areas.SomeArea.Controllers.TestController>(x => x.Index());
 		}
 
 		[Test]
 		public void Area_Test_About_FluentRoute()
 		{
-			routes.ShouldMap("/SomeArea/about").From<Areas.SomeArea.TestController>(x => x.About());
+			routes.ShouldMap("/SomeArea/about").From<Areas.SomeArea.Controllers.TestController>(x => x.About());
 		}
 
 		[Test]
 		public void Area_TestController_Index_Params_FluentRoute()
 		{
-			routes.ShouldMap("/SomeArea/index/32").From<Areas.SomeArea.TestController>(x => x.Index(32));
+			routes.ShouldMap("/SomeArea/index/32").From<Areas.SomeArea.Controllers.TestController>(x => x.Index(32));
 		}
 		[Test]
 		public void Area_OtherTestController_Index()

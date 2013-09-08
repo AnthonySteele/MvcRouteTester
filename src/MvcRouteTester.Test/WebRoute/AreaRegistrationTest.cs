@@ -30,8 +30,8 @@ namespace MvcRouteTester.Test.WebRoute
 		[Test]
 		public void AreaRegistrationHasRoutes()
 		{
-			routes.ShouldMap("/SomeArea/").To<Areas.SomeArea.TestController>(x => x.Index());
-			routes.ShouldMap("/SomeArea/Index").To<Areas.SomeArea.TestController>(x => x.Index());
+			routes.ShouldMap("/SomeArea/").To<Areas.SomeArea.Controllers.TestController>(x => x.Index());
+			routes.ShouldMap("/SomeArea/Index").To<Areas.SomeArea.Controllers.TestController>(x => x.Index());
 		}
 
 		[Test]

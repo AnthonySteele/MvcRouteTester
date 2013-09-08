@@ -75,7 +75,7 @@ namespace MvcRouteTester.Test.Fluent
 		{
 			var reader = new ExpressionReader();
 
-			Expression<Func<Areas.SomeArea.TestController, ActionResult>> args = c => c.Index();
+			Expression<Func<Areas.SomeArea.Controllers.TestController, ActionResult>> args = c => c.Index();
 			var result = reader.Read(args);
 
 			Assert.That(result["controller"], Is.EqualTo("Test"));
