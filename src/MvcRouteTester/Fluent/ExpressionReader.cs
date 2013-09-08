@@ -67,6 +67,7 @@ namespace MvcRouteTester.Fluent
 			values.Add("controller", ControllerName(controllerType));
 			values.Add("action", ActionName(methodCall));
 			AddParameters(methodCall, values);
+		    AddArea(controllerType, values);
 			return values;
 		}
 
@@ -80,7 +81,25 @@ namespace MvcRouteTester.Fluent
 			}
 
 			return controllerName;
-		}
+        }
+        private void AddArea(Type controllerType, Dictionary<string, string> values)
+        {
+            var area = AreaName(controllerType);
+            if (!String.IsNullOrEmpty(area)) values.Add("area", area);
+        }
+
+        private string AreaName(Type controllerType)
+        {
+            var nameSpace = controllerType.Namespace;
+            if (nameSpace == null) return null;
+
+            const string areasStartSearchString = "Areas.";
+            var areasIndexOf = nameSpace.IndexOf(areasStartSearchString, StringComparison.Ordinal);
+            if (areasIndexOf < 0) return null;
+            var areaStart = areasIndexOf + areasStartSearchString.Length;
+            var areaString = nameSpace.Substring(areaStart);
+            return areaString;
+        }
 
 		private string ActionName(MethodCallExpression methodCall)
 		{

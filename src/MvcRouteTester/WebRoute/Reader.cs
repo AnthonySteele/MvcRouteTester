@@ -35,8 +35,14 @@ namespace MvcRouteTester.WebRoute
 
 			ReadPropertiesFromBodyContent(request, propertyList);
 
+		    ReadAreaFromRouteData(routeData, propertyList);
 			return propertyList;
 		}
+
+        private void ReadAreaFromRouteData(RouteData routeData, Dictionary<string, string> propertyList)
+        {
+            if (routeData.DataTokens.ContainsKey("area")) propertyList.Add("area", routeData.DataTokens["area"].ToString());
+        }
 
 		private void ReadPropertiesFromBodyContent(HttpRequestBase request, Dictionary<string, string> actualProps)
 		{
