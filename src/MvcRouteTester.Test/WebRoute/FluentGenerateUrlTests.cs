@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
+using MvcRouteTester.Test.Areas.SomeArea;
 using MvcRouteTester.Test.Assertions;
 using MvcRouteTester.Test.Controllers;
 using NUnit.Framework;
+using TestController = MvcRouteTester.Test.Controllers.TestController;
 
 namespace MvcRouteTester.Test.WebRoute
 {
@@ -19,7 +21,12 @@ namespace MvcRouteTester.Test.WebRoute
 		{
 			RouteAssert.UseAssertEngine(new NunitAssertEngine());
 
-			routes = new RouteCollection();
+            routes = new RouteCollection();
+
+            var areaRegistration = new SomeAreaAreaRegistration();
+            var context = new AreaRegistrationContext(areaRegistration.AreaName, routes);
+            areaRegistration.RegisterArea(context);
+
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
                 name: "ActionOnly",
@@ -70,6 +77,29 @@ namespace MvcRouteTester.Test.WebRoute
         public void TestController_IdAndStringAction_FluentRoute()
         {
             routes.ShouldMap("/test/idandstring/10?foo=footest").From<TestController>(x => x.IdAndString(10, "footest"));
+        }
+
+        [Test]
+        public void Area_SimpleFluentRoute()
+        {
+            routes.ShouldMap("/SomeArea").From<Areas.SomeArea.TestController>(x => x.Index());
+        }
+
+        [Test]
+        public void Area_Test_About_FluentRoute()
+        {
+            routes.ShouldMap("/SomeArea/about").From<Areas.SomeArea.TestController>(x => x.About());
+        }
+
+        [Test]
+        public void Area_TestController_Index_Params_FluentRoute()
+        {
+            routes.ShouldMap("/SomeArea/index/32").From<Areas.SomeArea.TestController>(x => x.Index(32));
+        }
+        [Test]
+        public void Area_OtherTestController_Index()
+        {
+            routes.ShouldMap("/SomeArea/OtherTest").From<Areas.SomeArea.Controllers.OtherTestController>(x => x.Index());
         }
 
 

@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-
+using MvcRouteTester.Test.Areas.SomeArea;
 using MvcRouteTester.Test.Assertions;
 
 using NUnit.Framework;
@@ -19,7 +19,12 @@ namespace MvcRouteTester.Test.WebRoute
 		{
 			RouteAssert.UseAssertEngine(new NunitAssertEngine());
 
-			routes = new RouteCollection();
+            routes = new RouteCollection();
+
+            var areaRegistration = new SomeAreaAreaRegistration();
+            var context = new AreaRegistrationContext(areaRegistration.AreaName, routes);
+            areaRegistration.RegisterArea(context);
+
 			routes.MapRoute(
 				name: "ActionOnly",
 				url: "{action}/{id}",
@@ -46,6 +51,17 @@ namespace MvcRouteTester.Test.WebRoute
 		public void Can_Generate_Root_Url_From_Home_Path_with_anon_object()
 		{
 			RouteAssert.GeneratesActionUrl(routes, "/", new { action = "Index", controller = "Home" });
+		}
+
+		[Test]
+		public void Can_Generate_Area_Root_Url_From_Area_Home_Path_with_anon_object()
+		{
+			RouteAssert.GeneratesActionUrl(routes, "/SomeArea", new { action = "Index", controller = "Test", area = "SomeArea" });
+		}
+		[Test]
+		public void Can_Generate_Area_Url_From_SomeAreaAction_Path_with_anon_object()
+		{
+            RouteAssert.GeneratesActionUrl(routes, "/SomeArea/About", new { action = "About", controller = "Test", area = "SomeArea" });
 		}
 
 		[Test]

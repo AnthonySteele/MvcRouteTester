@@ -8,5 +8,14 @@ namespace MvcRouteTester.Test.Areas.SomeArea
 		{
 			return new EmptyResult();
 		}
+		public ActionResult Index(int id)
+		{
+			return new EmptyResult();
+		}
+
+		public ActionResult About()
+		{
+			return new EmptyResult();
+		}
 	}
 }
