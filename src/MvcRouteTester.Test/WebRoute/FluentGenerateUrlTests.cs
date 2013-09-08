@@ -80,7 +80,7 @@ namespace MvcRouteTester.Test.WebRoute
         }
 
         [Test]
-        public void SimpleFluentAreaRoute()
+        public void Area_SimpleFluentRoute()
         {
             routes.ShouldMap("/SomeArea").From<Areas.SomeArea.TestController>(x => x.Index());
         }
@@ -95,6 +95,11 @@ namespace MvcRouteTester.Test.WebRoute
         public void Area_TestController_Index_Params_FluentRoute()
         {
             routes.ShouldMap("/SomeArea/index/32").From<Areas.SomeArea.TestController>(x => x.Index(32));
+        }
+        [Test]
+        public void Area_OtherTestController_Index()
+        {
+            routes.ShouldMap("/SomeArea/OtherTest").From<Areas.SomeArea.Controllers.OtherTestController>(x => x.Index());
         }
 
 

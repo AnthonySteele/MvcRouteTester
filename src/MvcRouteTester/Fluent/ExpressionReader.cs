@@ -98,6 +98,10 @@ namespace MvcRouteTester.Fluent
             if (areasIndexOf < 0) return null;
             var areaStart = areasIndexOf + areasStartSearchString.Length;
             var areaString = nameSpace.Substring(areaStart);
+            if (areaString.Contains("."))
+            {
+                areaString = areaString.Remove(areaString.IndexOf(".", StringComparison.Ordinal));
+            }
             return areaString;
         }
 
