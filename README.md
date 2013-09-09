@@ -258,7 +258,7 @@ And for Api routes:
 	
 These use `RouteAssert.HasApiRoute`, `RouteAssert.ApiRouteDoesNotHaveMethod`, `RouteAssert.NoApiRoute` respectively.
 
-If you are using MVC areas, then as long as you use the standard layout of namespaces,  the area name will be extracted from your controller type name and tested against the area chosen by the route. e.g. if your controller's full type name is "MyWebApp.Areas.Blog.CommentController" then the expected area name will be "Blog".
+If you are using MVC areas, then as long as you use the standard layout of namespaces,  the area name will be extracted from your controller type name and tested against the area chosen by the route. e.g. if your controller's fully qualified type name is `MyWebApp.Areas.Blog.CommentController` then the expected area name will be "Blog".
 
 
 ### Model binding
