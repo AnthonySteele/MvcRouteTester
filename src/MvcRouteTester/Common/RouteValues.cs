@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Web.Routing;
+
+using MvcRouteTester.Assertions;
 
 namespace MvcRouteTester.Common
 {
@@ -9,33 +12,66 @@ namespace MvcRouteTester.Common
 		public string Controller { get; set; }
 		public string Action { get; set; }
 		public string Area { get; set; }
+		public bool DataOk { get; private set; }
 
 		public RouteValues()
 		{
+		}
+
+		public RouteValues(IDictionary<string, object> values)
+		{
+			foreach (var value in values)
+			{
+				AddRouteValue(value.Key, value.Value);
+			}
 		}
 
 		public RouteValues(IDictionary<string, string> values)
 		{
 			foreach (var value in values)
 			{
-				switch (value.Key.ToLowerInvariant())
-				{
-					case "controller":
-						Controller = value.Value;
-						break;
+				AddRouteValue(value.Key, value.Value);
+			}
+		}
 
-					case "action":
-						Action = value.Value;
-						break;
+		public void CheckRequiredKeysPresent(IDictionary<string, string> fromProps)
+		{
+			DataOk = true;
 
-					case "area":
-						Area = value.Value;
-						break;
+			if (string.IsNullOrEmpty(Controller))
+			{
+				var message = string.Format("No 'controller' property found in fromProps");
+				Asserts.Fail(message);
+				DataOk = false;
+			}
 
-					default:
-						Add(new RouteValue(value.Key, value.Value, false));
-						break;
-				}
+			if (string.IsNullOrEmpty(Action))
+			{
+				var message = string.Format("No 'action' property found in fromProps");
+				Asserts.Fail(message);
+				DataOk = false;
+			}
+		}
+
+		private void AddRouteValue(string key, object value)
+		{
+			switch (key.ToLowerInvariant())
+			{
+				case "controller":
+					Controller = value.ToString();
+					break;
+
+				case "action":
+					Action = value.ToString();
+					break;
+
+				case "area":
+					Area = value.ToString();
+					break;
+
+				default:
+					Add(new RouteValue(key, value, false));
+					break;
 			}
 		}
 
@@ -68,6 +104,18 @@ namespace MvcRouteTester.Common
 			}
 
 			return null;
+		}
+
+		public RouteValueDictionary AsRouteValueDictionary()
+		{
+			RouteValueDictionary result = new RouteValueDictionary();
+
+			foreach (var routeValue in Values)
+			{
+				result.Add(routeValue.Name, routeValue.Value);
+			}
+
+			return result;
 		}
 	}
 }

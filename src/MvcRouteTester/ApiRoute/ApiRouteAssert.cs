@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Dispatcher;
@@ -23,7 +22,7 @@ namespace MvcRouteTester.ApiRoute
 			ReadRequestProperties(config, absoluteUrl, httpMethod, string.Empty);
 		}
 
-		internal static void HasRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string body, IDictionary<string, string> expectedProps)
+		internal static void HasRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string body, RouteValues expectedProps)
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
 			var actualProps = ReadRequestProperties(config, absoluteUrl, httpMethod, body);

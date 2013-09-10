@@ -1,4 +1,6 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Net.Http;
 using System.Web;
 using System.Web.Routing;
 using MvcRouteTester.Common;
@@ -20,7 +22,8 @@ namespace MvcRouteTester.HttpMocking
 			}
 			var routeParts = url.Split('?');
 			var relativeUrl = routeParts[0];
-			var queryParams = UrlHelpers.ReadQueryParams(url);
+			var queryParamsValues = UrlHelpers.ReadQueryParams(url);
+			var queryParams = AsNameValueCollection(queryParamsValues);
 
 			var request = new MockHttpRequest(method, relativeUrl, queryParams, requestBody);
 			var response = new MockHttpResponse();
@@ -30,6 +33,16 @@ namespace MvcRouteTester.HttpMocking
 			request.SetContext(requestContext);
 
 			return httpContext;
+		}
+
+		private static NameValueCollection AsNameValueCollection(IList<RouteValue> queryParamsValues)
+		{
+			var result = new NameValueCollection();
+			foreach (var routeValue in queryParamsValues)
+			{
+				result.Add(routeValue.Name, routeValue.ValueAsString);
+			}
+			return result;
 		}
 	}
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using MvcRouteTester.Common;
@@ -145,13 +144,7 @@ namespace MvcRouteTester.Fluent
 						{
 							if (field.Value != null)
 							{
-								var fieldName = field.Key.ToLowerInvariant();
-								if (values.Any(x => x.Name == fieldName))
-								{
-									string message = string.Format("Duplicate field name: '{0}'", fieldName);
-									throw new ApplicationException(message);
-								}
-
+								var fieldName = field.Name.ToLowerInvariant();
 								var resultValue = new RouteValue(fieldName, field.Value, isFromBody);
 								values.Add(resultValue);
 							}

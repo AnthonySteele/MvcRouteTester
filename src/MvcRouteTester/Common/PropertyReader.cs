@@ -23,9 +23,9 @@ namespace MvcRouteTester.Common
 			return type.IsPrimitive || SpecialSimpleTypes.Contains(type);
 		}
 
-		public IDictionary<string, object> Properties(object dataObject)
+		public IList<RouteValue> Properties(object dataObject)
 		{
-			var result = new Dictionary<string, object>();
+			var result = new List<RouteValue>();
 			if (dataObject == null)
 			{
 				return result;
@@ -39,7 +39,7 @@ namespace MvcRouteTester.Common
 				if (IsSimpleType(objectProperty.PropertyType))
 				{
 					var value = GetPropertyValue(dataObject, objectProperty);
-					result.Add(objectProperty.Name, value);
+					result.Add(new RouteValue(objectProperty.Name, value, false));
 				}
 			}
 

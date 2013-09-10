@@ -66,7 +66,6 @@
     <Compile Include="Common\PropertyReader.cs" />
     <Compile Include="RouteAssert.cs" />
     <Compile Include="Common\UrlHelpers.cs" />
-    <Compile Include="WebRoute\RouteProperties.cs" />
     <Compile Include="WebRoute\WebRouteAssert.cs" />
     <Compile Include="WebRoute\Reader.cs" />
   </ItemGroup>
