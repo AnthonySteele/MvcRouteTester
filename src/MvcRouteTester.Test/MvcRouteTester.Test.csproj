@@ -112,7 +112,6 @@
     <Compile Include="WebRoute\NullableParamTests.cs" />
     <Compile Include="WebRoute\RouteParamsCasesTests.cs" />
     <Compile Include="WebRoute\RouteParamsTests.cs" />
-    <Compile Include="WebRoute\RoutePropertiesTests.cs" />
     <Compile Include="WebRoute\RouteValuesTest.cs" />
     <Compile Include="WebRoute\AreaRegistrationTest.cs" />
     <Compile Include="WebRoute\TwoRouteParamsTests.cs" />

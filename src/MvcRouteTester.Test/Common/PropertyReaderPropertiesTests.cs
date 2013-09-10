@@ -37,8 +37,8 @@ namespace MvcRouteTester.Test.Common
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(2));
-			Assert.That(properties["Foo"], Is.EqualTo("1"));
-			Assert.That(properties["Bar"], Is.EqualTo("Two"));
+			Assert.That(properties.ValueByName("Foo"), Is.EqualTo("1"));
+			Assert.That(properties.ValueByName("Bar"), Is.EqualTo("Two"));
 		}
 
 		[Test]
@@ -53,8 +53,8 @@ namespace MvcRouteTester.Test.Common
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(2));
-			Assert.That(properties["Id"], Is.EqualTo("34"));
-			Assert.That(properties["Name"], Is.EqualTo("Bob"));
+			Assert.That(properties.ValueByName("Id"), Is.EqualTo("34"));
+			Assert.That(properties.ValueByName("Name"), Is.EqualTo("Bob"));
 		}
 
 		[Test]
@@ -64,8 +64,8 @@ namespace MvcRouteTester.Test.Common
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(2));
-			Assert.That(properties["Foo"], Is.EqualTo("1"));
-			Assert.That(properties["Bar"], Is.Null);
+			Assert.That(properties.ValueByName("Foo"), Is.EqualTo("1"));
+			Assert.That(properties.ValueByName("Bar"), Is.Null);
 		}
 
 		[Test]
@@ -75,7 +75,7 @@ namespace MvcRouteTester.Test.Common
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(1));
-			Assert.That(properties["ValueUnderTest"], Is.EqualTo("1"));
+			Assert.That(properties.ValueByName("ValueUnderTest"), Is.EqualTo("1"));
 		}
 
 		[Test]
@@ -85,7 +85,7 @@ namespace MvcRouteTester.Test.Common
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(1));
-			Assert.That(properties["ValueUnderTest"], Is.EqualTo("True"));
+			Assert.That(properties.ValueByName("ValueUnderTest"), Is.EqualTo("True"));
 		}
 
 		[Test]
@@ -95,7 +95,7 @@ namespace MvcRouteTester.Test.Common
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(1));
-			Assert.That(properties["ValueUnderTest"], Is.EqualTo("Fish"));
+			Assert.That(properties.ValueByName("ValueUnderTest"), Is.EqualTo("Fish"));
 		}
 
 		[Test]
@@ -105,7 +105,7 @@ namespace MvcRouteTester.Test.Common
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(1));
-			Assert.That(properties["ValueUnderTest"], Is.EqualTo("42.70"));
+			Assert.That(properties.ValueByName("ValueUnderTest"), Is.EqualTo("42.70"));
 		}
 
 		[Test]
@@ -116,7 +116,7 @@ namespace MvcRouteTester.Test.Common
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(1));
-			Assert.That(properties["ValueUnderTest"], Is.EqualTo(aGuid.ToString()));
+			Assert.That(properties.ValueByName("ValueUnderTest"), Is.EqualTo(aGuid.ToString()));
 		}
 	}
 }

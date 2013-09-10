@@ -112,7 +112,7 @@ namespace MvcRouteTester.Test.Common
 			var parsedParams = UrlHelpers.ReadQueryParams(Url);
 
 			Assert.That(parsedParams.Count, Is.EqualTo(1));
-			Assert.That(parsedParams["id"], Is.EqualTo("3"));
+			Assert.That(parsedParams.ValueByName("id"), Is.EqualTo("3"));
 		}
 
 		[Test]
@@ -123,8 +123,8 @@ namespace MvcRouteTester.Test.Common
 			var parsedParams = UrlHelpers.ReadQueryParams(Url);
 
 			Assert.That(parsedParams.Count, Is.EqualTo(2));
-			Assert.That(parsedParams["name"], Is.EqualTo("fish"));
-			Assert.That(parsedParams["fish"], Is.EqualTo("trout"));
+			Assert.That(parsedParams.ValueByName("name"), Is.EqualTo("fish"));
+			Assert.That(parsedParams.ValueByName("fish"), Is.EqualTo("trout"));
 		}
 	}
 }

@@ -24,7 +24,6 @@ namespace MvcRouteTester.Test.WebRoute
 			var areaRegistration = new SomeAreaAreaRegistration();
 			AreaRegistrationContext context = new AreaRegistrationContext(areaRegistration.AreaName, routes);
 			areaRegistration.RegisterArea(context);
-	
 		}
 
 		[Test]
