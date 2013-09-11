@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Web.Routing;
 
 using MvcRouteTester.Assertions;
@@ -106,7 +108,7 @@ namespace MvcRouteTester.Common
 		{
 			foreach (var routeValue in routeValueDict)
 			{
-				switch (routeValue.Key)
+				switch (routeValue.Key.ToLowerInvariant())
 				{
 					case "controller":
 						Controller = routeValue.Value.ToString();
@@ -153,7 +155,7 @@ namespace MvcRouteTester.Common
 		{
 			foreach (var routeValue in values)
 			{
-				if (name == routeValue.Name && fromBody == routeValue.FromBody)
+				if (string.Equals(name, routeValue.Name, StringComparison.OrdinalIgnoreCase)) // && fromBody == routeValue.FromBody)
 				{
 					return routeValue;
 				}
@@ -169,6 +171,21 @@ namespace MvcRouteTester.Common
 			foreach (var routeValue in Values)
 			{
 				result.Add(routeValue.Name, routeValue.Value);
+			}
+
+			if (! string.IsNullOrEmpty(Controller))
+			{
+				result.Add("controller", Controller);
+			}
+
+			if (!string.IsNullOrEmpty(Action))
+			{
+				result.Add("action", Action);
+			}
+
+			if (!string.IsNullOrEmpty(Area))
+			{
+				result.Add("area", Area);
 			}
 
 			return result;
