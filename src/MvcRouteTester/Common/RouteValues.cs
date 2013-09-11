@@ -16,10 +16,13 @@ namespace MvcRouteTester.Common
 
 		public RouteValues()
 		{
+			DataOk = true;
 		}
 
 		public RouteValues(IDictionary<string, object> values)
 		{
+			DataOk = true;
+
 			foreach (var value in values)
 			{
 				AddRouteValue(value.Key, value.Value);
@@ -28,13 +31,15 @@ namespace MvcRouteTester.Common
 
 		public RouteValues(IDictionary<string, string> values)
 		{
+			DataOk = true;
+
 			foreach (var value in values)
 			{
 				AddRouteValue(value.Key, value.Value);
 			}
 		}
 
-		public void CheckRequiredKeysPresent(IDictionary<string, string> fromProps)
+		public void CheckDataOk()
 		{
 			DataOk = true;
 

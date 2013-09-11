@@ -54,6 +54,7 @@ namespace MvcRouteTester.Test.Common
 		{
 			var data = new Dictionary<string, string>();
 			var props = new RouteValues(data);
+			props.CheckDataOk();
 
 			Assert.That(props.DataOk, Is.False, "data ok");
 			Assert.That(props.Controller, Is.Null, "controller");
@@ -69,6 +70,7 @@ namespace MvcRouteTester.Test.Common
 				};
 
 			var props = new RouteValues(data);
+			props.CheckDataOk();
 
 			Assert.That(props.DataOk, Is.False, "data ok");
 		}
@@ -82,6 +84,7 @@ namespace MvcRouteTester.Test.Common
 				};
 
 			var props = new RouteValues(data);
+			props.CheckDataOk();
 
 			Assert.That(props.DataOk, Is.False, "data ok");
 		}
@@ -90,9 +93,11 @@ namespace MvcRouteTester.Test.Common
 		public void FailsAreReported()
 		{
 			var data = new Dictionary<string, string>();
-			new RouteValues(data);
+			var routeValues = new RouteValues(data);
+			routeValues.CheckDataOk();
 
 			Assert.That(assertEngine.FailCount, Is.EqualTo(2));
+			Assert.That(routeValues.DataOk, Is.False);
 		}
 
 		[Test]
@@ -113,13 +118,28 @@ namespace MvcRouteTester.Test.Common
 					{ "controller", "foo" },
 					{ "action", "bar" },
 				};
+
 			var props = new RouteValues(data);
 
-			Assert.That(props.DataOk, Is.True, "data ok");
 			Assert.That(props.Controller, Is.EqualTo("foo"), "controller");
 			Assert.That(props.Action, Is.EqualTo("bar"), "action");
 			Assert.That(props.Values.Count, Is.EqualTo(0), "route values empty");
 		}
+
+		public void ReadsControllerAndActionToDataOk()
+		{
+			var data = new Dictionary<string, string>
+				{
+					{ "controller", "foo" },
+					{ "action", "bar" },
+				};
+
+			var props = new RouteValues(data);
+			props.CheckDataOk();
+
+			Assert.That(props.DataOk, Is.True, "data ok");
+		}
+
 
 		[Test]
 		public void ReadsOtherValuesAsRouteValues()
@@ -130,7 +150,9 @@ namespace MvcRouteTester.Test.Common
 					{ "action", "bar" },
 					{ "fish", "hallibut" },
 				};
+
 			var props = new RouteValues(data);
+			props.CheckDataOk();
 
 			Assert.That(props.DataOk, Is.True, "data ok");
 			Assert.That(props.Values.Count, Is.EqualTo(1), "route values not empty");
