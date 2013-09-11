@@ -43,8 +43,12 @@ namespace MvcRouteTester.Test.Fluent
 			var result = reader.Read(args);
 
 			Assert.That(result, Is.Not.Null);
+			Assert.That(result.Controller, Is.EqualTo("Test"));
+			Assert.That(result.Action, Is.EqualTo("Index"));
+			Assert.That(result.Area, Is.Empty);
+
 			Assert.That(result.Values, Is.Not.Null);
-			Assert.That(result.Values.Count, Is.GreaterThan(0));
+			Assert.That(result.Values.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -79,7 +83,7 @@ namespace MvcRouteTester.Test.Fluent
 
 			Assert.That(result.Controller, Is.EqualTo("Test"));
 			Assert.That(result.Action, Is.EqualTo("GetItem"));
-			Assert.That(result.Values.ValueByName("id"), Is.EqualTo("42"));
+			Assert.That(result.Values.ValueByName("id"), Is.EqualTo(42));
 		}
 
 		[Test]

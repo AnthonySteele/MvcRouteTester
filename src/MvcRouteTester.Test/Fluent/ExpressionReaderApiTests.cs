@@ -45,8 +45,12 @@ namespace MvcRouteTester.Test.Fluent
 			var result = reader.Read(args);
 
 			Assert.That(result, Is.Not.Null);
+			Assert.That(result.Controller, Is.EqualTo("TestApi"));
+			Assert.That(result.Action, Is.EqualTo("Get"));
+			Assert.That(result.Area, Is.Empty);
+
 			Assert.That(result.Values, Is.Not.Null);
-			Assert.That(result.Values.Count, Is.GreaterThan(0));
+			Assert.That(result.Values.Count, Is.EqualTo(0));
 		}
 
 		[Test]
@@ -56,6 +60,8 @@ namespace MvcRouteTester.Test.Fluent
 
 			Expression<Func<TestApiController, object>> args = c => c.Get();
 			var result = reader.Read(args);
+
+			result.CheckDataOk();
 			Assert.That(result.DataOk, Is.True);
 		}
 
@@ -81,7 +87,7 @@ namespace MvcRouteTester.Test.Fluent
 
 			Assert.That(result.Controller, Is.EqualTo("TestApi"));
 			Assert.That(result.Action, Is.EqualTo("Post"));
-			Assert.That(result.Values.FindByName("id"), Is.EqualTo("42"));
+			Assert.That(result.Values.FindByName("id").Value, Is.EqualTo(42));
 		}
 
 		[Test]
