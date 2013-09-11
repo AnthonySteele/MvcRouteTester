@@ -80,6 +80,49 @@ namespace MvcRouteTester.Common
 			}
 		}
 
+		private void AddRouteValue(RouteValue value)
+		{
+			switch (value.Name.ToLowerInvariant())
+			{
+				case "controller":
+					Controller = value.ValueAsString;
+					break;
+
+				case "action":
+					Action = value.ValueAsString;
+					break;
+
+				case "area":
+					Area = value.ValueAsString;
+					break;
+
+				default:
+					Add(value);
+					break;
+			}
+		}
+
+		public void ReadRouteValueDictionary(RouteValueDictionary routeValueDict)
+		{
+			foreach (var routeValue in routeValueDict)
+			{
+				switch (routeValue.Key)
+				{
+					case "controller":
+						Controller = routeValue.Value.ToString();
+						break;
+
+					case "action":
+						Action = routeValue.Value.ToString();
+						break;
+
+					default:
+						Add(new RouteValue(routeValue.Key, routeValue.Value, false));
+						break;
+				}
+			}
+		}
+
 		public void Add(RouteValue value)
 		{
 			values.Add(value);
@@ -88,6 +131,14 @@ namespace MvcRouteTester.Common
 		public void AddRange(IEnumerable<RouteValue> valuesToAdd)
 		{
 			values.AddRange(valuesToAdd);
+		}
+
+		public void AddRangeWithParse(IEnumerable<RouteValue> valuesToAdd)
+		{
+			foreach (var routeValue in valuesToAdd)
+			{
+				AddRouteValue(routeValue);
+			}
 		}
 
 		public IList<RouteValue> Values

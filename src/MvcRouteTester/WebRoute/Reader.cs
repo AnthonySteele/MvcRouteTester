@@ -15,7 +15,7 @@ namespace MvcRouteTester.WebRoute
 		public RouteValues GetRequestProperties(RouteData routeData, HttpRequestBase request)
 		{
 			var result = new RouteValues();
-			ReadRouteValues(routeData.Values, result);
+			result.ReadRouteValueDictionary(routeData.Values);
 
 			var requestParams = ReadRequestParams(request.Params);
 			result.AddRange(requestParams);
@@ -25,27 +25,6 @@ namespace MvcRouteTester.WebRoute
 
 			result.Area = ReadAreaFromRouteData(routeData);
 			return result;
-		}
-
-		private void ReadRouteValues(RouteValueDictionary routeValueDict, RouteValues resultValues)
-		{
-			foreach (var routeValue in routeValueDict)
-			{
-				switch (routeValue.Key)
-				{
-					case "controller":
-						resultValues.Controller = routeValue.Value.ToString();
-						break;
-
-					case "action":
-						resultValues.Action = routeValue.Value.ToString();
-						break;
-
-					default:
-						resultValues.Add(new RouteValue(routeValue.Key, routeValue.Value, false));
-						break;
-				}
-			}
 		}
 
 		private IList<RouteValue> ReadRequestParams(NameValueCollection requestParams)

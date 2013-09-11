@@ -33,9 +33,7 @@ namespace MvcRouteTester
 		/// </summary>
 		public static void HasRoute(RouteCollection routes, string url, object expectations)
 		{
-			var propertyReader = new PropertyReader();
-			var expectedProps = propertyReader.Properties(expectations);
-			HasRoute(routes, url, string.Empty, expectedProps);
+			HasRoute(routes, url, string.Empty, expectations);
 		}
 
 		public static void HasRoute(RouteCollection routes, string url, string body, object expectations)
@@ -43,7 +41,7 @@ namespace MvcRouteTester
 			var propertyReader = new PropertyReader();
 			var expectedProps = propertyReader.Properties(expectations);
 			var expectedRouteValues = new RouteValues();
-			expectedRouteValues.AddRange(expectedProps);
+			expectedRouteValues.AddRangeWithParse(expectedProps);
 			WebRouteAssert.HasRoute(routes, HttpMethod.Get, url, body, expectedRouteValues);
 		}
 
@@ -110,7 +108,7 @@ namespace MvcRouteTester
 			var propertyReader = new PropertyReader();
 			var expectedProps = propertyReader.Properties(fromProps);
 			var expectedRouteValues = new RouteValues();
-			expectedRouteValues.AddRange(expectedProps);
+			expectedRouteValues.AddRangeWithParse(expectedProps);
 
 			WebRouteAssert.GeneratesActionUrl(routes, httpMethod, expectedUrl, expectedRouteValues, appPath, requestBody);
 		}
@@ -167,7 +165,7 @@ namespace MvcRouteTester
 			var propertyReader = new PropertyReader();
 			var expectedPropsList = propertyReader.Properties(expectations);
 			var expectedProps = new RouteValues();
-			expectedProps.AddRange(expectedPropsList);
+			expectedProps.AddRangeWithParse(expectedPropsList);
 
 			ApiRouteAssert.HasRoute(config, url, httpMethod, string.Empty, expectedProps);
 		}
@@ -177,7 +175,7 @@ namespace MvcRouteTester
 			var propertyReader = new PropertyReader();
 			var expectedPropsList = propertyReader.Properties(expectations);
 			var expectedProps = new RouteValues();
-			expectedProps.AddRange(expectedPropsList);
+			expectedProps.AddRangeWithParse(expectedPropsList);
 
 			ApiRouteAssert.HasRoute(config, url, httpMethod, body, expectedProps);
 		}

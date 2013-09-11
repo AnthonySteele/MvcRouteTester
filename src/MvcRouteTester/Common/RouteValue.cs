@@ -20,5 +20,10 @@
 				return Value == null ? string.Empty : Value.ToString();
 			}
 		}
+
+		public override string ToString()
+		{
+			return Name + ": " + ValueAsString;
+		}
 	}
 }
