@@ -129,12 +129,12 @@ namespace MvcRouteTester.Fluent
 				var param = parameters[i];
 				var expectedValue = GetExpectedValue(arguments[i]);
 				var isFromBody = attributeRecogniser.IsFromBody(param);
-
+				var routeValueOrigin = isFromBody ? RouteValueOrigin.Body : RouteValueOrigin.Unknown;
 				if (expectedValue != null || !isFromBody)
 				{
 					if (propertyReader.IsSimpleType(param.ParameterType))
 					{
-						var resultValue = new RouteValue(param.Name, expectedValue, isFromBody);
+						var resultValue = new RouteValue(param.Name, expectedValue, routeValueOrigin);
 						values.Add(resultValue);
 					}
 					else
@@ -145,7 +145,7 @@ namespace MvcRouteTester.Fluent
 							if (field.Value != null)
 							{
 								var fieldName = field.Name.ToLowerInvariant();
-								var resultValue = new RouteValue(fieldName, field.Value, isFromBody);
+								var resultValue = new RouteValue(fieldName, field.Value, routeValueOrigin);
 								values.Add(resultValue);
 							}
 						}

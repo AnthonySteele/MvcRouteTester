@@ -34,7 +34,7 @@ namespace MvcRouteTester.ApiRoute
 				value = nameAndValue[1];
 			}
 
-			return new RouteValue(name, HttpUtility.UrlDecode(value), true);
+			return new RouteValue(name, HttpUtility.UrlDecode(value), RouteValueOrigin.Body);
 		}
 	}
 }

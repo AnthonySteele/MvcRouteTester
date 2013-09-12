@@ -9,7 +9,6 @@ namespace MvcRouteTester.Test.Common
 	[TestFixture]
 	public class RouteValuesTests
 	{
-
 		private FakeAssertEngine assertEngine;
 
 		[SetUp]
@@ -31,12 +30,12 @@ namespace MvcRouteTester.Test.Common
 		{
 			var values = RouteValuesContainingId();
 
-			var valueOut = values.GetRouteValue("Id", false);
+			var valueOut = values.GetRouteValue("Id", RouteValueOrigin.Unknown);
 
 			Assert.That(valueOut, Is.Not.Null);
 			Assert.That(valueOut.Name, Is.EqualTo("Id"));
 			Assert.That(valueOut.Value, Is.EqualTo(42));
-			Assert.That(valueOut.FromBody, Is.False);
+			Assert.That(valueOut.Origin, Is.EqualTo(RouteValueOrigin.Unknown));
 		}
 
 		[Test, Ignore("Not working yet")]
@@ -44,7 +43,7 @@ namespace MvcRouteTester.Test.Common
 		{
 			var values = RouteValuesContainingId();
 
-			var valueOut = values.GetRouteValue("Id", true);
+			var valueOut = values.GetRouteValue("Id", RouteValueOrigin.Body);
 
 			Assert.That(valueOut, Is.Null);
 		}
@@ -157,7 +156,7 @@ namespace MvcRouteTester.Test.Common
 			Assert.That(props.DataOk, Is.True, "data ok");
 			Assert.That(props.Values.Count, Is.EqualTo(1), "route values not empty");
 
-			var output = props.GetRouteValue("fish", false);
+			var output = props.GetRouteValue("fish", RouteValueOrigin.Unknown);
 
 			Assert.That(output, Is.Not.Null, "route value missing");
 			Assert.That(output.ValueAsString, Is.EqualTo("hallibut"), "route value wrong");
@@ -168,7 +167,7 @@ namespace MvcRouteTester.Test.Common
 		private static RouteValues RouteValuesContainingId()
 		{
 			var values = new RouteValues();
-			var idValue = new RouteValue("Id", 42, false);
+			var idValue = new RouteValue("Id", 42, RouteValueOrigin.Unknown);
 			values.Add(idValue);
 
 			return values;

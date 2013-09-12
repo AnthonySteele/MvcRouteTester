@@ -153,7 +153,7 @@ namespace MvcRouteTester.ApiRoute
 				var paramValue = values[paramName];
 				if (paramValue != null)
 				{
-					return new RouteValue(paramName, paramValue, false);
+					return new RouteValue(paramName, paramValue, RouteValueOrigin.Params);
 				}
 			}
 

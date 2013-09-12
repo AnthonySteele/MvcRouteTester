@@ -71,7 +71,7 @@ namespace MvcRouteTester.Common
 						value = nameValuePair[1];
 					}
 
-					queryParameters.Add(new RouteValue(nameValuePair[0], value, false));
+					queryParameters.Add(new RouteValue(nameValuePair[0], value, RouteValueOrigin.Params));
 				}
 			}
 

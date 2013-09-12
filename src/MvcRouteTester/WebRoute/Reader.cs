@@ -32,7 +32,7 @@ namespace MvcRouteTester.WebRoute
 			var result = new List<RouteValue>();
 			foreach (var paramName in requestParams.AllKeys)
 			{
-				result.Add(new RouteValue(paramName, requestParams[paramName], false));
+				result.Add(new RouteValue(paramName, requestParams[paramName], RouteValueOrigin.Params));
 			}
 
 			return result;

@@ -26,7 +26,7 @@ namespace MvcRouteTester.Common
 
 			foreach (var expectedValue in expected.Values)
 			{
-				var actualValue = actual.GetRouteValue(expectedValue.Name, expectedValue.FromBody);
+				var actualValue = actual.GetRouteValue(expectedValue.Name, expectedValue.Origin);
 				if (actualValue == null)
 				{
 					var notFoundErrorMessage = string.Format("Expected '{0}', got missing value for '{1}' at url '{2}'.",

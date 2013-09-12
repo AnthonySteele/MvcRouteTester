@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
 using System.Web.Routing;
 
 using MvcRouteTester.Assertions;
@@ -77,7 +75,7 @@ namespace MvcRouteTester.Common
 					break;
 
 				default:
-					Add(new RouteValue(key, value, false));
+					Add(new RouteValue(key, value, RouteValueOrigin.Unknown));
 					break;
 			}
 		}
@@ -119,7 +117,7 @@ namespace MvcRouteTester.Common
 						break;
 
 					default:
-						Add(new RouteValue(routeValue.Key, routeValue.Value, false));
+						Add(new RouteValue(routeValue.Key, routeValue.Value, RouteValueOrigin.Unknown));
 						break;
 				}
 			}
@@ -151,11 +149,11 @@ namespace MvcRouteTester.Common
 			}
 		}
 
-		public RouteValue GetRouteValue(string name, bool fromBody)
+		public RouteValue GetRouteValue(string name, RouteValueOrigin expectedOrigin)
 		{
 			foreach (var routeValue in values)
 			{
-				if (string.Equals(name, routeValue.Name, StringComparison.OrdinalIgnoreCase)) // && fromBody == routeValue.FromBody)
+				if (string.Equals(name, routeValue.Name) && RouteValueOriginHelpers.Matches(expectedOrigin, routeValue.Origin))
 				{
 					return routeValue;
 				}

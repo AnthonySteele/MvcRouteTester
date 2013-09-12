@@ -39,7 +39,7 @@ namespace MvcRouteTester.Common
 				if (IsSimpleType(objectProperty.PropertyType))
 				{
 					var value = GetPropertyValue(dataObject, objectProperty);
-					result.Add(new RouteValue(objectProperty.Name, value, false));
+					result.Add(new RouteValue(objectProperty.Name, value, RouteValueOrigin.Unknown));
 				}
 			}
 
