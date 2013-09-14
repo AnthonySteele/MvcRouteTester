@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Routing;
 
 using MvcRouteTester.Assertions;
@@ -102,27 +103,6 @@ namespace MvcRouteTester.Common
 			}
 		}
 
-		public void ReadRouteValueDictionary(RouteValueDictionary routeValueDict)
-		{
-			foreach (var routeValue in routeValueDict)
-			{
-				switch (routeValue.Key.ToLowerInvariant())
-				{
-					case "controller":
-						Controller = routeValue.Value.ToString();
-						break;
-
-					case "action":
-						Action = routeValue.Value.ToString();
-						break;
-
-					default:
-						Add(new RouteValue(routeValue.Key, routeValue.Value, RouteValueOrigin.Unknown));
-						break;
-				}
-			}
-		}
-
 		public void Add(RouteValue value)
 		{
 			values.Add(value);
@@ -143,17 +123,14 @@ namespace MvcRouteTester.Common
 
 		public IList<RouteValue> Values
 		{
-			get
-			{
-				return values;
-			}
+			get { return values; }
 		}
 
 		public RouteValue GetRouteValue(string name, RouteValueOrigin expectedOrigin)
 		{
 			foreach (var routeValue in values)
 			{
-				if (string.Equals(name, routeValue.Name) && RouteValueOriginHelpers.Matches(expectedOrigin, routeValue.Origin))
+				if (string.Equals(name, routeValue.Name, StringComparison.OrdinalIgnoreCase) && RouteValueOriginHelpers.Matches(expectedOrigin, routeValue.Origin))
 				{
 					return routeValue;
 				}

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web.Routing;
 
 using MvcRouteTester.Common;
 
@@ -12,7 +13,7 @@ namespace MvcRouteTester.Test.Common
 		private FakeAssertEngine assertEngine;
 
 		[SetUp]
-		public void MakeRouteTable()
+		public void Setup()
 		{
 			assertEngine = new FakeAssertEngine();
 			RouteAssert.UseAssertEngine(assertEngine);
@@ -26,26 +27,45 @@ namespace MvcRouteTester.Test.Common
 		}
 
 		[Test]
-		public void TestRetrieveWithFromBodyFlagMatching()
+		public void TestCreateWithStringDictionary()
 		{
-			var values = RouteValuesContainingId();
+			var valuesIn = new Dictionary<string, string>
+				{
+					 { "controller", "foo" },
+					 { "action", "bar" },
+					 { "area", "fish" },
+					 { "Id", "3" },
+				};
 
-			var valueOut = values.GetRouteValue("Id", RouteValueOrigin.Unknown);
+			var values = new RouteValues(valuesIn);
 
-			Assert.That(valueOut, Is.Not.Null);
-			Assert.That(valueOut.Name, Is.EqualTo("Id"));
-			Assert.That(valueOut.Value, Is.EqualTo(42));
-			Assert.That(valueOut.Origin, Is.EqualTo(RouteValueOrigin.Unknown));
+			Assert.That(values, Is.Not.Null);
+			Assert.That(values.Controller, Is.EqualTo("foo"));
+			Assert.That(values.Action, Is.EqualTo("bar"));
+			Assert.That(values.Area, Is.EqualTo("fish"));
+
+			Assert.That(values.GetRouteValue("Id", RouteValueOrigin.Unknown).Value, Is.EqualTo("3"));
 		}
 
-		[Test, Ignore("Not working yet")]
-		public void TestRetrieveFailsWithFromBodyFlagNotMatching()
+		[Test]
+		public void TestCreateWithObjectDictionary()
 		{
-			var values = RouteValuesContainingId();
+			var valuesIn = new Dictionary<string, object>
+				{
+					 { "controller", "foo" },
+					 { "action", "bar" },
+					 { "area", "fish" },
+					 { "Id", 3 },
+				};
 
-			var valueOut = values.GetRouteValue("Id", RouteValueOrigin.Body);
+			var values = new RouteValues(valuesIn);
 
-			Assert.That(valueOut, Is.Null);
+			Assert.That(values, Is.Not.Null);
+			Assert.That(values.Controller, Is.EqualTo("foo"));
+			Assert.That(values.Action, Is.EqualTo("bar"));
+			Assert.That(values.Area, Is.EqualTo("fish"));
+
+			Assert.That(values.GetRouteValue("Id", RouteValueOrigin.Unknown).Value, Is.EqualTo(3));
 		}
 
 		[Test]
@@ -89,6 +109,21 @@ namespace MvcRouteTester.Test.Common
 		}
 
 		[Test]
+		public void ReadsControllerAndActionDataAsOk()
+		{
+			var data = new Dictionary<string, string>
+				{
+					{ "controller", "foo" },
+					{ "action", "bar" }
+				};
+
+			var props = new RouteValues(data);
+			props.CheckDataOk();
+
+			Assert.That(props.DataOk, Is.True, "data ok");
+		}
+
+		[Test]
 		public void FailsAreReported()
 		{
 			var data = new Dictionary<string, string>();
@@ -97,6 +132,25 @@ namespace MvcRouteTester.Test.Common
 
 			Assert.That(assertEngine.FailCount, Is.EqualTo(2));
 			Assert.That(routeValues.DataOk, Is.False);
+		}
+
+		[Test]
+		public void ReadRouteValueDictionary()
+		{
+			var data = new RouteValueDictionary
+				{
+					{ "controller", "foo" },
+					{ "action", "bar" },
+					{ "id", 3 },
+				};
+
+			var values = new RouteValues(data);
+
+			Assert.That(values, Is.Not.Null);
+			Assert.That(values.Controller, Is.EqualTo("foo"));
+			Assert.That(values.Action, Is.EqualTo("bar"));
+
+			Assert.That(values.GetRouteValue("Id", RouteValueOrigin.Unknown).Value, Is.EqualTo(3));
 		}
 
 		[Test]
@@ -125,6 +179,7 @@ namespace MvcRouteTester.Test.Common
 			Assert.That(props.Values.Count, Is.EqualTo(0), "route values empty");
 		}
 
+		[Test]
 		public void ReadsControllerAndActionToDataOk()
 		{
 			var data = new Dictionary<string, string>
@@ -139,6 +194,27 @@ namespace MvcRouteTester.Test.Common
 			Assert.That(props.DataOk, Is.True, "data ok");
 		}
 
+		[Test]
+		public void AsRouteValueDictionaryReadsAllValues()
+		{
+			var data = new Dictionary<string, object>
+				{
+					{ "id", 3 }
+				};
+
+			var values = new RouteValues(data);
+			values.Controller = "foo";
+			values.Action = "bar";
+			values.Area = "fish";
+
+			var outValues = values.AsRouteValueDictionary();
+
+			Assert.That(outValues.Count, Is.EqualTo(4));
+			Assert.That(outValues["controller"], Is.EqualTo("foo"));
+			Assert.That(outValues["action"], Is.EqualTo("bar"));
+			Assert.That(outValues["area"], Is.EqualTo("fish"));
+			Assert.That(outValues["id"], Is.EqualTo(3));
+		}
 
 		[Test]
 		public void ReadsOtherValuesAsRouteValues()
@@ -163,6 +239,41 @@ namespace MvcRouteTester.Test.Common
 		}
 
 
+		[Test]
+		public void TestRetrieveWithFromBodyFlagMatching()
+		{
+			var values = RouteValuesContainingId();
+
+			var valueOut = values.GetRouteValue("Id", RouteValueOrigin.Unknown);
+
+			Assert.That(valueOut, Is.Not.Null);
+			Assert.That(valueOut.Name, Is.EqualTo("Id"));
+			Assert.That(valueOut.Value, Is.EqualTo(42));
+			Assert.That(valueOut.Origin, Is.EqualTo(RouteValueOrigin.Unknown));
+		}
+
+		[Test]
+		public void TestRetrieveWithDifferentCase()
+		{
+			var values = RouteValuesContainingId();
+
+			var valueOut = values.GetRouteValue("id", RouteValueOrigin.Unknown);
+
+			Assert.That(valueOut, Is.Not.Null);
+			Assert.That(valueOut.Name, Is.EqualTo("Id"));
+			Assert.That(valueOut.Value, Is.EqualTo(42));
+			Assert.That(valueOut.Origin, Is.EqualTo(RouteValueOrigin.Unknown));
+		}
+
+		[Test]
+		public void TestRetrieveFailsWithFromBodyFlagNotMatching()
+		{
+			var values = RouteValuesContainingId();
+
+			var valueOut = values.GetRouteValue("Id", RouteValueOrigin.Body);
+
+			Assert.That(valueOut, Is.Null);
+		}
 
 		private static RouteValues RouteValuesContainingId()
 		{

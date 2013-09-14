@@ -14,8 +14,7 @@ namespace MvcRouteTester.WebRoute
 	{
 		public RouteValues GetRequestProperties(RouteData routeData, HttpRequestBase request)
 		{
-			var result = new RouteValues();
-			result.ReadRouteValueDictionary(routeData.Values);
+			var result = new RouteValues(routeData.Values);
 
 			var requestParams = ReadRequestParams(request.Params);
 			result.AddRange(requestParams);
