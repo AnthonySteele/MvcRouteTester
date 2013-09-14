@@ -139,16 +139,8 @@ namespace MvcRouteTester.Fluent
 					}
 					else
 					{
-						var objectFieldValues = propertyReader.Properties(expectedValue);
-						foreach (var field in objectFieldValues)
-						{
-							if (field.Value != null)
-							{
-								var fieldName = field.Name.ToLowerInvariant();
-								var resultValue = new RouteValue(fieldName, field.Value, routeValueOrigin);
-								values.Add(resultValue);
-							}
-						}
+						var objectFieldValues = propertyReader.PropertiesList(expectedValue, routeValueOrigin);
+						values.AddRange(objectFieldValues);
 					}
 				}
 			}

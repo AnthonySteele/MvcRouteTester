@@ -23,7 +23,16 @@ namespace MvcRouteTester.Common
 			return type.IsPrimitive || SpecialSimpleTypes.Contains(type);
 		}
 
-		public IList<RouteValue> Properties(object dataObject)
+		public RouteValues RouteValues(object dataObject)
+		{
+			var propertiesList = PropertiesList(dataObject);
+
+			var expectedProps = new RouteValues();
+			expectedProps.AddRangeWithParse(propertiesList);
+			return expectedProps;
+		}
+
+		public IList<RouteValue> PropertiesList(object dataObject, RouteValueOrigin origin = RouteValueOrigin.Unknown)
 		{
 			var result = new List<RouteValue>();
 			if (dataObject == null)
@@ -39,7 +48,7 @@ namespace MvcRouteTester.Common
 				if (IsSimpleType(objectProperty.PropertyType))
 				{
 					var value = GetPropertyValue(dataObject, objectProperty);
-					result.Add(new RouteValue(objectProperty.Name, value, RouteValueOrigin.Unknown));
+					result.Add(new RouteValue(objectProperty.Name, value, origin));
 				}
 			}
 

@@ -122,7 +122,7 @@ namespace MvcRouteTester.Test.WebRoute
 				To<FromBodyController>(c => c.Post(123, postData));
 
 			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(1));
-			Assert.That(assertEngine.Messages[0], Is.EqualTo("Expected 'Jim Spriggs', not 'Fred Bloggers' for 'name' at url '/frombody/post/123'."));
+			Assert.That(assertEngine.Messages[0], Is.EqualTo("Expected 'Jim Spriggs', not 'Fred Bloggers' for 'Name' at url '/frombody/post/123'."));
 		}
 	}
 }

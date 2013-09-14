@@ -15,7 +15,7 @@ namespace MvcRouteTester.Test.Common
 		[Test]
 		public void ShouldReadEmptyObject()
 		{
-			var properties = reader.Properties(new object());
+			var properties = reader.PropertiesList(new object());
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(0));
@@ -24,7 +24,7 @@ namespace MvcRouteTester.Test.Common
 		[Test]
 		public void ShouldReadNothingFromNullObject()
 		{
-			var properties = reader.Properties(null);
+			var properties = reader.PropertiesList(null);
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(0));
@@ -33,7 +33,7 @@ namespace MvcRouteTester.Test.Common
 		[Test]
 		public void ShouldReadPropertiesOfAnonObject()
 		{
-			var properties = reader.Properties(new { Foo = 1, Bar = "Two" });
+			var properties = reader.PropertiesList(new { Foo = 1, Bar = "Two" });
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(2));
@@ -49,7 +49,7 @@ namespace MvcRouteTester.Test.Common
 					Id = 34,
 					Name = "Bob"
 				};
-			var properties = reader.Properties(values);
+			var properties = reader.PropertiesList(values);
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(2));
@@ -60,7 +60,7 @@ namespace MvcRouteTester.Test.Common
 		[Test]
 		public void ShouldReadPropertyValueNull()
 		{
-			var properties = reader.Properties(new { Foo = 1, Bar = (string)null });
+			var properties = reader.PropertiesList(new { Foo = 1, Bar = (string)null });
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(2));
@@ -71,7 +71,7 @@ namespace MvcRouteTester.Test.Common
 		[Test]
 		public void ShouldReadIntProperty()
 		{
-			var properties = reader.Properties(new { ValueUnderTest = 1 });
+			var properties = reader.PropertiesList(new { ValueUnderTest = 1 });
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(1));
@@ -81,7 +81,7 @@ namespace MvcRouteTester.Test.Common
 		[Test]
 		public void ShouldReadBoolProperty()
 		{
-			var properties = reader.Properties(new { ValueUnderTest = true });
+			var properties = reader.PropertiesList(new { ValueUnderTest = true });
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(1));
@@ -91,7 +91,7 @@ namespace MvcRouteTester.Test.Common
 		[Test]
 		public void ShouldReadStringProperty()
 		{
-			var properties = reader.Properties(new { ValueUnderTest = "Fish" });
+			var properties = reader.PropertiesList(new { ValueUnderTest = "Fish" });
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(1));
@@ -101,7 +101,7 @@ namespace MvcRouteTester.Test.Common
 		[Test]
 		public void ShouldReadDecimalProperty()
 		{
-			var properties = reader.Properties(new { ValueUnderTest = 42.70m });
+			var properties = reader.PropertiesList(new { ValueUnderTest = 42.70m });
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(1));
@@ -112,7 +112,7 @@ namespace MvcRouteTester.Test.Common
 		public void ShouldReadGuidProperty()
 		{
 			var aGuid = Guid.NewGuid();
-			var properties = reader.Properties(new { ValueUnderTest = aGuid });
+			var properties = reader.PropertiesList(new { ValueUnderTest = aGuid });
 
 			Assert.That(properties, Is.Not.Null);
 			Assert.That(properties.Count, Is.EqualTo(1));

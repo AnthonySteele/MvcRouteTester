@@ -39,9 +39,7 @@ namespace MvcRouteTester
 		public static void HasRoute(RouteCollection routes, string url, string body, object expectations)
 		{
 			var propertyReader = new PropertyReader();
-			var expectedProps = propertyReader.Properties(expectations);
-			var expectedRouteValues = new RouteValues();
-			expectedRouteValues.AddRangeWithParse(expectedProps);
+			var expectedRouteValues = propertyReader.RouteValues(expectations);
 			WebRouteAssert.HasRoute(routes, HttpMethod.Get, url, body, expectedRouteValues);
 		}
 
@@ -106,9 +104,7 @@ namespace MvcRouteTester
 			}
 
 			var propertyReader = new PropertyReader();
-			var expectedProps = propertyReader.Properties(fromProps);
-			var expectedRouteValues = new RouteValues();
-			expectedRouteValues.AddRangeWithParse(expectedProps);
+			var expectedRouteValues = propertyReader.RouteValues(fromProps);
 
 			WebRouteAssert.GeneratesActionUrl(routes, httpMethod, expectedUrl, expectedRouteValues, appPath, requestBody);
 		}
@@ -163,9 +159,7 @@ namespace MvcRouteTester
 		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, object expectations)
 		{
 			var propertyReader = new PropertyReader();
-			var expectedPropsList = propertyReader.Properties(expectations);
-			var expectedProps = new RouteValues();
-			expectedProps.AddRangeWithParse(expectedPropsList);
+			var expectedProps = propertyReader.RouteValues(expectations);
 
 			ApiRouteAssert.HasRoute(config, url, httpMethod, string.Empty, expectedProps);
 		}
@@ -173,9 +167,7 @@ namespace MvcRouteTester
 		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string body, object expectations)
 		{
 			var propertyReader = new PropertyReader();
-			var expectedPropsList = propertyReader.Properties(expectations);
-			var expectedProps = new RouteValues();
-			expectedProps.AddRangeWithParse(expectedPropsList);
+			var expectedProps = propertyReader.RouteValues(expectations);
 
 			ApiRouteAssert.HasRoute(config, url, httpMethod, body, expectedProps);
 		}
