@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using MvcRouteTester.Common;
@@ -139,7 +140,8 @@ namespace MvcRouteTester.Fluent
 					}
 					else
 					{
-						var objectFieldValues = propertyReader.PropertiesList(expectedValue, routeValueOrigin);
+						var objectFieldValues = propertyReader.PropertiesList(expectedValue, routeValueOrigin)
+							.Where(x => x.Value != null);
 						values.AddRange(objectFieldValues);
 					}
 				}
