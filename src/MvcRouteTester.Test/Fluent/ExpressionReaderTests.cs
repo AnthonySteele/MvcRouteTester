@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using System.Web.Mvc;
 
+using MvcRouteTester.Common;
 using MvcRouteTester.Fluent;
 
 using NUnit.Framework;
@@ -34,7 +35,7 @@ namespace MvcRouteTester.Test.Fluent
 		}
 
 		[Test]
-		public void ReadReturnsDictionary()
+		public void ReadReturnsRouteValues()
 		{
 			var reader = new ExpressionReader();
 
@@ -42,7 +43,22 @@ namespace MvcRouteTester.Test.Fluent
 			var result = reader.Read(args);
 
 			Assert.That(result, Is.Not.Null);
-			Assert.That(result.Count, Is.GreaterThan(0));
+			Assert.That(result.Controller, Is.EqualTo("Test"));
+			Assert.That(result.Action, Is.EqualTo("Index"));
+			Assert.That(result.Area, Is.Empty);
+
+			Assert.That(result.Values, Is.Not.Null);
+			Assert.That(result.Values.Count, Is.EqualTo(0));
+		}
+
+		[Test]
+		public void ReadReturnsValidRouteValues()
+		{
+			var reader = new ExpressionReader();
+
+			Expression<Func<TestController, ActionResult>> args = c => c.Index();
+			var result = reader.Read(args);
+			Assert.That(result.DataOk, Is.True);
 		}
 
 		[Test]
@@ -53,8 +69,8 @@ namespace MvcRouteTester.Test.Fluent
 			Expression<Func<TestController, ActionResult>> args = c => c.Index();
 			var result = reader.Read(args);
 
-			Assert.That(result["controller"], Is.EqualTo("Test"));
-			Assert.That(result["action"], Is.EqualTo("Index"));
+			Assert.That(result.Controller, Is.EqualTo("Test"));
+			Assert.That(result.Action, Is.EqualTo("Index"));
 		}
 
 		[Test]
@@ -65,33 +81,33 @@ namespace MvcRouteTester.Test.Fluent
 			Expression<Func<TestController, ActionResult>> args = c => c.GetItem(42);
 			var result = reader.Read(args);
 
-			Assert.That(result["controller"], Is.EqualTo("Test"));
-			Assert.That(result["action"], Is.EqualTo("GetItem"));
-			Assert.That(result["id"], Is.EqualTo("42"));
+			Assert.That(result.Controller, Is.EqualTo("Test"));
+			Assert.That(result.Action, Is.EqualTo("GetItem"));
+			Assert.That(result.Values.ValueByName("id"), Is.EqualTo(42));
 		}
 
 		[Test]
-		public void ReadGetsAreaName()
+		public void ReadGetsAreaNameWhenPresent()
 		{
 			var reader = new ExpressionReader();
 
 			Expression<Func<Areas.SomeArea.Controllers.TestController, ActionResult>> args = c => c.Index();
 			var result = reader.Read(args);
 
-			Assert.That(result["controller"], Is.EqualTo("Test"));
-			Assert.That(result["action"], Is.EqualTo("Index"));
-			Assert.That(result["area"], Is.EqualTo("SomeArea"));
+			Assert.That(result.Controller, Is.EqualTo("Test"));
+			Assert.That(result.Action, Is.EqualTo("Index"));
+			Assert.That(result.Area, Is.EqualTo("SomeArea"));
 		}
 
 		[Test]
-		public void ReadDoesNotGetAreaName()
+		public void ReadDoesNotGetAreaNameWHenNotPresent()
 		{
 			var reader = new ExpressionReader();
 
 			Expression<Func<TestController, ActionResult>> args = c => c.Index();
 			var result = reader.Read(args);
 
-			Assert.That(result.ContainsKey("area"), Is.False);
+			Assert.That(result.Area, Is.Empty);
 		}
 	}
 }

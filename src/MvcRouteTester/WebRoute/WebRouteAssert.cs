@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -25,7 +24,7 @@ namespace MvcRouteTester.WebRoute
 			}
 		}
 
-		internal static void HasRoute(RouteCollection routes, HttpMethod method, string url, string body, IDictionary<string, string> expectedProps)
+		internal static void HasRoute(RouteCollection routes, HttpMethod method, string url, string body, RouteValues expectedProps)
 		{
 			var pathUrl = UrlHelpers.PrependTilde(url);
 			var httpContext = HttpMockery.ContextForUrl(method, pathUrl, body);
@@ -39,8 +38,8 @@ namespace MvcRouteTester.WebRoute
 
 			var webRouteReader = new Reader();
 			var actualProps = webRouteReader.GetRequestProperties(routeData, httpContext.Request);
-			var verifier = new Verifier();
-			verifier.VerifyExpectations(expectedProps, actualProps, url);
+			var verifier = new Verifier(expectedProps, actualProps, url);
+			verifier.VerifyExpectations();
 		}
 
 		internal static void NoRoute(RouteCollection routes, string url)
@@ -99,17 +98,19 @@ namespace MvcRouteTester.WebRoute
 		}
 
 		internal static void GeneratesActionUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, 
-			IDictionary<string, string> fromProps, string appPath, string requestBody)
+			RouteValues fromProps, string appPath, string requestBody)
 		{
-			var routeProperties = new RouteProperties(fromProps);
-			if (!routeProperties.DataOk)
+			if (!fromProps.DataOk)
 			{
 				return;
 			}
 
-			GeneratesActionUrl(routes, httpMethod, expectedUrl, 
-				routeProperties.Action, routeProperties.Controller, appPath, routeProperties.RouteValues, requestBody);
+			var routeValueDict = fromProps.AsRouteValueDictionary();
+
+			GeneratesActionUrl(routes, httpMethod, expectedUrl,
+				fromProps.Action, fromProps.Controller, appPath, routeValueDict, requestBody);
 		}
+
 
 		internal static void GeneratesActionUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, string action, string controller, 
 			string appPath, RouteValueDictionary routeValueDictionary, string requestBody)

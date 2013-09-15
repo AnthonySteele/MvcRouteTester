@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using MvcRouteTester.Common;
@@ -8,17 +9,17 @@ namespace MvcRouteTester.Fluent
 {
 	public class ExpressionReader
 	{
-		public IDictionary<string, string> Read<TController>(Expression<Func<TController, object>> action)
+		public RouteValues Read<TController>(Expression<Func<TController, object>> action)
 		{
 			return Read(typeof(TController), UnwrapAction(action));
 		}
 
-		public IDictionary<string, string> Read<TController>(Expression<Func<TController, ActionResult>> action)
+		public RouteValues Read<TController>(Expression<Func<TController, ActionResult>> action)
 		{
 			return Read(typeof(TController), UnwrapAction(action));
 		}
 
-		public IDictionary<string, string> Read<TController>(Expression<Action<TController>> action)
+		public RouteValues Read<TController>(Expression<Action<TController>> action)
 		{
 			return Read(typeof(TController), UnwrapAction(action));
 		}
@@ -61,13 +62,15 @@ namespace MvcRouteTester.Fluent
 			throw new ApplicationException("No way to unwrap a " + expression.GetType().FullName);
 		}
 
-		private IDictionary<string, string> Read(Type controllerType, MethodCallExpression methodCall)
+		private RouteValues Read(Type controllerType, MethodCallExpression methodCall)
 		{
-			var values = new Dictionary<string, string>();
-			values.Add("controller", ControllerName(controllerType));
-			values.Add("action", ActionName(methodCall));
-			AddParameters(methodCall, values);
-			AddArea(controllerType, values);
+			var values = new RouteValues();
+			values.Controller = ControllerName(controllerType);
+			values.Action = ActionName(methodCall);
+			values.Area = AreaName(controllerType);
+
+			values.AddRange(ReadParameters(methodCall));
+
 			return values;
 		}
 
@@ -82,28 +85,20 @@ namespace MvcRouteTester.Fluent
 
 			return controllerName;
 		}
-		private void AddArea(Type controllerType, Dictionary<string, string> values)
-		{
-			var area = AreaName(controllerType);
-			if (!String.IsNullOrEmpty(area))
-			{
-				values.Add("area", area);
-			}
-		}
 
 		private string AreaName(Type controllerType)
 		{
 			var nameSpace = controllerType.Namespace;
 			if (nameSpace == null)
 			{
-				return null;
+				return string.Empty;
 			}
 
 			const string AreasStartSearchString = "Areas.";
 			var areasIndexOf = nameSpace.IndexOf(AreasStartSearchString, StringComparison.Ordinal);
 			if (areasIndexOf < 0)
 			{
-				return null;
+				return string.Empty;
 			}
 
 			var areaStart = areasIndexOf + AreasStartSearchString.Length;
@@ -120,8 +115,10 @@ namespace MvcRouteTester.Fluent
 			return  methodCall.Method.Name;
 		}
 
-		private void AddParameters(MethodCallExpression methodCall, IDictionary<string, string> values)
+		private IList<RouteValue> ReadParameters(MethodCallExpression methodCall)
 		{
+			var values = new List<RouteValue>();
+
 			var attributeRecogniser = new AttributeRecogniser();
 			var propertyReader = new PropertyReader();
 
@@ -133,35 +130,24 @@ namespace MvcRouteTester.Fluent
 				var param = parameters[i];
 				var expectedValue = GetExpectedValue(arguments[i]);
 				var isFromBody = attributeRecogniser.IsFromBody(param);
-
+				var routeValueOrigin = isFromBody ? RouteValueOrigin.Body : RouteValueOrigin.Unknown;
 				if (expectedValue != null || !isFromBody)
 				{
 					if (propertyReader.IsSimpleType(param.ParameterType))
 					{
-						var expectedString = expectedValue != null ? expectedValue.ToString() : null;
-
-						values.Add(param.Name, expectedString);
+						var resultValue = new RouteValue(param.Name, expectedValue, routeValueOrigin);
+						values.Add(resultValue);
 					}
 					else
 					{
-						var objectFieldValues = propertyReader.Properties(expectedValue);
-						foreach (var field in objectFieldValues)
-						{
-							if (field.Value != null)
-							{
-								var fieldName = field.Key.ToLowerInvariant();
-								if (values.ContainsKey(fieldName))
-								{
-									string message = string.Format("Duplicate field name: '{0}'", fieldName);
-									throw new ApplicationException(message);
-								}
-
-								values.Add(fieldName, field.Value);
-							}
-						}
+						var objectFieldValues = propertyReader.PropertiesList(expectedValue, routeValueOrigin)
+							.Where(x => x.Value != null);
+						values.AddRange(objectFieldValues);
 					}
 				}
 			}
+
+			return values;
 		}
 
 		private static object GetExpectedValue(Expression argumentExpression)

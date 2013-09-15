@@ -48,14 +48,15 @@ namespace MvcRouteTester.Test.WebRoute
 		public void TestHasRouteValuesFromBody()
 		{
 			const string PostBody = "Name=Fred+Bloggers&Number=42";
-			var expectations = new
-			{
-				controller = "FromBody",
-				action = "Post",
-				id = "123",
-				name = "Fred Bloggers",
-				number = 42
-			};
+				var expectations = new
+				{
+					controller = "FromBody",
+					action = "Post",
+					id = "123",
+					name = "Fred Bloggers",
+					number = 42
+				};
+
 			RouteAssert.HasRoute(routes, "/frombody/post/123", PostBody, expectations);
 		}
 
@@ -64,13 +65,13 @@ namespace MvcRouteTester.Test.WebRoute
 		{
 			const string PostBody = "Name=Fred+Bloggers&Number=42";
 			var expectations = new
-			{
-				controller = "FromBody",
-				action = "Post",
-				id = "123",
-				name = "Jim Spriggs",
-				number = 42
-			};
+				{
+					controller = "FromBody",
+					action = "Post",
+					id = "123",
+					name = "Jim Spriggs",
+					number = 42
+				};
 
 			var assertEngine = new FakeAssertEngine();
 			RouteAssert.UseAssertEngine(assertEngine);
@@ -94,10 +95,10 @@ namespace MvcRouteTester.Test.WebRoute
 		public void TestFluentMapWithBody()
 		{
 			var postData = new PostDataModel
-			{
-				Name = "Fred Bloggers",
-				Number = 42
-			};
+				{
+					Name = "Fred Bloggers",
+					Number = 42
+				};
 			const string PostBody = "Name=Fred+Bloggers&Number=42";
 
 			routes.ShouldMap("/frombody/post/123").WithBody(PostBody).
@@ -108,10 +109,10 @@ namespace MvcRouteTester.Test.WebRoute
 		public void MismatchFluentMapWithBodyFails()
 		{
 			var postData = new PostDataModel
-			{
-				Name = "Jim Spriggs",
-				Number = 42
-			};
+				{
+					Name = "Jim Spriggs",
+					Number = 42
+				};
 			const string PostBody = "Name=Fred+Bloggers&Number=42";
 
 			var assertEngine = new FakeAssertEngine();
@@ -121,7 +122,7 @@ namespace MvcRouteTester.Test.WebRoute
 				To<FromBodyController>(c => c.Post(123, postData));
 
 			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(1));
-			Assert.That(assertEngine.Messages[0], Is.EqualTo("Expected 'Jim Spriggs', not 'Fred Bloggers' for 'name' at url '/frombody/post/123'."));
+			Assert.That(assertEngine.Messages[0], Is.EqualTo("Expected 'Jim Spriggs', not 'Fred Bloggers' for 'Name' at url '/frombody/post/123'."));
 		}
 	}
 }

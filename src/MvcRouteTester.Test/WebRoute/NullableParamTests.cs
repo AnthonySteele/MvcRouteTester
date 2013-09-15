@@ -43,7 +43,7 @@ namespace MvcRouteTester.Test.WebRoute
 		public void NonNullValueIsCaptured()
 		{
 			var expectedRoute = new { controller = "WithNullable", action = "Index", id = 47 };
-			RouteAssert.HasRoute(routes, "/WithNullable/index?id=47", expectedRoute);
+			RouteAssert.HasRoute(routes, "/WithNullable/index/47", expectedRoute);
 		}
 
 		[Test]
@@ -55,7 +55,7 @@ namespace MvcRouteTester.Test.WebRoute
 		[Test]
 		public void FluentMapToNotNull()
 		{
-			routes.ShouldMap("/WithNullable/index?id=47").To<WithNullableController>(x => x.Index(47));
+			routes.ShouldMap("/WithNullable/index/47").To<WithNullableController>(x => x.Index(47));
 		}
 	}
 }

@@ -37,7 +37,7 @@ namespace MvcRouteTester.Fluent
 		public void To<TController>(Expression<Func<TController, ActionResult>> action) where TController : Controller
 		{
 			var expressionReader = new ExpressionReader();
-			IDictionary<string, string> expectedProps = expressionReader.Read(action);
+			var expectedProps = expressionReader.Read(action);
 
 			WebRouteAssert.HasRoute(Routes, HttpMethod.Get, Url, requestBody, expectedProps);
 		}
@@ -61,7 +61,7 @@ namespace MvcRouteTester.Fluent
 		public void From<TController>(Expression<Func<TController, ActionResult>> action) where TController : Controller
 		{
 			var expressionReader = new ExpressionReader();
-			IDictionary<string, string> fromProps = expressionReader.Read(action);
+			var fromProps = expressionReader.Read(action);
 
 			WebRouteAssert.GeneratesActionUrl(Routes, HttpMethod.Get, Url, fromProps, appPath: requestAppPath, requestBody: requestBody);
 		}

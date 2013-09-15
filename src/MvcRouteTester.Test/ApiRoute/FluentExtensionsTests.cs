@@ -46,7 +46,7 @@ namespace MvcRouteTester.Test.ApiRoute
 
 			config.ShouldMap("/api/missing/32/foo").To<CustomerController>(HttpMethod.Get, x => x.Get(32));
 
-			Assert.That(assertEngine.FailCount, Is.EqualTo(2));
+			Assert.That(assertEngine.FailCount, Is.EqualTo(4));
 			Assert.That(assertEngine.Messages[0], Is.EqualTo("No route matched url 'http://site.com/api/missing/32/foo'"));
 		}
 

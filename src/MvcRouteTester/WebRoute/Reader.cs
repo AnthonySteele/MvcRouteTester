@@ -1,60 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Text;
 using System.Web;
 using System.Web.Routing;
 
 using MvcRouteTester.ApiRoute;
+using MvcRouteTester.Common;
 
 namespace MvcRouteTester.WebRoute
 {
 	internal class Reader
 	{
-		public IDictionary<string, string> GetRequestProperties(RouteData routeData, HttpRequestBase request)
+		public RouteValues GetRequestProperties(RouteData routeData, HttpRequestBase request)
 		{
-			var requestParams = request.Params;
-			var propertyList = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+			var result = new RouteValues(routeData.Values);
 
-			foreach (var routeValue in routeData.Values)
-			{
-				propertyList.Add(routeValue.Key, routeValue.Value.ToString());
-			}
+			var requestParams = ReadRequestParams(request.Params);
+			result.AddRange(requestParams);
 
+			var bodyContent = ReadPropertiesFromBodyContent(request);
+			result.AddRange(bodyContent);
+
+			result.Area = ReadAreaFromRouteData(routeData);
+			return result;
+		}
+
+		private IList<RouteValue> ReadRequestParams(NameValueCollection requestParams)
+		{
+			var result = new List<RouteValue>();
 			foreach (var paramName in requestParams.AllKeys)
 			{
-				if (propertyList.ContainsKey(paramName))
-				{
-					propertyList[paramName] = requestParams[paramName];
-				}
-				else
-				{
-					propertyList.Add(paramName, requestParams[paramName]);
-				}
+				result.Add(new RouteValue(paramName, requestParams[paramName], RouteValueOrigin.Params));
 			}
 
-			ReadPropertiesFromBodyContent(request, propertyList);
-
-			ReadAreaFromRouteData(routeData, propertyList);
-			return propertyList;
+			return result;
 		}
 
-		private void ReadAreaFromRouteData(RouteData routeData, Dictionary<string, string> propertyList)
-		{
-			if (routeData.DataTokens.ContainsKey("area"))
-			{
-				propertyList.Add("area", routeData.DataTokens["area"].ToString());
-			}
-		}
-
-		private void ReadPropertiesFromBodyContent(HttpRequestBase request, Dictionary<string, string> actualProps)
+		private IList<RouteValue> ReadPropertiesFromBodyContent(HttpRequestBase request)
 		{
 			var body = GetRequestBody(request);
 			if (!string.IsNullOrEmpty(body))
 			{
 				var bodyReader = new BodyReader();
-				bodyReader.ReadBody(body, actualProps);
+				return bodyReader.ReadBody(body);
 			}
+
+			return new List<RouteValue>();
 		}
 
 		private string GetRequestBody(HttpRequestBase request)
@@ -66,6 +58,16 @@ namespace MvcRouteTester.WebRoute
 					return readStream.ReadToEnd();
 				}
 			}
+		}
+
+		private string ReadAreaFromRouteData(RouteData routeData)
+		{
+			if (routeData.DataTokens.ContainsKey("area"))
+			{
+				return routeData.DataTokens["area"].ToString();
+			}
+
+			return string.Empty;
 		}
 	}
 }

@@ -49,6 +49,10 @@
     <Compile Include="Assertions\Asserts.cs" />
     <Compile Include="Assertions\IAssertEngine.cs" />
     <Compile Include="Assertions\ExceptionAssertEngine.cs" />
+    <Compile Include="Common\RouteValue.cs" />
+    <Compile Include="Common\RouteValueExtensions.cs" />
+    <Compile Include="Common\RouteValueOrigin.cs" />
+    <Compile Include="Common\RouteValues.cs" />
     <Compile Include="FluentApiExtensions.cs" />
     <Compile Include="Fluent\ExpressionReader.cs" />
     <Compile Include="FluentExtensions.cs" />
@@ -64,7 +68,6 @@
     <Compile Include="Common\PropertyReader.cs" />
     <Compile Include="RouteAssert.cs" />
     <Compile Include="Common\UrlHelpers.cs" />
-    <Compile Include="WebRoute\RouteProperties.cs" />
     <Compile Include="WebRoute\WebRouteAssert.cs" />
     <Compile Include="WebRoute\Reader.cs" />
   </ItemGroup>

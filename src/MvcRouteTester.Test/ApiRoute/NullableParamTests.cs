@@ -44,7 +44,7 @@ namespace MvcRouteTester.Test.ApiRoute
 		public void NonNullValueIsCaptured()
 		{
 			var expectedRoute = new { controller = "WithNullable", action = "Get", id = 47 };
-			RouteAssert.HasApiRoute(config, "/api/WithNullable?id=47", HttpMethod.Get, expectedRoute);
+			RouteAssert.HasApiRoute(config, "/api/WithNullable/47", HttpMethod.Get, expectedRoute);
 		}
 
 		[Test]
@@ -56,7 +56,7 @@ namespace MvcRouteTester.Test.ApiRoute
 		[Test]
 		public void FluentMapToNotNull()
 		{
-			config.ShouldMap("/api/WithNullable?id=47").To<WithNullableController>(HttpMethod.Get, x => x.Get(47));
+			config.ShouldMap("/api/WithNullable/47").To<WithNullableController>(HttpMethod.Get, x => x.Get(47));
 		}
 	}
 }

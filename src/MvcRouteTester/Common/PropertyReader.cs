@@ -6,6 +6,13 @@ namespace MvcRouteTester.Common
 {
 	public class PropertyReader
 	{
+		private static readonly List<Type> SpecialSimpleTypes = new List<Type>
+			{
+				typeof(string),
+				typeof(decimal),
+				typeof(Guid)
+			};
+
 		public  bool IsSimpleType(Type type)
 		{
 			if (type.Name == "Nullable`1")
@@ -13,27 +20,35 @@ namespace MvcRouteTester.Common
 				return true;
 			}
 
-			return type.IsPrimitive || 
-				(type == typeof(string)) || (type == typeof(decimal)) || (type == typeof(Guid));
+			return type.IsPrimitive || SpecialSimpleTypes.Contains(type);
 		}
 
-		public IDictionary<string, string> Properties(object dataObject)
+		public RouteValues RouteValues(object dataObject)
 		{
+			var propertiesList = PropertiesList(dataObject);
+
+			var expectedProps = new RouteValues();
+			expectedProps.AddRangeWithParse(propertiesList);
+			return expectedProps;
+		}
+
+		public IList<RouteValue> PropertiesList(object dataObject, RouteValueOrigin origin = RouteValueOrigin.Unknown)
+		{
+			var result = new List<RouteValue>();
 			if (dataObject == null)
 			{
-				return new Dictionary<string, string>();
+				return result;
 			}
 
 			var type = dataObject.GetType();
 			var objectProperties = GetPublicObjectProperties(type);
 
-			var result = new Dictionary<string, string>();
 			foreach (PropertyInfo objectProperty in objectProperties)
 			{
 				if (IsSimpleType(objectProperty.PropertyType))
 				{
 					var value = GetPropertyValue(dataObject, objectProperty);
-					result.Add(objectProperty.Name, ValueAsString(value));
+					result.Add(new RouteValue(objectProperty.Name, value, origin));
 				}
 			}
 
@@ -70,11 +85,6 @@ namespace MvcRouteTester.Common
 		private static IEnumerable<PropertyInfo> GetPublicObjectProperties(Type type)
 		{
 			return type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-		}
-
-		private static string ValueAsString(object propertyValue)
-		{
-			return propertyValue == null ? null : propertyValue.ToString();
 		}
 	}
 }

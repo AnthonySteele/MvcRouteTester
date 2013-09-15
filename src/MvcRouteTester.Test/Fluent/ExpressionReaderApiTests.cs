@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using System.Web.Http;
 
+using MvcRouteTester.Common;
 using MvcRouteTester.Fluent;
 using MvcRouteTester.Test.ApiControllers;
 
@@ -36,7 +37,7 @@ namespace MvcRouteTester.Test.Fluent
 		}
 
 		[Test]
-		public void ReadApiReturnsDictionary()
+		public void ReadApiReturnsRouteValues()
 		{
 			var reader = new ExpressionReader();
 
@@ -44,7 +45,24 @@ namespace MvcRouteTester.Test.Fluent
 			var result = reader.Read(args);
 
 			Assert.That(result, Is.Not.Null);
-			Assert.That(result.Count, Is.GreaterThan(0));
+			Assert.That(result.Controller, Is.EqualTo("TestApi"));
+			Assert.That(result.Action, Is.EqualTo("Get"));
+			Assert.That(result.Area, Is.Empty);
+
+			Assert.That(result.Values, Is.Not.Null);
+			Assert.That(result.Values.Count, Is.EqualTo(0));
+		}
+
+		[Test]
+		public void ReadReturnsValidRouteValues()
+		{
+			var reader = new ExpressionReader();
+
+			Expression<Func<TestApiController, object>> args = c => c.Get();
+			var result = reader.Read(args);
+
+			result.CheckDataOk();
+			Assert.That(result.DataOk, Is.True);
 		}
 
 		[Test]
@@ -55,8 +73,8 @@ namespace MvcRouteTester.Test.Fluent
 			Expression<Func<TestApiController, object>> args = c => c.Get();
 			var result = reader.Read(args);
 
-			Assert.That(result["controller"], Is.EqualTo("TestApi"));
-			Assert.That(result["action"], Is.EqualTo("Get"));
+			Assert.That(result.Controller, Is.EqualTo("TestApi"));
+			Assert.That(result.Action, Is.EqualTo("Get"));
 		}
 
 		[Test]
@@ -67,9 +85,9 @@ namespace MvcRouteTester.Test.Fluent
 			Expression<Func<TestApiController, object>> args = c => c.Post(42);
 			var result = reader.Read(args);
 
-			Assert.That(result["controller"], Is.EqualTo("TestApi"));
-			Assert.That(result["action"], Is.EqualTo("Post"));
-			Assert.That(result["id"], Is.EqualTo("42"));
+			Assert.That(result.Controller, Is.EqualTo("TestApi"));
+			Assert.That(result.Action, Is.EqualTo("Post"));
+			Assert.That(result.Values.FindByName("id").Value, Is.EqualTo(42));
 		}
 
 		[Test]
@@ -80,8 +98,8 @@ namespace MvcRouteTester.Test.Fluent
 			Expression<Action<MemberController>> args = c => c.DoNothing();
 			var result = reader.Read(args);
 
-			Assert.That(result["controller"], Is.EqualTo("Member"));
-			Assert.That(result["action"], Is.EqualTo("DoNothing"));
+			Assert.That(result.Controller, Is.EqualTo("Member"));
+			Assert.That(result.Action, Is.EqualTo("DoNothing"));
 		}
 	}
 }

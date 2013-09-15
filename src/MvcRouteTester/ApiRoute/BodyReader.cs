@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web;
 
+using MvcRouteTester.Common;
+
 namespace MvcRouteTester.ApiRoute
 {
 	/// <summary>
@@ -8,23 +10,31 @@ namespace MvcRouteTester.ApiRoute
 	/// </summary>
 	public class BodyReader
 	{
-		public void ReadBody(string body, Dictionary<string, string> values)
+		public IList<RouteValue> ReadBody(string body)
 		{
+			var values = new List<RouteValue>();
+
 			var bodyParams = body.Split('&');
 			foreach (var bodyParam in bodyParams)
 			{
-				var nameAndValue = bodyParam.Split('=');
-
-				var name = nameAndValue[0].ToLowerInvariant();
-				string value = string.Empty;
-				if (nameAndValue.Length > 1)
-				{
-					value = nameAndValue[1];
-				}
-
-				values.Add(name, HttpUtility.UrlDecode(value));
+				values.Add(ReadValue(bodyParam));
 			}
+
+			return values;
 		}
 
+		private static RouteValue ReadValue(string bodyParam)
+		{
+			var nameAndValue = bodyParam.Split('=');
+
+			var name = nameAndValue[0].ToLowerInvariant();
+			string value = string.Empty;
+			if (nameAndValue.Length > 1)
+			{
+				value = nameAndValue[1];
+			}
+
+			return new RouteValue(name, HttpUtility.UrlDecode(value), RouteValueOrigin.Body);
+		}
 	}
 }
