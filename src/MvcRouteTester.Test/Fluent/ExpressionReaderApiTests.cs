@@ -54,18 +54,6 @@ namespace MvcRouteTester.Test.Fluent
 		}
 
 		[Test]
-		public void ReadReturnsValidRouteValues()
-		{
-			var reader = new ExpressionReader();
-
-			Expression<Func<TestApiController, object>> args = c => c.Get();
-			var result = reader.Read(args);
-
-			result.CheckDataOk();
-			Assert.That(result.DataOk, Is.True);
-		}
-
-		[Test]
 		public void ReadGetsApiControllerAndAction()
 		{
 			var reader = new ExpressionReader();

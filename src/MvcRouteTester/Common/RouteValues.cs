@@ -40,25 +40,6 @@ namespace MvcRouteTester.Common
 			}
 		}
 
-		public void CheckDataOk()
-		{
-			DataOk = true;
-
-			if (string.IsNullOrEmpty(Controller))
-			{
-				var message = string.Format("No 'controller' property found in fromProps");
-				Asserts.Fail(message);
-				DataOk = false;
-			}
-
-			if (string.IsNullOrEmpty(Action))
-			{
-				var message = string.Format("No 'action' property found in fromProps");
-				Asserts.Fail(message);
-				DataOk = false;
-			}
-		}
-
 		private void AddRouteValue(string key, object value)
 		{
 			switch (key.ToLowerInvariant())
