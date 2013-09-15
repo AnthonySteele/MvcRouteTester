@@ -58,6 +58,8 @@ namespace MvcRouteTester.Test.Fluent
 
 			Expression<Func<TestController, ActionResult>> args = c => c.Index();
 			var result = reader.Read(args);
+			result.CheckDataOk();
+
 			Assert.That(result.DataOk, Is.True);
 		}
 
