@@ -35,6 +35,45 @@ namespace MvcRouteTester.Test.WebRoute
 		}
 
 		[Test]
+		public void Fail_message_when_no_controller()
+		{
+			var expectations = new
+				{
+					Action = "index"
+				};
+			RouteAssert.GeneratesActionUrl(routes, "/", expectations);
+
+			Assert.That(assertEngine.FailCount, Is.EqualTo(1));
+			Assert.That(assertEngine.Messages[0], Is.EqualTo("No 'controller' property found in expected route properties"));
+		}
+
+		[Test]
+		public void Fail_message_when_no_action()
+		{
+			var expectations = new
+			{
+				controller = "home"
+			};
+			RouteAssert.GeneratesActionUrl(routes, "/", expectations);
+
+			Assert.That(assertEngine.FailCount, Is.EqualTo(1));
+			Assert.That(assertEngine.Messages[0], Is.EqualTo("No 'action' property found in  expected route properties"));
+		}
+
+		[Test]
+		public void Success_with_controller_and_action()
+		{
+			var expectations = new
+			{
+				controller = "home",
+				Action = "index"
+			};
+			RouteAssert.GeneratesActionUrl(routes, "/", expectations);
+
+			Assert.That(assertEngine.FailCount, Is.EqualTo(0));
+		}
+
+		[Test]
 		public void Fail_message_on_action_is_as_expected()
 		{
 			RouteAssert.GeneratesActionUrl(routes, "/", "NoSuchAction", "Home");

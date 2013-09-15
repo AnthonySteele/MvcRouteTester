@@ -100,6 +100,7 @@ namespace MvcRouteTester.WebRoute
 		internal static void GeneratesActionUrl(RouteCollection routes, HttpMethod httpMethod, string expectedUrl, 
 			RouteValues fromProps, string appPath, string requestBody)
 		{
+			fromProps.CheckDataOk();
 			if (!fromProps.DataOk)
 			{
 				return;
