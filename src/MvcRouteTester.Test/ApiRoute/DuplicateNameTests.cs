@@ -1,6 +1,4 @@
 ﻿using System.Net.Http;
-using System.Web;
-using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Http.Routing;
 
@@ -40,13 +38,12 @@ namespace MvcRouteTester.Test.ApiRoute
 		}
 
 		[Test]
-		[Ignore("has duplicate route param 'id', not working yet")]
 		public void TestCreateMap()
 		{
 			var item = new Item { Id = 42 };
 			config
 				.ShouldMap(string.Format("http://localhost/items/aid"))
-				.WithBody(HttpUtility.UrlEncode(Json.Encode(item)))
+				.WithBody("id=42")
 				.To<ItemController>(HttpMethod.Post, x => x.CreateItem("aid", item));
 		}
 	}
