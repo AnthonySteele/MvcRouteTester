@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Web.Http;
 
+using MvcRouteTester.Test.ApiControllers;
 using MvcRouteTester.Test.Assertions;
 
 using NUnit.Framework;
@@ -38,6 +39,19 @@ namespace MvcRouteTester.Test.ApiRoute
 		{
 			var expectedRoute = new { controller = "WithDateTime", action = "Get", id = new DateTime(2012, 5, 30) };
 			RouteAssert.HasApiRoute(config, "/api/WithDateTime/2012-05-30", HttpMethod.Get, expectedRoute);
+		}
+
+
+		[Test]
+		public void DateTimeValueIsCapturedFluent()
+		{
+			var inputModel = new DateTimeInputModel
+				{
+					Id = new DateTime(2012, 5, 30)
+				};
+
+			config.ShouldMap("/api/WithDateTime/2012-05-30")
+				.To<WithDateTimeController>(HttpMethod.Get, c => c.Get(inputModel));
 		}
 
 		[Test]
