@@ -9,6 +9,7 @@ namespace MvcRouteTester.Fluent
 	public class UrlAndHttpRoutes
 	{
 		private string requestBody = string.Empty;
+		private BodyFormat bodyFormat = BodyFormat.None;
 
 		public UrlAndHttpRoutes(HttpConfiguration configuration, string url)
 		{
@@ -22,15 +23,23 @@ namespace MvcRouteTester.Fluent
 		public UrlAndHttpRoutes WithBody(string body)
 		{
 			requestBody = body;
+			bodyFormat = BodyFormat.FormUrl;
 			return this;
 		}
 
+		public UrlAndHttpRoutes WithJsonBody(string body)
+		{
+			requestBody = body;
+			bodyFormat = BodyFormat.Json;
+			return this;
+		}
+		
 		public void To<TController>(HttpMethod httpMethod, Expression<Func<TController, object>> action) where TController : ApiController
 		{
 			var expressionReader = new ExpressionReader();
 			var expectedProps = expressionReader.Read(action);
 
-			ApiRouteAssert.HasRoute(Configuration, Url, httpMethod, requestBody, expectedProps);
+			ApiRouteAssert.HasRoute(Configuration, Url, httpMethod, requestBody, bodyFormat, expectedProps);
 		}
 
 		public void To<TController>(HttpMethod httpMethod, Expression<Action<TController>> action) where TController : ApiController
@@ -38,7 +47,7 @@ namespace MvcRouteTester.Fluent
 			var expressionReader = new ExpressionReader();
 			var expectedProps = expressionReader.Read(action);
 
-			ApiRouteAssert.HasRoute(Configuration, Url, httpMethod, requestBody, expectedProps);
+			ApiRouteAssert.HasRoute(Configuration, Url, httpMethod, requestBody, bodyFormat, expectedProps);
 		}
 
 		public void ToNoRoute()

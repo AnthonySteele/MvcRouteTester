@@ -12,14 +12,14 @@ namespace MvcRouteTester.WebRoute
 {
 	internal class Reader
 	{
-		public RouteValues GetRequestProperties(RouteData routeData, HttpRequestBase request)
+		public RouteValues GetRequestProperties(RouteData routeData, HttpRequestBase request, BodyFormat bodyFormat)
 		{
 			var result = new RouteValues(routeData.Values);
 
 			var requestParams = ReadRequestParams(request.Params);
 			result.AddRange(requestParams);
 
-			var bodyContent = ReadPropertiesFromBodyContent(request);
+			var bodyContent = ReadPropertiesFromBodyContent(request, bodyFormat);
 			result.AddRange(bodyContent);
 
 			result.Area = ReadAreaFromRouteData(routeData);
@@ -37,16 +37,11 @@ namespace MvcRouteTester.WebRoute
 			return result;
 		}
 
-		private IList<RouteValue> ReadPropertiesFromBodyContent(HttpRequestBase request)
+		private IList<RouteValue> ReadPropertiesFromBodyContent(HttpRequestBase request, BodyFormat bodyFormat)
 		{
 			var body = GetRequestBody(request);
-			if (!string.IsNullOrEmpty(body))
-			{
-				var bodyReader = new FormUrlBodyReader();
-				return bodyReader.ReadBody(body);
-			}
-
-			return new List<RouteValue>();
+			var bodyReader = new BodyReader();
+			return bodyReader.ReadBody(body, bodyFormat);
 		}
 
 		private string GetRequestBody(HttpRequestBase request)

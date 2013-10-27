@@ -4,6 +4,8 @@ using System.Linq.Expressions;
 using System.Net.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+
+using MvcRouteTester.ApiRoute;
 using MvcRouteTester.WebRoute;
 
 namespace MvcRouteTester.Fluent
@@ -11,6 +13,8 @@ namespace MvcRouteTester.Fluent
 	public class UrlAndRoutes
 	{
 		private string requestBody = string.Empty;
+		private BodyFormat bodyFormat = BodyFormat.None;
+
 		private string requestAppPath = "/";
 
 		public UrlAndRoutes(RouteCollection routes, string url)
@@ -25,6 +29,14 @@ namespace MvcRouteTester.Fluent
 		public UrlAndRoutes WithBody(string body)
 		{
 			requestBody = body;
+			bodyFormat = BodyFormat.FormUrl;
+			return this;
+		}
+
+		public UrlAndRoutes WithJsonBody(string body)
+		{
+			requestBody = body;
+			bodyFormat = BodyFormat.Json;
 			return this;
 		}
 
@@ -39,7 +51,7 @@ namespace MvcRouteTester.Fluent
 			var expressionReader = new ExpressionReader();
 			var expectedProps = expressionReader.Read(action);
 
-			WebRouteAssert.HasRoute(Routes, HttpMethod.Get, Url, requestBody, expectedProps);
+			WebRouteAssert.HasRoute(Routes, HttpMethod.Get, Url, requestBody, bodyFormat, expectedProps);
 		}
 
 		public void ToNoRoute()

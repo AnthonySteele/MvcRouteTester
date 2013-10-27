@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiRoute\ApiRouteAssert.cs" />
+    <Compile Include="ApiRoute\BodyFormat.cs" />
+    <Compile Include="ApiRoute\BodyReader.cs" />
     <Compile Include="ApiRoute\FormUrlBodyReader.cs" />
     <Compile Include="ApiRoute\Generator.cs" />
     <Compile Include="ApiRoute\JsonBodyReader.cs" />

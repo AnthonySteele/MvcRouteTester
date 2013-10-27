@@ -2,6 +2,8 @@
 using System.Net.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+
+using MvcRouteTester.ApiRoute;
 using MvcRouteTester.Assertions;
 using MvcRouteTester.Common;
 using MvcRouteTester.HttpMocking;
@@ -24,7 +26,7 @@ namespace MvcRouteTester.WebRoute
 			}
 		}
 
-		internal static void HasRoute(RouteCollection routes, HttpMethod method, string url, string body, RouteValues expectedProps)
+		internal static void HasRoute(RouteCollection routes, HttpMethod method, string url, string body, BodyFormat bodyFormat, RouteValues expectedProps)
 		{
 			var pathUrl = UrlHelpers.PrependTilde(url);
 			var httpContext = HttpMockery.ContextForUrl(method, pathUrl, body);
@@ -37,7 +39,7 @@ namespace MvcRouteTester.WebRoute
 			}
 
 			var webRouteReader = new Reader();
-			var actualProps = webRouteReader.GetRequestProperties(routeData, httpContext.Request);
+			var actualProps = webRouteReader.GetRequestProperties(routeData, httpContext.Request, bodyFormat);
 			var verifier = new Verifier(expectedProps, actualProps, url);
 			verifier.VerifyExpectations();
 		}

@@ -40,7 +40,7 @@ namespace MvcRouteTester
 		{
 			var propertyReader = new PropertyReader();
 			var expectedRouteValues = propertyReader.RouteValues(expectations);
-			WebRouteAssert.HasRoute(routes, HttpMethod.Get, url, body, expectedRouteValues);
+			WebRouteAssert.HasRoute(routes, HttpMethod.Get, url, body, BodyFormat.FormUrl, expectedRouteValues);
 		}
 
 		public static void HasRoute(RouteCollection routes, string url, string controller, string action)
@@ -57,13 +57,13 @@ namespace MvcRouteTester
 		public static void HasRoute(RouteCollection routes, string url, IDictionary<string, string> expectedProps)
 		{
 			var expectedRouteValues = new RouteValues(expectedProps);
-			WebRouteAssert.HasRoute(routes, HttpMethod.Get, url, string.Empty, expectedRouteValues);
+			WebRouteAssert.HasRoute(routes, HttpMethod.Get, url, string.Empty, BodyFormat.None, expectedRouteValues);
 		}
 
 		public static void HasRoute(RouteCollection routes, string url, string body, IDictionary<string, string> expectedProps)
 		{
 			var expectedRouteValues = new RouteValues(expectedProps);
-			WebRouteAssert.HasRoute(routes, HttpMethod.Get, url, body, expectedRouteValues);
+			WebRouteAssert.HasRoute(routes, HttpMethod.Get, url, body, BodyFormat.FormUrl, expectedRouteValues);
 		}
 
 		/// <summary>
@@ -161,7 +161,7 @@ namespace MvcRouteTester
 			var propertyReader = new PropertyReader();
 			var expectedProps = propertyReader.RouteValues(expectations);
 
-			ApiRouteAssert.HasRoute(config, url, httpMethod, string.Empty, expectedProps);
+			ApiRouteAssert.HasRoute(config, url, httpMethod, string.Empty, BodyFormat.None, expectedProps);
 		}
 
 		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string body, object expectations)
@@ -169,7 +169,7 @@ namespace MvcRouteTester
 			var propertyReader = new PropertyReader();
 			var expectedProps = propertyReader.RouteValues(expectations);
 
-			ApiRouteAssert.HasRoute(config, url, httpMethod, body, expectedProps);
+			ApiRouteAssert.HasRoute(config, url, httpMethod, body, BodyFormat.FormUrl, expectedProps);
 		}
 
 		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string controller, string action)
@@ -186,13 +186,13 @@ namespace MvcRouteTester
 		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, IDictionary<string, string> expectedProps)
 		{
 			var expectedRouteValues = new RouteValues(expectedProps);
-			ApiRouteAssert.HasRoute(config, url, httpMethod, string.Empty, expectedRouteValues);
+			ApiRouteAssert.HasRoute(config, url, httpMethod, string.Empty, BodyFormat.None, expectedRouteValues);
 		}
 
 		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string body, IDictionary<string, string> expectedProps)
 		{
 			var expectedRouteValues = new RouteValues(expectedProps);
-			ApiRouteAssert.HasRoute(config, url, httpMethod, body, expectedRouteValues);
+			ApiRouteAssert.HasRoute(config, url, httpMethod, body, BodyFormat.FormUrl, expectedRouteValues);
 		}
 
 		/// <summary>

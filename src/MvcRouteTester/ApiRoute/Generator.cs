@@ -38,7 +38,7 @@ namespace MvcRouteTester.ApiRoute
 			get { return matchedRoute != null; }
 		}
 
-		public RouteValues ReadRequestProperties(string url, HttpMethod httpMethod)
+		public RouteValues ReadRequestProperties(string url, HttpMethod httpMethod, BodyFormat bodyFormat)
 		{
 			if (! CheckValid(url, httpMethod))
 			{
@@ -53,7 +53,7 @@ namespace MvcRouteTester.ApiRoute
 
 			var queryParams = UrlHelpers.ReadQueryParams(url);
 			actualProps.AddRange(queryParams);
-			actualProps.AddRange(ReadPropertiesFromBodyContent());
+			actualProps.AddRange(ReadPropertiesFromBodyContent(bodyFormat));
 
 
 			return actualProps;
@@ -287,17 +287,13 @@ namespace MvcRouteTester.ApiRoute
 			return actionSelector.SelectAction(controllerContext);
 		}
 
-		private IList<RouteValue> ReadPropertiesFromBodyContent()
+		private IList<RouteValue> ReadPropertiesFromBodyContent(BodyFormat bodyFormat)
 		{
 			var bodyTask = request.Content.ReadAsStringAsync();
 			var body = bodyTask.Result;
-			if (!string.IsNullOrEmpty(body))
-			{
-				var bodyReader = new FormUrlBodyReader();
-				return bodyReader.ReadBody(body);
-			}
 
-			return new List<RouteValue>();
+			var bodyReader = new BodyReader();
+			return bodyReader.ReadBody(body, bodyFormat);
 		}
 	}
 }
