@@ -10,7 +10,7 @@ namespace MvcRouteTester.Common
 		private readonly RouteValues expected;
 		private readonly RouteValues actual;
 		private readonly string url;
-		private int expectationsDone = 0;
+		private int expectationsDone;
 
 		public Verifier(RouteValues expected, RouteValues actual, string url)
 		{
@@ -89,22 +89,34 @@ namespace MvcRouteTester.Common
 
 			DateTime actualDateTime;
 			string actualDateTimeString;
+			bool actualValueParsed;
+
 			if (actualValue.Value is DateTime)
 			{
 				actualDateTime = (DateTime)(actualValue.Value);
 				actualDateTimeString = actualDateTime.ToString("s", CultureInfo.InvariantCulture);
+				actualValueParsed = true;
 			}
 			else
 			{
-				actualDateTime = DateTime.Parse(actualValue.ValueAsString);
 				actualDateTimeString = actualValue.ValueAsString;
+				actualValueParsed = DateTime.TryParse(actualDateTimeString, out actualDateTime);
 			}
 
-			if (expectedDateTime != actualDateTime)
+			if (actualValueParsed)
 			{
-				var mismatchErrorMessage = string.Format("Expected '{0}', not '{1}' for '{2}' at url '{3}'.",
-					expectedDateTimeString, actualDateTimeString, expectedValue.Name, url);
-				Asserts.Fail(mismatchErrorMessage);
+				if (expectedDateTime != actualDateTime)
+				{
+					var mismatchErrorMessage = string.Format("Expected '{0}', not '{1}' for '{2}' at url '{3}'.",
+						expectedDateTimeString, actualDateTimeString, expectedValue.Name, url);
+					Asserts.Fail(mismatchErrorMessage);
+				}
+			}
+			else
+			{
+				var parseFailErrorMessage = string.Format("Actual value '{0}' could not be parsed as a DateTime at url '{1}'.",
+					actualDateTimeString, url);
+				Asserts.Fail(parseFailErrorMessage);
 			}
 
 			expectationsDone++;
