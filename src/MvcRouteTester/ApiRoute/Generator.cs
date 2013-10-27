@@ -293,7 +293,7 @@ namespace MvcRouteTester.ApiRoute
 			var body = bodyTask.Result;
 			if (!string.IsNullOrEmpty(body))
 			{
-				var bodyReader = new BodyReader();
+				var bodyReader = new FormUrlBodyReader();
 				return bodyReader.ReadBody(body);
 			}
 

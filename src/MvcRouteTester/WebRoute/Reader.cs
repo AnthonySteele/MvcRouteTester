@@ -42,7 +42,7 @@ namespace MvcRouteTester.WebRoute
 			var body = GetRequestBody(request);
 			if (!string.IsNullOrEmpty(body))
 			{
-				var bodyReader = new BodyReader();
+				var bodyReader = new FormUrlBodyReader();
 				return bodyReader.ReadBody(body);
 			}
 

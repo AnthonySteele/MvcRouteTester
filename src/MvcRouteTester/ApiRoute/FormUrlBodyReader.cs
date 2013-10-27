@@ -8,7 +8,7 @@ namespace MvcRouteTester.ApiRoute
 	/// <summary>
 	/// read the post body that is form-urlencoded
 	/// </summary>
-	public class BodyReader
+	public class FormUrlBodyReader
 	{
 		public IList<RouteValue> ReadBody(string body)
 		{
@@ -17,7 +17,10 @@ namespace MvcRouteTester.ApiRoute
 			var bodyParams = body.Split('&');
 			foreach (var bodyParam in bodyParams)
 			{
-				values.Add(ReadValue(bodyParam));
+				if (!string.IsNullOrWhiteSpace(bodyParam))
+				{
+					values.Add(ReadValue(bodyParam));
+				}
 			}
 
 			return values;

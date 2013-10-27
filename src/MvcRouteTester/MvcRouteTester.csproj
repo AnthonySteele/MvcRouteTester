@@ -43,8 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiRoute\ApiRouteAssert.cs" />
-    <Compile Include="ApiRoute\BodyReader.cs" />
+    <Compile Include="ApiRoute\FormUrlBodyReader.cs" />
     <Compile Include="ApiRoute\Generator.cs" />
+    <Compile Include="ApiRoute\JsonBodyReader.cs" />
     <Compile Include="Assertions\AssertionException.cs" />
     <Compile Include="Assertions\Asserts.cs" />
     <Compile Include="Assertions\IAssertEngine.cs" />
