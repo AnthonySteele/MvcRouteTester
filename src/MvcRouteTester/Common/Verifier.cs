@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Globalization;
+
 using MvcRouteTester.Assertions;
 
 namespace MvcRouteTester.Common
@@ -20,9 +21,9 @@ namespace MvcRouteTester.Common
 
 		public void VerifyExpectations()
 		{
-			VerifyValue(expected.Controller, actual.Controller, "controller");
-			VerifyValue(expected.Action, actual.Action, "action");
-			VerifyValue(expected.Area, actual.Area, "area");
+			VerifyStringValue(expected.Controller, actual.Controller, "controller");
+			VerifyStringValue(expected.Action, actual.Action, "action");
+			VerifyStringValue(expected.Area, actual.Area, "area");
 
 			foreach (var expectedValue in expected.Values)
 			{
@@ -35,7 +36,7 @@ namespace MvcRouteTester.Common
 					return;
 				}
 
-				VerifyValue(expectedValue.ValueAsString, actualValue.ValueAsString, expectedValue.Name);
+				VerifyValue(expectedValue, actualValue);
 
 				expectationsDone++;
 			}
@@ -47,7 +48,19 @@ namespace MvcRouteTester.Common
 			}
 		}
 
-		private void VerifyValue(string expectedValue, string actualValue, string name)
+		private void VerifyValue(RouteValue expectedValue, RouteValue actualValue)
+		{
+			if (expectedValue.Value is DateTime)
+			{
+				VerifyDateTimeValue(expectedValue, actualValue);
+			}
+			else
+			{
+				VerifyStringValue(expectedValue.ValueAsString, actualValue.ValueAsString, expectedValue.Name);
+			}
+		}
+
+		private void VerifyStringValue(string expectedValue, string actualValue, string name)
 		{
 			if (string.IsNullOrEmpty(expectedValue))
 			{
@@ -65,6 +78,34 @@ namespace MvcRouteTester.Common
 			var mismatchErrorMessage = string.Format("Expected '{0}', not '{1}' for '{2}' at url '{3}'.",
 				expectedValue, actualValue, name, url);
 			Asserts.StringsEqualIgnoringCase(expectedValue, actualValue, mismatchErrorMessage);
+
+			expectationsDone++;
+		}
+
+		private void VerifyDateTimeValue(RouteValue expectedValue, RouteValue actualValue)
+		{
+			DateTime expectedDateTime = (DateTime)(expectedValue.Value);
+			string expectedDateTimeString = expectedDateTime.ToString("s", CultureInfo.InvariantCulture);
+
+			DateTime actualDateTime;
+			string actualDateTimeString;
+			if (actualValue.Value is DateTime)
+			{
+				actualDateTime = (DateTime)(actualValue.Value);
+				actualDateTimeString = actualDateTime.ToString("s", CultureInfo.InvariantCulture);
+			}
+			else
+			{
+				actualDateTime = DateTime.Parse(actualValue.ValueAsString);
+				actualDateTimeString = actualValue.ValueAsString;
+			}
+
+			if (expectedDateTime != actualDateTime)
+			{
+				var mismatchErrorMessage = string.Format("Expected '{0}', not '{1}' for '{2}' at url '{3}'.",
+					expectedDateTimeString, actualDateTimeString, expectedValue.Name, url);
+				Asserts.Fail(mismatchErrorMessage);
+			}
 
 			expectationsDone++;
 		}

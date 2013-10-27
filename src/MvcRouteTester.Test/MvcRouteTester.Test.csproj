@@ -56,8 +56,10 @@
     <Compile Include="ApiControllers\RenamedController.cs" />
     <Compile Include="ApiControllers\PostOnlyController.cs" />
     <Compile Include="ApiControllers\CustomerController.cs" />
+    <Compile Include="ApiControllers\WithDateTimeController.cs" />
     <Compile Include="ApiControllers\WithNullableController.cs" />
     <Compile Include="ApiControllers\WithObjectController.cs" />
+    <Compile Include="ApiRoute\DateTimeParamsTests.cs" />
     <Compile Include="ApiRoute\DuplicateNameTests.cs" />
     <Compile Include="ApiRoute\FromUriTests.cs" />
     <Compile Include="ApiRoute\FluentExtensionsTests.cs" />

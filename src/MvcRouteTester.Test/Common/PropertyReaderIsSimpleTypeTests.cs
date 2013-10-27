@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MvcRouteTester.Common;
 using NUnit.Framework;
 
@@ -43,6 +44,12 @@ namespace MvcRouteTester.Test.Common
 		public void BoolIsSimpleType()
 		{
 			Assert.That(reader.IsSimpleType(typeof(bool)), Is.True);
+		}
+
+		[Test]
+		public void DateTimeIsSimpleType()
+		{
+			Assert.That(reader.IsSimpleType(typeof(DateTime)), Is.True);
 		}
 
 		[Test]

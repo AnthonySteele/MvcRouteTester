@@ -10,6 +10,7 @@ namespace MvcRouteTester.Common
 			{
 				typeof(string),
 				typeof(decimal),
+				typeof(DateTime),
 				typeof(Guid)
 			};
 
