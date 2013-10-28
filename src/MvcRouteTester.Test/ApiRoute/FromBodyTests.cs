@@ -100,7 +100,7 @@ namespace MvcRouteTester.Test.ApiRoute
 			};
 			const string PostBody = "Name=Fred+Bloggers&Number=42";
 
-			config.ShouldMap("/api/frombody/123").WithBody(PostBody).
+			config.ShouldMap("/api/frombody/123").WithFormUrlBody(PostBody).
 				To<FromBodyController>(HttpMethod.Post, c => c.CreateSomething(123, postData));
 		}
 
@@ -117,7 +117,7 @@ namespace MvcRouteTester.Test.ApiRoute
 			var assertEngine = new FakeAssertEngine();
 			RouteAssert.UseAssertEngine(assertEngine);
 
-			config.ShouldMap("/api/frombody/123").WithBody(PostBody).
+			config.ShouldMap("/api/frombody/123").WithFormUrlBody(PostBody).
 				To<FromBodyController>(HttpMethod.Post, c => c.CreateSomething(123, postData));
 
 			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(1));

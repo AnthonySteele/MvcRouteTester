@@ -43,7 +43,7 @@ namespace MvcRouteTester.Test.ApiRoute
 			var item = new Item { Id = 42 };
 			config
 				.ShouldMap(string.Format("http://localhost/items/aid"))
-				.WithBody("id=42")
+				.WithFormUrlBody("id=42")
 				.To<ItemController>(HttpMethod.Post, x => x.CreateItem("aid", item));
 		}
 	}

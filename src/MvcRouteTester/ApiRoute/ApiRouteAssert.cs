@@ -25,7 +25,7 @@ namespace MvcRouteTester.ApiRoute
 		internal static void HasRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string body, BodyFormat bodyFormat, RouteValues expectedProps)
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
-			var actualProps = ReadRequestProperties(config, absoluteUrl, httpMethod, body, BodyFormat.None);
+			var actualProps = ReadRequestProperties(config, absoluteUrl, httpMethod, body, bodyFormat);
 
 			var verifier = new Verifier(expectedProps, actualProps, url);
 			verifier.VerifyExpectations();

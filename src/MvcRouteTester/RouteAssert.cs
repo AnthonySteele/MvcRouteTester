@@ -66,6 +66,24 @@ namespace MvcRouteTester
 			WebRouteAssert.HasRoute(routes, HttpMethod.Get, url, body, BodyFormat.FormUrl, expectedRouteValues);
 		}
 
+		public static void HasRoute(RouteCollection routes, string url, string body, BodyFormat bodyFormat, IDictionary<string, string> expectedProps)
+		{
+			var expectedRouteValues = new RouteValues(expectedProps);
+			WebRouteAssert.HasRoute(routes, HttpMethod.Get, url, body, bodyFormat, expectedRouteValues);
+		}
+
+		public static void HasRoute(RouteCollection routes, string url, HttpMethod httpMethod, IDictionary<string, string> expectedProps)
+		{
+			var expectedRouteValues = new RouteValues(expectedProps);
+			WebRouteAssert.HasRoute(routes, httpMethod, url, string.Empty, BodyFormat.None, expectedRouteValues);
+		}
+
+		public static void HasRoute(RouteCollection routes, string url, HttpMethod httpMethod, string body, BodyFormat bodyFormat, IDictionary<string, string> expectedProps)
+		{
+			var expectedRouteValues = new RouteValues(expectedProps);
+			WebRouteAssert.HasRoute(routes, httpMethod, url, body, bodyFormat, expectedRouteValues);
+		}
+
 		/// <summary>
 		/// Asserts that the route does not exist
 		/// </summary>
@@ -172,6 +190,14 @@ namespace MvcRouteTester
 			ApiRouteAssert.HasRoute(config, url, httpMethod, body, BodyFormat.FormUrl, expectedProps);
 		}
 
+		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string body, BodyFormat bodyFormat, object expectations)
+		{
+			var propertyReader = new PropertyReader();
+			var expectedProps = propertyReader.RouteValues(expectations);
+
+			ApiRouteAssert.HasRoute(config, url, httpMethod, body, bodyFormat, expectedProps);
+		}
+
 		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string controller, string action)
 		{
 			var expectedProps = new Dictionary<string, string>
@@ -193,6 +219,12 @@ namespace MvcRouteTester
 		{
 			var expectedRouteValues = new RouteValues(expectedProps);
 			ApiRouteAssert.HasRoute(config, url, httpMethod, body, BodyFormat.FormUrl, expectedRouteValues);
+		}
+
+		public static void HasApiRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string body, BodyFormat bodyFormat,  IDictionary<string, string> expectedProps)
+		{
+			var expectedRouteValues = new RouteValues(expectedProps);
+			ApiRouteAssert.HasRoute(config, url, httpMethod, body, bodyFormat, expectedRouteValues);
 		}
 
 		/// <summary>
