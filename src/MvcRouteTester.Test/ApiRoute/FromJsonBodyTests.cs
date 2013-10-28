@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Web.Http;
 
+using MvcRouteTester.ApiRoute;
 using MvcRouteTester.Test.ApiControllers;
 using MvcRouteTester.Test.Assertions;
 
@@ -9,7 +10,7 @@ using NUnit.Framework;
 namespace MvcRouteTester.Test.ApiRoute
 {
 	[TestFixture]
-	public class FromBodyTests
+	public class FromJsonBodyTests
 	{
 		private HttpConfiguration config;
 
@@ -47,35 +48,35 @@ namespace MvcRouteTester.Test.ApiRoute
 		[Test]
 		public void TestHasApiRouteValuesFromBody()
 		{
-			const string PostBody = "Name=Fred+Bloggers&Number=42";
+			const string PostBody = "{ Name: 'Fred Bloggers', Number: 42 }";
 			var expectations = new
-			{
-				controller = "FromBody",
-				action = "CreateSomething",
-				id = "123",
-				name = "Fred Bloggers",
-				number = 42
-			};
-			RouteAssert.HasApiRoute(config, "/api/frombody/123", HttpMethod.Post, PostBody, expectations);
+				{
+					controller = "FromBody",
+					action = "CreateSomething",
+					id = "123",
+					name = "Fred Bloggers",
+					number = 42
+				};
+			RouteAssert.HasApiRoute(config, "/api/frombody/123", HttpMethod.Post, PostBody, BodyFormat.Json, expectations);
 		}
 
 		[Test]
 		public void MismatchFailsValuesFromBody()
 		{
-			const string PostBody = "Name=Fred+Bloggers&Number=42";
+			const string PostBody = "{ Name: 'Fred Bloggers', Number: 42 }";
 			var expectations = new
-			{
-				controller = "FromBody",
-				action = "CreateSomething",
-				id = "123",
-				name = "Jim Spriggs",
-				number = 42
-			};
+				{
+					controller = "FromBody",
+					action = "CreateSomething",
+					id = "123",
+					name = "Jim Spriggs",
+					number = 42
+				};
 
 			var assertEngine = new FakeAssertEngine();
 			RouteAssert.UseAssertEngine(assertEngine);
 
-			RouteAssert.HasApiRoute(config, "/api/frombody/123", HttpMethod.Post, PostBody, expectations);
+			RouteAssert.HasApiRoute(config, "/api/frombody/123", HttpMethod.Post, PostBody, BodyFormat.Json, expectations);
 
 			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(1));
 			Assert.That(assertEngine.Messages[0], Is.EqualTo("Expected 'Jim Spriggs', not 'Fred Bloggers' for 'name' at url '/api/frombody/123'."));
@@ -83,24 +84,24 @@ namespace MvcRouteTester.Test.ApiRoute
 
 		[Test]
 		public void TestFluentMap()
-		{
-			PostDataModel postData = null;
+			{
+				PostDataModel postData = null;
 
-			config.ShouldMap("/api/frombody/123").
-				To<FromBodyController>(HttpMethod.Post, c => c.CreateSomething(123, postData));
-		}
+				config.ShouldMap("/api/frombody/123").
+					To<FromBodyController>(HttpMethod.Post, c => c.CreateSomething(123, postData));
+			}
 
 		[Test]
 		public void TestFluentMapWithBody()
 		{
 			var postData = new PostDataModel
-			{
-				Name = "Fred Bloggers",
-				Number = 42
-			};
-			const string PostBody = "Name=Fred+Bloggers&Number=42";
+				{
+					Name = "Fred Bloggers",
+					Number = 42
+				};
+			const string PostBody = "{ Name: 'Fred Bloggers', Number: 42 }";
 
-			config.ShouldMap("/api/frombody/123").WithFormUrlBody(PostBody).
+			config.ShouldMap("/api/frombody/123").WithJsonBody(PostBody).
 				To<FromBodyController>(HttpMethod.Post, c => c.CreateSomething(123, postData));
 		}
 
@@ -108,16 +109,16 @@ namespace MvcRouteTester.Test.ApiRoute
 		public void MismatchFluentMapWithBodyFails()
 		{
 			var postData = new PostDataModel
-			{
-				Name = "Jim Spriggs",
-				Number = 42
-			};
-			const string PostBody = "Name=Fred+Bloggers&Number=42";
+				{
+					Name = "Jim Spriggs",
+					Number = 42
+				};
+			const string PostBody = "{ Name: 'Fred Bloggers', Number: 42 }";
 
 			var assertEngine = new FakeAssertEngine();
 			RouteAssert.UseAssertEngine(assertEngine);
 
-			config.ShouldMap("/api/frombody/123").WithFormUrlBody(PostBody).
+			config.ShouldMap("/api/frombody/123").WithJsonBody(PostBody).
 				To<FromBodyController>(HttpMethod.Post, c => c.CreateSomething(123, postData));
 
 			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(1));

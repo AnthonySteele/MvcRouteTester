@@ -59,12 +59,13 @@
     <Compile Include="ApiControllers\WithDateTimeController.cs" />
     <Compile Include="ApiControllers\WithNullableController.cs" />
     <Compile Include="ApiControllers\WithObjectController.cs" />
+    <Compile Include="ApiRoute\FromJsonBodyTests.cs" />
     <Compile Include="ApiRoute\DateTimeParamsTests.cs" />
     <Compile Include="ApiRoute\DuplicateNameTests.cs" />
     <Compile Include="ApiRoute\FormUrlBodyReaderTests.cs" />
     <Compile Include="ApiRoute\FromUriTests.cs" />
     <Compile Include="ApiRoute\FluentExtensionsTests.cs" />
-    <Compile Include="ApiRoute\FromBodyTests.cs" />
+    <Compile Include="ApiRoute\FromFormUrlBodyTests.cs" />
     <Compile Include="ApiRoute\JsonBodyReaderTests.cs" />
     <Compile Include="ApiRoute\ModelBindingTests.cs" />
     <Compile Include="ApiRoute\NullableParamTests.cs" />
