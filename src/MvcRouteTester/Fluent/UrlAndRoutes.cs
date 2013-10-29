@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -47,6 +48,14 @@ namespace MvcRouteTester.Fluent
 		}
 
 		public void To<TController>(Expression<Func<TController, ActionResult>> action) where TController : Controller
+		{
+			var expressionReader = new ExpressionReader();
+			var expectedProps = expressionReader.Read(action);
+
+			WebRouteAssert.HasRoute(Routes, HttpMethod.Get, Url, requestBody, bodyFormat, expectedProps);
+		}
+
+		public void To<TController>(Expression<Func<TController, Task<ActionResult>>> action) where TController : Controller
 		{
 			var expressionReader = new ExpressionReader();
 			var expectedProps = expressionReader.Read(action);

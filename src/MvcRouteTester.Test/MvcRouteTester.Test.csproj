@@ -51,6 +51,7 @@
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiControllers\AsyncActionController.cs" />
     <Compile Include="ApiControllers\FromBodyController.cs" />
     <Compile Include="ApiControllers\FromUriController.cs" />
     <Compile Include="ApiControllers\RenamedController.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="ApiControllers\WithDateTimeController.cs" />
     <Compile Include="ApiControllers\WithNullableController.cs" />
     <Compile Include="ApiControllers\WithObjectController.cs" />
+    <Compile Include="ApiRoute\AsyncActionControllerTests.cs" />
     <Compile Include="ApiRoute\FromJsonBodyTests.cs" />
     <Compile Include="ApiRoute\DateTimeParamsTests.cs" />
     <Compile Include="ApiRoute\DuplicateNameTests.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Assertions\ExceptionAssertEngineTests.cs" />
     <Compile Include="Assertions\NunitAssertEngine.cs" />
     <Compile Include="Common\RouteValuesTests.cs" />
+    <Compile Include="Controllers\AsyncActionController.cs" />
     <Compile Include="Controllers\FromBodyController.cs" />
     <Compile Include="Controllers\GetPostController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -99,6 +102,7 @@
     <Compile Include="Common\PropertyReaderIsSimpleTypeTests.cs" />
     <Compile Include="Common\PropertyReaderPropertiesTests.cs" />
     <Compile Include="Common\PropertyReaderSimplePropertyNamesTests.cs" />
+    <Compile Include="WebRoute\AsyncActionControllerTests.cs" />
     <Compile Include="WebRoute\HasRouteToAreaTests.cs" />
     <Compile Include="WebRoute\GeneratesUrlFailTests.cs" />
     <Compile Include="WebRoute\FluentExtensionsAliasRouteTests.cs" />

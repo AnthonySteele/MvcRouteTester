@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using MvcRouteTester.Common;
 
@@ -10,6 +11,11 @@ namespace MvcRouteTester.Fluent
 	public class ExpressionReader
 	{
 		public RouteValues Read<TController>(Expression<Func<TController, object>> action)
+		{
+			return Read(typeof(TController), UnwrapAction(action));
+		}
+
+		public RouteValues Read<TController>(Expression<Func<TController, Task<ActionResult>>> action)
 		{
 			return Read(typeof(TController), UnwrapAction(action));
 		}
