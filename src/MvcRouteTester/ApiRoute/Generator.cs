@@ -38,6 +38,13 @@ namespace MvcRouteTester.ApiRoute
 			get { return matchedRoute != null; }
 		}
 
+	    public bool HasHandler<THander>()
+	    {
+	        if (matchedRoute.Route.Handler == null)
+	            return false;
+	        return matchedRoute.Route.Handler.GetType() == typeof (THander);
+
+	    }
 		public RouteValues ReadRequestProperties(string url, HttpMethod httpMethod, BodyFormat bodyFormat)
 		{
 			if (! CheckValid(url, httpMethod))
