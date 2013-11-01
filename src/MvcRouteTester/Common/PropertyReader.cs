@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace MvcRouteTester.Common
@@ -85,7 +86,15 @@ namespace MvcRouteTester.Common
 
 		private static IEnumerable<PropertyInfo> GetPublicObjectProperties(Type type)
 		{
-			return type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+		    var props= type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly).ToList();
+		    props.RemoveAll(p => ignoreAttributes.Any(a => p.GetCustomAttributes(a, true).Length > 0));
+		    return props;
 		}
-	}
+
+	    private static Type[] ignoreAttributes;
+        public static void IgnoreAttributes(Type[] types)
+        {
+            ignoreAttributes = types;
+        }
+    }
 }
