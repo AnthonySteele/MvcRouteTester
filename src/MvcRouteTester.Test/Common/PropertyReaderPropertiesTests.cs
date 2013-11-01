@@ -2,7 +2,6 @@
 
 using MvcRouteTester.Common;
 using MvcRouteTester.Test.Controllers;
-using MvcRouteTester.Test.Fluent;
 using NUnit.Framework;
 
 namespace MvcRouteTester.Test.Common
