@@ -91,7 +91,7 @@ namespace MvcRouteTester.Common
 		    return props;
 		}
 
-	    private static Type[] ignoreAttributes;
+	    private static Type[] ignoreAttributes = new Type[0];
         public static void IgnoreAttributes(Type[] types)
         {
             ignoreAttributes = types;
