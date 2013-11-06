@@ -2,7 +2,6 @@
 
 using MvcRouteTester.Common;
 using MvcRouteTester.Test.Controllers;
-
 using NUnit.Framework;
 
 namespace MvcRouteTester.Test.Common
@@ -163,5 +162,23 @@ namespace MvcRouteTester.Test.Common
 			Assert.That(routeValues.GetRouteValue("Foo", RouteValueOrigin.Unknown).Value, Is.EqualTo(1));
 			Assert.That(routeValues.GetRouteValue("Bar", RouteValueOrigin.Unknown).Value, Is.EqualTo("Two"));
 		}
+
+	    [Test]
+	    public void ShouldIgnorePropertiesWithAttributes()
+	    {
+	        PropertyReader.IgnoreAttributes(new[] {typeof (StubAttribute)});
+	        var list=new PropertyReader().PropertiesList(new TestStub());
+            Assert.That(list.Count,Is.EqualTo(1));
+            Assert.That(list[0].Name,Is.EqualTo("NotIgnored"));
+
+	    }
+        private class StubAttribute:Attribute{}
+	    private class TestStub
+	    {
+            [Stub]
+	        public string Ignored { get; set; }
+            public string NotIgnored { get; set; }
+
+	    }
 	}
 }
