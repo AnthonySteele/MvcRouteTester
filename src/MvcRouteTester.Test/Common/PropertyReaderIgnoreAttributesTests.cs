@@ -13,7 +13,7 @@ namespace MvcRouteTester.Test.Common
 		[Test]
 		public void ShouldIgnorePropertiesWithSpecifiedAttributes()
 		{
-			RouteAssert.AddIgnoreAttributes(new[]
+			PropertyReader.AddIgnoreAttributes(new[]
 				{
 					typeof (IgnoreMeAttribute)
 				});

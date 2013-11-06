@@ -9,12 +9,22 @@ namespace MvcRouteTester.Common
 	{
 		private readonly HashSet<Type> attributesToIgnore = new HashSet<Type>();
 
-		internal void AddIgnoreAttributes(IEnumerable<Type> types)
+		internal void Add(IEnumerable<Type> types)
 		{
 			foreach (var type in types)
 			{
-				attributesToIgnore.Add(type);
+				Add(type);
 			}
+		}
+
+		internal void Add(Type type)
+		{
+			attributesToIgnore.Add(type);
+		}
+
+		internal void Clear()
+		{
+			attributesToIgnore.Clear();
 		}
 
 		public bool PropertyIsIgnored(PropertyInfo prop)

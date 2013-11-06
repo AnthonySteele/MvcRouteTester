@@ -264,6 +264,16 @@ namespace MvcRouteTester
 			PropertyReader.AddIgnoreAttributes(types);
 		}
 
+		public static void AddIgnoreAttribute(Type type)
+		{
+			PropertyReader.AddIgnoreAttribute(type);
+		}
+
+		public static void ClearIgnoreAttributes()
+		{
+			PropertyReader.ClearIgnoreAttributes();
+		}
+
 		/// <summary>
 		/// Asserts that an entry in the routing table is not found that matches this url
 		/// </summary>

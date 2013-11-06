@@ -75,6 +75,7 @@
     <Compile Include="ApiRoute\RouteMethodTests.cs" />
     <Compile Include="ApiRoute\RouteMethodWithTildeTests.cs" />
     <Compile Include="ApiRoute\RouteParamsTests.cs" />
+    <Compile Include="ApiRoute\WithIgnoredAttributeControllerTests.cs" />
     <Compile Include="Areas\SomeArea\Controllers\OtherTestController.cs" />
     <Compile Include="Areas\SomeArea\Controllers\TestController.cs" />
     <Compile Include="Areas\SomeArea\SomeAreaAreaRegistration.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Controllers\RouteParamsCasesController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TwoRouteParamsController.cs" />
+    <Compile Include="ApiControllers\WithIgnoredAttributeController.cs" />
     <Compile Include="Controllers\WithNullableController.cs" />
     <Compile Include="Controllers\WithObjectController.cs" />
     <Compile Include="Controllers\WithOptionalParamController.cs" />

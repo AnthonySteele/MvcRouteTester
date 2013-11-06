@@ -17,11 +17,21 @@ namespace MvcRouteTester.Common
 
 		private static readonly IgnoreAttributes IgnoreAttributes = new IgnoreAttributes();
 
-		internal static void AddIgnoreAttributes(IEnumerable<Type> types)
+		public static void AddIgnoreAttributes(IEnumerable<Type> types)
 		{
-			IgnoreAttributes.AddIgnoreAttributes(types);
+			IgnoreAttributes.Add(types);
 		}
-		
+
+		public static void AddIgnoreAttribute(Type type)
+		{
+			IgnoreAttributes.Add(type);
+		}
+
+		public static void ClearIgnoreAttributes()
+		{
+			IgnoreAttributes.Clear();
+		}
+
 		public bool IsSimpleType(Type type)
 		{
 			if (type.Name == "Nullable`1")
