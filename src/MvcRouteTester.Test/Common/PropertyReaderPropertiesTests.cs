@@ -162,32 +162,5 @@ namespace MvcRouteTester.Test.Common
 			Assert.That(routeValues.GetRouteValue("Foo", RouteValueOrigin.Unknown).Value, Is.EqualTo(1));
 			Assert.That(routeValues.GetRouteValue("Bar", RouteValueOrigin.Unknown).Value, Is.EqualTo("Two"));
 		}
-
-		[Test]
-		public void ShouldIgnorePropertiesWithSpecifiedAttributes()
-		{
-			RouteAssert.AddIgnoreAttributes(new[]
-				{
-					typeof (IgnoreMeAttribute)
-				});
-
-			var propertiesList = reader.PropertiesList(new TestStub());
-
-			Assert.That(propertiesList.Count, Is.EqualTo(1));
-			Assert.That(propertiesList[0].Name, Is.EqualTo("NotIgnored"));
-
-		}
-
-		private class IgnoreMeAttribute: Attribute
-		{
-		}
-
-		private class TestStub
-		{
-			[IgnoreMe]
-			public string Ignored { get; set; }
-
-			public string NotIgnored { get; set; }
-		}
 	}
 }
