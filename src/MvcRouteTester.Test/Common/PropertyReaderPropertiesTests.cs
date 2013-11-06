@@ -166,7 +166,7 @@ namespace MvcRouteTester.Test.Common
 		[Test]
 		public void ShouldIgnorePropertiesWithSpecifiedAttributes()
 		{
-			RouteAssert.IgnoreAttributes(new[]
+			RouteAssert.AddIgnoreAttributes(new[]
 				{
 					typeof (IgnoreMeAttribute)
 				});

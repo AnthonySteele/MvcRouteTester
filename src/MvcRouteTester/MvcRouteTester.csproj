@@ -55,6 +55,7 @@
     <Compile Include="Assertions\Asserts.cs" />
     <Compile Include="Assertions\IAssertEngine.cs" />
     <Compile Include="Assertions\ExceptionAssertEngine.cs" />
+    <Compile Include="Common\IgnoreAttributes.cs" />
     <Compile Include="Common\RouteValue.cs" />
     <Compile Include="Common\RouteValueExtensions.cs" />
     <Compile Include="Common\RouteValueOrigin.cs" />

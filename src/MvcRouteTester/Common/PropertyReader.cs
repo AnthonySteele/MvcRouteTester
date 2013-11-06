@@ -15,19 +15,11 @@ namespace MvcRouteTester.Common
 				typeof(Guid)
 			};
 
-		private static readonly HashSet<Type> AttributestoIgnore = new HashSet<Type>();
+		private static readonly IgnoreAttributes IgnoreAttributes = new IgnoreAttributes();
 
-		internal static void IgnoreAttributes(IEnumerable<Type> types)
+		internal static void AddIgnoreAttributes(IEnumerable<Type> types)
 		{
-			foreach (var type in types)
-			{
-				AttributestoIgnore.Add(type);
-			}
-		}
-
-		private static bool PropertyIsIgnoredByAttribute(PropertyInfo prop)
-		{
-			return AttributestoIgnore.Any(attr => prop.GetCustomAttributes(attr, true).Length > 0);
+			IgnoreAttributes.AddIgnoreAttributes(types);
 		}
 		
 		public bool IsSimpleType(Type type)
@@ -102,7 +94,7 @@ namespace MvcRouteTester.Common
 		private static IEnumerable<PropertyInfo> GetPublicObjectProperties(Type type)
 		{
 			return type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
-				.Where(p => !PropertyIsIgnoredByAttribute(p))
+				.Where(p => ! IgnoreAttributes.PropertyIsIgnored(p))
 				.ToList();
 		}
 	}

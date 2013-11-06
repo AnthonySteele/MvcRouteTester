@@ -259,9 +259,9 @@ namespace MvcRouteTester
 			ApiRouteAssert.RouteMatches(config, url);
 		}
 
-		public static void IgnoreAttributes(IEnumerable<Type> types)
+		public static void AddIgnoreAttributes(IEnumerable<Type> types)
 		{
-			PropertyReader.IgnoreAttributes(types);
+			PropertyReader.AddIgnoreAttributes(types);
 		}
 
 		/// <summary>
