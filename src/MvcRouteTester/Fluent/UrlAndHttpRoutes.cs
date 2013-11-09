@@ -80,5 +80,10 @@ namespace MvcRouteTester.Fluent
 		{
 			ApiRouteAssert.HasNoHandler<THandler>(Configuration, Url);
 		}
+
+		public void WithoutHandler()
+		{
+			ApiRouteAssert.HasNoHandler(Configuration, Url);
+		}
 	}
 }

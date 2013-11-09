@@ -38,14 +38,24 @@ namespace MvcRouteTester.ApiRoute
 			get { return matchedRoute != null; }
 		}
 
-		public bool HasHandler<THander>()
+		public bool HasHandlerOfType<THandler>() where THandler : HttpMessageHandler
 		{
-			if (matchedRoute.Route.Handler == null)
-			{
-				return false;
-			}
+			return HandlerType() == typeof(THandler);
+		}
 
-			return matchedRoute.Route.Handler.GetType() == typeof(THander);
+		public bool HasHandler() 
+		{
+			return HandlerType() != null;
+		}
+
+		public Type HandlerType()
+		{
+			if (!HasMatchedRoute || (matchedRoute.Route.Handler == null))
+			{
+				return null;
+			} 
+			
+			return matchedRoute.Route.Handler.GetType();
 		}
 
 		public RouteValues ReadRequestProperties(string url, HttpMethod httpMethod, BodyFormat bodyFormat)
