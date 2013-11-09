@@ -93,10 +93,20 @@ namespace MvcRouteTester.ApiRoute
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
 			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
 			var routeGenerator = new Generator(config, request);
+
 			if(!routeGenerator.HasHandlerOfType<THandler>())
 			{
-				var hasHandlerMessage = string.Format("Did not match handler for url '{0}', got type", absoluteUrl);
-				Asserts.Fail(hasHandlerMessage);
+				var actualHandlerType = routeGenerator.HandlerType();
+				var failureMessage = string.Format("Did not match handler type '{0}' for url '{1}', found ", typeof(THandler).Name, absoluteUrl);
+				if (actualHandlerType != null)
+				{
+					failureMessage += string.Format("a handler of type '{0}'.", actualHandlerType.Name);
+				}
+				else
+				{
+					failureMessage += "no handler.";
+				}
+				Asserts.Fail(failureMessage);
 			}
 		}
 
@@ -108,13 +118,13 @@ namespace MvcRouteTester.ApiRoute
 
 			if (routeGenerator.HasHandler())
 			{
-				var hasHandlerMessage = string.Format("Matching handler of type {0} found for url '{1}'",
-					routeGenerator.HandlerType(), absoluteUrl);
+				var hasHandlerMessage = string.Format("Matching handler of type '{0}' found for url '{1}'.",
+					routeGenerator.HandlerType().Name, absoluteUrl);
 				Asserts.Fail(hasHandlerMessage);
 			}
 		}
 		
-		internal static void HasNoHandler<THandler>(HttpConfiguration config, string url) where THandler : HttpMessageHandler
+		internal static void HasNoHandlerofType<THandler>(HttpConfiguration config, string url) where THandler : HttpMessageHandler
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
 			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
@@ -122,8 +132,8 @@ namespace MvcRouteTester.ApiRoute
 
 			if (routeGenerator.HasHandlerOfType<THandler>())
 			{
-				var hasHandlerMessage = string.Format("Matching handler of type {0} found for url '{1}'", 
-					routeGenerator.HandlerType(), absoluteUrl);
+				var hasHandlerMessage = string.Format("Matching handler of type '{0}' found for url '{1}'.", 
+					routeGenerator.HandlerType().Name, absoluteUrl);
 				Asserts.Fail(hasHandlerMessage);
 			}
 		}

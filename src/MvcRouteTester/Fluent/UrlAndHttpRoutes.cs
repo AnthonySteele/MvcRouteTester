@@ -78,7 +78,7 @@ namespace MvcRouteTester.Fluent
 
 		public void WithoutHandler<THandler>() where THandler : DelegatingHandler
 		{
-			ApiRouteAssert.HasNoHandler<THandler>(Configuration, Url);
+			ApiRouteAssert.HasNoHandlerofType<THandler>(Configuration, Url);
 		}
 
 		public void WithoutHandler()
