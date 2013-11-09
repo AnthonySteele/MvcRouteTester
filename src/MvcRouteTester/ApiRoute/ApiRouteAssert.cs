@@ -88,28 +88,30 @@ namespace MvcRouteTester.ApiRoute
 			}
 		}
 
-        internal static void HasHandler<THandler>(HttpConfiguration config, string url) where THandler : DelegatingHandler
-        {
-            var absoluteUrl = UrlHelpers.MakeAbsolute(url);
-            var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
-            var routeGenerator = new Generator(config, request);
-            if(!routeGenerator.HasHandler<THandler>())
-            {
-                var hasHandlerMessage = string.Format("Did not match a handler for url '{0}'", absoluteUrl);
-                Asserts.Fail(hasHandlerMessage);
-            }
-        }
-        internal static void HasNoHandler<THandler>(HttpConfiguration config, string url) where THandler : DelegatingHandler
-        {
-            var absoluteUrl = UrlHelpers.MakeAbsolute(url);
-            var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
-            var routeGenerator = new Generator(config, request);
-            if (routeGenerator.HasHandler<THandler>())
-            {
-                var hasHandlerMessage = string.Format("Matching handler found for url '{0}'", absoluteUrl);
-                Asserts.Fail(hasHandlerMessage);
-            }
-        }
+		internal static void HasHandler<THandler>(HttpConfiguration config, string url) where THandler : DelegatingHandler
+		{
+			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
+			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
+			var routeGenerator = new Generator(config, request);
+			if(!routeGenerator.HasHandler<THandler>())
+			{
+				var hasHandlerMessage = string.Format("Did not match a handler for url '{0}'", absoluteUrl);
+				Asserts.Fail(hasHandlerMessage);
+			}
+		}
+
+		internal static void HasNoHandler<THandler>(HttpConfiguration config, string url) where THandler : DelegatingHandler
+		{
+			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
+			var request = new HttpRequestMessage(HttpMethod.Get, absoluteUrl);
+			var routeGenerator = new Generator(config, request);
+			if (routeGenerator.HasHandler<THandler>())
+			{
+				var hasHandlerMessage = string.Format("Matching handler found for url '{0}'", absoluteUrl);
+				Asserts.Fail(hasHandlerMessage);
+			}
+		}
+
 		private static RouteValues ReadRequestProperties(HttpConfiguration config, string url, HttpMethod httpMethod, string body, BodyFormat bodyFormat)
 		{
 			var request = new HttpRequestMessage(httpMethod, url);
@@ -118,5 +120,5 @@ namespace MvcRouteTester.ApiRoute
 			var routeGenerator = new Generator(config, request);
 			return routeGenerator.ReadRequestProperties(url, httpMethod, bodyFormat);
 		}
-    }
+	}
 }
