@@ -18,16 +18,15 @@ namespace MvcRouteTester.ApiRoute
 	/// </summary>
 	internal class Generator
 	{
-		readonly HttpConfiguration config;
-		readonly HttpRequestMessage request;
+		private readonly HttpConfiguration config;
+		private readonly HttpRequestMessage request;
 
-		IHttpRouteData matchedRoute;
-		IHttpControllerSelector controllerSelector;
-		HttpControllerContext controllerContext;
+		private IHttpRouteData matchedRoute;
+		private IHttpControllerSelector controllerSelector;
+		private HttpControllerContext controllerContext;
+		private HttpActionDescriptor descriptor;
 
-	    private HttpActionDescriptor descriptor;
-
-	    public Generator(HttpConfiguration conf, HttpRequestMessage req)
+		public Generator(HttpConfiguration conf, HttpRequestMessage req)
 		{
 			config = conf;
 			request = req;
@@ -108,7 +107,7 @@ namespace MvcRouteTester.ApiRoute
 
 		public IList<RouteValue> GetRouteParams()
 		{
-            var actionDescriptor = GetActionDescriptor();
+			var actionDescriptor = GetActionDescriptor();
 			var actionParams = actionDescriptor.GetParameters();
 
 			var result = new List<RouteValue>();
@@ -185,37 +184,37 @@ namespace MvcRouteTester.ApiRoute
 		{
 			if (request.Properties.Any(prop => prop.Value is HttpRouteData))
 			{
-                var routeDataProp = request.Properties.First(prop => prop.Value is HttpRouteData);
-                return routeDataProp.Value as HttpRouteData;
-            }
+				var routeDataProp = request.Properties.First(prop => prop.Value is HttpRouteData);
+				return routeDataProp.Value as HttpRouteData;
+			}
 
-            if (request.Properties.ContainsKey("MS_HttpRouteData"))
-            {
-                return GetRouteDataFromReflectedInternalComplexity();
-            }
-            
-            return null;
+			if (request.Properties.ContainsKey("MS_HttpRouteData"))
+			{
+				return GetRouteDataFromReflectedInternalComplexity();
+			}
+			
+			return null;
 		}
 
-        private IHttpRouteData GetRouteDataFromReflectedInternalComplexity()
-	    {
-	        var msRouteData = request.Properties.First(prop => prop.Key == "MS_HttpRouteData").Value;
-	        // use reflection as this is an internal class, ugh! "System.Web.Http.Routing.RouteCollectionRoute.RouteCollectionRouteData" 
-	        var valuesProp = msRouteData.GetType().GetProperties().First(p => p.Name == "Values");
-	        var subRoutesDict = valuesProp.GetValue(msRouteData, null) as HttpRouteValueDictionary;
-            var firstRoutes = subRoutesDict.Values.First(x => x is IHttpRouteData[]) as IHttpRouteData[];
+		private IHttpRouteData GetRouteDataFromReflectedInternalComplexity()
+		{
+			var msRouteData = request.Properties.First(prop => prop.Key == "MS_HttpRouteData").Value;
+			// use reflection as this is an internal class, ugh! "System.Web.Http.Routing.RouteCollectionRoute.RouteCollectionRouteData" 
+			var valuesProp = msRouteData.GetType().GetProperties().First(p => p.Name == "Values");
+			var subRoutesDict = valuesProp.GetValue(msRouteData, null) as HttpRouteValueDictionary;
+			var firstRoutes = subRoutesDict.Values.First(x => x is IHttpRouteData[]) as IHttpRouteData[];
 
-            return firstRoutes[0];
-	    }
+			return firstRoutes[0];
+		}
 
-	    public string ActionName()
+		public string ActionName()
 		{
 			if (controllerContext.ControllerDescriptor == null)
 			{
 				ControllerType();
 			}
 
-            var descriptor = GetActionDescriptor();
+			var descriptor = GetActionDescriptor();
 
 			return descriptor.ActionName;
 		}
@@ -318,20 +317,15 @@ namespace MvcRouteTester.ApiRoute
 			}
 		}
 
-	    private HttpActionDescriptor GetActionDescriptor()
-	    {
-	        if (descriptor == null)
-	        {
-	            descriptor = MakeActionDescriptor();
-	        }
-
-            return descriptor;
-	    }
-
-		private HttpActionDescriptor MakeActionDescriptor()
+		private HttpActionDescriptor GetActionDescriptor()
 		{
-			var actionSelector = new ApiControllerActionSelector();
-			return actionSelector.SelectAction(controllerContext);
+			if (descriptor == null)
+			{
+				var actionSelector = new ApiControllerActionSelector();
+				descriptor = actionSelector.SelectAction(controllerContext);
+			}
+
+			return descriptor;
 		}
 
 		private IList<RouteValue> ReadPropertiesFromBodyContent(BodyFormat bodyFormat)
