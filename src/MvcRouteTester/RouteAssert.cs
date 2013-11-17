@@ -19,7 +19,6 @@ namespace MvcRouteTester
 	/// </summary>
 	public static class RouteAssert
 	{
-
 		/// <summary>
 		/// Asserts that the route exists 
 		/// </summary>
