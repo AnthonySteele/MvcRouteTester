@@ -1,6 +1,5 @@
 ﻿using System.Net.Http;
 using System.Web.Http;
-using MvcRouteTester.AttributeRouting.Test.ApiControllers;
 using NUnit.Framework;
 
 namespace MvcRouteTester.AttributeRouting.Test.ApiRoute
@@ -15,6 +14,7 @@ namespace MvcRouteTester.AttributeRouting.Test.ApiRoute
 		{
 			config = new HttpConfiguration();
 			config.MapHttpAttributeRoutes();
+            config.EnsureInitialized();
 		}
 
 		[Test]

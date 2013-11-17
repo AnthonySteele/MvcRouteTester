@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Web;
@@ -44,5 +45,10 @@ namespace MvcRouteTester.HttpMocking
 		public override void RewritePath(string path)
 		{
 		}
+
+        public override object GetService(Type type)
+        {
+            return null;
+        }
 	}
 }

@@ -15,7 +15,8 @@ namespace MvcRouteTester.AttributeRouting.Test.ApiRoute
 		{
 			config = new HttpConfiguration();
             config.MapHttpAttributeRoutes();
-		}
+            config.EnsureInitialized();
+        }
 
 		[Test]
 		public void CustomerControllerHasGetMethod()
