@@ -92,7 +92,7 @@ namespace MvcRouteTester.Test.WebRoute
 		}
 
 		[Test]
-		public void TestFluentMapWithBody()
+		public void TestFluentMapWithFormUrlBody()
 		{
 			var postData = new PostDataModel
 				{
@@ -101,12 +101,12 @@ namespace MvcRouteTester.Test.WebRoute
 				};
 			const string PostBody = "Name=Fred+Bloggers&Number=42";
 
-			routes.ShouldMap("/frombody/post/123").WithBody(PostBody).
+			routes.ShouldMap("/frombody/post/123").WithFormUrlBody(PostBody).
 				To<FromBodyController>(c => c.Post(123, postData));
 		}
 
 		[Test]
-		public void MismatchFluentMapWithBodyFails()
+		public void MismatchFluentMapWithFormUrlBodyFails()
 		{
 			var postData = new PostDataModel
 				{
@@ -118,7 +118,7 @@ namespace MvcRouteTester.Test.WebRoute
 			var assertEngine = new FakeAssertEngine();
 			RouteAssert.UseAssertEngine(assertEngine);
 
-			routes.ShouldMap("/frombody/post/123").WithBody(PostBody).
+			routes.ShouldMap("/frombody/post/123").WithFormUrlBody(PostBody).
 				To<FromBodyController>(c => c.Post(123, postData));
 
 			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(1));

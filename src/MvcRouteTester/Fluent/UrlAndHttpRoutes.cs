@@ -71,7 +71,7 @@ namespace MvcRouteTester.Fluent
 			ApiRouteAssert.RouteDoesNotHaveMethod(Configuration, Url, controllerType, httpMethod);
 		}
 
-		public void WithHandler<THandler>() where THandler:DelegatingHandler
+		public void WithHandler<THandler>() where THandler : DelegatingHandler
 		{
 			ApiRouteAssert.HasHandler<THandler>(Configuration,Url);
 		}
