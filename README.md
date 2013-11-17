@@ -283,8 +283,6 @@ If you are using MVC areas, then as long as you use the standard layout of names
 
 The fluent extensions have methods to test if a custom http handler is used by a route:
 		public void WithHandler<THandler>() where THandler : DelegatingHandler
-		public void WithoutHandler<THandler>() where THandler : DelegatingHandler
-		public void WithoutHandler()
 
 Usage:
 
@@ -292,6 +290,19 @@ Usage:
 or
 
 		config.ShouldMap("/api/customer/32").To<CustomerController>(HttpMethod.Get, x => x.Get(32)).WithHandler<CustomerHandle>();
+
+You can assert that a particular handler is not being used with
+
+		public void WithoutHandler<THandler>() where THandler : DelegatingHandler
+
+Or assert that no handler is used:
+
+		public void WithoutHandler()
+
+Usage:
+
+			config.ShouldMap("/api/customer/32").WithoutHandler<WrongHandler>();
+			config.ShouldMap("/api/customer/32").To<CustomerController>(HttpMethod.Get, x => x.Get(32)).WithoutHandler();
 
 
 ### Model binding
