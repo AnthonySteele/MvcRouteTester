@@ -1,6 +1,5 @@
 ﻿using System.Net.Http;
 using System.Web.Http;
-using AttributeRouting.Web.Http.WebHost;
 using MvcRouteTester.AttributeRouting.Test.ApiControllers;
 using NUnit.Framework;
 
@@ -15,11 +14,7 @@ namespace MvcRouteTester.AttributeRouting.Test.ApiRoute
 		public void MakeRouteTable()
 		{
 			config = new HttpConfiguration();
-			config.Routes.MapHttpAttributeRoutes(c =>
-				{
-					c.InMemory = true;
-					c.AddRoutesFromController<CustomerController>();
-				});
+			config.MapHttpAttributeRoutes();
 		}
 
 		[Test]

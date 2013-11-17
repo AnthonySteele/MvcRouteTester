@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using AttributeRouting.Web.Http;
-
 namespace MvcRouteTester.AttributeRouting.Test.ApiControllers
 {
 	/// <summary>
@@ -11,7 +9,8 @@ namespace MvcRouteTester.AttributeRouting.Test.ApiControllers
 	/// </summary>
 	public class CustomerController : ApiController
 	{
-		[GET("api/customer/{id}")]
+        [HttpGet]
+		[Route("api/customer/{id}")]
 		public IList<int> Get(int id) 
 		{
 			return new List<int> { 1, 2, 3, 4 };
