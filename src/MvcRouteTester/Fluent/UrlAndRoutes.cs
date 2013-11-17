@@ -27,7 +27,15 @@ namespace MvcRouteTester.Fluent
 		public string Url { get; private set; }
 		public RouteCollection Routes { get; private set; }
 
+		[Obsolete("Renamed to WithFormUrlBody")]
 		public UrlAndRoutes WithBody(string body)
+		{
+			requestBody = body;
+			bodyFormat = BodyFormat.FormUrl;
+			return this;
+		}
+
+		public UrlAndRoutes WithFormUrlBody(string body)
 		{
 			requestBody = body;
 			bodyFormat = BodyFormat.FormUrl;
@@ -77,7 +85,6 @@ namespace MvcRouteTester.Fluent
 		{
 			WebRouteAssert.IsNotIgnoredRoute(Routes, Url);
 		}
-
 
 		public void From<TController>(Expression<Func<TController, ActionResult>> action) where TController : Controller
 		{

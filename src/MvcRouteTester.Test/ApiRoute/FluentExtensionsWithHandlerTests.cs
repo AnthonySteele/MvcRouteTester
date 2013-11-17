@@ -64,8 +64,21 @@ namespace MvcRouteTester.Test.ApiRoute
 			Assert.That(assertEngine.Messages[0], Is.EqualTo("Did not match handler type 'TestHandlerTwo' for url 'http://site.com/api/customer/32', found no handler."));
 		}
 
+        [Test]
+        public void WithHandlerShouldSucceedWithCorrectHandler()
+        {
+            var assertEngine = new FakeAssertEngine();
+            RouteAssert.UseAssertEngine(assertEngine);
+            config.Routes.Clear();
+            AddRouteToTestHandlerOne(config.Routes);
+
+            config.ShouldMap("/api/customer/32").WithHandler<TestHandlerOne>();
+
+            Assert.That(assertEngine.FailCount, Is.EqualTo(0));
+        }
+
 		[Test]
-		public void WithHandlerShouldSucceedWithCorrectHandler()
+		public void WithHandlerShouldSucceedWithCorrectControllerAndHandler()
 		{
 			var assertEngine = new FakeAssertEngine();
 			RouteAssert.UseAssertEngine(assertEngine);
@@ -83,10 +96,21 @@ namespace MvcRouteTester.Test.ApiRoute
 			var assertEngine = new FakeAssertEngine();
 			RouteAssert.UseAssertEngine(assertEngine);
 
-			config.ShouldMap("/api/customer/32").To<CustomerController>(HttpMethod.Get, x => x.Get(32)).WithoutHandler<TestHandlerOne>();
+			config.ShouldMap("/api/customer/32").WithoutHandler<TestHandlerOne>();
 
 			Assert.That(assertEngine.FailCount, Is.EqualTo(0));
 		}
+
+        [Test]
+        public void WithoutHandlerWithtypeShouldSucceedWithcontrollerIfNoHandler()
+        {
+            var assertEngine = new FakeAssertEngine();
+            RouteAssert.UseAssertEngine(assertEngine);
+
+            config.ShouldMap("/api/customer/32").To<CustomerController>(HttpMethod.Get, x => x.Get(32)).WithoutHandler<TestHandlerOne>();
+
+            Assert.That(assertEngine.FailCount, Is.EqualTo(0));
+        }
 
 		[Test]
 		public void WithoutHandlerShouldSucceedIfNoHandler()
