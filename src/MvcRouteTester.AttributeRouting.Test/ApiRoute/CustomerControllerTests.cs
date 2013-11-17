@@ -23,8 +23,14 @@ namespace MvcRouteTester.AttributeRouting.Test.ApiRoute
 			Assert.That(config.Routes.Count, Is.GreaterThan(0));
 		}
 
-		[Test]
-		public void HasApiRoute()
+        [Test]
+        public void HasApiRoute()
+        {
+            RouteAssert.HasApiRoute(config, "/api/customer/1", HttpMethod.Get);
+        }
+        
+        [Test]
+		public void HasApiRouteWithExpectations()
 		{
 			var expectations = new { controller = "Customer", action = "get", id = "1" };
 			RouteAssert.HasApiRoute(config, "/api/customer/1", HttpMethod.Get, expectations);

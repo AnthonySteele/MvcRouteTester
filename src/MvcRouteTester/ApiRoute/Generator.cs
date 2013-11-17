@@ -25,7 +25,9 @@ namespace MvcRouteTester.ApiRoute
 		IHttpControllerSelector controllerSelector;
 		HttpControllerContext controllerContext;
 
-		public Generator(HttpConfiguration conf, HttpRequestMessage req)
+	    private HttpActionDescriptor descriptor;
+
+	    public Generator(HttpConfiguration conf, HttpRequestMessage req)
 		{
 			config = conf;
 			request = req;
@@ -75,7 +77,6 @@ namespace MvcRouteTester.ApiRoute
 			actualProps.AddRange(queryParams);
 			actualProps.AddRange(ReadPropertiesFromBodyContent(bodyFormat));
 
-
 			return actualProps;
 		}
 
@@ -107,7 +108,7 @@ namespace MvcRouteTester.ApiRoute
 
 		public IList<RouteValue> GetRouteParams()
 		{
-			var actionDescriptor = MakeActionDescriptor();
+            var actionDescriptor = GetActionDescriptor();
 			var actionParams = actionDescriptor.GetParameters();
 
 			var result = new List<RouteValue>();
@@ -124,7 +125,7 @@ namespace MvcRouteTester.ApiRoute
 			return result;
 		}
 
-		private static IList<RouteValue> ProcessActionParam(HttpParameterDescriptor param, HttpRouteData routeDataValues)
+		private static IList<RouteValue> ProcessActionParam(HttpParameterDescriptor param, IHttpRouteData routeDataValues)
 		{
 			var propertyReader = new PropertyReader();
 
@@ -136,7 +137,7 @@ namespace MvcRouteTester.ApiRoute
 			return ProcessCompoundActionParam(param, routeDataValues, propertyReader);
 		}
 
-		private static IList<RouteValue> ProcessSimpleActionParam(HttpParameterDescriptor param, HttpRouteData routeDataValues)
+		private static IList<RouteValue> ProcessSimpleActionParam(HttpParameterDescriptor param, IHttpRouteData routeDataValues)
 		{
 			var routeValues = new List<RouteValue>();
 
@@ -149,7 +150,7 @@ namespace MvcRouteTester.ApiRoute
 			return routeValues;
 		}
 
-		private static IList<RouteValue> ProcessCompoundActionParam(HttpParameterDescriptor param, HttpRouteData routeDataValues, PropertyReader propertyReader)
+		private static IList<RouteValue> ProcessCompoundActionParam(HttpParameterDescriptor param, IHttpRouteData routeDataValues, PropertyReader propertyReader)
 		{
 			var routeValues = new List<RouteValue>();
 
@@ -180,25 +181,41 @@ namespace MvcRouteTester.ApiRoute
 			return null;
 		}
 
-		private HttpRouteData GetRouteData()
+		private IHttpRouteData GetRouteData()
 		{
-			if (! request.Properties.Any(prop => prop.Value is HttpRouteData))
+			if (request.Properties.Any(prop => prop.Value is HttpRouteData))
 			{
-				return null;
-			}
+                var routeDataProp = request.Properties.First(prop => prop.Value is HttpRouteData);
+                return routeDataProp.Value as HttpRouteData;
+            }
 
-			var routeDataProp = request.Properties.First(prop => prop.Value is HttpRouteData);
-			return routeDataProp.Value as HttpRouteData;
+            if (request.Properties.ContainsKey("MS_HttpRouteData"))
+            {
+                return GetRouteDataFromReflectedInternalComplexity();
+            }
+            
+            return null;
 		}
 
-		public string ActionName()
+        private IHttpRouteData GetRouteDataFromReflectedInternalComplexity()
+	    {
+	        var msRouteData = request.Properties.First(prop => prop.Key == "MS_HttpRouteData").Value;
+	        // use reflection as this is an internal class, ugh! "System.Web.Http.Routing.RouteCollectionRoute.RouteCollectionRouteData" 
+	        var valuesProp = msRouteData.GetType().GetProperties().First(p => p.Name == "Values");
+	        var subRoutesDict = valuesProp.GetValue(msRouteData, null) as HttpRouteValueDictionary;
+            var firstRoutes = subRoutesDict.Values.First(x => x is IHttpRouteData[]) as IHttpRouteData[];
+
+            return firstRoutes[0];
+	    }
+
+	    public string ActionName()
 		{
 			if (controllerContext.ControllerDescriptor == null)
 			{
 				ControllerType();
 			}
 
-			var descriptor = MakeActionDescriptor();
+            var descriptor = GetActionDescriptor();
 
 			return descriptor.ActionName;
 		}
@@ -300,6 +317,16 @@ namespace MvcRouteTester.ApiRoute
 				controllerContext = new HttpControllerContext(config, matchedRoute, request);
 			}
 		}
+
+	    private HttpActionDescriptor GetActionDescriptor()
+	    {
+	        if (descriptor == null)
+	        {
+	            descriptor = MakeActionDescriptor();
+	        }
+
+            return descriptor;
+	    }
 
 		private HttpActionDescriptor MakeActionDescriptor()
 		{

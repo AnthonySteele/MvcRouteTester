@@ -1,6 +1,5 @@
 ﻿using System.Web.Routing;
 using System.Web.Mvc;
-using MvcRouteTester.AttributeRouting.Test.Controllers;
 using NUnit.Framework;
 
 namespace MvcRouteTester.AttributeRouting.Test.WebRoute
