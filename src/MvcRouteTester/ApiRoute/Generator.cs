@@ -18,12 +18,13 @@ namespace MvcRouteTester.ApiRoute
 	/// </summary>
 	internal class Generator
 	{
-		readonly HttpConfiguration config;
-		readonly HttpRequestMessage request;
+		private readonly HttpConfiguration config;
+		private readonly HttpRequestMessage request;
 
-		IHttpRouteData matchedRoute;
-		IHttpControllerSelector controllerSelector;
-		HttpControllerContext controllerContext;
+		private IHttpRouteData matchedRoute;
+		private IHttpControllerSelector controllerSelector;
+		private HttpControllerContext controllerContext;
+		private HttpActionDescriptor descriptor;
 
 		public Generator(HttpConfiguration conf, HttpRequestMessage req)
 		{
@@ -107,7 +108,7 @@ namespace MvcRouteTester.ApiRoute
 
 		public IList<RouteValue> GetRouteParams()
 		{
-			var actionDescriptor = MakeActionDescriptor();
+			var actionDescriptor = GetActionDescriptor();
 			var actionParams = actionDescriptor.GetParameters();
 
 			var result = new List<RouteValue>();
@@ -124,7 +125,7 @@ namespace MvcRouteTester.ApiRoute
 			return result;
 		}
 
-		private static IList<RouteValue> ProcessActionParam(HttpParameterDescriptor param, HttpRouteData routeDataValues)
+		private static IList<RouteValue> ProcessActionParam(HttpParameterDescriptor param, IHttpRouteData routeDataValues)
 		{
 			var propertyReader = new PropertyReader();
 
@@ -136,7 +137,7 @@ namespace MvcRouteTester.ApiRoute
 			return ProcessCompoundActionParam(param, routeDataValues, propertyReader);
 		}
 
-		private static IList<RouteValue> ProcessSimpleActionParam(HttpParameterDescriptor param, HttpRouteData routeDataValues)
+		private static IList<RouteValue> ProcessSimpleActionParam(HttpParameterDescriptor param, IHttpRouteData routeDataValues)
 		{
 			var routeValues = new List<RouteValue>();
 
@@ -149,7 +150,7 @@ namespace MvcRouteTester.ApiRoute
 			return routeValues;
 		}
 
-		private static IList<RouteValue> ProcessCompoundActionParam(HttpParameterDescriptor param, HttpRouteData routeDataValues, PropertyReader propertyReader)
+		private static IList<RouteValue> ProcessCompoundActionParam(HttpParameterDescriptor param, IHttpRouteData routeDataValues, PropertyReader propertyReader)
 		{
 			var routeValues = new List<RouteValue>();
 
@@ -180,7 +181,7 @@ namespace MvcRouteTester.ApiRoute
 			return null;
 		}
 
-		private HttpRouteData GetRouteData()
+		private IHttpRouteData GetRouteData()
 		{
 			if (! request.Properties.Any(prop => prop.Value is HttpRouteData))
 			{
@@ -188,7 +189,7 @@ namespace MvcRouteTester.ApiRoute
 			}
 
 			var routeDataProp = request.Properties.First(prop => prop.Value is HttpRouteData);
-			return routeDataProp.Value as HttpRouteData;
+			return routeDataProp.Value as IHttpRouteData;
 		}
 
 		public string ActionName()
@@ -198,7 +199,7 @@ namespace MvcRouteTester.ApiRoute
 				ControllerType();
 			}
 
-			var descriptor = MakeActionDescriptor();
+			var descriptor = GetActionDescriptor();
 
 			return descriptor.ActionName;
 		}
@@ -301,10 +302,15 @@ namespace MvcRouteTester.ApiRoute
 			}
 		}
 
-		private HttpActionDescriptor MakeActionDescriptor()
+		private HttpActionDescriptor GetActionDescriptor()
 		{
-			var actionSelector = new ApiControllerActionSelector();
-			return actionSelector.SelectAction(controllerContext);
+			if (descriptor == null)
+			{
+				var actionSelector = new ApiControllerActionSelector();
+				descriptor = actionSelector.SelectAction(controllerContext);
+			}
+ 
+			 return descriptor;
 		}
 
 		private IList<RouteValue> ReadPropertiesFromBodyContent(BodyFormat bodyFormat)
