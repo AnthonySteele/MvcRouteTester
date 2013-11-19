@@ -36,25 +36,25 @@ function CleanupBuildArtifacts
   [CmdletBinding()]
   param()
 
-  del MvcRouteTester.nuspec
+  del MvcRouteTester.Mvc5.nuspec
   del *.nupkg
 }
 
 BuildSolution
 
 $nextVersionNumber = (GetLastVersionNumber) + 1
-$fullVersion = "1.1.$nextVersionNumber"
+$fullVersion = "0.0.$nextVersionNumber"
 write-output "Next package version: $fullVersion"
 
 # make the nuspec file with the target version number
-$nuspecTemplate = ReadLinesFromFile "MvcRouteTester.nuspec.template"
+$nuspecTemplate = ReadLinesFromFile "MvcRouteTester.Mvc5.nuspec.template"
 $nuspecWithVersion = $nuspecTemplate.Replace("#version#", $fullVersion)
-$nuspecWithVersion > MvcRouteTester.nuspec
+$nuspecWithVersion > MvcRouteTester.Mvc5.nuspec
 
-nuget pack MvcRouteTester.nuspec 
+nuget pack MvcRouteTester.Mvc5.nuspec 
 
 # push to nuget:
-$pushCommand = "NuGet Push MvcRouteTester.$fullVersion.nupkg"
+$pushCommand = "NuGet Push MvcRouteTester.Mvc5.$fullVersion.nupkg"
 Invoke-Expression $pushCommand
 write-output "Pushed package version $fullVersion"
 
