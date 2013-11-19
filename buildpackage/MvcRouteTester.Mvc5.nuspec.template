@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>MvcRouteTester.MVC5</id>
+    <id>MvcRouteTester.Mvc5</id>
     <version>#version#</version>
     <authors>Anthony Steele</authors>
     <owners>Anthony Steele</owners>
