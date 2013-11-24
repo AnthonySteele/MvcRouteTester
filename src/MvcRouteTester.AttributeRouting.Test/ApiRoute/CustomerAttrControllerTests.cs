@@ -46,5 +46,12 @@ namespace MvcRouteTester.AttributeRouting.Test.ApiRoute
 		{
 			RouteAssert.NoApiRoute(config, "/foo/bar/fish");
 		}
+
+		[Test]
+		public void HasFluentRoute()
+		{
+			config.ShouldMap("/api/customerattr/1").To<CustomerAttrController>(HttpMethod.Get, x => x.Get(1));
+		}
+
 	}
 }

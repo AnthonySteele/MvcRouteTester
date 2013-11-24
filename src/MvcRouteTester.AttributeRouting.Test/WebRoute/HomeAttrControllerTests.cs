@@ -37,5 +37,11 @@ namespace MvcRouteTester.AttributeRouting.Test.WebRoute
 		{
 			RouteAssert.NoRoute(routes, "foo/bar/fish");
 		}
+
+		[Test]
+		public void HasFluentRoute()
+		{
+			routes.ShouldMap("/homeattr/index").To<HomeAttrController>(x => x.Index());
+		}
 	}
 }
