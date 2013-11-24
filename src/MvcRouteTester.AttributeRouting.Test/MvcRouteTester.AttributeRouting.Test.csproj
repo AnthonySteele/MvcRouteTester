@@ -127,7 +127,7 @@
     <Compile Include="ApiControllers\PostOnlyAttrController.cs" />
     <Compile Include="ApiRoute\CustomerAttrControllerTests.cs" />
     <Compile Include="ApiRoute\RouteMethodTests.cs" />
-    <Compile Include="Controllers\GetPostAttrControler.cs" />
+    <Compile Include="Controllers\GetPostAttrController.cs" />
     <Compile Include="Controllers\HomeAttrController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRoute\RouteMethodTests.cs" />
