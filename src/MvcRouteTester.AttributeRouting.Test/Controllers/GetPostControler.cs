@@ -3,15 +3,15 @@ using AttributeRouting.Web.Mvc;
 
 namespace MvcRouteTester.AttributeRouting.Test.Controllers
 {
-	public class GetPostController : Controller
+	public class GetPostAttrController : Controller
 	{
-		[GET("GetPost/index")]
+		[GET("GetPostAttr/index")]
 		public ActionResult Index()
 		{
 			return new EmptyResult();
 		}
 
-		[POST("GetPost/index/{id}")]
+		[POST("GetPostAttr/index/{id}")]
 		public ActionResult Index(int id)
 		{
 			return new EmptyResult();

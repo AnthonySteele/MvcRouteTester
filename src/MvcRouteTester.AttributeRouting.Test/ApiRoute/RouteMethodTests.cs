@@ -18,21 +18,21 @@ namespace MvcRouteTester.AttributeRouting.Test.ApiRoute
 			config.Routes.MapHttpAttributeRoutes(c =>
 			{
 				c.InMemory = true;
-				c.AddRoutesFromController<CustomerController>();
-				c.AddRoutesFromController<PostOnlyController>();
+				c.AddRoutesFromController<CustomerAttrController>();
+				c.AddRoutesFromController<PostOnlyAttrController>();
 			});
 		}
 
 		[Test]
 		public void CustomerControllerHasGetMethod()
 		{
-			RouteAssert.HasApiRoute(config, "/api/customer/1", HttpMethod.Get);
+			RouteAssert.HasApiRoute(config, "/api/customerattr/1", HttpMethod.Get);
 		}
 
 		[Test]
 		public void PostOnlyControllerHasPostMethod()
 		{
-			RouteAssert.HasApiRoute(config, "/api/postonly/1", HttpMethod.Post);
+			RouteAssert.HasApiRoute(config, "/api/postonlyattr/1", HttpMethod.Post);
 		}
 	}
 }

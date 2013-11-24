@@ -199,9 +199,9 @@ namespace MvcRouteTester.ApiRoute
 				ControllerType();
 			}
 
-			var descriptor = GetActionDescriptor();
+			var actionDescriptor = GetActionDescriptor();
 
-			return descriptor.ActionName;
+			return actionDescriptor.ActionName;
 		}
 
 		public bool IsControllerRouteFound()
@@ -237,9 +237,10 @@ namespace MvcRouteTester.ApiRoute
 
 		public Type ControllerType()
 		{
-			var descriptor = controllerSelector.SelectController(request);
-			controllerContext.ControllerDescriptor = descriptor;
-			return descriptor.ControllerType;
+			var controllerDescriptor = controllerSelector.SelectController(request);
+			controllerContext.ControllerDescriptor = controllerDescriptor;
+
+			return controllerDescriptor.ControllerType;
 		}
 
 		public string ControllerName()

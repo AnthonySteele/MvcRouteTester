@@ -14,14 +14,14 @@ namespace MvcRouteTester.AttributeRouting.Test.WebRoute
 		public void Setup()
 		{
 			routes = new RouteCollection();
-			routes.MapAttributeRoutes(c => c.AddRoutesFromController<GetPostController>());
+			routes.MapAttributeRoutes(c => c.AddRoutesFromController<GetPostAttrController>());
 		}
 
 		[Test]
 		public void HasRouteWithoutId()
 		{
-			var expectedRoute = new { controller = "GetPost", action = "Index" };
-			RouteAssert.HasRoute(routes, "/getpost/index", expectedRoute);
+			var expectedRoute = new { controller = "GetPostAttr", action = "Index" };
+			RouteAssert.HasRoute(routes, "/getpostattr/index", expectedRoute);
 		}
 	}
 }
