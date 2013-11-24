@@ -1,7 +1,6 @@
 ﻿using System.Web.Routing;
 using System.Web.Mvc;
 
-using MvcRouteTester.AttributeRouting.Test.Controllers;
 using NUnit.Framework;
 
 namespace MvcRouteTester.AttributeRouting.Test.WebRoute
@@ -15,14 +14,14 @@ namespace MvcRouteTester.AttributeRouting.Test.WebRoute
 		public void Setup()
 		{
 			routes = new RouteCollection();
-            routes.MapMvcAttributeRoutes();
+			routes.MapMvcAttributeRoutes();
 		}
 
 		[Test]
 		public void HasRouteWithoutId()
 		{
-			var expectedRoute = new { controller = "GetPost", action = "Index" };
-			RouteAssert.HasRoute(routes, "/getpost/index", expectedRoute);
+			var expectedRoute = new { controller = "GetPostAttr", action = "Index" };
+			RouteAssert.HasRoute(routes, "/getpostattr/index", expectedRoute);
 		}
 	}
 }

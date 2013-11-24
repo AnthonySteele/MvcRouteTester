@@ -13,26 +13,26 @@ namespace MvcRouteTester.AttributeRouting.Test.WebRoute
 		public void Setup()
 		{
 			routes = new RouteCollection();
-            routes.MapMvcAttributeRoutes();
+			routes.MapMvcAttributeRoutes();
 		}
 
 		[Test]
 		public void HasRoutesInTable()
 		{
-			Assert.That(routes.Count, Is.GreaterThan(0));    
+			Assert.That(routes.Count, Is.GreaterThan(0));
 		}
 
 		[Test]
 		public void HasHomeRoute()
 		{
-			var expectedRoute = new { controller = "Home", action = "Index" };
-			RouteAssert.HasRoute(routes, "/home/index", expectedRoute);    
+			var expectedRoute = new { controller = "HomeAttr", action = "Index" };
+			RouteAssert.HasRoute(routes, "/homeattr/index", expectedRoute);    
 		}
 
 		[Test]
 		public void DoesNotHaveInvalidRoute()
 		{
-			RouteAssert.NoRoute(routes, "foo/bar/fish");            
+			RouteAssert.NoRoute(routes, "foo/bar/fish");
 		}
 	}
 }

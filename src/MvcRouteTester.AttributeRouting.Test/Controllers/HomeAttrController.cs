@@ -1,10 +1,10 @@
-﻿using System.Web.Mvc;
+using System.Web.Mvc;
 
 namespace MvcRouteTester.AttributeRouting.Test.Controllers
 {
-	public class HomeController : Controller
+	public class HomeAttrController : Controller
 	{
-		[Route("home/index")]
+		[Route("homeattr/index")]
 		public ActionResult Index()
 		{
 			return new EmptyResult();
