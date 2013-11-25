@@ -1,6 +1,8 @@
 ﻿using System.Web.Routing;
 using System.Web.Mvc;
 
+using MvcRouteTester.AttributeRouting.Test.Controllers;
+
 using NUnit.Framework;
 
 namespace MvcRouteTester.AttributeRouting.Test.WebRoute
@@ -22,6 +24,12 @@ namespace MvcRouteTester.AttributeRouting.Test.WebRoute
 		{
 			var expectedRoute = new { controller = "GetPostAttr", action = "Index" };
 			RouteAssert.HasRoute(routes, "/getpostattr/index", expectedRoute);
+		}
+
+		[Test]
+		public void HasFluentRoute()
+		{
+			routes.ShouldMap("/getpostattr/index").To<GetPostAttrController>(x => x.Index());
 		}
 	}
 }

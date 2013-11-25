@@ -2,7 +2,7 @@
 
 namespace MvcRouteTester.AttributeRouting.Test.Controllers
 {
-	public class GetPostController : Controller
+	public class GetPostAttrController : Controller
 	{
 		[HttpGet]
 		[Route("GetPostAttr/index")]

@@ -1,5 +1,8 @@
 ﻿using System.Net.Http;
 using System.Web.Http;
+
+using MvcRouteTester.AttributeRouting.Test.ApiControllers;
+
 using NUnit.Framework;
 
 namespace MvcRouteTester.AttributeRouting.Test.ApiRoute
@@ -40,6 +43,18 @@ namespace MvcRouteTester.AttributeRouting.Test.ApiRoute
 		public void DoesNotHaveInvalidRoute()
 		{
 			RouteAssert.NoApiRoute(config, "/foo/bar/fish");
+		}
+
+		[Test]
+		public void HasFluentRoute()
+		{
+			config.ShouldMap("/api/customerattr/1").To<CustomerAttrController>(HttpMethod.Get, x => x.Get(1));
+		}
+
+		[Test]
+		public void HasFluentNoRoute()
+		{
+			config.ShouldMap("/foo/bar/fish").ToNoRoute();
 		}
 	}
 }

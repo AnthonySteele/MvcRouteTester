@@ -1,5 +1,8 @@
 ﻿using System.Web.Routing;
 using System.Web.Mvc;
+
+using MvcRouteTester.AttributeRouting.Test.Controllers;
+
 using NUnit.Framework;
 
 namespace MvcRouteTester.AttributeRouting.Test.WebRoute
@@ -26,13 +29,25 @@ namespace MvcRouteTester.AttributeRouting.Test.WebRoute
 		public void HasHomeRoute()
 		{
 			var expectedRoute = new { controller = "HomeAttr", action = "Index" };
-			RouteAssert.HasRoute(routes, "/homeattr/index", expectedRoute);    
+			RouteAssert.HasRoute(routes, "/homeattr/index", expectedRoute);
 		}
 
 		[Test]
 		public void DoesNotHaveInvalidRoute()
 		{
 			RouteAssert.NoRoute(routes, "foo/bar/fish");
+		}
+
+		[Test]
+		public void HasFluentRoute()
+		{
+			routes.ShouldMap("/homeattr/index").To<HomeAttrController>(x => x.Index());
+		}
+
+		[Test]
+		public void HasFluentNoRoute()
+		{
+			routes.ShouldMap("/foo/bar/fish").ToNoRoute();
 		}
 	}
 }

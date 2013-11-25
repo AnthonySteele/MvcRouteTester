@@ -1,5 +1,8 @@
 ﻿using System.Net.Http;
 using System.Web.Http;
+
+using MvcRouteTester.AttributeRouting.Test.ApiControllers;
+
 using NUnit.Framework;
 
 namespace MvcRouteTester.AttributeRouting.Test.ApiRoute
@@ -27,6 +30,12 @@ namespace MvcRouteTester.AttributeRouting.Test.ApiRoute
 		public void PostOnlyControllerHasPostMethod()
 		{
 			RouteAssert.HasApiRoute(config, "/api/postonlyattr/1", HttpMethod.Post);
+		}
+
+		[Test]
+		public void HasFluentMethod()
+		{
+			config.ShouldMap("/api/postonlyattr/1").To<PostOnlyAttrController>(HttpMethod.Post, x => x.Post(1));
 		}
 	}
 }
