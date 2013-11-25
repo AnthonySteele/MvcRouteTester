@@ -34,5 +34,11 @@ namespace MvcRouteTester.AttributeRouting.Test.ApiRoute
 		{
 			RouteAssert.HasApiRoute(config, "/api/postonlyattr/1", HttpMethod.Post);
 		}
+
+		[Test]
+		public void HasFluentMethod()
+		{
+			config.ShouldMap("/api/postonlyattr/1").To<PostOnlyAttrController>(HttpMethod.Post, x => x.Post(1));
+		}
 	}
 }

@@ -23,5 +23,11 @@ namespace MvcRouteTester.AttributeRouting.Test.WebRoute
 			var expectedRoute = new { controller = "GetPostAttr", action = "Index" };
 			RouteAssert.HasRoute(routes, "/getpostattr/index", expectedRoute);
 		}
+
+		[Test]
+		public void HasFluentRoute()
+		{
+			routes.ShouldMap("/getpostattr/index").To<GetPostAttrController>(x => x.Index());
+		}
 	}
 }
