@@ -118,6 +118,7 @@
     <Compile Include="Common\UrlHelpers.cs" />
     <Compile Include="WebRoute\WebRouteAssert.cs" />
     <Compile Include="WebRoute\Reader.cs" />
+    <Compile Include="WebRoute\WebRouteTestMapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
