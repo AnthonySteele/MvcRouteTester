@@ -14,7 +14,16 @@ namespace MvcRouteTester.WebRoute
 	{
 		public RouteValues GetRequestProperties(RouteData routeData, HttpRequestBase request, BodyFormat bodyFormat)
 		{
-			var result = new RouteValues(routeData.Values);
+			RouteValues result;
+
+			if (routeData == null)
+			{
+				result = new RouteValues();
+			}
+			else
+			{
+				result = new RouteValues(routeData.Values);
+			}
 
 			var requestParams = ReadRequestParams(request.Params);
 			result.AddRange(requestParams);
@@ -57,6 +66,11 @@ namespace MvcRouteTester.WebRoute
 
 		private string ReadAreaFromRouteData(RouteData routeData)
 		{
+			if (routeData == null)
+			{
+				return string.Empty;
+			} 
+			
 			if (routeData.DataTokens.ContainsKey("area"))
 			{
 				return routeData.DataTokens["area"].ToString();

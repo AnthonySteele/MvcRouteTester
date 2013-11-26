@@ -1,7 +1,7 @@
-﻿using System.Web.Mvc;
-using System.Web.Routing;
+﻿using System.Web.Routing;
 
 using MvcRouteTester.AttributeRouting.Test.Controllers;
+using MvcRouteTester.WebRoute;
 
 using NUnit.Framework;
 
@@ -20,7 +20,7 @@ namespace MvcRouteTester.AttributeRouting.Test.WebRoute
 			RouteAssert.UseAssertEngine(assertEngine);
 
 			routes = new RouteCollection();
-			routes.MapMvcAttributeRoutes();
+			routes.MapAttributeRoutesInAssembly(typeof(HomeAttrController));
 		}
 
 		[Test]
