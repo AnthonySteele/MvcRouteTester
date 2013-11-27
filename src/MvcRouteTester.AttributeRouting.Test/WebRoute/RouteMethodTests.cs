@@ -1,5 +1,4 @@
 ﻿using System.Web.Routing;
-using System.Web.Mvc;
 
 using MvcRouteTester.AttributeRouting.Test.Controllers;
 
@@ -16,7 +15,7 @@ namespace MvcRouteTester.AttributeRouting.Test.WebRoute
 		public void Setup()
 		{
 			routes = new RouteCollection();
-			routes.MapMvcAttributeRoutes();
+			routes.MapAttributeRoutesInAssembly(typeof(HomeAttrController));
 		}
 
 		[Test]

@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace MvcRouteTester.WebRoute
+namespace MvcRouteTester
 {
 	public static class WebRouteTestMapper
 	{
@@ -37,6 +37,14 @@ namespace MvcRouteTester.WebRoute
 				null,
 				new[] { typeof(RouteCollection), typeof(IEnumerable<Type>) },
 				null);
+
+			if (mapMvcAttributeRoutesMethod == null)
+			{
+				const string MissingMethodMessage = "Internal method System.Web.Mvc.RouteCollectionAttributeRoutingExtensions.MapMvcAttributeRoutes not found. " +
+					"You may have updated ASP MVC to a version later than 5.0. " +
+					" Check online fir a new version of MvcRouteTester";
+				throw new ApplicationException(MissingMethodMessage);
+			}
 
 			mapMvcAttributeRoutesMethod.Invoke(null, new object[] { routes, controllers });
 		}
