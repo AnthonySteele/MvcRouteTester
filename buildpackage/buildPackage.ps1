@@ -16,7 +16,7 @@ function GetLatestFullVersionOnNuget()
   [CmdletBinding()]
   param()
 
-   $packageDetails = &nuget list MvcRouteTester
+   $packageDetails = &nuget list MvcRouteTester.Mvc5
    $parts = $packageDetails.Split(' ')
    [string]$parts[1]
 }
