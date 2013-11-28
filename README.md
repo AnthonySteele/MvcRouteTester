@@ -37,6 +37,7 @@ Pull requests on GitHub and other bug reports have come from:
 - [bapti](https://github.com/bapti) prompted me to allow post body as Json as well as form-url-encoded.
 - [Emma Middlebrook](https://github.com/emzyme20) reported a bug that routes to async methods were not supported.
 - [Jason Risch](https://github.com/krimsonkla) contributed two features - Allow model validation to ignore certain properties on the models based on the property attributes, and testing the handler for an ApiRoute.
+- [Steven Kuhn](https://github.com/chartek) found a way to get attribute routing on web routes working in ASP MVC version 5.
 
 Put together by Anthony Steele. 
 
@@ -55,7 +56,7 @@ limitations under the License.
 
 ## Where can I get it?
 
-You can get the source from here on GitHub, or [get the binaries from nuget](http://www.nuget.org/packages/MvcRouteTester/).
+You can get the source from here on GitHub, or get the binaries [for ASP MVC 4](http://www.nuget.org/packages/MvcRouteTester/) or [for ASP MVC 5](http://www.nuget.org/packages/MvcRouteTester.MVC5/) from nuget.org.
 
 ## Usage
 
