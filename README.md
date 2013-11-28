@@ -2,9 +2,7 @@
 
 ## What
 
-MvcRouteTester is a .Net library to help unit testing ASP MVC route tables. It contains asserts for for both regular controllers and the Api controllers that are new in MVC 4.0. It is built in .Net 4.0 and ASP MVC 4.0.
-
-We are working on an MVC 5 version, but it is not ready yet.
+MvcRouteTester is a .Net library to help unit testing ASP MVC route tables. It contains asserts for for both regular controllers and the Api controllers that are new in MVC 4.0. It is built in .Net 4.0 and [ASP MVC 4.0](http://www.nuget.org/packages/MvcRouteTester/) or [ASP MVC 5.0](http://www.nuget.org/packages/MvcRouteTester.MVC5/).
 
 It can be used with a simple or a fluent syntax, e.g either `RouteAssert.HasRoute(routes, "/home/index");` or `routes.ShouldMap("/home/index").To<HomeController>(x => x.Index());`
 
@@ -14,7 +12,7 @@ To aid automated testing by allowing unit tests on routes. Without such a librar
 
 ## How
 
-MvcRouteTester throws an exception in order to fail a test on a route. This should work in any unit testing framework. However, if you want to integrate closer with NUnit or another unit testing framework, [this is easy to do and is documented here](https://github.com/AnthonySteele/MvcRouteTester/wiki/Integrating-with-NUnit).
+MvcRouteTester throws an exception in order to fail a test on a route. This should work in any unit testing framework. However, if you want to integrate closer with NUnit or another unit testing framework, [you can do this](https://github.com/AnthonySteele/MvcRouteTester/wiki/Integrating-with-NUnit).
 
 ## Licence
 
@@ -31,7 +29,7 @@ limitations under the License.
 
 ## Where can I get it?
 
-You can get the source from here on GitHub, or get the binaries [for ASP MVC 4](http://www.nuget.org/packages/MvcRouteTester/) or [for ASP MVC 5](http://www.nuget.org/packages/MvcRouteTester.MVC5/) from nuget.org.
+You can get the source from here on GitHub, or get the binaries [for ASP MVC 4.0](http://www.nuget.org/packages/MvcRouteTester/) or [for ASP MVC 5.0](http://www.nuget.org/packages/MvcRouteTester.MVC5/) from nuget.org.
 
 ## Other pages
 
