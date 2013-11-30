@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web.Http;
 using System.Web.Routing;
 
 using MvcRouteTester.Assertions;
@@ -111,13 +112,18 @@ namespace MvcRouteTester.Common
 		{
 			foreach (var routeValue in values)
 			{
-				if (string.Equals(name, routeValue.Name, StringComparison.OrdinalIgnoreCase) && RouteValueOriginHelpers.Matches(expectedOrigin, routeValue.Origin))
+				if (RouteValueMatches(routeValue, name, expectedOrigin))
 				{
 					return routeValue;
 				}
 			}
 
 			return null;
+		}
+
+		private static bool RouteValueMatches(RouteValue routeValue, string name, RouteValueOrigin expectedOrigin)
+		{
+			return string.Equals(name, routeValue.Name, StringComparison.OrdinalIgnoreCase) && RouteValueOriginHelpers.Matches(expectedOrigin, routeValue.Origin);
 		}
 
 		public RouteValueDictionary AsRouteValueDictionary()
@@ -164,6 +170,25 @@ namespace MvcRouteTester.Common
 				Asserts.Fail(message);
 				DataOk = false;
 			}
+		}
+
+		public void Sort()
+		{
+			values.Sort(SortRouteValueByAlphaAndDefault);
+		}
+
+		private int SortRouteValueByAlphaAndDefault(RouteValue a, RouteValue b)
+		{
+			if (a.Value == RouteParameter.Optional)
+			{
+				return 1;
+			}
+			if (b.Value == RouteParameter.Optional)
+			{
+				return -1;
+			}
+
+			return string.Compare(b.ValueAsString, a.ValueAsString, StringComparison.OrdinalIgnoreCase);
 		}
 	}
 }
