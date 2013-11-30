@@ -76,6 +76,8 @@ namespace MvcRouteTester.ApiRoute
 			actualProps.AddRange(queryParams);
 			actualProps.AddRange(ReadPropertiesFromBodyContent(bodyFormat));
 
+			actualProps.Sort();
+
 			return actualProps;
 		}
 
