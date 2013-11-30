@@ -100,7 +100,9 @@
     <Compile Include="ApiControllers\CustomerAttrController.cs" />
     <Compile Include="ApiControllers\PostOnlyAttrController.cs" />
     <Compile Include="ApiRoute\CustomerAttrControllerTests.cs" />
+    <Compile Include="ApiRoute\OptionalParamTests.cs" />
     <Compile Include="ApiRoute\RouteMethodTests.cs" />
+    <Compile Include="ApiControllers\WithOptionalParamAttrController.cs" />
     <Compile Include="Controllers\GetPostAttrController.cs" />
     <Compile Include="Controllers\HomeAttrController.cs" />
     <Compile Include="FakeAssertEngine.cs" />
