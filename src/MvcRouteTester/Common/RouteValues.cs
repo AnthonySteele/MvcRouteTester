@@ -179,16 +179,23 @@ namespace MvcRouteTester.Common
 
 		private int SortRouteValueByAlphaAndDefault(RouteValue a, RouteValue b)
 		{
-			if (a.Value == RouteParameter.Optional)
+			var result = string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase);
+
+			if (result == 0)
 			{
-				return 1;
-			}
-			if (b.Value == RouteParameter.Optional)
-			{
-				return -1;
+				if (a.Value == RouteParameter.Optional)
+				{
+					return 1;
+				}
+				if (b.Value == RouteParameter.Optional)
+				{
+					return -1;
+				}
+
+				return (int)a.Origin - (int)b.Origin;
 			}
 
-			return string.Compare(b.ValueAsString, a.ValueAsString, StringComparison.OrdinalIgnoreCase);
+			return result;
 		}
 	}
 }

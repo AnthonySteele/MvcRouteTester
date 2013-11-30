@@ -85,6 +85,7 @@
     <Compile Include="Assertions\ExceptionAssertEngineTests.cs" />
     <Compile Include="Assertions\NunitAssertEngine.cs" />
     <Compile Include="Common\PropertyReaderIgnoreAttributesTests.cs" />
+    <Compile Include="Common\RouteValuesSortTests.cs" />
     <Compile Include="Common\RouteValuesTests.cs" />
     <Compile Include="Controllers\AsyncActionController.cs" />
     <Compile Include="Controllers\FromBodyController.cs" />
