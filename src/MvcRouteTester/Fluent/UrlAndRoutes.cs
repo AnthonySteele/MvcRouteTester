@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -25,9 +24,9 @@ namespace MvcRouteTester.Fluent
 		}
 
 		public string Url { get; private set; }
+
 		public RouteCollection Routes { get; private set; }
 
-		[Obsolete("Renamed to WithFormUrlBody")]
 		public UrlAndRoutes WithBody(string body)
 		{
 			requestBody = body;
