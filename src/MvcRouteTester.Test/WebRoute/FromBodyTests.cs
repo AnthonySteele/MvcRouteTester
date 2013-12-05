@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
+using MvcRouteTester.ApiRoute;
 using MvcRouteTester.Test.Assertions;
 using MvcRouteTester.Test.Controllers;
 
@@ -57,7 +58,7 @@ namespace MvcRouteTester.Test.WebRoute
 					number = 42
 				};
 
-			RouteAssert.HasRoute(routes, "/frombody/post/123", PostBody, expectations);
+			RouteAssert.HasRoute(routes, "/frombody/post/123", PostBody, BodyFormat.FormUrl, expectations);
 		}
 
 		[Test]
@@ -76,7 +77,7 @@ namespace MvcRouteTester.Test.WebRoute
 			var assertEngine = new FakeAssertEngine();
 			RouteAssert.UseAssertEngine(assertEngine);
 
-			RouteAssert.HasRoute(routes, "/frombody/post/123", PostBody, expectations);
+			RouteAssert.HasRoute(routes, "/frombody/post/123", PostBody, BodyFormat.FormUrl, expectations);
 
 			Assert.That(assertEngine.StringMismatchCount, Is.EqualTo(1));
 			Assert.That(assertEngine.Messages[0], Is.EqualTo("Expected 'Jim Spriggs', not 'Fred Bloggers' for 'name' at url '/frombody/post/123'."));

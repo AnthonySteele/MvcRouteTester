@@ -32,14 +32,14 @@ namespace MvcRouteTester
 		/// </summary>
 		public static void HasRoute(RouteCollection routes, string url, object expectations)
 		{
-			HasRoute(routes, url, string.Empty, expectations);
+			HasRoute(routes, url, string.Empty, BodyFormat.None, expectations);
 		}
 
-		public static void HasRoute(RouteCollection routes, string url, string body, object expectations)
+		public static void HasRoute(RouteCollection routes, string url, string body, BodyFormat bodyFormat, object expectations)
 		{
 			var propertyReader = new PropertyReader();
 			var expectedRouteValues = propertyReader.RouteValues(expectations);
-			WebRouteAssert.HasRoute(routes, HttpMethod.Get, url, body, BodyFormat.FormUrl, expectedRouteValues);
+			WebRouteAssert.HasRoute(routes, HttpMethod.Get, url, body, bodyFormat, expectedRouteValues);
 		}
 
 		public static void HasRoute(RouteCollection routes, string url, string controller, string action)

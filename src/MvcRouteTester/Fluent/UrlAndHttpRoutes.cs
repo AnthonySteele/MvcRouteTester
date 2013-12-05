@@ -18,13 +18,8 @@ namespace MvcRouteTester.Fluent
 		}
 
 		public string Url { get; private set; }
-		public HttpConfiguration Configuration { get; private set; }
 
-		[Obsolete("Renamed to WithFormUrlBody")]
-		public UrlAndHttpRoutes WithBody(string body)
-		{
-			return WithFormUrlBody(body);
-		}
+		public HttpConfiguration Configuration { get; private set; }
 
 		public UrlAndHttpRoutes WithFormUrlBody(string body)
 		{
