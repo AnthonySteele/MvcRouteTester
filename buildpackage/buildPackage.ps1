@@ -1,3 +1,4 @@
+$packageName = "MvcRouteTester.MVC5"
 
 function ReadLinesFromFile([string] $fileName)
 {
@@ -16,9 +17,9 @@ function GetLatestFullVersionOnNuget()
   [CmdletBinding()]
   param()
 
-   $packageDetails = &nuget list MvcRouteTester.Mvc5
-   $parts = $packageDetails.Split(' ')
-   [string]$parts[1]
+   $packageDetails = &nuget list $packageName
+   $lineParts = $packageDetails.Split(' ')
+   [string]$lineParts[1]
 }
 
 function GetLastVersionNumber()
@@ -26,9 +27,24 @@ function GetLastVersionNumber()
   [CmdletBinding()]
   param()
 
-  $fullVersion = GetLatestFullVersionOnNuget
-  $parts = $fullVersion.Split('.')
-  [int]$parts[2]
+  $fullVersionString = GetLatestFullVersionOnNuget
+  $versionParts = $fullVersionString.Split('.')
+  $versionParts
+}
+
+function NextFullVersion()
+{
+  [CmdletBinding()]
+  param()
+  
+  $parts = GetLastVersionNumber
+  $lastPart = $parts[2]
+  $newVersion = [int]$lastPart + 1 
+  
+  $parts[2] = [string]$newVersion
+  
+  $newVersion = [string]::Join(".", $parts)
+  $newVersion
 }
 
 function CleanupBuildArtifacts
@@ -36,17 +52,18 @@ function CleanupBuildArtifacts
   [CmdletBinding()]
   param()
 
-  del MvcRouteTester.Mvc5.nuspec
+  del MvcRouteTester.MVC5.nuspec
   del *.nupkg
 }
 
+# main script
+
 BuildSolution
 
-$nextVersionNumber = (GetLastVersionNumber) + 1
-$fullVersion = "0.0.$nextVersionNumber"
+$fullVersion = NextFullVersion
 write-output "Next package version: $fullVersion"
 
-# make the nuspec file with the target version number
+ make the nuspec file with the target version number
 $nuspecTemplate = ReadLinesFromFile "MvcRouteTester.Mvc5.nuspec.template"
 $nuspecWithVersion = $nuspecTemplate.Replace("#version#", $fullVersion)
 $nuspecWithVersion > MvcRouteTester.Mvc5.nuspec
