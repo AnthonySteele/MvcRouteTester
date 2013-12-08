@@ -1,4 +1,10 @@
-$packageName = "MvcRouteTester.MVC5"
+
+# params
+
+param([string]$v = "")
+
+
+# functions
 
 function ReadLinesFromFile([string] $fileName)
 {
@@ -60,8 +66,17 @@ function CleanupBuildArtifacts
 
 BuildSolution
 
-$fullVersion = NextFullVersion
-write-output "Next package version: $fullVersion"
+$fullVersion = $v
+if ($fullVersion -eq "")
+{
+  $fullVersion = NextFullVersion
+  write-output "Next package version from nuget: $fullVersion"
+}
+else
+{
+  write-output "Next package version from params: $fullVersion"
+}
+
 
  make the nuspec file with the target version number
 $nuspecTemplate = ReadLinesFromFile "MvcRouteTester.Mvc5.nuspec.template"
