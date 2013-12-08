@@ -92,7 +92,7 @@ namespace MvcRouteTester.Test.ApiRoute
 			}
 
 		[Test]
-		public void TestFluentMapWithBody()
+		public void TestFluentMapWithFormUrlBody()
 		{
 			var postData = new PostDataModel
 				{
@@ -106,7 +106,7 @@ namespace MvcRouteTester.Test.ApiRoute
 		}
 
 		[Test]
-		public void MismatchFluentMapWithBodyFails()
+		public void MismatchFluentMapWithFormUrlBodyFails()
 		{
 			var postData = new PostDataModel
 				{
