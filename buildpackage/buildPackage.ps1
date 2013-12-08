@@ -1,7 +1,9 @@
 # params
 
-param([string]$v = "")
-
+param(
+	[string]$push = "false",
+	[string]$v = ""
+)
 
 # functions
 
@@ -84,12 +86,22 @@ $nuspecWithVersion = $nuspecTemplate.Replace("#version#", $fullVersion)
 $nuspecWithVersion > MvcRouteTester.nuspec
 
 nuget pack MvcRouteTester.nuspec 
-
-# push to nuget:
 $pushCommand = "NuGet Push MvcRouteTester.$fullVersion.nupkg"
-Invoke-Expression $pushCommand
-write-output "Pushed package version $fullVersion"
 
+
+if ($push -eq "true")
+{
+  # push to nuget:
+  Invoke-Expression $pushCommand
+  write-output "Pushed package version $fullVersion"
+}
+else
+{
+ # dry run
+  write-output "Dry run: specify '-push true' to push to nuget"
+  write-output "Next package version: $fullVersion"
+  write-output "Command is: $pushCommand"
+}
 CleanupBuildArtifacts
 
 write-output "Done"
