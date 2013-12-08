@@ -27,13 +27,6 @@ namespace MvcRouteTester.Fluent
 
 		public RouteCollection Routes { get; private set; }
 
-		public UrlAndRoutes WithBody(string body)
-		{
-			requestBody = body;
-			bodyFormat = BodyFormat.FormUrl;
-			return this;
-		}
-
 		public UrlAndRoutes WithFormUrlBody(string body)
 		{
 			requestBody = body;
