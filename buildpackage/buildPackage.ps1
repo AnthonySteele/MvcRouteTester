@@ -22,7 +22,7 @@ function GetLatestFullVersionOnNuget()
   [CmdletBinding()]
   param()
 
-   $packageDetails = &nuget list MvcRouteTester.MVC5
+   $packageDetails = &nuget list MvcRouteTester.Mvc5
    $lineParts = $packageDetails.Split(' ')
    [string]$lineParts[1]
 }
@@ -57,7 +57,7 @@ function CleanupBuildArtifacts
   [CmdletBinding()]
   param()
 
-  del MvcRouteTester.MVC5.nuspec
+  del MvcRouteTester.Mvc5.nuspec
   del *.nupkg
 }
 
