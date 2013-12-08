@@ -1,4 +1,3 @@
-
 # params
 
 param([string]$v = "")
@@ -15,7 +14,7 @@ function BuildSolution
 {
   [CmdletBinding()]
   param()
-  C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe ..\MvcRouteTester.sln /t:build /p:Configuration=Debug
+  C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe ..\MvcRouteTester.sln /t:build /p:Configuration=Debug /p:VisualStudioVersion=12.0
 }
 
 function GetLatestFullVersionOnNuget()
@@ -23,7 +22,7 @@ function GetLatestFullVersionOnNuget()
   [CmdletBinding()]
   param()
 
-   $packageDetails = &nuget list $packageName
+   $packageDetails = &nuget list MvcRouteTester.MVC5
    $lineParts = $packageDetails.Split(' ')
    [string]$lineParts[1]
 }
@@ -78,7 +77,7 @@ else
 }
 
 
- make the nuspec file with the target version number
+make the nuspec file with the target version number
 $nuspecTemplate = ReadLinesFromFile "MvcRouteTester.Mvc5.nuspec.template"
 $nuspecWithVersion = $nuspecTemplate.Replace("#version#", $fullVersion)
 $nuspecWithVersion > MvcRouteTester.Mvc5.nuspec
