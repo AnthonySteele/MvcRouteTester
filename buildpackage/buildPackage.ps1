@@ -1,4 +1,9 @@
-$packageName = "MvcRouteTester"
+# params
+
+param([string]$v = "")
+
+
+# functions
 
 function ReadLinesFromFile([string] $fileName)
 {
@@ -17,7 +22,7 @@ function GetLatestFullVersionOnNuget()
   [CmdletBinding()]
   param()
 
-   $packageList = &nuget list $packageName
+   $packageList = &nuget list MvcRouteTester
    $packageDetails = $packageList[0]
    $lineParts = $packageDetails.Split(' ')
    [string]$lineParts[1]
@@ -61,8 +66,17 @@ function CleanupBuildArtifacts
 
 BuildSolution
 
-$fullVersion = NextFullVersion
-write-output "Next package version: $fullVersion"
+$fullVersion = $v
+if ($fullVersion -eq "")
+{
+  $fullVersion = NextFullVersion
+  write-output "Next package version from nuget: $fullVersion"
+}
+else
+{
+  write-output "Next package version from params: $fullVersion"
+}
+
 
 # make the nuspec file with the target version number
 $nuspecTemplate = ReadLinesFromFile "MvcRouteTester.nuspec.template"
