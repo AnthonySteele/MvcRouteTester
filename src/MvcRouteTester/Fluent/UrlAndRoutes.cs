@@ -49,18 +49,28 @@ namespace MvcRouteTester.Fluent
 
 		public void To<TController>(Expression<Func<TController, ActionResult>> action) where TController : Controller
 		{
-			var expressionReader = new ExpressionReader();
-			var expectedProps = expressionReader.Read(action);
-
-			WebRouteAssert.HasRoute(Routes, HttpMethod.Get, Url, requestBody, bodyFormat, expectedProps);
+			To(HttpMethod.Get, action);
 		}
 
-		public void To<TController>(Expression<Func<TController, Task<ActionResult>>> action) where TController : Controller
+		public void To<TController>(HttpMethod httpMethod, Expression<Func<TController, ActionResult>> action) where TController : Controller
 		{
 			var expressionReader = new ExpressionReader();
 			var expectedProps = expressionReader.Read(action);
 
-			WebRouteAssert.HasRoute(Routes, HttpMethod.Get, Url, requestBody, bodyFormat, expectedProps);
+			WebRouteAssert.HasRoute(Routes, httpMethod, Url, requestBody, bodyFormat, expectedProps);
+		}
+
+		public void To<TController>(Expression<Func<TController, Task<ActionResult>>> action) where TController : Controller
+		{
+			To(HttpMethod.Get, action);
+		}
+
+		public void To<TController>(HttpMethod httpMethod, Expression<Func<TController, Task<ActionResult>>> action) where TController : Controller
+		{
+			var expressionReader = new ExpressionReader();
+			var expectedProps = expressionReader.Read(action);
+
+			WebRouteAssert.HasRoute(Routes, httpMethod, Url, requestBody, bodyFormat, expectedProps);
 		}
 
 		public void ToNoRoute()
