@@ -46,10 +46,35 @@ namespace MvcRouteTester.Test.WebRoute
 		}
 
 		[Test]
+		public void ShoulFailWhenRouteDoesNotMatch()
+		{
+			var fakeAssertEngine = new FakeAssertEngine();
+			RouteAssert.UseAssertEngine(fakeAssertEngine);
+
+			RouteAssert.HasRoute(routes, "/home/index/foo");
+
+			Assert.That(fakeAssertEngine.FailCount, Is.GreaterThanOrEqualTo(1));
+			Assert.That(fakeAssertEngine.Messages[0], Is.EqualTo("Should have found the route to '/home/index/foo'"));
+		}
+
+		[Test]
 		public void DoesNotHaveFluentRouteWhenConstraintisNotMatched()
 		{
 			routes.ShouldMap("/home/index/foo").ToNoRoute();
 			routes.ShouldMap("/home/index/123foo").ToNoRoute();
 		}
+
+		[Test]
+		public void ShoulFailWhenFluentRouteDoesNotMatch()
+		{
+			var fakeAssertEngine = new FakeAssertEngine();
+			RouteAssert.UseAssertEngine(fakeAssertEngine);
+
+			routes.ShouldMap("/home/index/foo").To<HomeController>(x => x.Index(1));
+
+			Assert.That(fakeAssertEngine.FailCount, Is.GreaterThanOrEqualTo(1));
+			Assert.That(fakeAssertEngine.Messages[0], Is.EqualTo("Should have found the route to '/home/index/foo'"));
+		}
+
 	}
 }
