@@ -119,6 +119,7 @@
     <Compile Include="WebRoute\GeneratesUrlTests.cs" />
     <Compile Include="WebRoute\HasAliasRouteTests.cs" />
     <Compile Include="ApiRoute\MemberControllerTests.cs" />
+    <Compile Include="WebRoute\RouteConstraintTests.cs" />
     <Compile Include="WebRoute\RouteMethodTests.cs" />
     <Compile Include="WebRoute\HasRouteTests.cs" />
     <Compile Include="Common\UrlHelpersTest.cs" />
