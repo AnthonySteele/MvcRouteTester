@@ -31,22 +31,22 @@ namespace MvcRouteTester
 
 		public static void MapAttributeRoutesInControllers(this RouteCollection routes, IEnumerable<Type> controllers)
 		{
-			//var mapMvcAttributeRoutesMethod = typeof(RouteCollectionAttributeRoutingExtensions)
-			//	.GetMethod("MapMvcAttributeRoutes", 
-			//	BindingFlags.NonPublic | BindingFlags.Static,
-			//	null,
-			//	new[] { typeof(RouteCollection), typeof(IEnumerable<Type>) },
-			//	null);
+			var mapMvcAttributeRoutesMethod = typeof(RouteCollectionAttributeRoutingExtensions)
+				.GetMethod("MapMvcAttributeRoutes",
+				BindingFlags.NonPublic | BindingFlags.Static,
+				null,
+				new[] { typeof(RouteCollection), typeof(IEnumerable<Type>) },
+				null);
 
-			//if (mapMvcAttributeRoutesMethod == null)
-			//{
-			//	const string MissingMethodMessage = "Internal method System.Web.Mvc.RouteCollectionAttributeRoutingExtensions.MapMvcAttributeRoutes not found. " +
-			//		"You may have updated ASP MVC to a version later than 5.0. " +
-			//		" Check online fir a new version of MvcRouteTester";
-			//	throw new ApplicationException(MissingMethodMessage);
-			//}
+			if (mapMvcAttributeRoutesMethod == null)
+			{
+				const string MissingMethodMessage = "Internal method System.Web.Mvc.RouteCollectionAttributeRoutingExtensions.MapMvcAttributeRoutes not found. " +
+					"You may have updated ASP MVC to a version later than 5.0. " +
+					" Check online fir a new version of MvcRouteTester";
+				throw new ApplicationException(MissingMethodMessage);
+			}
 
-			//mapMvcAttributeRoutesMethod.Invoke(null, new object[] { routes, controllers });
+			mapMvcAttributeRoutesMethod.Invoke(null, new object[] { routes, controllers });
 		}
 	}
 }
