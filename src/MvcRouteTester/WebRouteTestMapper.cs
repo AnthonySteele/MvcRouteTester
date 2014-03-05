@@ -46,7 +46,7 @@ namespace MvcRouteTester
 
 			if (mapMvcAttributeRoutesMethod == null)
 			{
-				const string MissingMethodMessage = "Internal method System.Web.Mvc.RouteCollectionAttributeRoutingExtensions.MapMvcAttributeRoutes not found. " +
+				const string MissingMethodMessage = "Internal method System.Web.Mvc.AttributeRoutingMapper.MapAttributeRoutes not found. " +
 					"You may have updated ASP MVC to a version later than 5.1.1 " +
 					" Check online for a new version of MvcRouteTester";
 				throw new ApplicationException(MissingMethodMessage);
