@@ -16,6 +16,12 @@ namespace MvcRouteTester.Test.Fluent
 			return new EmptyResult();
 		}
 
+		[ActionName("ActionNameAttribute")]
+		public ActionResult MethodName()
+		{
+			return new EmptyResult();
+		}
+
 		public ActionResult GetItem(int id = 12)
 		{
 			return new EmptyResult();
@@ -73,6 +79,18 @@ namespace MvcRouteTester.Test.Fluent
 
 			Assert.That(result.Controller, Is.EqualTo("Test"));
 			Assert.That(result.Action, Is.EqualTo("Index"));
+		}
+
+		[Test]
+		public void ReadGetsActionFromAttributeWhenPresent()
+		{
+			var reader = new ExpressionReader();
+
+			Expression<Func<TestController, ActionResult>> args = c => c.MethodName();
+			var result = reader.Read(args);
+
+			Assert.That(result.Controller, Is.EqualTo("Test"));
+			Assert.That(result.Action, Is.EqualTo("ActionNameAttribute"));
 		}
 
 		[Test]
