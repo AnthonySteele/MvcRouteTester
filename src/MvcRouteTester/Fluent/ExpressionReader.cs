@@ -118,7 +118,20 @@ namespace MvcRouteTester.Fluent
 
 		private string ActionName(MethodCallExpression methodCall)
 		{
-			return  methodCall.Method.Name;
+			// Look for System.Web.Mvc ActionName attribute
+			var attributes = methodCall.Method.GetCustomAttributes(typeof(System.Web.Mvc.ActionNameAttribute), true);
+
+			if (attributes.Length > 0)
+				return ((System.Web.Mvc.ActionNameAttribute)attributes[0]).Name;
+
+			// Look for System.Web.Http ActionName attribute
+			attributes = methodCall.Method.GetCustomAttributes(typeof(System.Web.Http.ActionNameAttribute), true);
+
+			if (attributes.Length > 0)
+				return ((System.Web.Http.ActionNameAttribute)attributes[0]).Name;
+
+			// Otherwise, just use the method name
+			return methodCall.Method.Name;
 		}
 
 		private IList<RouteValue> ReadParameters(MethodCallExpression methodCall)
