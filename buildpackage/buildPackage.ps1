@@ -2,7 +2,8 @@
 
 param(
 	[string]$push = "false",
-	[string]$v = ""
+	[string]$v = "",
+	[string]$source = ""
 )
 
 # functions
@@ -16,7 +17,7 @@ function BuildSolution
 {
   [CmdletBinding()]
   param()
-  C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe ..\MvcRouteTester.sln /t:build /p:Configuration=Debug /p:VisualStudioVersion=12.0
+  C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe ..\MvcRouteTester.sln /t:build /p:Configuration=Debug
 }
 
 function GetLatestFullVersionOnNuget()
@@ -24,7 +25,7 @@ function GetLatestFullVersionOnNuget()
   [CmdletBinding()]
   param()
 
-   $packageDetails = &nuget list MvcRouteTester.Mvc5
+   $packageDetails = &nuget list MvcRouteTester.Mvc5.1
    $lineParts = $packageDetails.Split(' ')
    [string]$lineParts[1]
 }
@@ -59,7 +60,7 @@ function CleanupBuildArtifacts
   [CmdletBinding()]
   param()
 
-  del MvcRouteTester.Mvc5.nuspec
+  del MvcRouteTester.Mvc5.1.nuspec
   del *.nupkg
 }
 
@@ -70,7 +71,8 @@ BuildSolution
 $fullVersion = $v
 if ($fullVersion -eq "")
 {
-  $fullVersion = NextFullVersion
+  write-output "Reading package version from nuget..."
+  $fullVersion = NextFullVersion 
   write-output "Next package version from nuget: $fullVersion"
 }
 else
@@ -80,14 +82,18 @@ else
 
 
 # make the nuspec file with the target version number
-make the nuspec file with the target version number
-$nuspecTemplate = ReadLinesFromFile "MvcRouteTester.Mvc5.nuspec.template"
+$nuspecTemplate = ReadLinesFromFile "MvcRouteTester.Mvc5.1.nuspec.template"
 $nuspecWithVersion = $nuspecTemplate.Replace("#version#", $fullVersion)
-$nuspecWithVersion > MvcRouteTester.Mvc5.nuspec
+$nuspecWithVersion > MvcRouteTester.Mvc5.1.nuspec
 
-nuget pack MvcRouteTester.Mvc5.nuspec 
+nuget pack MvcRouteTester.Mvc5.1.nuspec 
 
-$pushCommand = "NuGet Push MvcRouteTester.Mvc5.$fullVersion.nupkg"
+$pushCommand = "NuGet Push MvcRouteTester.Mvc5.1.#version#.nupkg -NonInteractive".Replace("#version#", $fullVersion)
+
+if ($source -ne "")
+{
+  $pushCommand = $pushCommand + " -source $source"
+}
 
 if ($push -eq "true")
 {
@@ -97,7 +103,7 @@ if ($push -eq "true")
 }
 else
 {
-  # dry run
+ # dry run
   write-output "Dry run: specify '-push true' to push to nuget"
   write-output "Next package version: $fullVersion"
   write-output "Command is: $pushCommand"
