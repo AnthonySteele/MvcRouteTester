@@ -2,7 +2,8 @@
 
 param(
 	[string]$push = "false",
-	[string]$v = ""
+	[string]$v = "",
+	[string]$source = ""
 )
 
 # functions
@@ -71,7 +72,8 @@ BuildSolution
 $fullVersion = $v
 if ($fullVersion -eq "")
 {
-  $fullVersion = NextFullVersion
+  write-output "Reading package version from nuget..."
+  $fullVersion = NextFullVersion 
   write-output "Next package version from nuget: $fullVersion"
 }
 else
@@ -85,9 +87,14 @@ $nuspecTemplate = ReadLinesFromFile "MvcRouteTester.nuspec.template"
 $nuspecWithVersion = $nuspecTemplate.Replace("#version#", $fullVersion)
 $nuspecWithVersion > MvcRouteTester.nuspec
 
-nuget pack MvcRouteTester.nuspec 
-$pushCommand = "NuGet Push MvcRouteTester.$fullVersion.nupkg"
 
+nuget pack MvcRouteTester.nuspec 
+$pushCommand = "NuGet Push MvcRouteTester.#version#.nupkg -NonInteractive".Replace("#version#", $fullVersion)
+
+if ($source -ne "")
+{
+  $pushCommand = $pushCommand + " -source $source"
+}
 
 if ($push -eq "true")
 {
