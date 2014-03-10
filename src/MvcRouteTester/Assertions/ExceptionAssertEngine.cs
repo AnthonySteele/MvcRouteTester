@@ -23,10 +23,12 @@ namespace MvcRouteTester.Assertions
 				return;
 			}
 
-			if (string.Equals(s1, s2, StringComparison.InvariantCultureIgnoreCase)) 
+			if (string.Equals(s1, s2, StringComparison.InvariantCultureIgnoreCase))
+			{
 				return;
+			}
 
-			var exceptionMessage = string.Format("{0}\n Strings do not match: \n Expected:{1}\nActual{2}", message, s1, s2);
+			var exceptionMessage = string.Format("{0}\n Strings do not match: \n Expected:{1}\nActual:{2}", message, s1, s2);
 			throw new AssertionException(exceptionMessage);
 		}
 	}
