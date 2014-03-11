@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Routing;
@@ -74,6 +75,18 @@ namespace MvcRouteTester.WebRoute
 			if (routeData.DataTokens.ContainsKey("area"))
 			{
 				return routeData.DataTokens["area"].ToString();
+			}
+
+			if (routeData.Values.ContainsKey("MS_DirectRouteMatches"))
+			{
+				var subRoutes = routeData.Values["MS_DirectRouteMatches"] as IList<RouteData>;
+
+				// use the first subroute. In this case, it would be rather odd if multiple matches were in different areas
+				var subroute = subRoutes.FirstOrDefault();
+				if (subroute != null)
+				{
+					return ReadAreaFromRouteData(subroute);
+				}
 			}
 
 			return string.Empty;

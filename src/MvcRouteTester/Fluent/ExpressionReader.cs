@@ -94,6 +94,14 @@ namespace MvcRouteTester.Fluent
 
 		private string AreaName(Type controllerType)
 		{
+			var routeAreaAttributes = controllerType.GetCustomAttributes(typeof(RouteAreaAttribute), true);
+			if (routeAreaAttributes.Length > 0)
+			{
+				var routeArea = (RouteAreaAttribute)(routeAreaAttributes[0]);
+				return routeArea.AreaName;
+			}
+
+
 			var nameSpace = controllerType.Namespace;
 			if (nameSpace == null)
 			{

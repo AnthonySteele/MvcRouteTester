@@ -11,15 +11,17 @@ namespace MvcRouteTester.Fluent
 		private string requestBody = string.Empty;
 		private BodyFormat bodyFormat = BodyFormat.None;
 
-		public UrlAndHttpRoutes(HttpConfiguration configuration, string url)
+		public UrlAndHttpRoutes(HttpConfiguration configuration, HttpMethod httpMethod, string url)
 		{
 			Configuration = configuration;
+			HttpMethod = httpMethod;
 			Url = url;
 		}
 
-		public string Url { get; private set; }
-
 		public HttpConfiguration Configuration { get; private set; }
+
+		public HttpMethod HttpMethod { get; private set; }
+		public string Url { get; private set; }
 
 		public UrlAndHttpRoutes WithFormUrlBody(string body)
 		{
@@ -34,6 +36,17 @@ namespace MvcRouteTester.Fluent
 			bodyFormat = BodyFormat.Json;
 			return this;
 		}
+
+		public UrlAndHttpRoutes To<TController>(Expression<Func<TController, object>> action) where TController : ApiController
+		{
+			var expressionReader = new ExpressionReader();
+			var expectedProps = expressionReader.Read(action);
+
+			ApiRouteAssert.HasRoute(Configuration, Url, HttpMethod, requestBody, bodyFormat, expectedProps);
+
+			return this;
+		}
+
 
 		public UrlAndHttpRoutes To<TController>(HttpMethod httpMethod, Expression<Func<TController, object>> action) where TController : ApiController
 		{
@@ -54,6 +67,17 @@ namespace MvcRouteTester.Fluent
 
 			return this;
 		}
+
+		public UrlAndHttpRoutes To<TController>(Expression<Action<TController>> action) where TController : ApiController
+		{
+			var expressionReader = new ExpressionReader();
+			var expectedProps = expressionReader.Read(action);
+
+			ApiRouteAssert.HasRoute(Configuration, Url, HttpMethod, requestBody, bodyFormat, expectedProps);
+
+			return this;
+		}
+
 
 		public void ToNoRoute()
 		{

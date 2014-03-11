@@ -14,6 +14,8 @@ namespace MvcRouteTester.AttributeRouting.Test.WebRoute
 		[SetUp]
 		public void Setup()
 		{
+			RouteAssert.UseAssertEngine(new NunitAssertEngine());
+
 			routes = new RouteCollection();
 			routes.MapAttributeRoutesInAssembly(typeof(HomeAttrController));
 		}

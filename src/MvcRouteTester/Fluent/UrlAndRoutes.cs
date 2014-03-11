@@ -17,15 +17,17 @@ namespace MvcRouteTester.Fluent
 
 		private string requestAppPath = "/";
 
-		public UrlAndRoutes(RouteCollection routes, string url)
+		public UrlAndRoutes(RouteCollection routes,  HttpMethod httpMethod, string url)
 		{
 			Routes = routes;
+			HttpMethod = httpMethod;
 			Url = url;
 		}
 
-		public string Url { get; private set; }
-
 		public RouteCollection Routes { get; private set; }
+
+		public HttpMethod HttpMethod { get; private set; }
+		public string Url { get; private set; }
 
 		public UrlAndRoutes WithFormUrlBody(string body)
 		{
@@ -49,7 +51,7 @@ namespace MvcRouteTester.Fluent
 
 		public void To<TController>(Expression<Func<TController, ActionResult>> action) where TController : Controller
 		{
-			To(HttpMethod.Get, action);
+			To(HttpMethod, action);
 		}
 
 		public void To<TController>(HttpMethod httpMethod, Expression<Func<TController, ActionResult>> action) where TController : Controller

@@ -96,12 +96,16 @@
     <Compile Include="ApiControllers\WithOptionalParamAttrController.cs" />
     <Compile Include="Controllers\GetPostAttrController.cs" />
     <Compile Include="Controllers\HomeAttrController.cs" />
+    <Compile Include="Controllers\VerbedAttrController.cs" />
+    <Compile Include="Controllers\WithAreaController.cs" />
     <Compile Include="FakeAssertEngine.cs" />
     <Compile Include="NunitAssertEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRoute\HomeAttrControllerFailTests.cs" />
     <Compile Include="WebRoute\RouteMethodTests.cs" />
     <Compile Include="WebRoute\HomeAttrControllerTests.cs" />
+    <Compile Include="WebRoute\VerbedAttrControllerTests.cs" />
+    <Compile Include="WebRoute\WithAreaTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MvcRouteTester\MvcRouteTester.csproj">
