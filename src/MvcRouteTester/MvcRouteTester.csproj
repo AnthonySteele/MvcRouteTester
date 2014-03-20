@@ -102,6 +102,7 @@
     <Compile Include="Common\RouteValueExtensions.cs" />
     <Compile Include="Common\RouteValueOrigin.cs" />
     <Compile Include="Common\RouteValues.cs" />
+    <Compile Include="DirectRouteExtensions.cs" />
     <Compile Include="FluentApiExtensions.cs" />
     <Compile Include="Fluent\ExpressionReader.cs" />
     <Compile Include="FluentExtensions.cs" />

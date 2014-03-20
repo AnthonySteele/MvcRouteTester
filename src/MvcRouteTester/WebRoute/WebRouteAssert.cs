@@ -38,10 +38,48 @@ namespace MvcRouteTester.WebRoute
 				Asserts.Fail(message);
 			}
 
-			var webRouteReader = new Reader();
-			var actualProps = webRouteReader.GetRequestProperties(routeData, httpContext.Request, bodyFormat);
-			var verifier = new Verifier(expectedProps, actualProps, url);
-			verifier.VerifyExpectations();
+			var hasDirectRouteMatch = routeData.HasDirectRouteMatch();
+			if (hasDirectRouteMatch)
+			{
+				var webRouteReader = new Reader();
+
+				//***********************
+				// Option 1
+				// - Somehow individually verify each routeData. If one comes back with no failures, then we are good to go
+				//***********************
+				foreach (var rd in routeData.GetDirectRouteMatches())
+				{
+					// Somehow individually very each routeData. If one comes back with no failures, then we are good to go
+
+					var actualProps = webRouteReader.GetRequestProperties(rd, httpContext.Request, bodyFormat);
+					var verifier = new Verifier(expectedProps, actualProps, url);
+					// how would this work???
+					verifier.VerifyExpectations();
+				}
+				//***********************
+
+				//***********************
+				// Option 2
+				// - Somehow verify all routeData's via the Verifier. If one comes back with no failures, then we are good to go
+				//***********************
+				var actualPropsList = new List<RouteValues>();
+				foreach (var rd in routeData.GetDirectRouteMatches())
+				{
+					actualPropsList.Add(webRouteReader.GetRequestProperties(rd, httpContext.Request, bodyFormat));
+				}
+
+				// how would this work???
+				var verifier = new Verifier(expectedProps, actualPropsList, url);
+				verifier.VerifyExpectations();
+				//***********************
+			}
+			else
+			{
+				var webRouteReader = new Reader();
+				var actualProps = webRouteReader.GetRequestProperties(routeData, httpContext.Request, bodyFormat);
+				var verifier = new Verifier(expectedProps, actualProps, url);
+				verifier.VerifyExpectations();
+			}
 		}
 
 		internal static void NoRoute(RouteCollection routes, string url)
