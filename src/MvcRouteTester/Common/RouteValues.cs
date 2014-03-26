@@ -57,28 +57,9 @@ namespace MvcRouteTester.Common
 					Area = value.ToString();
 					break;
 
-				case "ms_directroutematches":
-					ReadDirectRouteMatches(value);
-					break;
-
 				default:
 					Add(new RouteValue(key, value, RouteValueOrigin.Unknown));
 					break;
-			}
-		}
-
-		private void ReadDirectRouteMatches(object value)
-		{
-			var valuesList = value as IList<RouteData>;
-			if (valuesList != null)
-			{
-				foreach (var routeData in valuesList)
-				{
-					foreach (var routeDataValue in routeData.Values)
-					{
-						AddRouteValue(routeDataValue.Key, routeDataValue.Value);
-					}
-				}
 			}
 		}
 
