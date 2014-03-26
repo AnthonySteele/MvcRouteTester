@@ -32,10 +32,10 @@ namespace MvcRouteTester.WebRoute
 			var httpContext = HttpMockery.ContextForUrl(method, pathUrl, body);
 			var routeData = routes.GetRouteData(httpContext);
 
-            if (routeData != null)
-            {
-                routeData = DirectRouteHelper.FilterRouteData(routeData, httpContext);
-            }
+			if (routeData != null)
+			{
+				routeData = DirectRouteHelper.FilterRouteData(routeData, httpContext);
+			}
 
 			if (routeData == null)
 			{

@@ -30,18 +30,18 @@ namespace MvcRouteTester.HttpMocking
 			get { return relativeUrl; }
 		}
 
-        public override NameValueCollection ServerVariables
-        {
-            get
-            {
-                return new NameValueCollection();
-            }
-        }
+		public override NameValueCollection ServerVariables
+		{
+			get
+			{
+				return new NameValueCollection();
+			}
+		}
 
-        public override string ApplicationPath
-        {
-            get { return relativeUrl; }
-        }
+		public override string ApplicationPath
+		{
+			get { return relativeUrl; }
+		}
 
 		public override NameValueCollection QueryString 
 		{
@@ -73,10 +73,10 @@ namespace MvcRouteTester.HttpMocking
 			get { return requestContext; }
 		}
 
-        public override NameValueCollection Form
-        {
-            get { return new NameValueCollection(); }
-        }
+		public override NameValueCollection Form
+		{
+			get { return new NameValueCollection(); }
+		}
 
 		public override Stream InputStream
 		{
