@@ -73,6 +73,11 @@ namespace MvcRouteTester.HttpMocking
 			get { return requestContext; }
 		}
 
+        public override NameValueCollection Form
+        {
+            get { return new NameValueCollection(); }
+        }
+
 		public override Stream InputStream
 		{
 			get
