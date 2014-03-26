@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -17,7 +18,7 @@ namespace MvcRouteTester.WebRoute
 			var pathUrl = UrlHelpers.PrependTilde(url);
 
 			var httpContext = HttpMockery.ContextForUrl(pathUrl);
-			var routeData = routes.GetRouteData(httpContext);
+			var routeData = GetRouteDataWithAttributeFilter(routes, httpContext);
 
 			if (routeData == null)
 			{
@@ -30,12 +31,7 @@ namespace MvcRouteTester.WebRoute
 		{
 			var pathUrl = UrlHelpers.PrependTilde(url);
 			var httpContext = HttpMockery.ContextForUrl(method, pathUrl, body);
-			var routeData = routes.GetRouteData(httpContext);
-
-			if (routeData != null)
-			{
-				routeData = DirectRouteHelper.FilterRouteData(routeData, httpContext);
-			}
+			var routeData = GetRouteDataWithAttributeFilter(routes, httpContext);
 
 			if (routeData == null)
 			{
@@ -53,7 +49,7 @@ namespace MvcRouteTester.WebRoute
 		{
 			var pathUrl = UrlHelpers.PrependTilde(url);
 			var httpContext = HttpMockery.ContextForUrl(pathUrl);
-			var routeData = routes.GetRouteData(httpContext);
+			var routeData = GetRouteDataWithAttributeFilter(routes, httpContext);
 
 			if (routeData != null)
 			{
@@ -66,7 +62,7 @@ namespace MvcRouteTester.WebRoute
 		{
 			var pathUrl = UrlHelpers.PrependTilde(url);
 			var httpContext = HttpMockery.ContextForUrl(pathUrl);
-			var routeData = routes.GetRouteData(httpContext);
+			var routeData = GetRouteDataWithAttributeFilter(routes, httpContext);
 
 			if (routeData == null)
 			{
@@ -87,7 +83,7 @@ namespace MvcRouteTester.WebRoute
 		{
 			var pathUrl = UrlHelpers.PrependTilde(url);
 			var httpContext = HttpMockery.ContextForUrl(pathUrl);
-			var routeData = routes.GetRouteData(httpContext);
+			var routeData = GetRouteDataWithAttributeFilter(routes, httpContext);
 
 			if (routeData == null)
 			{
@@ -158,5 +154,17 @@ namespace MvcRouteTester.WebRoute
 				Asserts.Fail(message);
 			}
 		}
+
+		private static RouteData GetRouteDataWithAttributeFilter(RouteCollection routes, HttpContextBase httpContext)
+		{
+			var routeData = routes.GetRouteData(httpContext);
+
+			if (routeData != null)
+			{
+				routeData = DirectRouteHelper.FilterRouteData(routeData, httpContext);
+			}
+			return routeData;
+		}
+
 	}
 }

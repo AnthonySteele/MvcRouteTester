@@ -32,6 +32,5 @@ namespace MvcRouteTester.AttributeRouting.Test.WebRoute
 		{
 			routes.ShouldMap(HttpMethod.Post, "/verbedattr").To<VerbedAttrController>(x => x.Post());
 		}
-
 	}
 }
