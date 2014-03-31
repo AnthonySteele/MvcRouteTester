@@ -29,7 +29,7 @@ limitations under the License.
 
 ## Where can I get it?
 
-**[There is a package for ASP MVC 5.1](http://www.nuget.org/packages/MvcRouteTester.Mvc5.1/)** on [NuGet.org](http://www.nuget.org/). There are also packages for previous versions: [for ASP MVC 5.0](http://www.nuget.org/packages/MvcRouteTester.MVC5/) or  [for ASP MVC 4.0](http://www.nuget.org/packages/MvcRouteTester/)
+**[There is a package for ASP MVC 5.1](http://www.nuget.org/packages/MvcRouteTester.Mvc5.1/)** on [NuGet.org](http://www.nuget.org/). There are also packages for previous framework versions: [for ASP MVC 5.0](http://www.nuget.org/packages/MvcRouteTester.MVC5/) or  [for ASP MVC 4.0](http://www.nuget.org/packages/MvcRouteTester/)
 
 You can get or fork the source here on GitHub. The master branch is used for ASP MVC 5.1 as this is the latest version, and there are branches [for MVC 5.0](https://github.com/AnthonySteele/MvcRouteTester/tree/MVC5) and [for MVC 4](https://github.com/AnthonySteele/MvcRouteTester/tree/MVC4).
 
