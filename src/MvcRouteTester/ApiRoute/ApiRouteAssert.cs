@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Dispatcher;
@@ -16,16 +17,16 @@ namespace MvcRouteTester.ApiRoute
 
 		internal static Type ControllerSelectorType;
 
-		internal static void HasRoute(HttpConfiguration config, string url, HttpMethod httpMethod)
+		internal static void HasRoute(HttpConfiguration config, string url, HttpMethod httpMethod, Dictionary<string, string> headers)
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
-			ReadRequestProperties(config, absoluteUrl, httpMethod, string.Empty, BodyFormat.None);
+			ReadRequestProperties(config, absoluteUrl, httpMethod, headers, string.Empty, BodyFormat.None);
 		}
 
-		internal static void HasRoute(HttpConfiguration config, string url, HttpMethod httpMethod, string body, BodyFormat bodyFormat, RouteValues expectedProps)
+		internal static void HasRoute(HttpConfiguration config, string url, HttpMethod httpMethod, Dictionary<string, string> headers, string body, BodyFormat bodyFormat, RouteValues expectedProps)
 		{
 			var absoluteUrl = UrlHelpers.MakeAbsolute(url);
-			var actualProps = ReadRequestProperties(config, absoluteUrl, httpMethod, body, bodyFormat);
+			var actualProps = ReadRequestProperties(config, absoluteUrl, httpMethod, headers, body, bodyFormat);
 
 			var verifier = new Verifier(expectedProps, actualProps, url);
 			verifier.VerifyExpectations();
@@ -138,13 +139,22 @@ namespace MvcRouteTester.ApiRoute
 			}
 		}
 
-		private static RouteValues ReadRequestProperties(HttpConfiguration config, string url, HttpMethod httpMethod, string body, BodyFormat bodyFormat)
+		private static RouteValues ReadRequestProperties(HttpConfiguration config, string url, HttpMethod httpMethod, Dictionary<string, string> headers, string body, BodyFormat bodyFormat)
 		{
 			var request = new HttpRequestMessage(httpMethod, url);
+
+		    if (headers != null)
+		    {
+                foreach (var header in headers)
+                {
+                    request.Headers.Add(header.Key, header.Value);
+                }
+		    }
 			request.Content = new StringContent(body);
 
 			var routeGenerator = new Generator(config, request);
 			return routeGenerator.ReadRequestProperties(url, httpMethod, bodyFormat);
 		}
-	}
+
+    }
 }

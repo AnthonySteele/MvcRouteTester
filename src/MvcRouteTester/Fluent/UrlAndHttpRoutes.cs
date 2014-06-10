@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Net.Http;
 using System.Web.Http;
@@ -37,43 +38,66 @@ namespace MvcRouteTester.Fluent
 			return this;
 		}
 
-		public UrlAndHttpRoutes To<TController>(Expression<Func<TController, object>> action) where TController : ApiController
+	    public UrlAndHttpRoutes To<TController>(Expression<Func<TController, object>> action) where TController : ApiController
+	    {
+	        return To<TController>((Dictionary<string,string>)null, action);
+	    }
+        
+		public UrlAndHttpRoutes To<TController>(Dictionary<string, string> headers, Expression<Func<TController, object>> action) where TController : ApiController
 		{
 			var expressionReader = new ExpressionReader();
 			var expectedProps = expressionReader.Read(action);
 
-			ApiRouteAssert.HasRoute(Configuration, Url, HttpMethod, requestBody, bodyFormat, expectedProps);
+			ApiRouteAssert.HasRoute(Configuration, Url, HttpMethod, headers, requestBody, bodyFormat, expectedProps);
 
 			return this;
 		}
 
+	    public UrlAndHttpRoutes To<TController>(HttpMethod httpMethod, Expression<Func<TController, object>> action)
+	        where TController : ApiController
+	    {
+	        return To<TController>(httpMethod, null, action);
+	    }
 
-		public UrlAndHttpRoutes To<TController>(HttpMethod httpMethod, Expression<Func<TController, object>> action) where TController : ApiController
+		public UrlAndHttpRoutes To<TController>(HttpMethod httpMethod, Dictionary<string, string> headers, Expression<Func<TController, object>> action) where TController : ApiController
 		{
 			var expressionReader = new ExpressionReader();
 			var expectedProps = expressionReader.Read(action);
 
-			ApiRouteAssert.HasRoute(Configuration, Url, httpMethod, requestBody, bodyFormat, expectedProps);
+			ApiRouteAssert.HasRoute(Configuration, Url, httpMethod, headers, requestBody, bodyFormat, expectedProps);
 
 			return this;
 		}
 
-		public UrlAndHttpRoutes To<TController>(HttpMethod httpMethod, Expression<Action<TController>> action) where TController : ApiController
+	    public UrlAndHttpRoutes To<TController>(HttpMethod httpMethod, Expression<Action<TController>> action)
+	        where TController : ApiController
+	    {
+	        return To<TController>(httpMethod, null, action);
+
+	    }
+
+		public UrlAndHttpRoutes To<TController>(HttpMethod httpMethod, Dictionary<string, string> headers, Expression<Action<TController>> action) where TController : ApiController
 		{
 			var expressionReader = new ExpressionReader();
 			var expectedProps = expressionReader.Read(action);
 
-			ApiRouteAssert.HasRoute(Configuration, Url, httpMethod, requestBody, bodyFormat, expectedProps);
+			ApiRouteAssert.HasRoute(Configuration, Url, httpMethod, headers, requestBody, bodyFormat, expectedProps);
 
 			return this;
 		}
 
-		public UrlAndHttpRoutes To<TController>(Expression<Action<TController>> action) where TController : ApiController
+	    public UrlAndHttpRoutes To<TController>(Expression<Action<TController>> action)
+	        where TController : ApiController
+	    {
+	        return To<TController>((Dictionary<string,string>)null, action);
+
+	    }
+		public UrlAndHttpRoutes To<TController>(Dictionary<string, string> headers, Expression<Action<TController>> action) where TController : ApiController
 		{
 			var expressionReader = new ExpressionReader();
 			var expectedProps = expressionReader.Read(action);
 
-			ApiRouteAssert.HasRoute(Configuration, Url, HttpMethod, requestBody, bodyFormat, expectedProps);
+			ApiRouteAssert.HasRoute(Configuration, Url, HttpMethod, headers, requestBody, bodyFormat, expectedProps);
 
 			return this;
 		}
