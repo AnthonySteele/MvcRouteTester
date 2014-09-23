@@ -39,7 +39,7 @@ namespace MvcRouteTester.Common
 				return true;
 			}
 
-			return type.IsPrimitive || SpecialSimpleTypes.Contains(type);
+			return type.IsPrimitive || SpecialSimpleTypes.Contains(type) || type.IsEnum;
 		}
 
 		public RouteValues RouteValues(object dataObject)
