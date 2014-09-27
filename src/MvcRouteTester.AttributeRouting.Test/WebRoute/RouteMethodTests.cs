@@ -31,17 +31,5 @@ namespace MvcRouteTester.AttributeRouting.Test.WebRoute
 		{
 			routes.ShouldMap("/getpostattr/index").To<GetPostAttrController>(x => x.Index());
 		}
-
-        [Test]
-        public void PostHasFluentRoute()
-        {
-            routes.ShouldMap(HttpMethod.Post, "/getpostattr/index/42").To<GetPostAttrController>(x => x.Index(42));
-        }
-        
-        [Test]
-        public void PostHasFluentRouteAsync()
-        {
-            routes.ShouldMap(HttpMethod.Post, "/getpostattr/indexasync/42").To<GetPostAttrController>(x => x.IndexAsync(42));
-        }
 	}
 }

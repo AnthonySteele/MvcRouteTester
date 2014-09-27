@@ -32,5 +32,17 @@ namespace MvcRouteTester.AttributeRouting.Test.WebRoute
 		{
 			routes.ShouldMap(HttpMethod.Post, "/verbedattr").To<VerbedAttrController>(x => x.Post());
 		}
+
+        [Test]
+        public void TestFluentRouteGetAsync()
+        {
+            routes.ShouldMap(HttpMethod.Get, "/verbedattrasync").To<VerbedAttrController>(x => x.GetAsync());
+        }
+
+        [Test]
+        public void TestFluentRoutePostAsync()
+        {
+            routes.ShouldMap(HttpMethod.Post, "/verbedattrasync").To<VerbedAttrController>(x => x.PostAsync());
+        }
 	}
 }
