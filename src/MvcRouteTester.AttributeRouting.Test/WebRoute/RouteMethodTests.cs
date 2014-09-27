@@ -3,7 +3,6 @@
 using MvcRouteTester.AttributeRouting.Test.Controllers;
 
 using NUnit.Framework;
-using System.Net.Http;
 
 namespace MvcRouteTester.AttributeRouting.Test.WebRoute
 {
