@@ -12,12 +12,12 @@ namespace MvcRouteTester.AttributeRouting.Test.Controllers
 			return new EmptyResult();
 		}
 
-        [HttpGet]
-        [Route("VerbedAttrAsync")]
-        public async Task<ActionResult> GetAsync()
-        {
-            return await Task.FromResult(new EmptyResult());
-        }
+		[HttpGet]
+		[Route("VerbedAttrAsync")]
+		public async Task<ActionResult> GetAsync()
+		{
+			return await Task.FromResult(new EmptyResult());
+		}
 
 		[HttpPost]
 		[Route("VerbedAttr")]
@@ -26,11 +26,11 @@ namespace MvcRouteTester.AttributeRouting.Test.Controllers
 			return new EmptyResult();
 		}
 
-        [HttpPost]
-        [Route("VerbedAttrAsync")]
-        public async Task<ActionResult> PostAsync()
-        {
-            return await Task.FromResult(new EmptyResult());
-        }
+		[HttpPost]
+		[Route("VerbedAttrAsync")]
+		public async Task<ActionResult> PostAsync()
+		{
+			return await Task.FromResult(new EmptyResult());
+		}
 	}
 }
