@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace MvcRouteTester.AttributeRouting.Test.Controllers
 {
@@ -17,5 +18,12 @@ namespace MvcRouteTester.AttributeRouting.Test.Controllers
 		{
 			return new EmptyResult();
 		}
+
+        [HttpPost]
+        [Route("GetPostAttr/indexasync/{id}")]
+        public async Task<ActionResult> IndexAsync(int id)
+        {
+            return await Task<ActionResult>.FromResult(new EmptyResult());
+        }
 	}
 }
