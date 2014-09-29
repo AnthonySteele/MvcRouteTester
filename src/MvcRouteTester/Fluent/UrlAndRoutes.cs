@@ -64,7 +64,7 @@ namespace MvcRouteTester.Fluent
 
 		public void To<TController>(Expression<Func<TController, Task<ActionResult>>> action) where TController : Controller
 		{
-			To(HttpMethod.Get, action);
+			To(HttpMethod, action);
 		}
 
 		public void To<TController>(HttpMethod httpMethod, Expression<Func<TController, Task<ActionResult>>> action) where TController : Controller
