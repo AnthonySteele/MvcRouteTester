@@ -25,7 +25,7 @@ function GetLatestFullVersionOnNuget()
   [CmdletBinding()]
   param()
 
-   $packageDetails = &nuget list MvcRouteTester.Mvc5.1
+   $packageDetails = &nuget list MvcRouteTester.Mvc5.2
    $lineParts = $packageDetails.Split(' ')
    [string]$lineParts[1]
 }
@@ -60,7 +60,7 @@ function CleanupBuildArtifacts
   [CmdletBinding()]
   param()
 
-  del MvcRouteTester.Mvc5.1.nuspec
+  del MvcRouteTester.Mvc5.2.nuspec
   del *.nupkg
 }
 
@@ -82,11 +82,11 @@ else
 
 
 # make the nuspec file with the target version number
-$nuspecTemplate = ReadLinesFromFile "MvcRouteTester.Mvc5.1.nuspec.template"
+$nuspecTemplate = ReadLinesFromFile "MvcRouteTester.Mvc5.2.nuspec.template"
 $nuspecWithVersion = $nuspecTemplate.Replace("#version#", $fullVersion)
-$nuspecWithVersion > MvcRouteTester.Mvc5.1.nuspec
+$nuspecWithVersion > MvcRouteTester.Mvc5.2.nuspec
 
-nuget pack MvcRouteTester.Mvc5.1.nuspec 
+nuget pack MvcRouteTester.Mvc5.2.nuspec 
 
 $pushCommand = "NuGet Push MvcRouteTester.Mvc5.1.#version#.nupkg -NonInteractive".Replace("#version#", $fullVersion)
 
