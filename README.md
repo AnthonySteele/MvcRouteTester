@@ -2,7 +2,7 @@
 
 ## What
 
-MvcRouteTester is a .Net library to help unit testing ASP MVC route tables. It contains asserts for for both regular controllers and the Api controllers that are new in MVC 4.0. It is built in .Net 4.0 and [ASP MVC 4.0](http://www.nuget.org/packages/MvcRouteTester/) or [ASP MVC 5.0](http://www.nuget.org/packages/MvcRouteTester.MVC5/).
+MvcRouteTester is a .Net library to help unit testing ASP MVC route tables. It contains asserts for for both regular controllers and the Api controllers that are new in MVC 4.0. It is built in .Net 4.0 and [ASP MVC 5.2](http://www.nuget.org/packages/MvcRouteTester.MVC5.2/) and some older versions.
 
 It can be used with a simple or a fluent syntax, e.g either `RouteAssert.HasRoute(routes, "/home/index");` or `routes.ShouldMap("/home/index").To<HomeController>(x => x.Index());`
 
@@ -29,7 +29,7 @@ limitations under the License.
 
 ## Where can I get it?
 
-**[There is a package for ASP MVC 5.1](http://www.nuget.org/packages/MvcRouteTester.Mvc5.1/)** on [NuGet.org](http://www.nuget.org/). There are also packages for previous framework versions: [for ASP MVC 5.0](http://www.nuget.org/packages/MvcRouteTester.MVC5/) or  [for ASP MVC 4.0](http://www.nuget.org/packages/MvcRouteTester/)
+**[There is a package for ASP MVC 5.2](http://www.nuget.org/packages/MvcRouteTester.Mvc5.2/)** on [NuGet.org](http://www.nuget.org/). There are also packages for previous framework versions: [for ASP MVC 5.1](http://www.nuget.org/packages/MvcRouteTester.MVC5.1/) , [for ASP MVC 5.0](http://www.nuget.org/packages/MvcRouteTester.MVC5/) or [for ASP MVC 4.0](http://www.nuget.org/packages/MvcRouteTester/)
 
 You can get or fork the source here on GitHub. The master branch is used for ASP MVC 5.1 as this is the latest version, and there are branches [for MVC 5.0](https://github.com/AnthonySteele/MvcRouteTester/tree/MVC5) and [for MVC 4](https://github.com/AnthonySteele/MvcRouteTester/tree/MVC4).
 

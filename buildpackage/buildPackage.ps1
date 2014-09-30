@@ -88,7 +88,7 @@ $nuspecWithVersion > MvcRouteTester.Mvc5.2.nuspec
 
 nuget pack MvcRouteTester.Mvc5.2.nuspec 
 
-$pushCommand = "NuGet Push MvcRouteTester.Mvc5.1.#version#.nupkg -NonInteractive".Replace("#version#", $fullVersion)
+$pushCommand = "NuGet Push MvcRouteTester.Mvc5.2.#version#.nupkg -NonInteractive".Replace("#version#", $fullVersion)
 
 if ($source -ne "")
 {
