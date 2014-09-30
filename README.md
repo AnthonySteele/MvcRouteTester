@@ -16,7 +16,7 @@ MvcRouteTester throws an exception in order to fail a test on a route. This shou
 ****
 ## Licence
 
-Copyright 2013 Anthony Steele. This library is Open Source and you are welcome to use it as you see fit. Now the official wording: 
+Code by Anthony Steele and other authors listed in the [Credits](https://github.com/AnthonySteele/MvcRouteTester/wiki/Credits). Copyright 2013-2014 Anthony Steele. This library is Open Source and you are welcome to use it as you see fit. Now the official wording: 
 
 It is licensed under [the Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html) (the "License");
 you may not use library file except in compliance with the License.
