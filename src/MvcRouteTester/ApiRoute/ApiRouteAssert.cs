@@ -143,18 +143,17 @@ namespace MvcRouteTester.ApiRoute
 		{
 			var request = new HttpRequestMessage(httpMethod, url);
 
-		    if (headers != null)
-		    {
-                foreach (var header in headers)
-                {
-                    request.Headers.Add(header.Key, header.Value);
-                }
-		    }
+			if (headers != null)
+			{
+				foreach (var header in headers)
+				{
+					request.Headers.Add(header.Key, header.Value);
+				}
+			}
 			request.Content = new StringContent(body);
 
 			var routeGenerator = new Generator(config, request);
 			return routeGenerator.ReadRequestProperties(url, httpMethod, bodyFormat);
 		}
-
-    }
+	}
 }
