@@ -1,5 +1,9 @@
 # MvcRouteTester
 
+## News
+
+5 October, 2014: I have released a new version of the ASP Mvc RouteTester, numbered 1.3.0, with builds for [ASP MVC 5.2](http://www.nuget.org/packages/MvcRouteTester.Mvc5.2/) and [ASP MVC 5.1](http://www.nuget.org/packages/MvcRouteTester.Mvc5.1/). [More news and thoughts about the future are here](http://anthonysteele.co.uk/about-mvc-route-tester).
+
 ## What
 
 MvcRouteTester is a .Net library to help unit testing ASP MVC route tables. It contains asserts for for both regular controllers and the Api controllers that are new in MVC 4.0. It is built in .Net 4.0 and [ASP MVC 5.2](http://www.nuget.org/packages/MvcRouteTester.MVC5.2/) and some older versions.
