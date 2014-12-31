@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Web.Mvc;
+using System.Web.Mvc.Routing;
 using System.Web.Routing;
 
 namespace MvcRouteTester.Common
@@ -23,10 +24,10 @@ namespace MvcRouteTester.Common
 			LoadMvcAssembly();
 		}
 
-		public void MapAttributeRoutes(RouteCollection routes, IEnumerable<Type> controllers)
+		public void MapAttributeRoutes(RouteCollection routes, IEnumerable<Type> controllers, IInlineConstraintResolver constraintResolver)
 		{
 			var mapMvcAttributeRoutesMethod = GetMapRoutesMethod();
-			mapMvcAttributeRoutesMethod.Invoke(null, new object[] { routes, controllers });
+			mapMvcAttributeRoutesMethod.Invoke(null, new object[] { routes, controllers, constraintResolver });
 		}
 		
 		public object GetDirectRouteCandidatesFor(ControllerContext controllerContext)
@@ -99,7 +100,7 @@ namespace MvcRouteTester.Common
 			var resultMethod = attributeRoutingMapperType.GetMethod("MapAttributeRoutes",
 				BindingFlags.Public | BindingFlags.Static,
 				null,
-				new[] { typeof(RouteCollection), typeof(IEnumerable<Type>) },
+                new[] { typeof(RouteCollection), typeof(IEnumerable<Type>), typeof(IInlineConstraintResolver) },
 				null);
 
 			CheckMethod(resultMethod, "System.Web.Mvc.Routing.AttributeRoutingMapper", "MapAttributeRoutes");
