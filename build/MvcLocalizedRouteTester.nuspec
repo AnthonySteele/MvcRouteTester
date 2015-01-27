@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	  <metadata>
     <id>MvcLocalizedRouteTester</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <title>MVC Localized RouteTester</title>
     <authors>Will Appleby</authors>
     <owners>Aviva Plc</owners>
@@ -19,7 +19,7 @@
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
-    <copyright>Copyright Aviva Plc 2015</copyright>
+    <copyright>Anthony Steele</copyright>
     <dependencies>
         <group targetFramework="net45">
           <dependency id="Newtonsoft.Json" version="6.0.5" />
@@ -29,6 +29,6 @@
     <tags>MVC,RouteTester,Attribute Routing,Localization</tags>
   </metadata>
 	<files>
-		<file src="input\lib\net45\MvcRouteTester.dll" target="lib\net45\MvcRouteTester.dll" />
+		<file src="input\lib\net45\MvcRouteTester.dll" target="lib\net45\MvcLocalizedRouteTester.dll" />
 	</files>
 </package>
