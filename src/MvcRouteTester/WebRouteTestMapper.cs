@@ -12,42 +12,42 @@ namespace MvcRouteTester
 {
 	public static class WebRouteTestMapper
 	{
-	    public static void MapAttributeRoutesInAssembly(this RouteCollection routes, Type type)
-	    {
-	        MapAttributeRoutesInAssembly(routes, type, new DefaultInlineConstraintResolver());
-	    }
-
-	    public static void MapAttributeRoutesInAssembly(this RouteCollection routes, Type type, IInlineConstraintResolver constraintResolver)
+		public static void MapAttributeRoutesInAssembly(this RouteCollection routes, Type type)
 		{
-            MapAttributeRoutesInAssembly(routes, type.Assembly, constraintResolver, new DefaultDirectRouteProvider());
+			MapAttributeRoutesInAssembly(routes, type, new DefaultInlineConstraintResolver());
 		}
 
-        public static void MapAttributeRoutesInAssembly(this RouteCollection routes, Type type, IDirectRouteProvider routeProvider)
-        {
-            MapAttributeRoutesInAssembly(routes, type.Assembly, new DefaultInlineConstraintResolver(), routeProvider);
-        }
+		public static void MapAttributeRoutesInAssembly(this RouteCollection routes, Type type, IInlineConstraintResolver constraintResolver)
+		{
+			MapAttributeRoutesInAssembly(routes, type.Assembly, constraintResolver, new DefaultDirectRouteProvider());
+		}
 
-        public static void MapAttributeRoutesInAssembly(this RouteCollection routes, Type type, IInlineConstraintResolver constraintResolver, IDirectRouteProvider routeProvider)
-        {
-            MapAttributeRoutesInAssembly(routes, type.Assembly, constraintResolver, routeProvider);
-        }
+		public static void MapAttributeRoutesInAssembly(this RouteCollection routes, Type type, IDirectRouteProvider routeProvider)
+		{
+			MapAttributeRoutesInAssembly(routes, type.Assembly, new DefaultInlineConstraintResolver(), routeProvider);
+		}
 
-	    public static void MapAttributeRoutesInAssembly(this RouteCollection routes, Assembly assembly)
-	    {
-	        MapAttributeRoutesInAssembly(routes, assembly, new DefaultInlineConstraintResolver(), new DefaultDirectRouteProvider());
-	    }
+		public static void MapAttributeRoutesInAssembly(this RouteCollection routes, Type type, IInlineConstraintResolver constraintResolver, IDirectRouteProvider routeProvider)
+		{
+			MapAttributeRoutesInAssembly(routes, type.Assembly, constraintResolver, routeProvider);
+		}
 
-        public static void MapAttributeRoutesInAssembly(this RouteCollection routes, Assembly assembly, IInlineConstraintResolver constraintResolver)
-        {
-            MapAttributeRoutesInAssembly(routes, assembly, constraintResolver, new DefaultDirectRouteProvider());
-        }
+		public static void MapAttributeRoutesInAssembly(this RouteCollection routes, Assembly assembly)
+		{
+			MapAttributeRoutesInAssembly(routes, assembly, new DefaultInlineConstraintResolver(), new DefaultDirectRouteProvider());
+		}
 
-        public static void MapAttributeRoutesInAssembly(this RouteCollection routes, Assembly assembly, IDirectRouteProvider routeProvider)
-        {
-            MapAttributeRoutesInAssembly(routes, assembly, new DefaultInlineConstraintResolver(), routeProvider);
-        }
+		public static void MapAttributeRoutesInAssembly(this RouteCollection routes, Assembly assembly, IInlineConstraintResolver constraintResolver)
+		{
+			MapAttributeRoutesInAssembly(routes, assembly, constraintResolver, new DefaultDirectRouteProvider());
+		}
 
-	    public static void MapAttributeRoutesInAssembly(this RouteCollection routes, Assembly assembly, IInlineConstraintResolver constraintResolver, IDirectRouteProvider routeProvider)
+		public static void MapAttributeRoutesInAssembly(this RouteCollection routes, Assembly assembly, IDirectRouteProvider routeProvider)
+		{
+			MapAttributeRoutesInAssembly(routes, assembly, new DefaultInlineConstraintResolver(), routeProvider);
+		}
+
+		public static void MapAttributeRoutesInAssembly(this RouteCollection routes, Assembly assembly, IInlineConstraintResolver constraintResolver, IDirectRouteProvider routeProvider)
 		{
 			var controllers = (assembly.GetExportedTypes()
 				.Where(IsControllerType)).ToList();
@@ -62,7 +62,7 @@ namespace MvcRouteTester
 				&& typeof(IController).IsAssignableFrom(t);
 		}
 
-        public static void MapAttributeRoutesInControllers(this RouteCollection routes, IEnumerable<Type> controllers, IInlineConstraintResolver constraintResolver, IDirectRouteProvider routeProvider)
+		public static void MapAttributeRoutesInControllers(this RouteCollection routes, IEnumerable<Type> controllers, IInlineConstraintResolver constraintResolver, IDirectRouteProvider routeProvider)
 		{
 			var mvcAssemblyReflector = new MvcAssemblyReflector();
 			mvcAssemblyReflector.MapAttributeRoutes(routes, controllers, constraintResolver, routeProvider);

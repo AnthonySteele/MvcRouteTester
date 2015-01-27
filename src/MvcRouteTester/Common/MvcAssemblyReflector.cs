@@ -100,7 +100,7 @@ namespace MvcRouteTester.Common
 			var resultMethod = attributeRoutingMapperType.GetMethod("MapAttributeRoutes",
 				BindingFlags.Public | BindingFlags.Static,
 				null,
-                new[] { typeof(RouteCollection), typeof(IEnumerable<Type>), typeof(IInlineConstraintResolver), typeof(IDirectRouteProvider) },
+				new[] { typeof(RouteCollection), typeof(IEnumerable<Type>), typeof(IInlineConstraintResolver), typeof(IDirectRouteProvider) },
 				null);
 
 			CheckMethod(resultMethod, "System.Web.Mvc.Routing.AttributeRoutingMapper", "MapAttributeRoutes");

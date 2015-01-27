@@ -19,8 +19,8 @@ namespace MvcRouteTester.AttributeRouting.Test.WebRoute
 			assertEngine = new FakeAssertEngine();
 			RouteAssert.UseAssertEngine(assertEngine);
 
-            var defaultConstraintResolver = new DefaultInlineConstraintResolver();
-            defaultConstraintResolver.ConstraintMap.Add("verb", typeof(CustomConstraint));
+			var defaultConstraintResolver = new DefaultInlineConstraintResolver();
+			defaultConstraintResolver.ConstraintMap.Add("verb", typeof(CustomConstraint));
 
 			routes = new RouteCollection();
 			routes.MapAttributeRoutesInAssembly(typeof(HomeAttrController), defaultConstraintResolver);

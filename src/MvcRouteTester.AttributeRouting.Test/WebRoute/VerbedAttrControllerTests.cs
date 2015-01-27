@@ -18,8 +18,8 @@ namespace MvcRouteTester.AttributeRouting.Test.WebRoute
 		{
 			RouteAssert.UseAssertEngine(new NunitAssertEngine());
 
-            var defaultConstraintResolver = new DefaultInlineConstraintResolver();
-            defaultConstraintResolver.ConstraintMap.Add("verb", typeof(CustomConstraint));
+			var defaultConstraintResolver = new DefaultInlineConstraintResolver();
+			defaultConstraintResolver.ConstraintMap.Add("verb", typeof(CustomConstraint));
 
 			routes = new RouteCollection();
 			routes.MapAttributeRoutesInAssembly(typeof(HomeAttrController), defaultConstraintResolver);
