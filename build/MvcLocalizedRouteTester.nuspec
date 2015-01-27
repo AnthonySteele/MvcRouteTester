@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	  <metadata>
+    <id>MvcLocalizedRouteTester</id>
+    <version>1.0.3</version>
+    <title>MVC Localized RouteTester</title>
+    <authors>Will Appleby</authors>
+    <owners>Aviva Plc</owners>
+    <description>
+      A modified version of the MvcRouteTester package with support for Localized routes by specifying a custom IDirectRouteProvider implementation.
+    </description>
+    <releaseNotes>
+    </releaseNotes>
+    <summary>
+      A modified version of the MvcRouteTester package with support for Localized routes by specifying a custom IDirectRouteProvider implementation.
+    </summary>
+    <language>en-US</language>
+    <projectUrl>https://github.com/willapp/MvcLocalizedRouteTester</projectUrl>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
+    <copyright>Anthony Steele</copyright>
+    <dependencies>
+        <group targetFramework="net45">
+          <dependency id="Newtonsoft.Json" version="6.0.5" />
+        </group>
+    </dependencies>
+    <references></references>
+    <tags>MVC,RouteTester,Attribute Routing,Localization</tags>
+  </metadata>
+	<files>
+		<file src="input\lib\net45\MvcRouteTester.dll" target="lib\net45\MvcLocalizedRouteTester.dll" />
+	</files>
+</package>
