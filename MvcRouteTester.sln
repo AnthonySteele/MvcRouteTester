@@ -14,8 +14,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcRouteTester.Test", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcRouteTester.AttributeRouting.Test", "src\MvcRouteTester.AttributeRouting.Test\MvcRouteTester.AttributeRouting.Test.csproj", "{F08D3A48-7A6D-4EB5-B6B8-C0AA1C5A326E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuGet.Packager", "NuGet.Packager\NuGet.Packager.csproj", "{0451BAEF-DF2E-4B98-8644-94EE9415E389}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,10 +32,6 @@ Global
 		{F08D3A48-7A6D-4EB5-B6B8-C0AA1C5A326E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F08D3A48-7A6D-4EB5-B6B8-C0AA1C5A326E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F08D3A48-7A6D-4EB5-B6B8-C0AA1C5A326E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
