@@ -206,7 +206,13 @@ namespace MvcRouteTester.ApiRoute
 			var subRoutesDict = valuesProp.GetValue(msRouteData, null) as HttpRouteValueDictionary;
 			var firstRoutes = subRoutesDict.Values.First(x => x is IHttpRouteData[]) as IHttpRouteData[];
 
-			return firstRoutes[0];
+            //look for a route that supports the request's HTTP method 
+            var matchingRoute = firstRoutes.FirstOrDefault(r =>
+                r.Route.DataTokens.ContainsKey("actions") &&
+                r.Route.DataTokens["actions"] is HttpActionDescriptor[] &&
+                ((HttpActionDescriptor[])r.Route.DataTokens["actions"]).Any(a => a.SupportedHttpMethods.Contains(request.Method)));
+
+            return matchingRoute;
 		}
 
 		public string ActionName()
