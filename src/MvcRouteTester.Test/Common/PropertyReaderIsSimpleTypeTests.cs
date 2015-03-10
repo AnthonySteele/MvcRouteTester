@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MvcRouteTester.Common;
+using MvcRouteTester.Test.ApiControllers;
 using NUnit.Framework;
 
 namespace MvcRouteTester.Test.Common
@@ -81,6 +82,12 @@ namespace MvcRouteTester.Test.Common
 		public void NullableIntIsSimpleType()
 		{
 			Assert.That(reader.IsSimpleType(typeof(int?)), Is.True);
+		}
+
+		[Test]
+		public void SimpleInputModelIsSimpleType()
+		{
+			Assert.That(reader.IsSimpleType(typeof(SimpleInputModel)), Is.True);
 		}
 	}
 }

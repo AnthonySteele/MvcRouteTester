@@ -100,6 +100,7 @@
     <Compile Include="Common\DirectRouteHelper.cs" />
     <Compile Include="Common\IgnoreAttributes.cs" />
     <Compile Include="Common\MvcAssemblyReflector.cs" />
+    <Compile Include="Common\TypeHelper.cs" />
     <Compile Include="Common\RouteValue.cs" />
     <Compile Include="Common\RouteValueExtensions.cs" />
     <Compile Include="Common\RouteValueOrigin.cs" />
