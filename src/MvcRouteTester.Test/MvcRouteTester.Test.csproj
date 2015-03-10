@@ -99,6 +99,7 @@
     <Compile Include="ApiControllers\CustomerController.cs" />
     <Compile Include="ApiControllers\WithDateTimeController.cs" />
     <Compile Include="ApiControllers\WithNullableController.cs" />
+    <Compile Include="ApiControllers\WithSimpleObjectController.cs" />
     <Compile Include="ApiControllers\WithObjectController.cs" />
     <Compile Include="ApiControllers\WithOptionalParamController.cs" />
     <Compile Include="ApiRoute\AsyncActionControllerTests.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="ApiRoute\FluentExtensionsTests.cs" />
     <Compile Include="ApiRoute\FromFormUrlBodyTests.cs" />
     <Compile Include="ApiRoute\JsonBodyReaderTests.cs" />
+    <Compile Include="ApiRoute\SimpleModelBindingTests.cs" />
     <Compile Include="ApiRoute\ModelBindingTests.cs" />
     <Compile Include="ApiRoute\NullableParamTests.cs" />
     <Compile Include="ApiRoute\OptionalParamTests.cs" />
