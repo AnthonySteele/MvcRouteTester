@@ -7,14 +7,6 @@ namespace MvcRouteTester.Common
 {
 	public class PropertyReader
 	{
-		private static readonly List<Type> SpecialSimpleTypes = new List<Type>
-			{
-				typeof(string),
-				typeof(decimal),
-				typeof(DateTime),
-				typeof(Guid)
-			};
-
 		private static readonly IgnoreAttributes IgnoreAttributes = new IgnoreAttributes();
 
 		public static void AddIgnoreAttributes(IEnumerable<Type> types)
@@ -34,12 +26,7 @@ namespace MvcRouteTester.Common
 
 		public bool IsSimpleType(Type type)
 		{
-			if (type.Name == "Nullable`1")
-			{
-				return true;
-			}
-
-			return type.IsPrimitive || SpecialSimpleTypes.Contains(type) || type.IsEnum;
+			return TypeHelper.CanConvertFromString(type);
 		}
 
 		public RouteValues RouteValues(object dataObject)
