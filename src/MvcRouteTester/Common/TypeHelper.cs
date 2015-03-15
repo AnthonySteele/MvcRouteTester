@@ -8,7 +8,7 @@ namespace MvcRouteTester.Common
 		public static bool CanConvertFromString(Type destinationType)
 		{
 			return IsBasicType(UnwrapNullableType(destinationType)) ||
-				   HasStringConverter(destinationType);
+				HasStringConverter(destinationType);
 		}
 
 		private static Type UnwrapNullableType(Type destinationType)
@@ -18,15 +18,16 @@ namespace MvcRouteTester.Common
 
 		public static bool IsBasicType(Type type)
 		{
-			return type.IsPrimitive ||
-				   type.IsEnum ||
-				   type == typeof(decimal) ||
-				   type == typeof(string) ||
-				   type == typeof(DateTime) ||
-				   type == typeof(Guid) ||
-				   type == typeof(DateTimeOffset) ||
-				   type == typeof(TimeSpan) ||
-				   type == typeof(Uri);
+			return
+				type.IsPrimitive ||
+				type.IsEnum ||
+				type == typeof(decimal) ||
+				type == typeof(string) ||
+				type == typeof(DateTime) ||
+				type == typeof(Guid) ||
+				type == typeof(DateTimeOffset) ||
+				type == typeof(TimeSpan) ||
+				type == typeof(Uri);
 		}
 
 		public static bool HasStringConverter(Type type)
