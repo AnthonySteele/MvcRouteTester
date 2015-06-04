@@ -11,5 +11,11 @@ namespace MvcRouteTester.Test.Controllers
 			Func<ActionResult> responseFunc = () => new EmptyResult();
 			return Task<ActionResult>.Factory.StartNew(responseFunc);
 		}
+
+        public Task<JsonResult> JsonAsync(int id)
+        {
+            Func<JsonResult> responseFunc = () => new JsonResult();
+            return Task<JsonResult>.Factory.StartNew(responseFunc);
+        }
 	}
 }

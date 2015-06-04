@@ -67,6 +67,11 @@ namespace MvcRouteTester.Fluent
 			To(HttpMethod, action);
 		}
 
+        public void To<TController>(Expression<Func<TController, Task<JsonResult>>> action) where TController : Controller
+        {
+            To(HttpMethod, action);
+        }
+
 		public void To<TController>(HttpMethod httpMethod, Expression<Func<TController, Task<ActionResult>>> action) where TController : Controller
 		{
 			var expressionReader = new ExpressionReader();
@@ -74,6 +79,14 @@ namespace MvcRouteTester.Fluent
 
 			WebRouteAssert.HasRoute(Routes, httpMethod, Url, requestBody, bodyFormat, expectedProps);
 		}
+
+        public void To<TController>(HttpMethod httpMethod, Expression<Func<TController, Task<JsonResult>>> action) where TController : Controller
+        {
+            var expressionReader = new ExpressionReader();
+            var expectedProps = expressionReader.Read(action);
+
+            WebRouteAssert.HasRoute(Routes, httpMethod, Url, requestBody, bodyFormat, expectedProps);
+        }
 
 		public void ToNoRoute()
 		{

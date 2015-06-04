@@ -20,6 +20,11 @@ namespace MvcRouteTester.Fluent
 			return Read(typeof(TController), UnwrapAction(action));
 		}
 
+        public RouteValues Read<TController>(Expression<Func<TController, Task<JsonResult>>> action)
+        {
+            return Read(typeof(TController), UnwrapAction(action));
+        }
+
 		public RouteValues Read<TController>(Expression<Func<TController, ActionResult>> action)
 		{
 			return Read(typeof(TController), UnwrapAction(action));

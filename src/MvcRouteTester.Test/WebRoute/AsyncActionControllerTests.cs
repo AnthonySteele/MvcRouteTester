@@ -40,9 +40,15 @@ namespace MvcRouteTester.Test.WebRoute
 		}
 
 		[Test]
-		public void ShouldWorkWithFluent()
+		public void ShouldWorkWithFluentActionResult()
 		{
 			routes.ShouldMap("/AsyncAction/IndexAsync/42").To<AsyncActionController>(c => c.IndexAsync(42));
 		}
+
+        [Test]
+        public void ShouldWorkWithFluentJsonResult()
+        {
+            routes.ShouldMap("/AsyncAction/JsonAsync/42").To<AsyncActionController>(c => c.JsonAsync(42));
+        }
 	}
 }
