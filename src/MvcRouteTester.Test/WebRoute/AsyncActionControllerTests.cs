@@ -42,7 +42,7 @@ namespace MvcRouteTester.Test.WebRoute
 		[Test]
 		public void ShouldWorkWithFluent()
 		{
-			routes.ShouldMap("/AsyncAction/IndexAsync/42").To<AsyncActionController>(c => c.IndexAsync(42));
+			routes.ShouldMap("/AsyncAction/JsonAsync/42").To<AsyncActionController>(c => c.JsonAsync(42));
 		}
 	}
 }
