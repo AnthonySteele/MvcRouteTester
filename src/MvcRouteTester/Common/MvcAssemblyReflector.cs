@@ -9,11 +9,11 @@ namespace MvcRouteTester.Common
 {
 	public class MvcAssemblyReflector
 	{
-		private const string ErrorSuffix = 
-			"You may have updated ASP MVC to a version later than 5.2.2.0 " +
+		private const string ErrorSuffix =
+			"You may have updated ASP MVC to a version later than 5.2.3.0 " +
 			"Check online for a new version of MvcRouteTester";
 
-		private const string MissingAssemblyMessage = "Assembly System.Web.Mvc, Version=5.2.2.0 not found. " + ErrorSuffix;
+		private const string MissingAssemblyMessage = "Assembly System.Web.Mvc, Version=5.2.3.0 not found. " + ErrorSuffix;
 		const string MissingTypeMessage = "Internal type {0} not found. " + ErrorSuffix;
 		const string MissingMethodMessage = "Internal method {0}.{1} not found. " + ErrorSuffix;
 
@@ -63,7 +63,7 @@ namespace MvcRouteTester.Common
 
 		private static void LoadMvcAssembly()
 		{
-			mvcAssembly = Assembly.Load("System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
+			mvcAssembly = Assembly.Load("System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
 
 			if (mvcAssembly == null)
 			{
