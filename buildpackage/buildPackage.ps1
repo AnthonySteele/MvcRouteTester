@@ -20,41 +20,6 @@ function BuildSolution
   C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe ..\MvcRouteTester.sln /t:build /p:Configuration=Debug
 }
 
-function GetLatestFullVersionOnNuget()
-{
-  [CmdletBinding()]
-  param()
-
-   $packageDetails = &nuget list MvcRouteTester.Mvc5
-   $lineParts = $packageDetails.Split(' ')
-   [string]$lineParts[1]
-}
-
-function GetLastVersionNumber()
-{
-  [CmdletBinding()]
-  param()
-
-  $fullVersionString = GetLatestFullVersionOnNuget
-  $versionParts = $fullVersionString.Split('.')
-  $versionParts
-}
-
-function NextFullVersion()
-{
-  [CmdletBinding()]
-  param()
-  
-  $parts = GetLastVersionNumber
-  $lastPart = $parts[2]
-  $newVersion = [int]$lastPart + 1 
-  
-  $parts[2] = [string]$newVersion
-  
-  $newVersion = [string]::Join(".", $parts)
-  $newVersion
-}
-
 function CleanupBuildArtifacts
 {
   [CmdletBinding()]
@@ -71,9 +36,8 @@ BuildSolution
 $fullVersion = $v
 if ($fullVersion -eq "")
 {
-  write-output "Reading package version from nuget..."
-  $fullVersion = NextFullVersion 
-  write-output "Next package version from nuget: $fullVersion"
+   write-output "You must specify a version number with '-v' "
+   exit
 }
 else
 {
