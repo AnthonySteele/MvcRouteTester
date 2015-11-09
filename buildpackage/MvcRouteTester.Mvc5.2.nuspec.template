@@ -13,7 +13,7 @@
     <copyright>Copyright 2013</copyright>
     <tags>ASP MVC Route Test NUnit UnitTest API ApiController</tags>
     <dependencies>
-		<dependency id="Newtonsoft.Json" version="6.0.8" />
+		<dependency id="Newtonsoft.Json" version="7.0.1" />
 		<dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
     </dependencies>
   </metadata>
