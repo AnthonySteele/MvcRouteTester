@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -12,5 +13,11 @@ namespace MvcRouteTester.Test.ApiControllers
 			Func<HttpResponseMessage> responseFunc = () => new HttpResponseMessage();
 			return Task<HttpResponseMessage>.Factory.StartNew(responseFunc);
 		}
-	}
+
+        public Task<HttpResponseMessage> PutWithCancellationAsync(int id, CancellationToken cancellationToken)
+        {
+            Func<HttpResponseMessage> responseFunc = () => new HttpResponseMessage();
+            return Task<HttpResponseMessage>.Factory.StartNew(responseFunc, cancellationToken);
+        }
+    }
 }

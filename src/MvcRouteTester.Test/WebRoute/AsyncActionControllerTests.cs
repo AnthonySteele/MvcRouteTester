@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 using MvcRouteTester.Test.Assertions;
@@ -46,9 +47,21 @@ namespace MvcRouteTester.Test.WebRoute
 		}
 
         [Test]
+        public void ShouldWorkWithFluentActionResultAndCancellationToken()
+        {
+            routes.ShouldMap("/AsyncAction/IndexWithCancellationAsync/42").To<AsyncActionController>(c => c.IndexWithCancellationAsync(42, CancellationToken.None));
+        }
+
+        [Test]
         public void ShouldWorkWithFluentJsonResult()
         {
             routes.ShouldMap("/AsyncAction/JsonAsync/42").To<AsyncActionController>(c => c.JsonAsync(42));
         }
-	}
+
+        [Test]
+        public void ShouldWorkWithFluentJsonResultAndCancellationToken()
+        {
+            routes.ShouldMap("/AsyncAction/JsonWithCancellationAsync/42").To<AsyncActionController>(c => c.JsonWithCancellationAsync(42, CancellationToken.None));
+        }
+    }
 }
