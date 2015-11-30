@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Threading;
 using System.Web.Http;
 
 using MvcRouteTester.Test.ApiControllers;
@@ -33,18 +34,39 @@ namespace MvcRouteTester.Test.ApiRoute
 			RouteAssert.HasApiRoute(config, "/api/AsyncAction", HttpMethod.Get, expectedRoute);
 		}
 
-		[Test]
+        [Test]
+        public void RecognisesSimpleRouteAndCancellationToken()
+        {
+            var expectedRoute = new { controller = "AsyncAction", action = "PutWithCancellationAsync" };
+            RouteAssert.HasApiRoute(config, "/api/AsyncAction", HttpMethod.Put, expectedRoute);
+        }
+
+        [Test]
 		public void RecognisesRouteWithParams()
 		{
 			var expectedRoute = new { controller = "AsyncAction", action = "GetAsync" };
 			RouteAssert.HasApiRoute(config, "/api/AsyncAction/123", HttpMethod.Get, expectedRoute);
 		}
 
-		[Test]
+        [Test]
+        public void RecognisesRouteWithParamsAndCancellationToken()
+        {
+            var expectedRoute = new { controller = "AsyncAction", action = "PutWithCancellationAsync" };
+            RouteAssert.HasApiRoute(config, "/api/AsyncAction/123", HttpMethod.Put, expectedRoute);
+        }
+
+        [Test]
 		public void RecognisesFluentRoute()
 		{
 			config.ShouldMap("/api/AsyncAction/123")
 				.To<AsyncActionController>(HttpMethod.Get, x => x.GetAsync(123));
 		}
-	}
+
+        [Test]
+        public void RecognisesFluentRouteWithCancelllationToken()
+        {
+            config.ShouldMap("/api/AsyncAction/40")
+                .To<AsyncActionController>(HttpMethod.Put, x => x.PutWithCancellationAsync(40, CancellationToken.None));
+        }
+    }
 }

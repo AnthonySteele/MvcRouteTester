@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using MvcRouteTester.Common;
@@ -164,7 +165,13 @@ namespace MvcRouteTester.Fluent
 			for (int i = 0; i < parameters.Length; i++)
 			{
 				var param = parameters[i];
-				var expectedValue = GetExpectedValue(arguments[i]);
+
+                if (param.ParameterType == typeof(CancellationToken))
+                {
+                    continue;
+                }
+
+                var expectedValue = GetExpectedValue(arguments[i]);
 				var isFromBody = attributeRecogniser.IsFromBody(param);
 				var routeValueOrigin = isFromBody ? RouteValueOrigin.Body : RouteValueOrigin.Unknown;
 				if (expectedValue != null || !isFromBody)
