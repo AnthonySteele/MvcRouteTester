@@ -5,7 +5,7 @@ namespace MvcRouteTester.Common
 {
 	public class UrlHelpers
 	{
-		private const string DummySitePrefix = "http://site.com";
+		public static string DummySitePrefix { get; set; } = "http://site.com";
 
 		public static string MakeAbsolute(string url)
 		{
